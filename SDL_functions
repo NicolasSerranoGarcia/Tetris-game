@@ -1,0 +1,73 @@
+    SDL_Window * window_main = nullptr; // crea una pestaña
+
+    SDL_Renderer * render = nullptr; //crea un render (funciona en el background donde le cargas el frame y luego muestras con SDL_RenderPresent)
+
+    SDL_Init(SDL_INIT_VIDEO); //initialize SDL library
+
+
+    SDL_CreateWindowAndRenderer(640, 480, 0, &window_main, &render); //Initialize window 
+
+
+    SDL_RenderClear(render); // elimina todos los objetos renderizados en tu varaible render hasta el momento (limpia la escena)
+
+    SDL_SetRenderDrawColor(render, 255, 255, 255, 255); elige el color con el que dibuja en este momento
+    SDL_RenderDrawPoint(render, 320, 240);
+
+    SDL_RenderDrawLine(render, 4, 4, 639, 639); // guarda una linea en el render (x1, y1, x2, y2)
+
+    SDL_RenderPresent(render);
+
+    SDL_Delay(10000);
+
+    SDL funciona con events, lo que significa que puedes utilizar las entradas de cualquier tipo (mouse, keyboard, controler) como parte del programa con eventos
+    La cosa es que los eventos son estaticos. FUncionan constantemente. SDL_PollEvent siempre está intentando pollear eventos que le llegen y nosotros en todo momento podemos realizar cosas para parsearle eventos
+
+
+    EJEMPLO:
+
+    SDL_Event e;
+        //setup the current event
+
+        while(SDL_PollEvent(&e)){ //devuelve 1 al cargar el evento e 
+            //handle the event
+            if(e.type == SDL_QUIT){ //SDL_QUIT es un valor de tipo evento que sirve para cerrar el programa (si el usuario presionase la X se asocia el current event a SDL_QUIT)
+                running = false;
+            }
+            if(e.type == SDL_KEYDOWN){ // lee si alguna tecla fue presionada. En sdl tienes que comprobar todas las teclas a la fuerza bruta
+
+                switch(e.key.keysym.sym){
+                    case SDLK_RIGHT:
+                        cout << "Right key was pressed" << endl;
+                }
+                cout << "key pressed" << endl;
+            }
+
+
+        }
+
+    SDL_Rect r = {320, 240, 100, 100}; // {x, y, width, height} upper left 
+    crea una instancia de la clase rectangulo que luego se puede renderizar con 
+     SDL_RenderDrawRect(render, &r); //OJO solo dibuja el contorno
+     SDL_RenderFillRect(render, &r); // con esto se dibuja y se rellena automaticamente
+
+
+     //HANDLE KEY EVENTS 
+     la clave está en e.key.keysym.sym esto se debe comparar con las constantes de tecla: SDLK_RIGHT (flecha derecha), SDLK_b (tecla "b")...
+     antes de eso hay que asegurarse de que el evento es de tipo SDL_KEYDOWN o SDL_KEYUP por ejemplo
+
+     ejemplo:
+
+    if(e.type == SDL_KEYDOWN){ // lee si alguna tecla fue presionada. En sdl tienes que comprobar todas las teclas a la fuerza bruta
+
+                switch(e.key.keysym.sym){
+                    case SDLK_RIGHT:
+                        cout << "Right key was pressed" << endl;
+                }
+                cout << "key pressed" << endl;
+            }
+    
+    else if(e.type == SDL_MOUSEMOTION){
+
+            //si el usuario mueve el raton 
+
+    }
