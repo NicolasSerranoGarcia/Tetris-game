@@ -70,4 +70,27 @@
 
             //si el usuario mueve el raton 
 
+            SDL_getmousestate(&int1, &int2); //loadea la posicion x e y del mous en int 1 y int 2. Puedes darle la direccion de la posicion de un ojbeto para que siga al raton.
+
     }
+
+    TEXTURAS:
+
+    - creo que son imagenes preprocesadas donde se puede dibujar, como si fuesen un render. LA cosa es que luego se les puede parsear al render, por lo que entiendo 
+    que es una forma eficiente de mostrar imagenes. 
+
+    para crear una textura se hace de la siguiente forma:
+
+    auto red_texture = SDL_CreateTexture(render, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 1000, 1000); //create a texture
+
+    el pixel format es la forma de codificar el color. en este caso se usan 4 bytes distintos para codificar el R, G, B ,A (8 bits por parametro. Generalmente los colores suelen
+     ir en formato RGB #fffffff, hexadecimal. en el formato SDL_PIXELFORMAT_RGBA8888 se codifica cada parametro en 1 byte distinto)
+
+
+    -PAra pintar una textura lo que se hace es hacer que la textura sea el render target. Se cambia el foco del render a la textura particular.
+    SDL_SetRenderTarget(reder, red_texture)
+    SDL_SetRenderDrawColor(render, red_texture, 255, 0, 0, 255); //como el render está puesto en la textura, ahora la textura funciona como un render.
+    SDL_RenderClear(render, red_texture); //se loadea el color rojo al fondo de la texture. 
+
+    //para loadear la textura realmente a la pantalla, se debe parsear la textura al render. PAra ello, se le pasa a la funcion SDL_SetRenderTarget(redner, nullptr); para
+    deafultearlo de nuevo al render
