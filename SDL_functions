@@ -94,3 +94,216 @@
 
     //para loadear la textura realmente a la pantalla, se debe parsear la textura al render. PAra ello, se le pasa a la funcion SDL_SetRenderTarget(redner, nullptr); para
     deafultearlo de nuevo al render
+
+
+//main.cc
+#include <iostream>
+#include <SDL2/SDL.h>
+
+    using namespace std;
+
+int main(){
+
+    SDL_Window * window_main = nullptr;
+    SDL_Renderer * render = nullptr;
+
+    SDL_Init(SDL_INIT_VIDEO); //initialize SDL library
+    SDL_CreateWindowAndRenderer(640, 480, 0, &window_main, &render); //Initialize window 
+
+    SDL_SetRenderDrawColor(render, 0, 0, 0, 255); //set background to black
+    SDL_RenderClear(render);
+
+    SDL_Rect r = {50, 24, 100, 100}; // {x, y, width, height} upper left
+    
+    bool running = true;
+    
+    while(running){
+        SDL_Event e;
+        //setup the current event
+
+        while(SDL_PollEvent(&e)){
+            //handle the event
+            if(e.type == SDL_QUIT){
+                running = false;
+            }
+
+            else if(e.type == SDL_KEYDOWN){
+            
+                switch(e.key.keysym.sym){
+                    case SDLK_s:
+                        r.y += 10;
+                        break;
+                    case SDLK_w:
+                        r.y -= 10;
+                        break;
+                    case SDLK_a:
+                        r.x -= 10;
+                        break;
+                    case SDLK_d:
+                        r.x += 10;
+                        break;
+                }
+            }
+
+            else if(e.type == SDL_MOUSEMOTION){
+                SDL_GetMouseState(&r.x, &r.y);
+            }
+
+        }
+
+        //when the event is finished, upload and cleanup the render
+
+        SDL_SetRenderDrawColor(render, 100, 0, 0, 255); 
+        SDL_RenderFillRect(render, &r); //draw a square with the properties of r
+
+        SDL_RenderPresent(render); //upload the current frame
+
+        SDL_SetRenderDrawColor(render, 0, 0, 0, 255); //reset the frame
+        SDL_RenderClear(render);
+        
+        SDL_Delay(10);
+
+    }
+
+
+    return 0;
+}
+
+
+
+//points.cc
+#include <SDL2/SDL.h>
+#include <vector>
+#include <algorithm>
+const int TEXTURE_H = 2000;
+const int TEXTURE_W = 2000;
+const int SCREEN_H = 1000;
+const int SCREEN_W = 1000;
+
+int main()
+{
+	SDL_Rect source = { 0,0,SCREEN_W / 32,SCREEN_H / 32 };
+	SDL_Rect dest = { 0,0,SCREEN_W,SCREEN_H};
+	SDL_Event e;
+	SDL_Init(SDL_INIT_EVERYTHING);
+	SDL_Window* window = SDL_CreateWindow("Scrolling", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_W, SCREEN_H, 0);
+	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, 0);
+	SDL_Texture* texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, TEXTURE_W, TEXTURE_H);
+    std::vector <SDL_Point> points;
+
+    SDL_Point temp;
+    for(int i = 0; i < 100; i++){
+        temp.x = rand() % SCREEN_W;
+        temp.y = rand() % SCREEN_H;
+        points.push_back(temp);
+    }
+	bool running = true;
+	while (running)
+	{
+		while (SDL_PollEvent(&e))
+		{
+			if (e.type == SDL_QUIT) { running = false; }
+			if (e.type == SDL_KEYDOWN)
+			{
+				switch (e.key.keysym.sym)
+				{
+				case SDLK_UP:    source.y -= 3; break;
+				case SDLK_DOWN:  source.y += 3; break;
+				case SDLK_LEFT:  source.x -= 3; break;
+				case SDLK_RIGHT: source.x += 3; break;
+                case SDLK_1: source.w *=2; source.h *= 2;break;
+                case SDLK_2: source.w /=2; source.h /=2;break;
+
+				}
+			}
+		}
+		SDL_SetRenderTarget(renderer, texture);
+		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+		SDL_RenderClear(renderer);
+
+        for(unsigned int i = 0; i < points.size(); i++){
+            points[i].x += rand() % 3 - 1;
+            points[i].y += rand() % 3 - 1;
+
+        }
+
+        SDL_SetRenderDrawColor(renderer, 0,0,0, 255);
+        SDL_RenderDrawPoints(renderer, points.data(), points.size());
+
+		SDL_SetRenderTarget(renderer, nullptr);
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		SDL_RenderClear(renderer);
+		SDL_RenderCopy(renderer, texture, &source, &dest);
+		SDL_RenderPresent(renderer);
+
+		SDL_Delay(50);
+	}
+	return 0;
+}
+
+
+//texture.cc
+#include <iostream>
+#include <SDL2/SDL.h>
+#include <vector> 
+
+    using namespace std;
+
+int main(){
+
+    SDL_Window * window_main = nullptr;
+    SDL_Renderer * render = nullptr;
+
+    SDL_Init(SDL_INIT_VIDEO); //initialize SDL library
+    SDL_CreateWindowAndRenderer(640, 480, 0, &window_main, &render); //Initialize window 
+
+    SDL_SetRenderDrawColor(render, 0, 0, 0, 255); //set background to black
+    SDL_RenderClear(render);
+
+    // auto red_texture = SDL_CreateTexture(render, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 1000, 1000); //create a texture
+
+    // auto blue_texture = SDL_CreateTexture(render, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, 1000, 1000);
+
+    // SDL_SetRenderTarget(render, red_texture); //change the scope of the renderer to a particular texture
+
+    // SDL_SetRenderDrawColor(render, 255, 0, 0 , 255); //set the render (our texture currently) to color red
+    // SDL_RenderClear(render); //on the background (not showing anything to the user), set the color of the texture to red
+
+
+    // SDL_SetRenderTarget(render, blue_texture);
+    // SDL_SetRenderDrawColor(render, 0, 0, 255, 255);
+    // SDL_RenderClear(render);
+
+    // SDL_SetRenderTarget(render, nullptr); //set the render target back to the main window
+
+    // SDL_RenderCopy(render, red_texture, nullptr, nullptr);
+
+    // SDL_RenderPresent(render);
+
+    // SDL_Delay(5000);
+
+    // SDL_RenderCopy(render, blue_texture, nullptr, nullptr);
+
+    // SDL_RenderPresent(render);
+
+    // SDL_Delay(5000);
+
+    vector <SDL_Point> points;
+    
+    SDL_Point temp;
+    for(int i = 0; i < 100; i++){
+        temp.x = rand() % 640;
+        temp.y = rand() % 480;
+        points.push_back(temp);
+    }
+    
+    SDL_SetRenderDrawColor(render, 255, 0,0,255);
+    SDL_RenderDrawPoints(render, points.data(), points.size());
+    SDL_RenderPresent(render);
+
+    SDL_Delay(5000);
+
+    return 0;
+}
+
+    
