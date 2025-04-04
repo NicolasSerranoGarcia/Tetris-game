@@ -1,9 +1,9 @@
 #include "Screen/Screen.h"
+#include "Font/Font.h"
 
 int main(){
     
     Screen mainScreen(640, 480);
-    SDL_Rect rect = {300, 200, 50, 50};
 
     bool running = true;
     SDL_Event e;
@@ -15,15 +15,11 @@ int main(){
                 running = false;
             }
         }
-        SDL_SetRenderDrawColor(mainScreen.getRender(), 0, 0, 0, 255);
-        SDL_RenderClear(mainScreen.getRender());
-        mainScreen.showSquare(rect, {255,255,255,255});
         
-        //always clear window
-        SDL_SetRenderDrawColor(mainScreen.getRender(), 0, 0, 0, 255);
-        SDL_RenderClear(mainScreen.getRender());
+        //always clear screen
+        mainScreen.clear({0,0,0,255});
 
-        SDL_Delay(16);
+        SDL_Delay(16); //allow CPU rest
     }
     
     return 0;

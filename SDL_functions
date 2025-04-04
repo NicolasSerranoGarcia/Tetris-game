@@ -307,3 +307,27 @@ int main(){
 }
 
     
+
+// Inicialización (hazlo una vez al principio)
+TTF_Init();
+        
+// Cargar una fuente
+TTF_Font* font = TTF_OpenFont("Fonts/BungeeTint-Regular.ttf", 60);
+if (!font) {
+    // Manejar error
+}
+
+// Crear texto
+SDL_Color color = {255, 0, 0, 255}; // Red
+SDL_Surface* textSurface = TTF_RenderText_Solid(font, "TETRIS", color);
+SDL_Texture* textTexture = SDL_CreateTextureFromSurface(mainScreen.getRender(), textSurface);
+
+// Renderizar
+SDL_Rect textRect = {240, 180, textSurface->w, textSurface->h};
+SDL_RenderCopy(mainScreen.getRender(), textTexture, NULL, &textRect);
+
+mainScreen.Update();
+
+// Limpieza
+SDL_FreeSurface(textSurface);
+SDL_DestroyTexture(textTexture);

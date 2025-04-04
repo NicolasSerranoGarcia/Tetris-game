@@ -1,44 +1,34 @@
-# Compilador y opciones
+# Makefile para proyecto Tetris con soporte multi-directorio
 CXX = g++
 CXXFLAGS = -Wall -Wextra -g -std=c++17 $(shell sdl2-config --cflags)
-LDFLAGS = $(shell sdl2-config --libs)
-
-# Nombre del ejecutable final
+LDFLAGS = $(shell sdl2-config --libs) -lSDL2_ttf
 TARGET = tetris
 
-# Directorios
+# Configuración de directorios
 SRC_DIR = .
-SCREEN_DIR = Screen
-OBJ_DIR = obj
+CLASS_DIRS = Screen Font  # Añade aquí tus carpetas de clases
 
-# Archivos fuente
-SRC = $(SRC_DIR)/main.cc $(SCREEN_DIR)/Screen.cc
+# Detección automática de fuentes
+SRC = $(SRC_DIR)/main.cc \
+      $(foreach dir,$(CLASS_DIRS),$(wildcard $(SRC_DIR)/$(dir)/*.cc))
 
-# Archivos objeto
-OBJ = $(patsubst $(SRC_DIR)/%.cc,$(OBJ_DIR)/%.o,$(filter $(SRC_DIR)/%,$(SRC))) \
-      $(patsubst $(SCREEN_DIR)/%.cc,$(OBJ_DIR)/$(SCREEN_DIR)/%.o,$(filter $(SCREEN_DIR)/%,$(SRC)))
+# Generación de objetos (manteniendo estructura de directorios)
+OBJ = $(patsubst $(SRC_DIR)/%.cc,%.o,$(SRC))
 
 # Regla principal
-all: $(OBJ_DIR) $(TARGET)
+all: $(TARGET)
 
-# Crear directorios necesarios
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)/$(SCREEN_DIR)
-
-# Enlazar todos los objetos
 $(TARGET): $(OBJ)
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
-# Compilar main.cc
-$(OBJ_DIR)/main.o: $(SRC_DIR)/main.cc $(SCREEN_DIR)/Screen.h
-	$(CXX) $(CXXFLAGS) -I$(SCREEN_DIR) -c $< -o $@
+# Regla para clases en subdirectorios
+%.o: $(SRC_DIR)/%.cc
+	@mkdir -p $(@D)  # Crea directorio para el .o si no existe
+	$(CXX) $(CXXFLAGS) -I$(SRC_DIR) -c $< -o $@
 
-# Compilar Screen/Screen.cc
-$(OBJ_DIR)/$(SCREEN_DIR)/Screen.o: $(SCREEN_DIR)/Screen.cc $(SCREEN_DIR)/Screen.h
-	$(CXX) $(CXXFLAGS) -I$(SCREEN_DIR) -c $< -o $@
-
-# Limpiar
+# Limpieza (ahora recursiva)
 clean:
-	rm -rf $(OBJ_DIR) $(TARGET)
+	rm -f $(TARGET)
+	find . -name "*.o" -delete
 
 .PHONY: all clean
