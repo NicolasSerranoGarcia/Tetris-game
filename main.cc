@@ -1,10 +1,9 @@
-#include "screen.h"
+#include "Screen/Screen.h"
 
-int main(int argv, char *argc[]){
+int main(){
     
     Screen mainScreen(640, 480);
-    SDL_Rect rect = {640, 460, 10, 10};
-
+    SDL_Rect rect = {300, 200, 50, 50};
 
     bool running = true;
     SDL_Event e;
@@ -16,12 +15,15 @@ int main(int argv, char *argc[]){
                 running = false;
             }
         }
-
-        mainScreen.showSquare(rect, {0,0,0,255});
-
+        SDL_SetRenderDrawColor(mainScreen.getRender(), 0, 0, 0, 255);
+        SDL_RenderClear(mainScreen.getRender());
+        mainScreen.showSquare(rect, {255,255,255,255});
+        
         //always clear window
         SDL_SetRenderDrawColor(mainScreen.getRender(), 0, 0, 0, 255);
-        SDL_RenderPresent(mainScreen.getRender());
+        SDL_RenderClear(mainScreen.getRender());
+
+        SDL_Delay(16);
     }
     
     return 0;

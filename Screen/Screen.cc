@@ -1,39 +1,43 @@
-#include "screen.h"
+#include "Screen.h"
 
-SDL_Window *window = nullptr; // creates a window
-SDL_Renderer *render = nullptr; //creates a render
-std::vector <SDL_Texture> * textures = NULL;
+SDL_Window* Screen::window = nullptr;
+SDL_Renderer* Screen::render = nullptr;
+std::vector<SDL_Texture*> Screen::textures;
 
+Screen::Screen(int w, int h) {
+    width = w; //initial width and height
+    height = h;
 
-Screen::Screen(int w, int h){ //constructor
-
-    SDL_CreateWindowAndRenderer(w, h, 0, &window, &render); //load the render and the window
-
-    SDL_Init(SDL_INIT_EVERYTHING); //initialize SDL library
+    if ((window == nullptr) && (render == nullptr)) {
+        SDL_Init(SDL_INIT_EVERYTHING);
+        window = SDL_CreateWindow("Tetris", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
+        render = SDL_CreateRenderer(window, -1, 0);
+    }
 }
 
-unsigned int Screen::getWidth(){ //getter
-    return this->width;
+unsigned int Screen::getWidth() {
+    return width;
 }
 
-unsigned int Screen::getHeight(){ //getter
-    return this->height;
+unsigned int Screen::getHeight() {
+    return height;
 }
 
-SDL_Window * Screen::getWindow(){ //getter
+SDL_Window* Screen::getWindow() {
     return window;
 }
 
-SDL_Renderer * Screen::getRender(){ //getter
+SDL_Renderer* Screen::getRender() {
     return render;
 }
 
-std::vector <SDL_Texture> * getTextures(){ //getter
-    return textures;
+std::vector<SDL_Texture*>* Screen::getTextures() {
+    return &textures;
 }
 
-void Screen::showSquare(SDL_Rect rect, SDL_Color color){
+//directly shows a sqaure on the window. It will be overlapped with whatever was before. To add a square to the scene use addSquare()
+void Screen::showSquare(SDL_Rect rect, SDL_Color color) {
     SDL_SetRenderDrawColor(render, color.r, color.g, color.b, color.a);
-    SDL_RenderDrawRect(render, &rect);
+    SDL_RenderFillRect(render, &rect);
     SDL_RenderPresent(render);
-}   
+}
