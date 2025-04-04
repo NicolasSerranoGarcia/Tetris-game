@@ -1,3 +1,2 @@
-/obj
-main.obj
+*.o
 SDL_functions
