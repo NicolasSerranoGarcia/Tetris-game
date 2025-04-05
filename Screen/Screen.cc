@@ -4,13 +4,14 @@ SDL_Window* Screen::window = nullptr;
 SDL_Renderer* Screen::render = nullptr;
 std::vector<SDL_Texture*> Screen::textures;
 
-Screen::Screen(int w, int h) {
+Screen::Screen(int w, int h, const char * title) {
     width = w; //initial width and height (maybe I will do resizable window in the future)
     height = h;
+    this->title = title;
 
     if ((window == nullptr) && (render == nullptr)) {
         SDL_Init(SDL_INIT_EVERYTHING);
-        window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
+        window = SDL_CreateWindow(title, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, w, h, 0);
         render = SDL_CreateRenderer(window, -1, 0);
     }
 }

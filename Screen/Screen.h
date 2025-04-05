@@ -15,7 +15,7 @@ private:
     static std::vector<SDL_Texture*> textures;
 
 public:
-    Screen(int w, int h);
+    Screen(int w, int h, const char * title);
     unsigned int getWidth();
     unsigned int getHeight();
     static SDL_Window* getWindow();
