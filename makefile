@@ -6,7 +6,7 @@ TARGET = tetris
 
 # Configuración de directorios
 SRC_DIR = .
-CLASS_DIRS = Screen Font  # Añade aquí tus carpetas de clases
+CLASS_DIRS = Screen Font Button # Añade aquí tus carpetas de clases
 
 # Detección automática de fuentes
 SRC = $(SRC_DIR)/main.cc \

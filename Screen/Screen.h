@@ -15,6 +15,7 @@ private:
     static std::vector<SDL_Texture*> textures;
 
 public:
+    static void Cleanup();
     Screen(int w, int h, const char * title);
     unsigned int getWidth();
     unsigned int getHeight();
@@ -26,5 +27,6 @@ public:
     void Update();
     void clear(SDL_Color color);
 };
+
 
 #endif

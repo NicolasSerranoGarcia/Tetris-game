@@ -1,3 +1,6 @@
+#ifndef FONT_H
+#define FONT_H
+
 #include <SDL2/SDL_ttf.h>
 #include <string>
 #include <stdexcept>
@@ -6,8 +9,8 @@
 
 class Font{
     private:
-        static Screen * screen; //asociate a screen to the instance of the text
-        static TTF_Font * font;
+        Screen * screen; //asociate a screen to the instance of the text
+        TTF_Font * font;
         SDL_Surface* textSurface;
         SDL_Texture* textTexture;
         std::string fontName;
@@ -31,6 +34,7 @@ class Font{
             FONT_CENTER_RIGHT
         };
 
+        Font();
         Font(Screen * screen, const char * name, int size, const char * text, SDL_Color color);
         ~Font();
         Screen * getScreen() const;
@@ -40,9 +44,13 @@ class Font{
         SDL_Color getColor() const;
         SDL_Surface * getTextSurface() const;
         SDL_Texture * getTextTexture() const;
+        TTF_Font * getFont() const;
+        void setFont(TTF_Font * font);
         void addColor(SDL_Color newColor);
         void addText(const char * newText);
         int drawTextToRender(int x, int y);
         int drawTextToRender(Font_p position);
         void reset();
 };
+
+#endif

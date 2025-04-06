@@ -1,8 +1,18 @@
+#ifndef FONT_CC
+#define FONT_CC
+
 #include "Font.h"
 #include <string>
 
-Screen * Font::screen = nullptr;
-TTF_Font * Font::font = nullptr;
+Font::Font(){
+    this->screen = nullptr;
+    fontName = "";
+    fontSize = 0;
+    this->text = "";
+    this->textColor = {0, 0, 0, 0};
+    screen = nullptr;
+    font = nullptr;
+}
 
 Font::Font(Screen * screen, const char * name, int size, const char * text, SDL_Color color){
     
@@ -11,15 +21,13 @@ Font::Font(Screen * screen, const char * name, int size, const char * text, SDL_
     fontSize = size;
     this->text = text;
     this->textColor = color;
-
-    TTF_Init();
     
     std::string path = "fonts/" + fontName + ".ttf";
     font = TTF_OpenFont(path.c_str(), getfontSize()); //load the font
     
     
     if (!font) {
-        //throw invalid_argument("The font could not be loaded up");
+        throw std::invalid_argument("The font could not be loaded up");
     }
 
 
@@ -27,11 +35,10 @@ Font::Font(Screen * screen, const char * name, int size, const char * text, SDL_
     textTexture = SDL_CreateTextureFromSurface(screen->getRender(), textSurface);
 }
 
-Font::~Font(){
-    SDL_FreeSurface(textSurface);
-    SDL_DestroyTexture(textTexture);
-    TTF_CloseFont(this->font);
-    TTF_Quit();
+Font::~Font() {
+    if (textSurface) SDL_FreeSurface(textSurface);
+    if (textTexture) SDL_DestroyTexture(textTexture);
+    if (font) TTF_CloseFont(font);
 }
 
 Screen * Font::getScreen() const {
@@ -59,6 +66,11 @@ SDL_Texture * Font::getTextTexture() const{
     return textTexture;
 }
 
+TTF_Font * Font::getFont() const{
+    return this->font;
+}
+
+
 //changes font main color
 //something strange happends and the function resets the screen when called
 void Font::addColor(SDL_Color newColor){
@@ -75,6 +87,18 @@ void Font::addText(const char * newText){
     SDL_DestroyTexture(getTextTexture());
     this->text = newText;
     this->textSurface = TTF_RenderText_Solid(font, newText, getColor());
+    this->textTexture = SDL_CreateTextureFromSurface(screen->getRender(), textSurface);
+}
+
+void Font::setFont(TTF_Font * font){
+
+    std::string path = "fonts/" + getFontName() + ".ttf";
+    font = TTF_OpenFont(path.c_str(), getfontSize()); //load the font
+
+    SDL_FreeSurface(getTextSurface());
+    SDL_DestroyTexture(getTextTexture());
+    this->font = font;
+    this->textSurface = TTF_RenderText_Solid(font, getText().c_str(), getColor());
     this->textTexture = SDL_CreateTextureFromSurface(screen->getRender(), textSurface);
 }
 
@@ -139,3 +163,5 @@ int Font::drawTextToRender(Font_p position){
 
     return 0;
 }
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef SCREEN_CC
+#define SCREEN_CC
+
 #include "Screen.h"
 
 SDL_Window* Screen::window = nullptr;
@@ -15,6 +18,7 @@ Screen::Screen(int w, int h, const char * title) {
         render = SDL_CreateRenderer(window, -1, 0);
     }
 }
+
 
 unsigned int Screen::getWidth() {
     return width;
@@ -55,6 +59,9 @@ void Screen::Update(){
 //reset the screen to the given color
 void Screen::clear(SDL_Color color){
 
+
     SDL_SetRenderDrawColor(getRender(), color.r, color.g, color.b, color.a);
     SDL_RenderClear(getRender());
 }
+
+#endif
