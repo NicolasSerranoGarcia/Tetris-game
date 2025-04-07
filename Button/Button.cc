@@ -2,14 +2,17 @@
 #define BUTTON_CC
 
 #include "Button.h"
+
 #include <iostream>
 
+//Constructor
 Button::Button(SDL_Rect container, SDL_Color color, Screen * screen){
     this->container = container;
     this->color = color;
     this->screen = screen;
 }
 
+//Constructor
 Button::Button(Coord xy, int w, int h, SDL_Color color, Screen * screen){
     this->screen = screen;
     this->color = color;
@@ -19,6 +22,7 @@ Button::Button(Coord xy, int w, int h, SDL_Color color, Screen * screen){
     this->container.y = xy.y;
 }
 
+//Constructor
 Button::Button(const int x, const int y, const int w, const int h, SDL_Color color, Screen * screen){
     this->screen = screen;
     this->color = color;
@@ -28,37 +32,69 @@ Button::Button(const int x, const int y, const int w, const int h, SDL_Color col
     this->container.y = y;
 }
 
+//Destructor
 Button::~Button(){
-    
+    this->color = {0,0,0,0};
+    this->container = {0,0,0,0};
+    this->ButtonEvent = {0};
+    this->screen = nullptr;
+    this->setTextCalled = false;
+    this->font =  nullptr;
 }
 
-Screen * Button::getScreen(){
+//Getter
+Screen * Button::getScreen() const{
     return this->screen;
 }
 
-SDL_Rect Button::getContainer(){
+//Getter
+SDL_Rect Button::getContainer() const{
     return this->container;
 }
 
-SDL_Event Button::getEvent(){
+//Getter
+SDL_Event Button::getEvent() const{
     return this->ButtonEvent;
 }
 
-SDL_Color Button::getColor(){
+//Getter
+SDL_Color Button::getColor() const{
     return this->color;
 }
 
-Font * Button::getText(){
-    return this->text;
+//Getter
+Font * Button::getFont() const{
+    return this->font;
 }
 
-void Button::setText(Font * text){
-    this->text = text;
+//Setter
+void Button::setFont(Font * newFont){
+    if(newFont == nullptr){
+        this->setTextCalled = false;
+        this->font = newFont;
+    }
+    this->font = newFont;
     this->setTextCalled = true;
 }
 
-bool Button::isClicked(){
+//Setter
+void Button::setScreen(Screen * newScreen){
+    this->screen = newScreen;
+}
 
+//Setter
+void Button::setContainer(SDL_Rect newContainer){
+    this->container = newContainer;
+}
+
+//Setter
+void Button::setColor(SDL_Color newColor){
+    this->color = newColor;
+}
+
+
+bool Button::isClicked(){
+  
     Coord mouse;
 
     SDL_GetMouseState(&mouse.x, &mouse.y);
@@ -83,15 +119,20 @@ bool Button::isClicked(){
     return false;
 }
 
+//This method draws the button to the screen curently selected on the instance. 
+//NOTE: this method does not update the screen (call Screen::Update() for that). 
+//The button text is not necessary. You can draw a button to the screen without
+//a text (the method automatically handles that). If the instance has an associated Font
+//but you want to draw the button without a text, make sure you first delete the associated 
+//font by calling Button::setFont(nullptr). 
 void Button::drawToRender(){
-    //also add the text if exists
     
     SDL_SetRenderDrawColor(getScreen()->getRender(), getColor().r, getColor().g, getColor().b, getColor().a);
     SDL_RenderFillRect(getScreen()->getRender(), &this->container);
- 
+    
+    //also add the text if there is one
     if(this->setTextCalled){
-        //load also the text
-        this->text->drawTextToRender(this->container.x, this->container.y);
+        this->font->drawTextToRender(this->container.x, this->container.y);
     }
 }
 

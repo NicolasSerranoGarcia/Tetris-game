@@ -12,18 +12,20 @@ private:
     std::string title;
     static SDL_Window* window;
     static SDL_Renderer* render;
-    static std::vector<SDL_Texture*> textures;
+    static std::vector<SDL_Texture*> *textures;
 
 public:
-    static void Cleanup();
     Screen(int w, int h, const char * title);
-    unsigned int getWidth();
-    unsigned int getHeight();
+    ~Screen();
+
+    unsigned int getWidth() const;
+    unsigned int getHeight() const;
+    std::string getTitle() const;
     static SDL_Window* getWindow();
     static SDL_Renderer* getRender();
     static std::vector<SDL_Texture*>* getTextures();
-    std::string getTitle();
-    void showSquare(SDL_Rect rect, SDL_Color color);
+
+    void showSquare(SDL_Rect rect, SDL_Color color) const;
     void Update();
     void clear(SDL_Color color);
 };

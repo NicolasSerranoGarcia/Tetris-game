@@ -1,6 +1,7 @@
 #include "Screen/Screen.h"
 #include "Font/Font.h"
 #include "Button/Button.h"
+
 #include <iostream>
 
 #define RED {255, 0, 0, 255}
@@ -21,12 +22,13 @@ int main() {
         return 1;
     }
 
+    //make sure the events are closed in the correct order
     {
         Screen mainScreen(640, 480, "Tetris");
-        Font Title(&mainScreen, "BungeeTint-Regular", 90, "Tetris", RED);
+        Font Title(&mainScreen, "BungeeTint-Regular", 90, "TETRIS", RED);
         Font Play(&mainScreen, "Ubuntu-Bold", 60, "PLAY", BLACK);
         Button playButton({240, 240, 160, 70}, WHITE, &mainScreen);
-        playButton.setText(&Play);
+        playButton.setFont(&Play);
 
         bool running = true;
         SDL_Event e;
@@ -44,7 +46,7 @@ int main() {
             mainScreen.Update();
 
             if (playButton.isClicked()) {
-                std::cout << "Button clicked" << std::endl;
+                //implement the functionality to change renders or screens
             }
 
             SDL_Delay(10);
