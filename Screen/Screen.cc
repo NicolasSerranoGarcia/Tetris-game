@@ -72,11 +72,6 @@ void Screen::showSquare(SDL_Rect rect, SDL_Color color) const{
     SDL_RenderPresent(getRender());
 }
 
-//This is just a SDL_RenderPresent() inside the class
-void Screen::Update(){
-    SDL_RenderPresent(getRender());
-}
-
 //reset the screen to the given color
 void Screen::clear(SDL_Color color){
     SDL_SetRenderDrawColor(getRender(), color.r, color.g, color.b, color.a);

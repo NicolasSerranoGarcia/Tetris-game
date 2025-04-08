@@ -26,7 +26,6 @@ public:
     static std::vector<SDL_Texture*>* getTextures();
 
     void showSquare(SDL_Rect rect, SDL_Color color) const;
-    void Update();
     void clear(SDL_Color color);
 };
 

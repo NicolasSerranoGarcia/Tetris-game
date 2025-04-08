@@ -1,6 +1,8 @@
 #include "Screen/Screen.h"
 #include "Font/Font.h"
 #include "Button/Button.h"
+#include "Scene/Scene.h"
+#include "Scene/Scenes.h" //This is just a file with all the #include "eachScene.h"
 
 #include <iostream>
 
@@ -9,6 +11,15 @@
 #define BLUE {0, 0, 255, 255}
 #define BLACK {0, 0, 0, 255}
 #define WHITE {255, 255, 255, 255}
+
+
+//TODO: Implement a way to render distinct scenes. To be able to call all the methods of the child classes with the same pointer, all the child clases (opScene, mainScene...)
+//are handled by the same three methods (or more if there are common paterns), render, update and clear. Render will handle all the logic inside it with the help of C style
+//functions and other classes like Font or Button (or Figure for tetris blocks in the future maybe). This way, the main file (this) will just consist of a finite state machine
+//where I update the global pointer by checking certain key points like a pressed button or an edge case like the player lost. 
+Scene * currentScene = nullptr;
+
+
 
 int main() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -38,16 +49,19 @@ int main() {
                 if (e.type == SDL_QUIT) {
                     running = false;
                 }
-            }
 
-            mainScreen.clear(BLACK);
+                if (playButton.isClicked(&e)) {
+                    //implement the functionality to change renders or screens
+                    std::cout << "Hello World" << std::endl;
+                }
+                
+            }
+            
             Title.drawTextToRender(Font::FONT_CENTER_UP);
             playButton.drawToRender();
-            mainScreen.Update();
-
-            if (playButton.isClicked()) {
-                //implement the functionality to change renders or screens
-            }
+            SDL_RenderPresent(mainScreen.getRender());
+            
+            mainScreen.clear(BLACK);
 
             SDL_Delay(10);
         }

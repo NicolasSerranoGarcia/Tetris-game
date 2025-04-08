@@ -36,7 +36,6 @@ Button::Button(const int x, const int y, const int w, const int h, SDL_Color col
 Button::~Button(){
     this->color = {0,0,0,0};
     this->container = {0,0,0,0};
-    this->ButtonEvent = {0};
     this->screen = nullptr;
     this->setTextCalled = false;
     this->font =  nullptr;
@@ -52,10 +51,6 @@ SDL_Rect Button::getContainer() const{
     return this->container;
 }
 
-//Getter
-SDL_Event Button::getEvent() const{
-    return this->ButtonEvent;
-}
 
 //Getter
 SDL_Color Button::getColor() const{
@@ -93,7 +88,7 @@ void Button::setColor(SDL_Color newColor){
 }
 
 
-bool Button::isClicked(){
+bool Button::isClicked(SDL_Event * event){
   
     Coord mouse;
 
@@ -108,13 +103,11 @@ bool Button::isClicked(){
 
 
     //check if the user clicked
-    while(SDL_PollEvent(&this->ButtonEvent)){
-        if(getEvent().type == SDL_MOUSEBUTTONDOWN){
+    while(SDL_PollEvent(event)){
+        if(event->type == SDL_MOUSEBUTTONDOWN){
             return true;
         }
     }
-
-    SDL_PushEvent(&this->ButtonEvent);
 
     return false;
 }

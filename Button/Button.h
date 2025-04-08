@@ -19,7 +19,6 @@ class Button{
     private:
         SDL_Rect container;
         SDL_Color color;
-        SDL_Event ButtonEvent;
         Screen * screen;
         Font * font = nullptr; //refers to the text that appears inside the button
         bool setTextCalled = false;
@@ -33,7 +32,6 @@ class Button{
 
         Screen * getScreen() const;
         SDL_Rect getContainer() const;
-        SDL_Event getEvent() const;
         SDL_Color getColor() const;
         Font * getFont() const;
 
@@ -42,7 +40,7 @@ class Button{
         void setContainer(SDL_Rect newContainer);
         void setColor(SDL_Color newColor);
         
-        bool isClicked();
+        bool isClicked(SDL_Event * event);
         void drawToRender();
 };
 
