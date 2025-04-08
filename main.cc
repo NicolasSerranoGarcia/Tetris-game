@@ -3,15 +3,9 @@
 #include "Button/Button.h"
 #include "Scene/Scene.h"
 #include "Scene/Scenes.h" //This is just a file with all the #include "eachScene.h"
+#include "constants/constants.cc" //Contains things like SDL_Color colors, positioning variables and so
 
 #include <iostream>
-
-#define RED {255, 0, 0, 255}
-#define GREEN {0, 255, 0, 255}
-#define BLUE {0, 0, 255, 255}
-#define BLACK {0, 0, 0, 255}
-#define WHITE {255, 255, 255, 255}
-
 
 //TODO: Implement a way to render distinct scenes. To be able to call all the methods of the child classes with the same pointer, all the child clases (opScene, mainScene...)
 //are handled by the same three methods (or more if there are common paterns), render, update and clear. Render will handle all the logic inside it with the help of C style
@@ -35,10 +29,10 @@ int main() {
 
     //make sure the events are closed in the correct order
     {
-        Screen mainScreen(640, 480, "Tetris");
+        Screen mainScreen(SCREENWIDTH, SCREENHEIGHT, "Tetris");
         Font Title(&mainScreen, "BungeeTint-Regular", 90, "TETRIS", RED);
         Font Play(&mainScreen, "Ubuntu-Bold", 60, "PLAY", BLACK);
-        Button playButton({240, 240, 160, 70}, WHITE, &mainScreen);
+        Button playButton({px(Rposition::POS_CENTER_DOWN, 160), py(Rposition::POS_CENTER_LEFT, 70), 160, 70}, WHITE, &mainScreen);
         playButton.setFont(&Play);
 
         bool running = true;
@@ -57,7 +51,7 @@ int main() {
                 
             }
             
-            Title.drawTextToRender(Font::FONT_CENTER_UP);
+            Title.drawTextToRender(Rposition::POS_CENTER_UP);
             playButton.drawToRender();
             SDL_RenderPresent(mainScreen.getRender());
             

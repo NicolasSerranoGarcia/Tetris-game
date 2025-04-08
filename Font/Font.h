@@ -2,6 +2,7 @@
 #define FONT_H
 
 #include "Screen/Screen.h"
+#include "constants/constants.cc"
 
 #include <SDL2/SDL_ttf.h>
 #include <string>
@@ -19,21 +20,6 @@ class Font{
         std::string text;
         SDL_Color textColor;
     public:
-        enum Font_p{
-            FONT_CENTER,
-            FONT_UP,
-            FONT_DOWN,
-            FONT_LEFT,
-            FONT_RIGHT,
-            FONT_UP_LEFT,
-            FONT_UP_RIGHT,
-            FONT_DOWN_LEFT,
-            FONT_DOWN_RIGHT,
-            FONT_CENTER_UP,
-            FONT_CENTER_DOWN,
-            FONT_CENTER_LEFT,
-            FONT_CENTER_RIGHT
-        };
 
         Font();
         Font(Screen * screen, const char * name, int size, const char * text, SDL_Color color);
@@ -53,8 +39,7 @@ class Font{
         void setText(const char * newText);
 
         int drawTextToRender(int x, int y);
-        int drawTextToRender(Font_p position);
-        void reset();
+        int drawTextToRender(Rposition position);
 };
 
 #endif

@@ -130,49 +130,49 @@ int Font::drawTextToRender(int x, int y){
     The text will be dispalyed teking into account the size of it. If you want to set the font to the center, the default SDL cooridnates reference the upper left corner
     of the font. This function will take the absoulte center of the font and will use it as the coordinates to parse
 */
-int Font::drawTextToRender(Font_p position){
+int Font::drawTextToRender(Rposition position){
 
     int relativeCenterX = this->textSurface->w/2;
     int relativeCenterY = this->textSurface->h/2;
 
     switch(position){
-        case FONT_CENTER:
+        case Rposition::POS_CENTER:
             Font::drawTextToRender(screen->getWidth()/2 - relativeCenterX,  screen->getHeight()/2 - relativeCenterY); break;
 
-        case FONT_UP:
+        case Rposition::POS_UP:
             Font::drawTextToRender(screen->getWidth()/2 - relativeCenterX, 0); break;
 
-        case FONT_DOWN:
+        case Rposition::POS_DOWN:
             Font::drawTextToRender(screen->getWidth()/2 - relativeCenterX,  screen->getHeight() - relativeCenterY*2); break;
 
-        case FONT_LEFT:
+        case Rposition::POS_LEFT:
             Font::drawTextToRender(0 ,  screen->getHeight()/2 - relativeCenterY); break;
 
-        case FONT_RIGHT:
+        case Rposition::POS_RIGHT:
             Font::drawTextToRender(screen->getWidth() - relativeCenterX*2,  screen->getHeight()/2 - relativeCenterY); break;
 
-        case FONT_CENTER_DOWN:
+        case Rposition::POS_CENTER_DOWN:
             Font::drawTextToRender(screen->getWidth()/2 - relativeCenterX,  screen->getHeight()/2 - relativeCenterY + screen->getHeight()/6); break;
 
-        case FONT_CENTER_UP:
+        case Rposition::POS_CENTER_UP:
             Font::drawTextToRender(screen->getWidth()/2 - relativeCenterX,  screen->getHeight()/2 - relativeCenterY - screen->getHeight()/6); break;
 
-        case FONT_CENTER_LEFT:
+        case Rposition::POS_CENTER_LEFT:
             Font::drawTextToRender(screen->getWidth()/2 - 2*relativeCenterX,  screen->getHeight()/2 - relativeCenterY); break;
 
-        case FONT_CENTER_RIGHT:
+        case Rposition::POS_CENTER_RIGHT:
             Font::drawTextToRender(screen->getWidth()/2,  screen->getHeight()/2 - relativeCenterY); break;
 
-        case FONT_UP_LEFT:
+        case Rposition::POS_UP_LEFT:
             Font::drawTextToRender(0 ,  0); break;
 
-        case FONT_UP_RIGHT:
+        case Rposition::POS_UP_RIGHT:
             Font::drawTextToRender(screen->getWidth() - relativeCenterX*2 ,  0); break;
 
-        case FONT_DOWN_LEFT:
+        case Rposition::POS_DOWN_LEFT:
             Font::drawTextToRender(0 ,  screen->getHeight() - relativeCenterY*2); break;
 
-        case FONT_DOWN_RIGHT:
+        case Rposition::POS_DOWN_RIGHT:
             Font::drawTextToRender(screen->getWidth() - relativeCenterX*2 ,  screen->getHeight() - relativeCenterY*2); break;
 
     }
