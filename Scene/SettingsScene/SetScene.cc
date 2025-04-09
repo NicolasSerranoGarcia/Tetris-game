@@ -10,9 +10,8 @@ void SetScene::update(SDL_Renderer * render){
     //I'll probably place something here hehe
 }
 
-void SetScene::render(SDL_Renderer * render){
+void SetScene::render(){
     //All the implementation of the scene is going here. 
-    SDL_SetRenderDrawColor(render, 255, 255, 255, 255);
 }
 
 void SetScene::clear(SDL_Renderer * render){

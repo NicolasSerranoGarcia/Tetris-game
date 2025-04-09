@@ -2,9 +2,13 @@
 #define CONSTANTS_H
 
 #include <SDL2/SDL.h>
+#include "Screen/Screen.h"
+
 
 extern const int SCREENWIDTH;
 extern const int SCREENHEIGHT;
+
+extern Screen mainScreen;
 
 constexpr SDL_Color RED = {255, 0, 0, 255};
 constexpr SDL_Color GREEN = {0, 255, 0, 255};

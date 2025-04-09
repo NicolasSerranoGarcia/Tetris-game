@@ -10,9 +10,8 @@ void LooseScene::update(SDL_Renderer * render){
     //I'll probably place something here hehe
 }
 
-void LooseScene::render(SDL_Renderer * render){
+void LooseScene::render(){
     //All the implementation of the scene is going here. 
-    SDL_SetRenderDrawColor(render, 255, 255, 255, 255);
 }
 
 void LooseScene::clear(SDL_Renderer * render){

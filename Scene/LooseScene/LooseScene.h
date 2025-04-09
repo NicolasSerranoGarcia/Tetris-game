@@ -8,7 +8,7 @@ class LooseScene: public Scene{
     private:
     public:
         void update(SDL_Renderer * render) override;
-        void render(SDL_Renderer * render) override;
+        void render() override;
         void clear(SDL_Renderer * render) override;
 };
 

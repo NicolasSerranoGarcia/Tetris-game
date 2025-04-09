@@ -3,6 +3,9 @@
 const int SCREENWIDTH = 760;
 const int SCREENHEIGHT = 900;
 
+Screen mainScreen(SCREENWIDTH, SCREENHEIGHT, "Tetris");
+
+
 int py(Rposition position, int objH){
 
     int relativeCenterY = objH/2;
