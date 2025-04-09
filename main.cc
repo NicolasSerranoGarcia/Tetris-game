@@ -1,3 +1,37 @@
+// SOCIALS:
+//  linktr.ee/NicolasSerrano
+//  GITHUB: https://github.com/NicolasSerranoGarcia
+//
+// ^^Some support would be apreciated^^
+//
+//
+// START DATE OF THE PROJECT: 02/04/2025
+//
+//
+// MADE BY NICOLAS SERRANO GARCÍA - FIRST YEAR COMPUTER ENGINEER AT UNIVERSITY OF ALICANTE (DATE OF CREATION)
+//
+//
+// THANKS TO: - The Builder (https://www.youtube.com/@TheBuilder) for teaching me the basics of SDL 
+//
+//
+// ABOUT: This project was made from scratch by me. To be honest, I first thought of doing this project right before finishing two C based projects (Pacman and Snake)
+//  which by the way you can also find on my github profile. My first idea was to use the linux command line as a visual engine, also using SDL but on a lower level.
+//  Turns out on second semester of first year I'm learning OOP by using C++. I knew SDL was commonly used with C++ so I thought of this.
+//
+//  When I started this, I knew how to create a class with a .h and .cc, declaring methods and some other starter things. Little to nothing. This project has also been a way 
+//  to learn some more advanced things like object polimorfhism using abstract classes and virtual methods, dynamic pointers... I've had to deal with a lot of header handling 
+//  so I have also learnt a bit of make. Other things like .gitignore have been really usefull with a project of this size. I've never made something bigger than 2 files
+//  This is also the first time I've used git and Github in the correct way (I think). I really like this tool. Overall, I have learnt a LOT of things. Rn developing games 
+//  is the most direct way for me of learning. Follow my github to check out on some other projects I'll be developing in the future.
+//
+//  Thanks for reading and enjoy my implementation of tetris ;)
+//
+//
+
+
+//The general structure of the project consists of several scenes that switch via events (like button presses or death cases). This scenes are supported by auxilary classes
+//like Font or Button, that implement SDL functionalities in a fast-access way. There's a pointer to the current scene that switches depending on the events.
+
 #include "Font/Font.h"
 #include "Button/Button.h"
 #include "Scene/Scene.h"
