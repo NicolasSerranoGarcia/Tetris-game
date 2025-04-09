@@ -42,6 +42,8 @@ class Button{
         
         bool isClicked(SDL_Event * event);
         void drawToRender();
+        void setRelativeTo(Button refButton, RPosition position);
+        void setRelativeTo(Font * refFont, RPosition position);
 };
 
 #endif

@@ -7,13 +7,7 @@
 #include <iostream>
 #include <SDL2/SDL_image.h>
 
-//TODO: Implement a way to render distinct scenes. To be able to call all the methods of the child classes with the same pointer, all the child clases (opScene, mainScene...)
-//are handled by the same three methods (or more if there are common paterns), render, update and clear. Render will handle all the logic inside it with the help of C style
-//functions and other classes like Font or Button (or Figure for tetris blocks in the future maybe). This way, the main file (this) will just consist of a finite state machine
-//where I update the global pointer by checking certain key points like a pressed button or an edge case like the player lost. 
 Scene * currentScene = new OpScene;
-
-
 
 int main() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -28,7 +22,7 @@ int main() {
     }
 
     if (IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG) == 0) {
-        std::cerr << "Error al inicializar SDL_image: " << IMG_GetError() << std::endl;
+        std::cerr << "SDL_Image Error: " << IMG_GetError() << std::endl;
         SDL_Quit();
         return -1;
     }

@@ -1,22 +1,22 @@
-# Makefile para proyecto Tetris
 CXX = g++
 CXXFLAGS = -Wall -Wextra -g -std=c++17 -I. -IScreen -IScene $(shell sdl2-config --cflags)
 LDFLAGS = $(shell sdl2-config --libs) -lSDL2_ttf -lSDL2_image
 TARGET = tetris
 
-# Detección de fuentes
+# Source detection
 SRC = $(shell find Screen Font Button Scene constants -name '*.cc') main.cc
 
-# Generación de objetos
+#Object generation
 OBJ = $(SRC:.cc=.o)
 
-# Regla principal
+# Main rule
 all: $(TARGET)
 
+#tetris is dependent of all the binary files
 $(TARGET): $(OBJ)
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
-# Regla implícita para compilar .cc a .o
+# Implicit rule to compile independent files
 %.o: %.cc
 	@mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) -c $< -o $@

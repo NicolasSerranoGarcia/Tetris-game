@@ -12,16 +12,26 @@ void OpScene::update(SDL_Renderer * render){
 
 void OpScene::render(){
     //All the implementation of the scene is going here. 
+
+    //Load the background image
+    SDL_Texture * texture = IMG_LoadTexture(mainScreen.getRender(), "IMG/OpScene-background.png");
+    SDL_Rect IMGrect = {0, 0, mainScreen.getWidth(), mainScreen.getHeight()};
+    SDL_RenderCopy(mainScreen.getRender(), texture, NULL, &IMGrect);
+
+    //Load the title and the play button
     Font Title(&mainScreen, "BungeeTint-Regular", 90, "TETRIS", RED);
     Font Play(&mainScreen, "Ubuntu-Bold", 60, "PLAY", BLACK);
-    Button playButton({px(Rposition::POS_CENTER_DOWN, 160), py(Rposition::POS_CENTER_LEFT, 70), 160, 70}, WHITE, &mainScreen);
-    playButton.setFont(&Play);
-    SDL_Texture * texture = IMG_LoadTexture(mainScreen.getRender(), "IMG/OpScene-background.png");
-    SDL_Rect destRect = {0, 0, mainScreen.getWidth(), mainScreen.getHeight()};
-    SDL_RenderCopy(mainScreen.getRender(), texture, NULL, &destRect);
+    Button playButton({px(AbsPosition::POS_CENTER_DOWN, 160), py(AbsPosition::POS_CENTER_LEFT, 70), 160, 70}, GREEN, &mainScreen);
 
-    Title.drawTextToRender(Rposition::POS_CENTER_UP);
+
+    Button settingsButton(0, 0, 70, 70, WHITE, &mainScreen);
+    playButton.setFont(&Play);
+    
+    Title.drawTextToRender(AbsPosition::POS_CENTER_UP);
     playButton.drawToRender();
+
+    settingsButton.setRelativeTo(playButton, RPosition::POS_REL_RIGHT);
+    settingsButton.drawToRender();
     SDL_RenderPresent(mainScreen.getRender());
 
 }
@@ -32,8 +42,14 @@ void OpScene::clear(SDL_Renderer * render){
 }
 
 void OpScene::handleEvents(SDL_Event event){
-    Button playButton({px(Rposition::POS_CENTER_DOWN, 160), py(Rposition::POS_CENTER_LEFT, 70), 160, 70}, WHITE, &mainScreen);
+    Button playButton({px(AbsPosition::POS_CENTER_DOWN, 160), py(AbsPosition::POS_CENTER_LEFT, 70), 160, 70}, WHITE, &mainScreen);
     if(playButton.isClicked(&event)){
-        std::cout << "Hello World" << std::endl;
+        std::cout << "Play" << std::endl;
+    }
+
+    Button settingsButton(0, 0, 70, 70, WHITE, &mainScreen);
+    settingsButton.setRelativeTo(playButton, RPosition::POS_REL_RIGHT);
+    if(settingsButton.isClicked(&event)){
+        std::cout << "Settings" << std::endl;
     }
 }

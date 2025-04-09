@@ -1,0 +1,17 @@
+# TODO 
+
+[X] Implement a way to render distinct scenes. To be able to call all the methods of the child classes with the same pointer, all the child clases (opScene, mainScene...)
+are handled by the same three methods (or more if there are common paterns), render, update and clear. Render will handle all the logic inside it with the help of C style
+functions and other classes like Font or Button (or Figure for tetris blocks in the future maybe). This way, the main file (this) will just consist of a finite state machine/where I update the global pointer by checking certain key points like a pressed button or an edge case like the player lost. 
+
+[] Create a new class to handle Images with the image library. Use it for easy loading like Font. Make it posible to load an image inside a button (like font). 
+
+[] Create a new  RPosition constant that enables you to place something relative to a specific object (It recieves the x, y, w, h and enables a REL_LEFT for example)
+
+[] add sound maybe?
+
+[] handle initialization errors of classes
+
+[] Maybe change the structure of the OpScreen render and handle event so as to only declare 1 time the buttons and the objects that need the events
+
+[] change the constructor of Font so that it allows entering x and y to fill the atributes

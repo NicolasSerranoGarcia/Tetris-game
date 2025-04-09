@@ -19,6 +19,8 @@ class Font{
         int fontSize;
         std::string text;
         SDL_Color textColor;
+        int x;
+        int y;
     public:
 
         Font();
@@ -33,13 +35,16 @@ class Font{
         SDL_Surface * getTextSurface() const;
         SDL_Texture * getTextTexture() const;
         TTF_Font * getFont() const;
+        int getY() const;
+        int getX() const;
+
 
         void setFont(TTF_Font * font);
         void setColor(SDL_Color newColor);
         void setText(const char * newText);
 
         int drawTextToRender(int x, int y);
-        int drawTextToRender(Rposition position);
+        int drawTextToRender(AbsPosition position);
 };
 
 #endif

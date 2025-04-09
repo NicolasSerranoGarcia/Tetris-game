@@ -129,4 +129,131 @@ void Button::drawToRender(){
     }
 }
 
+//This function is overloaded. There will be a way to place the object you're trying to place relative to any other object. 
+void Button::setRelativeTo(Button refButton, RPosition position){
+
+    int selfHeight = this->container.h;
+    int selfWidth = this->container.w;
+
+    //refers to the object we want to place in reference to. So if we want to place a rectangle to the left of a button, the button is the ref in this case.
+    int refX = refButton.container.x;
+    int refY = refButton.container.y;
+    int refW = refButton.container.w;
+    int refH = refButton.container.h;
+
+    //Let some air between the objects
+    const int margin = 10; 
+
+    switch(position){
+        case RPosition::POS_REL_DOWN:
+            this->container.x = refX + refW/2 - selfWidth/2;
+            this->container.y = refY + refH + margin;
+            break;
+
+        case RPosition::POS_REL_DOWN_LEFT:
+            this->container.x = refX;
+            this->container.y = refY + refH + margin;
+            break;
+
+        case RPosition::POS_REL_DOWN_RIGHT:
+            this->container.x = refX + refW - selfWidth;
+            this->container.y = refY + refH + margin;
+            break;
+
+        case RPosition::POS_REL_UP:
+            this->container.x = refX + refW/2 - selfWidth/2;
+            this->container.y = refY - selfHeight - margin;
+            break;
+
+        case RPosition::POS_REL_UP_LEFT:
+            this->container.x = refX;
+            this->container.y = refY - selfHeight - margin;
+            break;
+
+        case RPosition::POS_REL_UP_RIGHT:
+            this->container.x = refX + refW - selfWidth;
+            this->container.y = refY - selfHeight - margin;
+            break;
+
+        case RPosition::POS_REL_RIGHT:
+            this->container.x = refX + refW + margin;
+            this->container.y = refY + refH/2 - selfHeight/2;
+            break;
+
+        case RPosition::POS_REL_LEFT:
+            this->container.x = refX - selfWidth - margin;
+            this->container.y = refY + refH/2 - selfHeight/2;
+            break;
+
+        default:
+            this->container.x = 0;
+            this->container.y = 0;
+            break;
+    }
+}
+
+
+void Button::setRelativeTo(Font * refFont, RPosition position){
+
+    int selfHeight = this->container.h;
+    int selfWidth = this->container.w;
+
+
+    //refers to the object we want to place in reference to. So if we want to place a rectangle to the left of a button, the button is the ref in this case.
+    int refX = refFont->getX();
+    int refY = refFont->getY();
+    int refW = refFont->getTextSurface()->w;
+    int refH = refFont->getTextSurface()->h;
+
+    //Let some air between the objects
+    const int margin = 10; 
+
+    switch(position){
+        case RPosition::POS_REL_DOWN:
+            this->container.x = refX + refW/2 - selfWidth/2;
+            this->container.y = refY + refH + margin;
+            break;
+
+        case RPosition::POS_REL_DOWN_LEFT:
+            this->container.x = refX;
+            this->container.y = refY + refH + margin;
+            break;
+
+        case RPosition::POS_REL_DOWN_RIGHT:
+            this->container.x = refX + refW - selfWidth;
+            this->container.y = refY + refH + margin;
+            break;
+
+        case RPosition::POS_REL_UP:
+            this->container.x = refX + refW/2 - selfWidth/2;
+            this->container.y = refY - selfHeight - margin;
+            break;
+
+        case RPosition::POS_REL_UP_LEFT:
+            this->container.x = refX;
+            this->container.y = refY - selfHeight - margin;
+            break;
+
+        case RPosition::POS_REL_UP_RIGHT:
+            this->container.x = refX + refW - selfWidth;
+            this->container.y = refY - selfHeight - margin;
+            break;
+
+        case RPosition::POS_REL_RIGHT:
+            this->container.x = refX + refW + margin;
+            this->container.y = refY + refH/2 - selfHeight/2;
+            break;
+
+        case RPosition::POS_REL_LEFT:
+            this->container.x = refX - selfWidth - margin;
+            this->container.y = refY + refH/2 - selfHeight/2;
+            break;
+
+        default:
+            this->container.x = 0;
+            this->container.y = 0;
+            break;
+    }
+}
+
 #endif
