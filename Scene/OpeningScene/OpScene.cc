@@ -1,6 +1,3 @@
-#ifndef OPSCENE_CC
-#define OPSCENE_CC
-
 #include "OpScene.h"
 
 //this function is inherited and the normal case is that it doesn't need any further coding. Still, at the moment I'm gonna call the father method from the child one in case 
@@ -19,5 +16,3 @@ void OpScene::clear(SDL_Renderer * render){
     Scene::clear(render);
     //""
 }
-
-#endif

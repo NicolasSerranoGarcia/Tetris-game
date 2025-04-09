@@ -3,7 +3,7 @@
 #include "Button/Button.h"
 #include "Scene/Scene.h"
 #include "Scene/Scenes.h" //This is just a file with all the #include "eachScene.h"
-#include "constants/constants.cc" //Contains things like SDL_Color colors, positioning variables and so
+#include "constants/constants.h" //Contains things like SDL_Color colors, positioning variables and so
 
 #include <iostream>
 

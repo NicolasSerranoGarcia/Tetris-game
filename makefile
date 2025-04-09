@@ -5,7 +5,7 @@ LDFLAGS = $(shell sdl2-config --libs) -lSDL2_ttf
 TARGET = tetris
 
 # Detección de fuentes
-SRC = $(shell find Screen Font Button Scene -name '*.cc') main.cc
+SRC = $(shell find Screen Font Button Scene constants -name '*.cc') main.cc
 
 # Generación de objetos
 OBJ = $(SRC:.cc=.o)

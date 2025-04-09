@@ -1,6 +1,3 @@
-#ifndef CONSTANTS_CC
-#define CONSTANTS_CC
-
 #include "constants.h"
 
 const int SCREENWIDTH = 760;
@@ -50,7 +47,3 @@ int px(Rposition position, int objW){
         default:                             return 0;
     }
 };
-
-
-
-#endif

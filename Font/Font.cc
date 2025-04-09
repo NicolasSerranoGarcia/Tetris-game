@@ -1,7 +1,5 @@
-#ifndef FONT_CC
-#define FONT_CC
-
 #include "Font.h"
+
 #include <string>
 
 //Constructor
@@ -179,5 +177,3 @@ int Font::drawTextToRender(Rposition position){
 
     return 0;
 }
-
-#endif

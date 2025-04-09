@@ -2,7 +2,7 @@
 #define FONT_H
 
 #include "Screen/Screen.h"
-#include "constants/constants.cc"
+#include "constants/constants.h"
 
 #include <SDL2/SDL_ttf.h>
 #include <string>

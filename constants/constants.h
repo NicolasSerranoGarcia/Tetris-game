@@ -28,8 +28,8 @@ enum class Rposition{
     POS_CENTER_RIGHT
 };
 
-inline int px(Rposition position, int objW);
+int px(Rposition position, int objW);
 
-inline int py(Rposition position, int objH);
+int py(Rposition position, int objH);
 
 #endif
