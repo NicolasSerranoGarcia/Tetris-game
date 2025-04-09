@@ -36,12 +36,12 @@ Screen::~Screen(){
 }
 
 //Getter
-unsigned int Screen::getWidth() const{
+int Screen::getWidth() const{
     return this->width;
 }
 
 //Getter
-unsigned int Screen::getHeight() const{
+int Screen::getHeight() const{
     return this->height;
 }
 

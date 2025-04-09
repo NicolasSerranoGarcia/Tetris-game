@@ -18,8 +18,8 @@ public:
     Screen(int w, int h, const char * title);
     ~Screen();
 
-    unsigned int getWidth() const;
-    unsigned int getHeight() const;
+    int getWidth() const;
+    int getHeight() const;
     std::string getTitle() const;
     static SDL_Window* getWindow();
     static SDL_Renderer* getRender();
