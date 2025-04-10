@@ -125,22 +125,14 @@ void Font::setFont(TTF_Font * font){
     this->textTexture = SDL_CreateTextureFromSurface(screen->getRender(), textSurface);
 }
 
-//only loads the text to the selected render previously in class calls. To show de text use Screen::Update()
-int Font::drawTextToRender(int x, int y){
+void Font::setCoords(int x, int y){
     //also save the posiiton where it is printed
     this->x = x;
     this->y = y;
-    SDL_Rect textRect = {x, y, textSurface->w, textSurface->h};
-    SDL_RenderCopy(screen->getRender(), getTextTexture(), NULL, &textRect);
-    return 0;
 }
 
-/*draw the text relative to the screen. See Font_p to see posibilities. 
-    NOTE:
-    The text will be dispalyed teking into account the size of it. If you want to set the font to the center, the default SDL cooridnates reference the upper left corner
-    of the font. This function will take the absoulte center of the font and will use it as the coordinates to parse
-*/
-int Font::drawTextToRender(AbsPosition position){
+//load teh coords via absolute position see AbsPosition enum for options
+void Font::setCoords(AbsPosition position){
 
     
     int relativeCenterX = this->textSurface->w/2;
@@ -148,45 +140,51 @@ int Font::drawTextToRender(AbsPosition position){
 
     switch(position){
         case AbsPosition::POS_CENTER:
-            Font::drawTextToRender(screen->getWidth()/2 - relativeCenterX,  screen->getHeight()/2 - relativeCenterY); break;
+            Font::setCoords(screen->getWidth()/2 - relativeCenterX,  screen->getHeight()/2 - relativeCenterY); break;
 
         case AbsPosition::POS_UP:
-            Font::drawTextToRender(screen->getWidth()/2 - relativeCenterX, 0); break;
+            Font::setCoords(screen->getWidth()/2 - relativeCenterX, 0); break;
 
         case AbsPosition::POS_DOWN:
-            Font::drawTextToRender(screen->getWidth()/2 - relativeCenterX,  screen->getHeight() - relativeCenterY*2); break;
+            Font::setCoords(screen->getWidth()/2 - relativeCenterX,  screen->getHeight() - relativeCenterY*2); break;
 
         case AbsPosition::POS_LEFT:
-            Font::drawTextToRender(0 ,  screen->getHeight()/2 - relativeCenterY); break;
+            Font::setCoords(0 ,  screen->getHeight()/2 - relativeCenterY); break;
 
         case AbsPosition::POS_RIGHT:
-            Font::drawTextToRender(screen->getWidth() - relativeCenterX*2,  screen->getHeight()/2 - relativeCenterY); break;
+            Font::setCoords(screen->getWidth() - relativeCenterX*2,  screen->getHeight()/2 - relativeCenterY); break;
 
         case AbsPosition::POS_CENTER_DOWN:
-            Font::drawTextToRender(screen->getWidth()/2 - relativeCenterX,  screen->getHeight()/2 - relativeCenterY + screen->getHeight()/6); break;
+            Font::setCoords(screen->getWidth()/2 - relativeCenterX,  screen->getHeight()/2 - relativeCenterY + screen->getHeight()/6); break;
 
         case AbsPosition::POS_CENTER_UP:
-            Font::drawTextToRender(screen->getWidth()/2 - relativeCenterX,  screen->getHeight()/2 - relativeCenterY - screen->getHeight()/6); break;
+            Font::setCoords(screen->getWidth()/2 - relativeCenterX,  screen->getHeight()/2 - relativeCenterY - screen->getHeight()/6); break;
 
         case AbsPosition::POS_CENTER_LEFT:
-            Font::drawTextToRender(screen->getWidth()/2 - 2*relativeCenterX,  screen->getHeight()/2 - relativeCenterY); break;
+            Font::setCoords(screen->getWidth()/2 - 2*relativeCenterX,  screen->getHeight()/2 - relativeCenterY); break;
 
         case AbsPosition::POS_CENTER_RIGHT:
-            Font::drawTextToRender(screen->getWidth()/2,  screen->getHeight()/2 - relativeCenterY); break;
+            Font::setCoords(screen->getWidth()/2,  screen->getHeight()/2 - relativeCenterY); break;
 
         case AbsPosition::POS_UP_LEFT:
-            Font::drawTextToRender(0 ,  0); break;
+            Font::setCoords(0 ,  0); break;
 
         case AbsPosition::POS_UP_RIGHT:
-            Font::drawTextToRender(screen->getWidth() - relativeCenterX*2 ,  0); break;
+            Font::setCoords(screen->getWidth() - relativeCenterX*2 ,  0); break;
 
         case AbsPosition::POS_DOWN_LEFT:
-            Font::drawTextToRender(0 ,  screen->getHeight() - relativeCenterY*2); break;
+            Font::setCoords(0 ,  screen->getHeight() - relativeCenterY*2); break;
 
         case AbsPosition::POS_DOWN_RIGHT:
-            Font::drawTextToRender(screen->getWidth() - relativeCenterX*2 ,  screen->getHeight() - relativeCenterY*2); break;
+            Font::setCoords(screen->getWidth() - relativeCenterX*2 ,  screen->getHeight() - relativeCenterY*2); break;
 
     }
+}
 
+
+//only loads the text to the selected render previously in class calls. To show de text use Screen::Update()
+int Font::drawTextToRender(){
+    SDL_Rect textRect = {x, y, textSurface->w, textSurface->h};
+    SDL_RenderCopy(screen->getRender(), getTextTexture(), NULL, &textRect);
     return 0;
 }

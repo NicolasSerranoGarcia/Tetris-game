@@ -5,6 +5,11 @@
 #include "Image/Image.h"
 #include "Scene/Scenes.h"
 
+OpScene::OpScene(){
+    Button playButton({px(AbsPosition::POS_CENTER_DOWN, 320), py(AbsPosition::POS_CENTER_LEFT, 140), 320, 140}, GREEN, &mainScreen);
+    this->playButton = playButton;
+}
+
 //this function is inherited and the normal case is that it doesn't need any further coding. Still, at the moment I'm gonna call the father method from the child one in case 
 //I need to make extra implementations
 void OpScene::update(SDL_Renderer * render){
@@ -18,29 +23,19 @@ void OpScene::render(){
     //Load the background image
     Image background(0, 0, mainScreen.getWidth(), mainScreen.getHeight(), "OpScene-background");
     background.CopyToRender();
+
     //Load the title and the play button
-    Font Title(&mainScreen, "BungeeTint-Regular", 90, "TETRIS", RED);
-    Font Play(&mainScreen, "Ubuntu-Bold", 60, "PLAY", BLACK);
-    Button playButton({px(AbsPosition::POS_CENTER_DOWN, 160), py(AbsPosition::POS_CENTER_LEFT, 70), 160, 70}, GREEN, &mainScreen);
+    Font Title(&mainScreen, "BungeeTint-Regular", 150, "TETRIS", RED);
+    Title.setCoords(AbsPosition::POS_UP);
+    //set the text a little bit lower
+    Title.setCoords(Title.getX(), Title.getY() + 50);
+    Title.drawTextToRender();
 
 
+    Font Play(&mainScreen, "Ubuntu-Bold", 125, "PLAY", BLACK);
+    this->playButton.setFont(&Play);
+    this->playButton.drawToRender();
 
-    Button settingsButton(0, 0, 70, 70, WHITE, &mainScreen);
-    playButton.setFont(&Play);
-    
-    Title.drawTextToRender(AbsPosition::POS_CENTER_UP);
-    playButton.drawToRender();
-    
-    settingsButton.setRelativeTo(playButton, RPosition::POS_REL_RIGHT);
-    
-    //load an image of settings
-    Image settingsImage(settingsButton.getContainer().x, settingsButton.getContainer().y, settingsButton.getContainer().w, settingsButton.getContainer().h, "OpScene-settings");
-    
-    //pass it to the button
-    settingsButton.setImage(&settingsImage);
-
-    //draw the settings buton with the image
-    settingsButton.drawToRender();
     SDL_RenderPresent(mainScreen.getRender());
 
 }
@@ -52,15 +47,9 @@ void OpScene::clear(SDL_Renderer * render){
 
 //ERROR: right now I don't know why changing the lobal pointer is not working. Anyways I will find a way
 void OpScene::handleEvents(SDL_Event event, Scene *& curScene){
-    Button playButton({px(AbsPosition::POS_CENTER_DOWN, 160), py(AbsPosition::POS_CENTER_LEFT, 70), 160, 70}, WHITE, &mainScreen);
-    if(playButton.isClicked(&event)){
+    if(this->playButton.isClicked(&event)){
         std::cout << "Play" << std::endl; 
-        //curScene = new MainScene;
-    }
-
-    Button settingsButton(0, 0, 70, 70, WHITE, &mainScreen);
-    settingsButton.setRelativeTo(playButton, RPosition::POS_REL_RIGHT);
-    if(settingsButton.isClicked(&event)){
-        std::cout << "Settings" << std::endl;
+        OpScene::clear(mainScreen.getRender());
+        curScene = new MainScene;
     }
 }

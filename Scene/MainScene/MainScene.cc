@@ -1,6 +1,3 @@
-#ifndef MAINSCENE_CC
-#define MAINSCENE_CC
-
 #include "MainScene.h"
 #include <iostream>
 
@@ -12,8 +9,19 @@ void MainScene::update(SDL_Renderer * render){
 }
 
 void MainScene::render(){
-    std::cout << "Hello" << std::endl;
-    //same here hehe
+
+    Button settingsButton(mainScreen.getWidth() - 70, 0, 70, 70, WHITE, &mainScreen);
+    
+    //load an image of settings
+    Image settingsImage(settingsButton.getContainer().x, settingsButton.getContainer().y, settingsButton.getContainer().w, settingsButton.getContainer().h, "OpScene-settings");
+    
+    //pass it to the button
+    settingsButton.setImage(&settingsImage);
+
+    //draw the settings button with the image
+    settingsButton.drawToRender();
+
+    SDL_RenderPresent(mainScreen.getRender());
 
 }
 
@@ -23,7 +31,4 @@ void MainScene::clear(SDL_Renderer * render){
 }
 
 void MainScene::handleEvents(SDL_Event event, Scene *& curScene){
-    std::cout << "Hello World" << std::endl;
 }
-
-#endif

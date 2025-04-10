@@ -20,3 +20,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 [] change the constructor of Font so that it allows entering x and y to fill the atributes
 
 [] add to all objects the possibility of setting them relative to an object
+
+[] Add a method to the class Font called Fit or smth like that to change the font size to fit the dimensions of a given container. 
+
+[] also add a way to center the font in the center of the container

@@ -42,9 +42,10 @@ class Font{
         void setFont(TTF_Font * font);
         void setColor(SDL_Color newColor);
         void setText(const char * newText);
+        void setCoords(AbsPosition position);
+        void setCoords(int x, int y);
 
-        int drawTextToRender(int x, int y);
-        int drawTextToRender(AbsPosition position);
+        int drawTextToRender();
 };
 
 #endif

@@ -3,6 +3,16 @@
 #include <iostream>
 
 //Constructor
+Button::Button(){
+    this->color = {0,0,0,0};
+    this->container = {0,0,0,0};
+    this->screen = nullptr;
+    this->setTextCalled = false;
+    this->font =  nullptr;
+    this->image = nullptr;
+}
+
+//Constructor
 Button::Button(SDL_Rect container, SDL_Color color, Screen * screen){
     this->container = container;
     this->color = color;
@@ -135,7 +145,8 @@ void Button::drawToRender(){
 
     //also add the text if there is one
     if(this->setTextCalled){
-        this->font->drawTextToRender(this->container.x, this->container.y);
+        this->font->setCoords(this->container.x, this->container.y);
+        this->font->drawTextToRender();
     }
 }
 

@@ -28,6 +28,7 @@ class Button{
         bool setImageCalled = false;
 
     public:
+        Button();
         Button(SDL_Rect container, SDL_Color color,  Screen * screen);
         Button(const Coord xy, const int w, const int h, SDL_Color color, Screen * screen);
         Button(const int x, const int y, const int w, const int h, SDL_Color color, Screen * screen);

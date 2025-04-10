@@ -9,7 +9,10 @@
 
 class OpScene: public Scene{
     private:
+    //set the used buttons here
+        Button playButton;
     public:
+        OpScene();
         void update(SDL_Renderer * render) override;
         void render() override;
         void clear(SDL_Renderer * render) override;

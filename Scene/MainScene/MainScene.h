@@ -4,6 +4,9 @@
 #include "Scene/Scene.h"
 #include <SDL2/SDL.h>
 #include "constants/constants.h"
+#include "Image/Image.h"
+#include "Button/Button.h"
+#include "Font/Font.h"
 
 class MainScene: public Scene{
     private:
