@@ -11,7 +11,6 @@ void MainScene::update(SDL_Renderer * render){
 void MainScene::render(){
 
     Button settingsButton(mainScreen.getWidth() - 70, 0, 70, 70, WHITE, &mainScreen);
-    
     //load an image of settings
     Image settingsImage(settingsButton.getContainer().x, settingsButton.getContainer().y, settingsButton.getContainer().w, settingsButton.getContainer().h, "OpScene-settings");
     

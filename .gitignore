@@ -1,3 +1,4 @@
 *.o
 SDL_functions
 /obj/
+/.vscode
