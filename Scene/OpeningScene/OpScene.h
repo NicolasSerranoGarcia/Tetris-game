@@ -13,7 +13,7 @@ class OpScene: public Scene{
         void update(SDL_Renderer * render) override;
         void render() override;
         void clear(SDL_Renderer * render) override;
-        void handleEvents(SDL_Event event) override;
+        void handleEvents(SDL_Event event, Scene *& curScene) override;
 };
 
 #endif

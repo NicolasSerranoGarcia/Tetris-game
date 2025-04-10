@@ -20,7 +20,7 @@
 //
 //  When I started this, I knew how to create a class with a .h and .cc, declaring methods and some other starter things. Little to nothing. This project has also been a way 
 //  to learn some more advanced things like object polimorfhism using abstract classes and virtual methods, dynamic pointers... I've had to deal with a lot of header handling 
-//  so I have also learnt a bit of make. Other things like .gitignore have been really usefull with a project of this size. I've never made something bigger than 2 files
+//  so I have also learnt a bit of make. Other things like .gitignore have been really usefull with a project of this size. I've never made something bigger than 2 files.
 //  This is also the first time I've used git and Github in the correct way (I think). I really like this tool. Overall, I have learnt a LOT of things. Rn developing games 
 //  is the most direct way for me of learning. Follow my github to check out on some other projects I'll be developing in the future.
 //
@@ -71,7 +71,7 @@ int main() {
                     running = false;
                 }
                 
-                currentScene->handleEvents(e);
+                currentScene->handleEvents(e, currentScene);
             }
             
             currentScene->render();

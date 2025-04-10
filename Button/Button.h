@@ -3,8 +3,10 @@
 
 #include "Screen/Screen.h"
 #include "Font/Font.h"
+#include "Image/Image.h"
 
 #include <SDL2/SDL.h>
+
 
 //just a 2D vector
 struct Coord{
@@ -21,8 +23,9 @@ class Button{
         SDL_Color color;
         Screen * screen;
         Font * font = nullptr; //refers to the text that appears inside the button
+        Image * image = nullptr;
         bool setTextCalled = false;
-
+        bool setImageCalled = false;
 
     public:
         Button(SDL_Rect container, SDL_Color color,  Screen * screen);
@@ -39,6 +42,8 @@ class Button{
         void setScreen(Screen * newScreen);
         void setContainer(SDL_Rect newContainer);
         void setColor(SDL_Color newColor);
+        void setImage(Image * newImage);
+
         
         bool isClicked(SDL_Event * event);
         void drawToRender();

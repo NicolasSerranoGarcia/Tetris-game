@@ -3,6 +3,7 @@
 
 #include "Scene/Scene.h"
 #include <SDL2/SDL.h>
+#include "constants/constants.h"
 
 class MainScene: public Scene{
     private:
@@ -10,6 +11,7 @@ class MainScene: public Scene{
         void update(SDL_Renderer * render) override;
         void render() override;
         void clear(SDL_Renderer * render) override;
+        void handleEvents(SDL_Event event, Scene *& curScene) override;
 };
 
 #endif

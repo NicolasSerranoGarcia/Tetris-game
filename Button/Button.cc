@@ -1,6 +1,3 @@
-#ifndef BUTTON_CC
-#define BUTTON_CC
-
 #include "Button.h"
 
 #include <iostream>
@@ -39,6 +36,7 @@ Button::~Button(){
     this->screen = nullptr;
     this->setTextCalled = false;
     this->font =  nullptr;
+    this->image = nullptr;
 }
 
 //Getter
@@ -70,6 +68,12 @@ void Button::setFont(Font * newFont){
     }
     this->font = newFont;
     this->setTextCalled = true;
+}
+
+//Setter
+void Button::setImage(Image * newImage){
+    this->image = newImage;
+    this->setImageCalled = true;
 }
 
 //Setter
@@ -118,11 +122,17 @@ bool Button::isClicked(SDL_Event * event){
 //a text (the method automatically handles that). If the instance has an associated Font
 //but you want to draw the button without a text, make sure you first delete the associated 
 //font by calling Button::setFont(nullptr). 
+//The same goes for the image. If you want to load an image, first call Button::setImage()
 void Button::drawToRender(){
     
     SDL_SetRenderDrawColor(getScreen()->getRender(), getColor().r, getColor().g, getColor().b, getColor().a);
     SDL_RenderFillRect(getScreen()->getRender(), &this->container);
     
+    //If there is an image, load it first so that if there is text, it is shown above it
+    if(this->setImageCalled){
+        this->image->CopyToRender();
+    }
+
     //also add the text if there is one
     if(this->setTextCalled){
         this->font->drawTextToRender(this->container.x, this->container.y);
@@ -255,5 +265,3 @@ void Button::setRelativeTo(Font * refFont, RPosition position){
             break;
     }
 }
-
-#endif
