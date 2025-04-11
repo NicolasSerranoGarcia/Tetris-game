@@ -21,7 +21,7 @@ void OpScene::render(){
     //All the implementation of the scene is going here. 
 
     //Load the background image
-    Image background(0, 0, mainScreen.getWidth(), mainScreen.getHeight(), "OpScene-background");
+    Image background(0, 0, mainScreen.getWidth(), mainScreen.getHeight(), "OpScene-background", "png");
     background.CopyToRender();
 
     //Load the title and the play button

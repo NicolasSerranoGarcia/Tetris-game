@@ -16,12 +16,15 @@ class Image{
         int h;
         int x;
         int y;
+        std::string imageType;
     public:
-        Image(int x, int y, int w, int h, std::string imgName);
+        Image(int x, int y, int w, int h, std::string imgName, std::string imageType);
         int getW() const;
         int getH() const;
         int getX() const;
         int getY() const;
+        std::string getType() const;
+
         SDL_Texture * getTexture() const;
         std::string getName() const;
         void CopyToRender() const;

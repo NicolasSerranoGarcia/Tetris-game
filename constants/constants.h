@@ -30,6 +30,10 @@ constexpr SDL_Color TEAL       = {  0, 128, 128, 255};
 constexpr SDL_Color NAVY       = {  0,   0, 128, 255};
 constexpr SDL_Color MAROON     = {128,   0,   0, 255};
 constexpr SDL_Color OLIVE      = {128, 128,   0, 255};
+constexpr SDL_Color GREY       = {128, 128, 128, 255};
+constexpr SDL_Color LIGHT_GREY = {238, 238, 238, 255};
+
+
 
 
 enum class AbsPosition{

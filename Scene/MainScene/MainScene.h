@@ -10,7 +10,9 @@
 
 class MainScene: public Scene{
     private:
+        Button settingsButton;
     public:
+        MainScene();
         void update(SDL_Renderer * render) override;
         void render() override;
         void clear(SDL_Renderer * render) override;

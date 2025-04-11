@@ -1,12 +1,13 @@
 #include "Image.h"
 
-Image::Image(int x, int y, int w, int h, std::string imgName){
+Image::Image(int x, int y, int w, int h, std::string imgName, std::string imgType){
     this->x = x;
     this->y = y;
     this->w = w;
     this->h = h;
+    this->imageType = imgType;
     this->imageName = imgName;
-    std::string path = "IMG/" + getName() + ".png";
+    std::string path = "IMG/" + getName() + "." + getType();
     this->IMGTexture = IMG_LoadTexture(mainScreen.getRender(), path.c_str());
 }
 
@@ -25,6 +26,10 @@ int Image::getX() const{
 
 int Image::getY() const{
     return this->y;
+}
+
+std::string Image::getType() const{
+    return this->imageType;
 }
 
 SDL_Texture * Image::getTexture() const{
