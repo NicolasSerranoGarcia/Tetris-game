@@ -5,7 +5,7 @@
 
 # TETRIS-GAME
 
-<em>Master the falling blocks and conquer the challenge!</em>
+<em>Fun, classic retro game!</em>
 
 <!-- BADGES -->
 <img src="https://img.shields.io/github/last-commit/NicolasSerranoGarcia/Tetris-game?style=flat&logo=git&logoColor=white&color=0080ff" alt="last-commit">
