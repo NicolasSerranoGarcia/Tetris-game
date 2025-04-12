@@ -1,7 +1,7 @@
 #include "constants.h"
 
-const int SCREENWIDTH = 760;
-const int SCREENHEIGHT = 900;
+const int SCREENWIDTH = 960;
+const int SCREENHEIGHT = 1000;
 
 Screen mainScreen(SCREENWIDTH, SCREENHEIGHT, "Tetris");
 
