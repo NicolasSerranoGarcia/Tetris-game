@@ -7,6 +7,11 @@
 
 extern const int SCREENWIDTH;
 extern const int SCREENHEIGHT;
+extern const int BLOCKLENGTH;    
+extern const int BSX;
+extern const int BSY;
+extern const int BSW;
+extern const int BSH;
 
 extern Screen mainScreen;
 

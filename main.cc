@@ -70,7 +70,6 @@ int main() {
                 if (e.type == SDL_QUIT) {
                     running = false;
                 }
-                
                 currentScene->handleEvents(e, currentScene);
             }
             

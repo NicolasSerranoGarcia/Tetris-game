@@ -15,12 +15,16 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [] handle initialization errors of classes
 
-[] Maybe change the structure of the OpScreen render and handle event so as to only declare 1 time the buttons and the objects that need the events
+[X] Maybe change the structure of the OpScreen render and handle event so as to only declare 1 time the buttons and the objects that need the events
 
-[] change the constructor of Font so that it allows entering x and y to fill the atributes
+[X] change the constructor of Font so that it allows entering x and y to fill the atributes
 
-[] add to all objects the possibility of setting them relative to an object
+[/] add to all objects the possibility of setting them relative to an object
 
 [] Add a method to the class Font called Fit or smth like that to change the font size to fit the dimensions of a given container. 
 
 [] also add a way to center the font in the center of the container
+
+[] Find a way to open the settings scene as a popup (the mainscene still shows on the back) and when the user returns, there is no chnge (the game froze)
+
+[] find a pause image that is transparent

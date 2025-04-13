@@ -2,7 +2,7 @@
 #include <iostream>
 
 MainScene::MainScene(){
-    Button settingsButton(mainScreen.getWidth() - 65, mainScreen.getHeight() - 65, 50, 50, WHITE, &mainScreen);
+    Button settingsButton(mainScreen.getWidth() - 75, mainScreen.getHeight() - 75, 50, 50, WHITE, &mainScreen);
     this->settingsButton = settingsButton;
 }
 
@@ -10,15 +10,9 @@ MainScene::MainScene(){
 //I need to make extra implementations
 void MainScene::update(SDL_Renderer * render){
     Scene::update(render);
-    //I'll probably place something here hehe
 }
 
 void MainScene::render(){
-
-    const int bsX = mainScreen.getWidth()/2 - (mainScreen.getWidth() - 300)/2;
-    const int bsY = 40;
-    const int bsW = mainScreen.getWidth() - 500;
-    const int bsH = 920;
 
     //the number of hor. tiles is 10, the number of vertical tiles is 20. the pixels of a tile are 46x46
     int tile = (mainScreen.getWidth() - 500)/10;
@@ -29,17 +23,17 @@ void MainScene::render(){
 
     //draw the background square where the game is played
     SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
-    SDL_Rect boardBackogrund = {bsX, bsY, bsW, bsH};
+    SDL_Rect boardBackogrund = {BSX, BSY, BSW, BSH};
     SDL_RenderFillRect(mainScreen.getRender(), &boardBackogrund);
 
     //draw the vertical and hor. lines that separate each tile 
     SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r - 30, GREY.g - 30, GREY.b - 30, GREY.a);
     for(int i = 1; i <= 10; i++){
-        SDL_RenderDrawLine(mainScreen.getRender(), tile*i + bsX, bsY, tile*i + bsX, bsY + bsH);
+        SDL_RenderDrawLine(mainScreen.getRender(), tile*i + BSX, BSY, tile*i + BSX, BSY + BSH);
     }
 
     for(int j = 1; j <= 20; j++){
-        SDL_RenderDrawLine(mainScreen.getRender(), bsX, bsY + j*tile, bsX + bsW, bsY + j*tile);
+        SDL_RenderDrawLine(mainScreen.getRender(), BSX, BSY + j*tile, BSX + BSW, BSY + j*tile);
     }
 
 
@@ -53,6 +47,9 @@ void MainScene::render(){
     //draw the settings button with the image
     this->settingsButton.drawToRender();
 
+
+    //create the blocks and print them
+
     SDL_RenderPresent(mainScreen.getRender());
 }
 
@@ -62,7 +59,9 @@ void MainScene::clear(SDL_Renderer * render){
 }
 
 void MainScene::handleEvents(SDL_Event event, Scene *& curScene){
-    if(this->settingsButton.isClicked(&event)){
+    //If the setting button is clicked or the user hit ESC open the settings
+    if(this->settingsButton.isClicked(&event) || ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE))){
         std::cout << "Settings" << std::endl;
+        //find a way to open the settings as a popup (the mainScene still shows on the background). 
     }
 }

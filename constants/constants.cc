@@ -2,8 +2,14 @@
 
 const int SCREENWIDTH = 960;
 const int SCREENHEIGHT = 1000;
+const int BLOCKLENGTH= 46;
 
 Screen mainScreen(SCREENWIDTH, SCREENHEIGHT, "Tetris");
+
+const int BSX = mainScreen.getWidth()/2 - (mainScreen.getWidth() - 300)/2;
+const int BSY = 40;
+const int BSW = mainScreen.getWidth() - 500;
+const int BSH = 920;
 
 
 int py(AbsPosition position, int objH){
