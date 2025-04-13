@@ -11,6 +11,10 @@ const int BSY = 40;
 const int BSW = mainScreen.getWidth() - 500;
 const int BSH = 920;
 
+SDL_KeyCode CONTROLLEFT = SDLK_LEFT;
+SDL_KeyCode CONTROLRIGHT = SDLK_RIGHT;
+SDL_KeyCode CONTROLDOWN = SDLK_DOWN;
+SDL_KeyCode CONTROLROTATE = SDLK_UP;
 
 int py(AbsPosition position, int objH){
 

@@ -40,8 +40,8 @@ void OpScene::render(){
 
 }
 
-void OpScene::clear(SDL_Renderer * render){
-    Scene::clear(render);
+void OpScene::clear(){
+    Scene::clear();
     //""
 }
 
@@ -49,7 +49,8 @@ void OpScene::clear(SDL_Renderer * render){
 void OpScene::handleEvents(SDL_Event event, Scene *& curScene){
     if(this->playButton.isClicked(&event)){
         std::cout << "Play" << std::endl; 
-        OpScene::clear(mainScreen.getRender());
+        OpScene::clear();
+        delete curScene;
         curScene = new MainScene;
     }
 }

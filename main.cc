@@ -44,6 +44,7 @@
 Scene * currentScene = new OpScene;
 
 int main() {
+    std::srand(time(NULL));
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
         return 1;
@@ -76,7 +77,7 @@ int main() {
             currentScene->render();
 
 
-            mainScreen.clear(BLACK);
+            currentScene->clear();
 
             SDL_Delay(10);
         }

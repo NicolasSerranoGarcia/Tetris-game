@@ -1,9 +1,12 @@
 #include "MainScene.h"
 #include "Figures/Figures.h" //This is just all the header file figures in a single file
-#include "Figures/Figure.h"
 #include <iostream>
 
 MainScene::MainScene(){
+    Figure * temp = new FigL;
+    //add a way to change a figure position
+    gameBoard.push_back(temp);
+    getRandomFigure(currentFigure);
     Button settingsButton(mainScreen.getWidth() - 75, mainScreen.getHeight() - 75, 50, 50, WHITE, &mainScreen);
     this->settingsButton = settingsButton;
 }
@@ -54,9 +57,13 @@ void MainScene::render(){
 
     //IMPLEMENTATION OF THE LOGIC IN THE GAME
 
+    for(unsigned int i = 0; i < this->gameBoard.size(); i++){
+        this->gameBoard[i]->renderFigure();
+    }
 
-    FigL figure;
-    figure.renderFigure();
+
+    this->getCurrentFigure()->renderFigure();
+
 
 
     //Show all the scene
@@ -64,8 +71,8 @@ void MainScene::render(){
     SDL_RenderPresent(mainScreen.getRender());
 }
 
-void MainScene::clear(SDL_Renderer * render){
-    Scene::clear(render);
+void MainScene::clear(){
+    Scene::clear();
     //""
 }
 
@@ -73,6 +80,50 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene){
     //If the setting button is clicked or the user hit ESC open the settings
     if(this->settingsButton.isClicked(&event) || ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE))){
         std::cout << "Settings" << std::endl;
+        // delete curScene;
+        // curScene = nullptr;
+        // curScene = new SetScene;
         //find a way to open the settings as a popup (the mainScene still shows on the background). 
+    } else{
+        currentFigure->update(event);
+    }
+
+}
+
+Figure * MainScene::getCurrentFigure(){
+    return this->currentFigure;
+}
+
+//FUNCTIONS
+void getRandomFigure(Figure *& curFigure){
+    delete curFigure;
+    curFigure = nullptr;
+
+    //Future implementation when all the figures are created
+    int number = std::rand() % 7;
+    switch (number){
+    case 0:
+        curFigure = new FigL;
+        break;
+    case 1:
+        curFigure = new FigL;
+        break;
+    case 2:
+        curFigure = new FigL;
+        break;
+    case 3:
+        curFigure = new FigL;
+        break;
+    case 4:
+        curFigure = new FigL;
+        break;
+    case 5:
+        curFigure = new FigL;
+        break;
+    case 6:
+        curFigure = new FigL;
+        break;
+    default:
+        break;
     }
 }

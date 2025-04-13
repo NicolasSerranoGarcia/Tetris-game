@@ -12,12 +12,14 @@ class Figure{
     private:
         std::vector <Block>blocks;
         SDL_Color figureColor;
+        // 0º <= θ <= 360º
         int angle;
         int leadingBlockPos; //gives the position of the leading block insde the blocks array
     public:
         Figure();
         virtual ~Figure();
-        virtual void update(/*pass some form of coordinates maybe?*/);
+        virtual int update(SDL_Event event);
+        virtual int updateBlocks();
         virtual int getAngle();
         virtual SDL_Color getFigureColor();
         virtual std::vector <Block> &getBlocks();

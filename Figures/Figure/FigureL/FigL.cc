@@ -1,11 +1,8 @@
 #include "FigL.h"
-
-FigL::~FigL(){
-
-}
+#include <iostream>
 
 
-FigL::FigL() : Figure(){
+FigL::FigL(){
     //we need to make the figure relative to the leading block so that when it changes, the whole figure also changes
     this->setColor(LIGHT_ORANGE);
 
@@ -41,4 +38,9 @@ FigL::FigL() : Figure(){
     block.setBlockX(LeadingBlockX + 1);
     block.setBlockY(LeadingBlockY + 1);
     getBlocks().push_back(block);
+}
+
+ 
+int FigL::updateBlocks(){
+    //We assume the 
 }

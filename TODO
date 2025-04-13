@@ -28,3 +28,11 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 [] Find a way to open the settings scene as a popup (the mainscene still shows on the back) and when the user returns, there is no chnge (the game froze)
 
 [] find a pause image that is transparent
+
+[] Implement some sort of velocity to the figures
+
+[] make it possible to "slow down" the figure when it is falling without interrupting the render of the scene
+
+[] Complete all the constructors for each figure so that they are "usable".
+
+[] implement an algorithm (method update) in Figure that changes the position of the figure given an event and the previous state

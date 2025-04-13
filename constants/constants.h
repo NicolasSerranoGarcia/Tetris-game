@@ -15,6 +15,11 @@ extern const int BSH;
 
 extern Screen mainScreen;
 
+extern SDL_KeyCode CONTROLLEFT;
+extern SDL_KeyCode CONTROLRIGHT;
+extern SDL_KeyCode CONTROLDOWN;
+extern SDL_KeyCode CONTROLROTATE;
+
 constexpr SDL_Color RED        = {255,   0,   0, 255};
 constexpr SDL_Color GREEN      = {  0, 255,   0, 255};
 constexpr SDL_Color BLUE       = {  0,   0, 255, 255};

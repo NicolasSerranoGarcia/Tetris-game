@@ -21,7 +21,6 @@ $(TARGET): $(OBJ)
 	@mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Limpieza
 clean:
 	rm -f $(TARGET)
 	find . -name "*.o" -delete
