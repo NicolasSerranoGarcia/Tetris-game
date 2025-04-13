@@ -1,4 +1,6 @@
 #include "MainScene.h"
+#include "Figures/Figures.h" //This is just all the header file figures in a single file
+#include "Figures/Figure.h"
 #include <iostream>
 
 MainScene::MainScene(){
@@ -47,8 +49,17 @@ void MainScene::render(){
     //draw the settings button with the image
     this->settingsButton.drawToRender();
 
+    //TODO: draw the rectangles and the borders of the timer, the points of the player...
 
-    //create the blocks and print them
+
+    //IMPLEMENTATION OF THE LOGIC IN THE GAME
+
+
+    FigL figure;
+    figure.renderFigure();
+
+
+    //Show all the scene
 
     SDL_RenderPresent(mainScreen.getRender());
 }

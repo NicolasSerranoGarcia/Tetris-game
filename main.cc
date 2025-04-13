@@ -75,6 +75,7 @@ int main() {
             
             currentScene->render();
 
+
             mainScreen.clear(BLACK);
 
             SDL_Delay(10);
