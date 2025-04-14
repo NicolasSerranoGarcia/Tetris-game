@@ -47,7 +47,7 @@ void OpScene::clear(){
 
 //ERROR: right now I don't know why changing the lobal pointer is not working. Anyways I will find a way
 void OpScene::handleEvents(SDL_Event event, Scene *& curScene){
-    if(this->playButton.isClicked(&event)){
+    if(this->playButton.isClicked(&event) || ((event.type == SDL_KEYDOWN) && event.key.keysym.sym == SDLK_RETURN)){
         std::cout << "Play" << std::endl; 
         OpScene::clear();
         delete curScene;
