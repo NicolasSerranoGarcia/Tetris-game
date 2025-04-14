@@ -3,7 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <vector>
-#include "Block/Block.h"
+#include "Figures/Block/Block.h"
 #include "constants/constants.h"
 
 //A father class that generalizes all of the figures. It has a leading block

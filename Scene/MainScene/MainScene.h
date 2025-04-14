@@ -7,8 +7,9 @@
 #include "Button/Button.h"
 #include "Font/Font.h"
 #include "Figures/Block/Block.h"
-#include "Figures/Figure.h"
+#include "Figures/FigureF/Figure.h"
 #include "Scene/SettingsScene/SetScene.h"
+#include "Figures/Figures.h" //This is just all the header file figures in a single file
 
 #include <SDL2/SDL.h>
 

@@ -1,4 +1,4 @@
-#include "Figure.h"
+#include "Figures/FigureF/Figure.h"
 
 Figure::Figure(){
     this->leadingBlockPos = 0;

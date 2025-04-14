@@ -43,6 +43,11 @@ constexpr SDL_Color OLIVE      = {128, 128,   0, 255};
 constexpr SDL_Color GREY       = {128, 128, 128, 255};
 constexpr SDL_Color LIGHT_GREY = {238, 238, 238, 255};
 constexpr SDL_Color LIGHT_ORANGE = {255, 200, 120, 255};
+constexpr SDL_Color LIGHT_YELLOW = {255, 255, 153, 255};
+constexpr SDL_Color LIGHT_RED = {255, 102, 102, 255};
+constexpr SDL_Color LIGHT_PURPLE = {216, 191, 216, 255};
+constexpr SDL_Color LIGHT_CYAN = {224, 255, 255, 255};
+
 
 
 

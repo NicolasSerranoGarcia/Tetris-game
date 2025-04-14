@@ -2,6 +2,7 @@
 #define SETSCENE_CC
 
 #include "SetScene.h"
+#include <iostream>
 
 SetScene::~SetScene(){
 
@@ -21,6 +22,7 @@ void SetScene::update(SDL_Renderer * render){
 void SetScene::render(){
     SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
     SDL_RenderClear(mainScreen.getRender());
+    SDL_RenderPresent(mainScreen.getRender());
 }
 
 void SetScene::clear(){
@@ -28,7 +30,7 @@ void SetScene::clear(){
 }
 
 void SetScene::handleEvents(SDL_Event event, Scene *& curScene){
-
+    std::cout << "Hello" << std::endl;
 }
 
 

@@ -1,12 +1,7 @@
 #include "MainScene.h"
-#include "Figures/Figures.h" //This is just all the header file figures in a single file
 #include <iostream>
 
 MainScene::MainScene(){
-    Figure * temp = new FigL;
-    //add a way to change a figure position
-    gameBoard.push_back(temp);
-    getRandomFigure(currentFigure);
     Button settingsButton(mainScreen.getWidth() - 75, mainScreen.getHeight() - 75, 50, 50, WHITE, &mainScreen);
     this->settingsButton = settingsButton;
 }
@@ -61,6 +56,7 @@ void MainScene::render(){
         this->gameBoard[i]->renderFigure();
     }
 
+    getRandomFigure(currentFigure);
 
     this->getCurrentFigure()->renderFigure();
 
@@ -80,14 +76,13 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene){
     //If the setting button is clicked or the user hit ESC open the settings
     if(this->settingsButton.isClicked(&event) || ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE))){
         std::cout << "Settings" << std::endl;
-        // delete curScene;
-        // curScene = nullptr;
-        // curScene = new SetScene;
+        delete curScene;
+        curScene = nullptr;
+        curScene = new SetScene;
         //find a way to open the settings as a popup (the mainScene still shows on the background). 
     } else{
         currentFigure->update(event);
     }
-
 }
 
 Figure * MainScene::getCurrentFigure(){
@@ -106,24 +101,25 @@ void getRandomFigure(Figure *& curFigure){
         curFigure = new FigL;
         break;
     case 1:
-        curFigure = new FigL;
+        curFigure = new FigLRight;
         break;
     case 2:
-        curFigure = new FigL;
+        curFigure = new FigSquare;
         break;
     case 3:
-        curFigure = new FigL;
+        curFigure = new FigZ;
         break;
     case 4:
-        curFigure = new FigL;
+        curFigure = new FigZLeft;
         break;
     case 5:
-        curFigure = new FigL;
+        curFigure = new FigT;
         break;
     case 6:
-        curFigure = new FigL;
+        curFigure = new FigStick;
         break;
     default:
         break;
     }
+    SDL_Delay(2000);
 }

@@ -6,10 +6,9 @@
 #include "constants/constants.h"
 
 class SetScene: public Scene{
-    private:
     public:
-        ~SetScene();
-        SetScene();
+    SetScene();
+        ~SetScene() override;
         void update(SDL_Renderer * render) override;
         void render() override;
         void clear() override;
