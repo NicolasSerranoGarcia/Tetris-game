@@ -39,5 +39,30 @@ FigZLeft::FigZLeft(){
 }
 
 int FigZLeft::updateBlocks(){
+    //We assume that the figure position is changeable beacuse we cheched it outside
+    this->deleteAllBlocks();
+    
+    Block block;
+    block.setBlockColor(LIGHT_RED);
+    block.setOutlineColor(RED);
 
+    int LeadingBlockX = getBlocks()[getLeadingBlockPos()].getBlockX();
+    int LeadingBlockY = getBlocks()[getLeadingBlockPos()].getBlockY();
+
+    //Block 1
+    block.setBlockX(LeadingBlockX);
+    block.setBlockY(LeadingBlockY + 1);
+    getBlocks().push_back(block);
+
+    //Block 2
+    block.setBlockX(LeadingBlockX - 1);
+    block.setBlockY(LeadingBlockY);
+    getBlocks().push_back(block);
+
+    //Block 3
+    block.setBlockX(LeadingBlockX + 1);
+    block.setBlockY(LeadingBlockY + 1);
+    getBlocks().push_back(block);
+
+    return 0;
 }

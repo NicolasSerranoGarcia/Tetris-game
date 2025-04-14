@@ -36,3 +36,11 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 [] Complete all the constructors for each figure so that they are "usable".
 
 [] implement an algorithm (method update) in Figure that changes the position of the figure given an event and the previous state
+
+[] implement an algorythm to check if a figure can move to the left or to the right
+
+[] implement the logic for the figure moveing downwards
+
+[] The outline of the squares in the mainscene is not taken into account and it visually seems like the figure is not correctly positioned when you are on the extremes
+
+[] change the deleteBlocks() method from FIgure:: so that it has a better syntax (not i--)

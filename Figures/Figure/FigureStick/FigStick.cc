@@ -39,5 +39,30 @@ FigStick::FigStick(){
 }
 
 int FigStick::updateBlocks(){
+    //We assume that the figure position is changeable beacuse we cheched it outside
+    this->deleteAllBlocks();
+    
+    Block block;
+    block.setBlockColor(LIGHT_CYAN);
+    block.setOutlineColor(CYAN);
 
+    int LeadingBlockX = getBlocks()[getLeadingBlockPos()].getBlockX();
+    int LeadingBlockY = getBlocks()[getLeadingBlockPos()].getBlockY();
+
+    //Block 1
+    block.setBlockX(LeadingBlockX);
+    block.setBlockY(LeadingBlockY - 2);
+    getBlocks().push_back(block);
+
+    //Block 2
+    block.setBlockX(LeadingBlockX);
+    block.setBlockY(LeadingBlockY - 1);
+    getBlocks().push_back(block);
+
+    //Block 3
+    block.setBlockX(LeadingBlockX);
+    block.setBlockY(LeadingBlockY + 1);
+    getBlocks().push_back(block);
+
+    return 0;
 }

@@ -2,6 +2,7 @@
 #include <iostream>
 
 MainScene::MainScene(){
+    getRandomFigure(currentFigure);
     Button settingsButton(mainScreen.getWidth() - 75, mainScreen.getHeight() - 75, 50, 50, WHITE, &mainScreen);
     this->settingsButton = settingsButton;
 }
@@ -55,8 +56,6 @@ void MainScene::render(){
     for(unsigned int i = 0; i < this->gameBoard.size(); i++){
         this->gameBoard[i]->renderFigure();
     }
-
-    getRandomFigure(currentFigure);
 
     this->getCurrentFigure()->renderFigure();
 
@@ -121,5 +120,4 @@ void getRandomFigure(Figure *& curFigure){
     default:
         break;
     }
-    SDL_Delay(2000);
 }

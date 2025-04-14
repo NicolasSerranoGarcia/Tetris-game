@@ -30,6 +30,7 @@ class Figure{
         virtual void setAngle(int angle);
         virtual void deleteBlock(int pos);
         virtual void addBlock(Block block);
+        virtual void deleteAllBlocks();
 
         virtual void renderFigure();
 };
