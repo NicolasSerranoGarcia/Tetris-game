@@ -30,12 +30,12 @@ int Figure::update(SDL_Event event){
     if(event.key.keysym.sym == CONTROLDOWN){
         int largestY = 0;
         for(unsigned int i = 0; i < this->blocks.size(); i++){
-            if(this->blocks[i].getBlockX() > largestY){
-                largestY = this->blocks[i].getBlockX();
+            if(this->blocks[i].getBlockY() > largestY){
+                largestY = this->blocks[i].getBlockY();
             }
         }
 
-        if(largestY < 20){
+        if(largestY < 19){
             this->blocks[leadingBlockPos].setBlockY(this->blocks[leadingBlockPos].getBlockY() + 1);
         }
         this->updateBlocks();

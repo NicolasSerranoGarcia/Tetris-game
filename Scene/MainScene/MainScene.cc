@@ -1,6 +1,8 @@
 #include "MainScene.h"
 #include <iostream>
 
+const Uint32 FALLDELAY = 1000;
+
 MainScene::MainScene(){
     getRandomFigure(currentFigure);
     Button settingsButton(mainScreen.getWidth() - 75, mainScreen.getHeight() - 75, 50, 50, WHITE, &mainScreen);
@@ -13,7 +15,7 @@ void MainScene::update(SDL_Renderer * render){
     Scene::update(render);
 }
 
-void MainScene::render(){
+void MainScene::render(Uint32 * lastTick){
 
     //the number of hor. tiles is 10, the number of vertical tiles is 20. the pixels of a tile are 46x46
     int tile = (mainScreen.getWidth() - 500)/10;
@@ -55,6 +57,26 @@ void MainScene::render(){
 
     for(unsigned int i = 0; i < this->gameBoard.size(); i++){
         this->gameBoard[i]->renderFigure();
+    }
+
+    Uint32 elapsed = SDL_GetTicks() - *lastTick;
+
+    if(elapsed >= FALLDELAY){
+        //update the leading block 1 down and reset the ticks
+
+        int largestY = 0;
+        for(unsigned int i = 0; i < this->currentFigure->getBlocks().size(); i++){
+            if(this->currentFigure->getBlocks()[i].getBlockY() > largestY){
+                largestY = this->currentFigure->getBlocks()[i].getBlockY();
+            }
+        }
+
+        if(largestY < 19){
+            this->currentFigure->getBlocks()[this->currentFigure->getLeadingBlockPos()].setBlockY(this->currentFigure->getBlocks()[this->currentFigure->getLeadingBlockPos()].getBlockY() + 1);
+            this->currentFigure->updateBlocks();
+        }
+
+        *lastTick = SDL_GetTicks();
     }
 
     this->getCurrentFigure()->renderFigure();

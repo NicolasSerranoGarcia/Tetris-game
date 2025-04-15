@@ -10,7 +10,7 @@ class SetScene: public Scene{
     SetScene();
         ~SetScene() override;
         void update(SDL_Renderer * render) override;
-        void render() override;
+        void render(Uint32 * lastTick) override;
         void clear() override;
         void handleEvents(SDL_Event event, Scene *& curScene) override;
 };

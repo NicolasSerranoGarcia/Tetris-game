@@ -66,6 +66,8 @@ int main() {
         bool running = true;
         SDL_Event e;
 
+        Uint32 lastTick = SDL_GetTicks();
+
         while (running) {
             while (SDL_PollEvent(&e)) {
                 if (e.type == SDL_QUIT) {
@@ -74,7 +76,7 @@ int main() {
                 currentScene->handleEvents(e, currentScene);
             }
             
-            currentScene->render();
+            currentScene->render(&lastTick);
 
 
             currentScene->clear();

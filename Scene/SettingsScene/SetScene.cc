@@ -19,7 +19,7 @@ void SetScene::update(SDL_Renderer * render){
 
 }
 
-void SetScene::render(){
+void SetScene::render(Uint32 * lastTick){
     SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
     SDL_RenderClear(mainScreen.getRender());
     SDL_RenderPresent(mainScreen.getRender());
