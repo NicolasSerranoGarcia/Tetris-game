@@ -3,6 +3,9 @@
 FigLRight::FigLRight(){
     //we need to make the figure relative to the leading block so that when it changes, the whole figure also changes
     this->setColor(LIGHT_BLUE);
+    this->setType("LRight");
+
+
 
     Block block;
     block.setBlockColor(LIGHT_BLUE);

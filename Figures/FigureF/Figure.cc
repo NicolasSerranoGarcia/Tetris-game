@@ -70,13 +70,55 @@ int Figure::update(SDL_Event event){
     }
 
     if(event.key.keysym.sym == CONTROLROTATE){
-        if(this->angle + 90 >= 360){
-            this->angle = this->angle + 90 - 360;
-        } else{
-            this->angle += 90;
+        
+        this->angle -= 90;
+        if(this->angle < 0){
+            this->angle = 360 + this->angle;
+        }
+        //the previous is to ensure the angle is always between 0º and 360ª
+
+        int tile = (mainScreen.getWidth() - 500)/10;
+
+        Block leadingBlock = this->blocks[this->getLeadingBlockPos()];
+
+        /*  x' = x*cos(theta) - y*sin(theta)
+        *   y' = x*sin(theta) + y*cos(theta)
+        *
+        *   Here leadingBlock.setBlockX() <=> x' and leadingBlock.setBlockY() <=> y'
+        *   As in my case, the "origin" of the coordinates is the leading block, I will "reallocate"
+        *   the origin by summing the position of the leading block
+        */
+
+        //for each block in the figure, rotate it by the angle
+        
+        if(!((this->type == "Square") || (this->type == "Stick"))){
+            for(unsigned int i = 0; i < this->getBlocks().size(); i ++){
+                if((int) i != this->getLeadingBlockPos()){
+                    
+                //The original formula simplifies as the rotations are always by 90 degrees
+                int x_prime = leadingBlock.getBlockX() + (blocks[i].getBlockY() - leadingBlock.getBlockY());
+                int y_prime = leadingBlock.getBlockY() - (blocks[i].getBlockX() - leadingBlock.getBlockX());
+
+                blocks[i].setBlockX(x_prime);
+                blocks[i].setBlockY(y_prime);
+                }
+            }
+        } else if((this->type == "Stick")){
+            //I don't know why but when I was playing tetris to get a hint on how the figures rotate, it happens that the stick figure doesn't quite "rotate" with
+            //the leading block as the center of rotation. In fact the whole figure rotates relative to the point on the center-right of the figure. In any case 
+            //the way to go is to apply the formulas using pixels instead and moving the center of rotation
+            for(unsigned int i = 0; i < this->getBlocks().size(); i ++){
+                    
+                //The original formula simplifies as the rotations are always by 90 degrees
+                int x_prime = leadingBlock.getPixelX() + tile/2 + (blocks[i].getPixelY() - leadingBlock.getPixelY());
+                int y_prime = leadingBlock.getPixelY() - (blocks[i].getPixelX() - leadingBlock.getPixelX());
+
+                blocks[i].setPixelX(x_prime);
+                blocks[i].setPixelY(y_prime);
+            }
         }
     }
-
+    
     return 0;
 }
 
@@ -98,6 +140,14 @@ std::vector <Block>& Figure::getBlocks(){
 
 int Figure::getLeadingBlockPos() {
     return leadingBlockPos;
+}
+
+std::string Figure::getType() {
+    return this->type;
+}
+
+void Figure::setType(std::string type){
+    this->type = type;
 }
 
 void Figure::setColor(SDL_Color color){

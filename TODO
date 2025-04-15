@@ -44,3 +44,9 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 [] The outline of the squares in the mainscene is not taken into account and it visually seems like the figure is not correctly positioned when you are on the extremes
 
 [] change the deleteBlocks() method from FIgure:: so that it has a better syntax (not i--)
+
+[] When a figure is rotated and then moved, it updates as if the figure angle is 0. Just create a template to update the blocks depending on the angle for all the blocks.
+
+[] the stick rotation is somewhat strange in the screen. Something happens when udpating the pixels
+
+[] when the figures are rotated, the can faze through the walls. Fix that
