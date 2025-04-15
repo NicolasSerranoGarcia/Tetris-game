@@ -5,49 +5,30 @@ FigLRight::FigLRight(){
     this->setColor(LIGHT_BLUE);
     this->setType("LRight");
 
-
-
-    Block block;
-    block.setBlockColor(LIGHT_BLUE);
-    block.setOutlineColor(BLUE);
-    block.setPlaced(true);
+    loadInitialBlocks(true);
     
-    //Leading block. The position is not always 0,0 (if we cast it on the upper left corner)
-    block.setBlockX(1);
-    block.setBlockY(1);
-    getBlocks().push_back(block);
-    
-    int LeadingBlockX = getBlocks()[getLeadingBlockPos()].getBlockX();
-    int LeadingBlockY = getBlocks()[getLeadingBlockPos()].getBlockY();
-    
-
-
-    //Alter the position of the block consecutively and save each time to get
-    //the whole figure
-
-    //Block 1
-    block.setBlockX(LeadingBlockX);
-    block.setBlockY(LeadingBlockY - 1);
-    getBlocks().push_back(block);
-
-    //Block 2
-    block.setBlockX(LeadingBlockX);
-    block.setBlockY(LeadingBlockY + 1);
-    getBlocks().push_back(block);
-
-    //Block 3
-    block.setBlockX(LeadingBlockX - 1);
-    block.setBlockY(LeadingBlockY + 1);
-    getBlocks().push_back(block);
 }
 
 int FigLRight::updateBlocks(){
     //We assume that the figure position is changeable beacuse we cheched it outside
     this->deleteAllBlocks();
     
+    loadInitialBlocks(false);
+
+}
+
+void FigLRight::loadInitialBlocks(bool constructor){
     Block block;
     block.setBlockColor(LIGHT_BLUE);
     block.setOutlineColor(BLUE);
+
+    if(constructor){
+        //Leading block. The position is not always 0,0 (if we cast it on the upper left corner)
+        block.setBlockX(1);
+        block.setBlockY(1);
+        getBlocks().push_back(block);
+        block.setPlaced(true);
+    }
 
     int LeadingBlockX = getBlocks()[getLeadingBlockPos()].getBlockX();
     int LeadingBlockY = getBlocks()[getLeadingBlockPos()].getBlockY();
@@ -66,6 +47,4 @@ int FigLRight::updateBlocks(){
     block.setBlockX(LeadingBlockX - 1);
     block.setBlockY(LeadingBlockY + 1);
     getBlocks().push_back(block);
-
-    return 0;
 }

@@ -34,7 +34,8 @@ class Figure{
         virtual void setAngle(int angle);
         virtual void setType(std::string type);
 
-
+        virtual void rotate();
+        virtual void loadInitialBlocks(bool constructor);
         virtual void deleteBlock(int pos);
         virtual void addBlock(Block block);
         virtual void deleteAllBlocks();

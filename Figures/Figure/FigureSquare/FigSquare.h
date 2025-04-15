@@ -9,6 +9,8 @@ class FigSquare: public Figure{
         FigSquare(); //load the blocks of the figure in the constuctor
         //inherit an update method that recieves an event and does things with the figure
         int updateBlocks() override;
+        void loadInitialBlocks(bool constructor) override;
+
 };
 
 #endif
