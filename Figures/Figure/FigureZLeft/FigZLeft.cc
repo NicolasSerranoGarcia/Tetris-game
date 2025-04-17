@@ -13,6 +13,9 @@ int FigZLeft::updateBlocks(){
     this->deleteAllBlocks();
     
     loadInitialBlocks(false);
+    for(int i = 0; i < (this->getAngle() / 90); i++){
+        rotate();
+    }
 
     return 0;
 }

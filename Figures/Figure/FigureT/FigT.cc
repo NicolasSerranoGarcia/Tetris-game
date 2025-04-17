@@ -4,6 +4,7 @@ FigT::FigT(){
     //we need to make the figure relative to the leading block so that when it changes, the whole figure also changes
     this->setColor(LIGHT_PURPLE);
     this->setType("T");
+    loadInitialBlocks(true);
 }
 
 int FigT::updateBlocks(){
@@ -11,6 +12,9 @@ int FigT::updateBlocks(){
     this->deleteAllBlocks();
 
     loadInitialBlocks(false);
+    for(int i = 0; i < (this->getAngle() / 90); i++){
+        rotate();
+    }
 
     return 0;
 }

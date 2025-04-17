@@ -77,7 +77,8 @@ int Figure::update(SDL_Event event){
         }
         //the previous is to ensure the angle is always between 0º and 360ª
 
-        rotate();
+        //in this function I check the angle of the figure and update it accordingly
+        this->updateBlocks();
     }
     
     return 0;
@@ -98,28 +99,27 @@ void Figure::rotate(){
 
     //for each block in the figure, rotate it by the angle
     
-    if(!((this->type == "Square") || (this->type == "Stick"))){
+    if(!(this->type == "Stick")){
         for(unsigned int i = 0; i < this->getBlocks().size(); i ++){
-            if((int) i != this->getLeadingBlockPos()){
+            if(i != getLeadingBlockPos()){
+                //The original formula simplifies as the rotations are always by -90 degrees
+                int x_prime = leadingBlock.getBlockX() + (blocks[i].getBlockY() - leadingBlock.getBlockY());
+                int y_prime = leadingBlock.getBlockY() - (blocks[i].getBlockX() - leadingBlock.getBlockX());
                 
-            //The original formula simplifies as the rotations are always by 90 degrees
-            int x_prime = leadingBlock.getBlockX() + (blocks[i].getBlockY() - leadingBlock.getBlockY());
-            int y_prime = leadingBlock.getBlockY() - (blocks[i].getBlockX() - leadingBlock.getBlockX());
-
-            blocks[i].setBlockX(x_prime);
-            blocks[i].setBlockY(y_prime);
+                blocks[i].setBlockX(x_prime);
+                blocks[i].setBlockY(y_prime);
             }
         }
-    } else if((this->type == "Stick")){
+    } else{
         //I don't know why but when I was playing tetris to get a hint on how the figures rotate, it happens that the stick figure doesn't quite "rotate" with
         //the leading block as the center of rotation. In fact the whole figure rotates relative to the point on the center-right of the figure. In any case 
         //the way to go is to apply the formulas using pixels instead and moving the center of rotation
         for(unsigned int i = 0; i < this->getBlocks().size(); i ++){
-                
-            //The original formula simplifies as the rotations are always by 90 degrees
-            int x_prime = leadingBlock.getPixelX() + (blocks[i].getPixelY() - leadingBlock.getPixelY());
-            int y_prime = leadingBlock.getPixelY() - (blocks[i].getPixelX() - leadingBlock.getPixelX());
 
+            
+            int x_prime = leadingBlock.getPixelX() + tile + (blocks[i].getPixelY() - leadingBlock.getPixelY());
+            int y_prime = leadingBlock.getPixelY() + (blocks[i].getPixelX() - leadingBlock.getPixelX());
+                
             blocks[i].setPixelX(x_prime);
             blocks[i].setPixelY(y_prime);
         }
@@ -188,8 +188,10 @@ void Figure::renderFigure(){
 }
 
 void Figure::deleteAllBlocks(){
-    for(unsigned int i = 1; i < this->getBlocks().size(); i++){
-        this->deleteBlock(i);
-        i--;
+    for(unsigned int i = 0; i < this->getBlocks().size(); i++){
+        if(i != getLeadingBlockPos()){
+            this->deleteBlock(i);
+            i--;
+        }
     }
 }

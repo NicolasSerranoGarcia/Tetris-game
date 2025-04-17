@@ -12,7 +12,10 @@ int FigZ::updateBlocks(){
     //We assume that the figure position is changeable beacuse we cheched it outside
     this->deleteAllBlocks();
 
-    loadInitialBlocks(false);   
+    loadInitialBlocks(false);
+    for(int i = 0; i < (this->getAngle() / 90); i++){
+        rotate();
+    }   
     
     return 0;
 }

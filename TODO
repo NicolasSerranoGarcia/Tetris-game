@@ -50,3 +50,5 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 [] the stick rotation is somewhat strange in the screen. Something happens when udpating the pixels
 
 [] when the figures are rotated, the can faze through the walls. Fix that
+
+[] The class nmes of the figures are not well placed. FigZ, FigL... 
