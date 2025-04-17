@@ -29,7 +29,7 @@ void FigT::loadInitialBlocks(bool constructor){
         block.setPlaced(true);
     
         //Leading block. The position is not always 0,0 (if we cast it on the upper left corner)
-        block.setBlockX(1);
+        block.setBlockX(4);
         block.setBlockY(1);
         getBlocks().push_back(block);
     }

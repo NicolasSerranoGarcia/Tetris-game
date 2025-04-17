@@ -29,26 +29,30 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [] find a pause image that is transparent
 
-[] Implement some sort of velocity to the figures
+[X] Implement some sort of velocity to the figures
 
-[] make it possible to "slow down" the figure when it is falling without interrupting the render of the scene
+[X] make it possible to "slow down" the figure when it is falling without interrupting the render of the scene
 
 [] Complete all the constructors for each figure so that they are "usable".
 
-[] implement an algorithm (method update) in Figure that changes the position of the figure given an event and the previous state
+[X] implement an algorithm (method update) in Figure that changes the position of the figure given an event and the previous state
 
-[] implement an algorythm to check if a figure can move to the left or to the right
+[X] implement an algorythm to check if a figure can move to the left or to the right
 
-[] implement the logic for the figure moveing downwards
+[X] implement the logic for the figure moveing downwards
 
 [] The outline of the squares in the mainscene is not taken into account and it visually seems like the figure is not correctly positioned when you are on the extremes
 
 [] change the deleteBlocks() method from FIgure:: so that it has a better syntax (not i--)
 
-[] When a figure is rotated and then moved, it updates as if the figure angle is 0. Just create a template to update the blocks depending on the angle for all the blocks.
+[X] When a figure is rotated and then moved, it updates as if the figure angle is 0. Just create a template to update the blocks depending on the angle for all the blocks.
 
-[] the stick rotation is somewhat strange in the screen. Something happens when udpating the pixels
+[X] the stick rotation is somewhat strange in the screen. Something happens when udpating the pixels
 
-[] when the figures are rotated, the can faze through the walls. Fix that
+[X] when the figures are rotated, the can faze through the walls. Fix that
 
 [] The class nmes of the figures are not well placed. FigZ, FigL... 
+
+[] implement rotation details of the stick figure
+
+[] implement colision details of the figures when getting to the bottom

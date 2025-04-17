@@ -17,7 +17,7 @@ int FigStick::updateBlocks(){
     for(int i = 0; i < this->getAngle() / 90; i++){
         rotate();
     }
-
+    
     return 0;
 }
 
@@ -30,7 +30,7 @@ void FigStick::loadInitialBlocks(bool constructor){
         block.setPlaced(true);
     
         //Leading block. The position is not always 0,0 (if we cast it on the upper left corner)
-        block.setBlockX(0);
+        block.setBlockX(4);
         block.setBlockY(2);
         getBlocks().push_back(block);
     }

@@ -35,7 +35,7 @@ class Figure{
         virtual void setType(std::string type);
 
         virtual void rotate();
-        virtual void loadInitialBlocks(bool constructor);
+        virtual void loadInitialBlocks(bool constructor) = 0;
         virtual void deleteBlock(int pos);
         virtual void addBlock(Block block);
         virtual void deleteAllBlocks();

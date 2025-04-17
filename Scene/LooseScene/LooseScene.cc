@@ -9,21 +9,21 @@ LooseScene::LooseScene(){
 
 }
 
-void LooseScene::update(SDL_Renderer * render){
+// void LooseScene::update(SDL_Renderer * render){
 
-}
+// }
 
-void LooseScene::render(Uint32 * lastTick){
+// void LooseScene::render(Uint32 * lastTick){
 
-}
+// }
 
-void LooseScene::clear(){
-    Scene::clear();
-}
+// void LooseScene::clear(){
+//     Scene::clear();
+// }
 
-void LooseScene::handleEvents(SDL_Event event, Scene *& curScene){
+// void LooseScene::handleEvents(SDL_Event event, Scene *& curScene){
 
-}
+// }
 
 
 #endif

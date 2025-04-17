@@ -4,6 +4,7 @@
 
 FigL::FigL(){
     //we need to make the figure relative to the leading block so that when it changes, the whole figure also changes
+    this->setColor(LIGHT_ORANGE);
     this->setType("L");
 
     loadInitialBlocks(true);
@@ -32,7 +33,7 @@ void FigL::loadInitialBlocks(bool constructor){
         block.setPlaced(true);
     
         //Leading block. The position is not always 0,0 (if we cast it on the upper left corner)
-        block.setBlockX(0);
+        block.setBlockX(4);
         block.setBlockY(1);
         getBlocks().push_back(block);
     }

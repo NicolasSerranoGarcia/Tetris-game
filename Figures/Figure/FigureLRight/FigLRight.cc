@@ -17,6 +17,8 @@ int FigLRight::updateBlocks(){
     for(int i = 0; i < this->getAngle() / 90; i++){
         rotate();
     }
+
+    return 0;
 }
 
 void FigLRight::loadInitialBlocks(bool constructor){
@@ -26,10 +28,11 @@ void FigLRight::loadInitialBlocks(bool constructor){
 
     if(constructor){
         //Leading block. The position is not always 0,0 (if we cast it on the upper left corner)
-        block.setBlockX(1);
+        block.setPlaced(true);
+
+        block.setBlockX(4);
         block.setBlockY(1);
         getBlocks().push_back(block);
-        block.setPlaced(true);
     }
 
     int LeadingBlockX = getBlocks()[getLeadingBlockPos()].getBlockX();

@@ -5,7 +5,7 @@ const Uint32 FALLDELAY = 1000;
 
 MainScene::MainScene(){
 
-    currentFigure = new FigStick;
+    getRandomFigure(currentFigure);
     Button settingsButton(mainScreen.getWidth() - 75, mainScreen.getHeight() - 75, 50, 50, WHITE, &mainScreen);
     this->settingsButton = settingsButton;
 }
