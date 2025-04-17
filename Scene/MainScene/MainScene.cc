@@ -83,6 +83,19 @@ void MainScene::render(Uint32 * lastTick){
     this->getCurrentFigure()->renderFigure();
 
 
+    int largestY = 0;
+    for(unsigned int i = 0; i < this->currentFigure->getBlocks().size(); i++){
+        if(this->currentFigure->getBlocks()[i].getBlockY() > largestY){
+            largestY = this->currentFigure->getBlocks()[i].getBlockY();
+        }
+    }
+
+    if(largestY == 19){
+        gameBoard.push_back(this->currentFigure);
+        currentFigure = nullptr;
+        getRandomFigure(currentFigure);
+    }
+
 
     //Show all the scene
 

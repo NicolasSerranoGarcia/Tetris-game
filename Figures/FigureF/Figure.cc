@@ -114,7 +114,6 @@ int Figure::update(SDL_Event event){
 
 
 
-
     int largestX = 0;
     for(unsigned int i = 0; i < this->blocks.size(); i++){
         if(this->blocks[i].getBlockX() > largestX){
