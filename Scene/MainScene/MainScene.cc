@@ -122,14 +122,18 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene){
         curScene = nullptr;
         curScene = new SetScene;
         //find a way to open the settings as a popup (the mainScene still shows on the background). 
-    } else if(event.type == SDL_KEYDOWN){
-        if(colides(this->gameBoard, event.key.keysym.sym, currentFigure) && (event.key.keysym.sym == CONTROLDOWN)){
+    } else if(event.type != SDL_KEYDOWN){
+        return;
+    }
+
+    if(colides(this->gameBoard, event.key.keysym.sym, currentFigure)){
+        if(event.key.keysym.sym == CONTROLDOWN){
             gameBoard.push_back(this->currentFigure);
             currentFigure = nullptr;
             getRandomFigure(currentFigure);
-        } else {
-            currentFigure->update(event);
         }
+    } else{
+        currentFigure->update(event);
     }
 }
 

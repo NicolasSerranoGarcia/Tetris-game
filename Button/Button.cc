@@ -117,10 +117,8 @@ bool Button::isClicked(SDL_Event * event){
 
 
     //check if the user clicked
-    while(SDL_PollEvent(event)){
-        if(event->type == SDL_MOUSEBUTTONDOWN){
-            return true;
-        }
+    if(event->type == SDL_MOUSEBUTTONDOWN){
+        return true;
     }
 
     return false;
