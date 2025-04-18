@@ -35,7 +35,7 @@ int Figure::update(SDL_Event event){
             }
         }
 
-        if(largestY < 19){
+        if((largestY < 19)){
             this->blocks[leadingBlockPos].setBlockY(this->blocks[leadingBlockPos].getBlockY() + 1);
         }
         this->updateBlocks();
@@ -138,6 +138,8 @@ int Figure::update(SDL_Event event){
         this->updateBlocks();
     }
     
+
+
     return 0;
 }
 
@@ -167,6 +169,11 @@ void Figure::rotate(){
         }
     }
 }
+
+void Figure::loadInitialBlocks(bool constructor){
+    return;
+}
+
 
 int Figure::updateBlocks(){
     return 0;
@@ -232,3 +239,4 @@ void Figure::deleteAllBlocks(){
         }
     }
 }
+

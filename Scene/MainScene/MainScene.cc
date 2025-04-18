@@ -56,49 +56,56 @@ void MainScene::render(Uint32 * lastTick){
 
     //IMPLEMENTATION OF THE LOGIC IN THE GAME
 
-    for(unsigned int i = 0; i < this->gameBoard.size(); i++){
-        this->gameBoard[i]->renderFigure();
-    }
-
+    
     Uint32 elapsed = SDL_GetTicks() - *lastTick;
-
+    
     if(elapsed >= FALLDELAY){
         //update the leading block 1 down and reset the ticks
-
+        
         int largestY = 0;
         for(unsigned int i = 0; i < this->currentFigure->getBlocks().size(); i++){
             if(this->currentFigure->getBlocks()[i].getBlockY() > largestY){
                 largestY = this->currentFigure->getBlocks()[i].getBlockY();
             }
         }
-
-        if(largestY < 19){
-            this->currentFigure->getBlocks()[this->currentFigure->getLeadingBlockPos()].setBlockY(this->currentFigure->getBlocks()[this->currentFigure->getLeadingBlockPos()].getBlockY() + 1);
-            this->currentFigure->updateBlocks();
+        
+        if((largestY < 19)){
+            if(colides(this->gameBoard, SDLK_DOWN, currentFigure)){
+                gameBoard.push_back(this->currentFigure);
+                currentFigure = nullptr;
+                getRandomFigure(currentFigure);
+            } else{
+                this->currentFigure->getBlocks()[this->currentFigure->getLeadingBlockPos()].setBlockY(this->currentFigure->getBlocks()[this->currentFigure->getLeadingBlockPos()].getBlockY() + 1);
+                this->currentFigure->updateBlocks();
+            }
         }
-
+        
         *lastTick = SDL_GetTicks();
     }
-
-    this->getCurrentFigure()->renderFigure();
-
-
+    
+    
+    //when the figure reaches the bottom, place it and change the 
     int largestY = 0;
     for(unsigned int i = 0; i < this->currentFigure->getBlocks().size(); i++){
         if(this->currentFigure->getBlocks()[i].getBlockY() > largestY){
             largestY = this->currentFigure->getBlocks()[i].getBlockY();
         }
     }
-
+    
     if(largestY == 19){
         gameBoard.push_back(this->currentFigure);
         currentFigure = nullptr;
         getRandomFigure(currentFigure);
     }
+    
+    for(unsigned int i = 0; i < this->gameBoard.size(); i++){
+        this->gameBoard[i]->renderFigure();
+    }
 
-
+    this->getCurrentFigure()->renderFigure();
+    
     //Show all the scene
-
+    
     SDL_RenderPresent(mainScreen.getRender());
 }
 
@@ -115,8 +122,14 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene){
         curScene = nullptr;
         curScene = new SetScene;
         //find a way to open the settings as a popup (the mainScene still shows on the background). 
-    } else{
-        currentFigure->update(event);
+    } else if(event.type == SDL_KEYDOWN){
+        if(colides(this->gameBoard, event.key.keysym.sym, currentFigure) && (event.key.keysym.sym == CONTROLDOWN)){
+            gameBoard.push_back(this->currentFigure);
+            currentFigure = nullptr;
+            getRandomFigure(currentFigure);
+        } else {
+            currentFigure->update(event);
+        }
     }
 }
 
@@ -156,4 +169,71 @@ void getRandomFigure(Figure *& curFigure){
     default:
         break;
     }
+}
+
+
+//return true if the figure colides with any other figure of the gameboard
+bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure *&curFigure){
+    //the figure will move in some direction on the next tick. If we create a virtual figure that is already on the next movement and we see that it colides with some
+    //other figure, return true. Outside of this function we will add the figure to the vector 
+    if(CONTROLDOWN == key){
+
+        for(int i = 0; i < (int) gameBoard.size(); i++){
+            for(int j = 0; j < (int) gameBoard[i]->getBlocks().size(); j++){
+                for(int k = 0; k < (int) curFigure->getBlocks().size(); k++){
+                    if((gameBoard[i]->getBlocks()[j].getBlockX() == curFigure->getBlocks()[k].getBlockX()) &&
+                       (gameBoard[i]->getBlocks()[j].getBlockY() == (curFigure->getBlocks()[k].getBlockY() + 1))){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
+    else if(CONTROLLEFT == key){
+
+        for(int i = 0; i < (int) gameBoard.size(); i++){
+            for(int j = 0; j < (int) gameBoard[i]->getBlocks().size(); j++){
+                for(int k = 0; k < (int) curFigure->getBlocks().size(); k++){
+                    if((gameBoard[i]->getBlocks()[j].getBlockX() == curFigure->getBlocks()[k].getBlockX() - 1) &&
+                    (gameBoard[i]->getBlocks()[j].getBlockY() == curFigure->getBlocks()[k].getBlockY())){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    else if(CONTROLRIGHT == key){
+
+        for(int i = 0; i < (int) gameBoard.size(); i++){
+            for(int j = 0; j < (int) gameBoard[i]->getBlocks().size(); j++){
+                for(int k = 0; k < (int) curFigure->getBlocks().size(); k++){
+                    if((gameBoard[i]->getBlocks()[j].getBlockX() == curFigure->getBlocks()[k].getBlockX() + 1) &&
+                    (gameBoard[i]->getBlocks()[j].getBlockY() == curFigure->getBlocks()[k].getBlockY())){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    // else if(CONTROLROTATE == key){
+    //     for(int i = gameBoard.size(); i > (int) 0; i--){
+    //         for(int j = 0; j < (int) gameBoard[i]->getBlocks().size(); j++){
+    //             for(int k = 0; k < (int) curFigure->getBlocks().size(); k++){
+    //                 if((gameBoard[i]->getBlocks()[j].getBlockX() == curFigure->getBlocks()[k].getBlockX()) &&
+    //                 (gameBoard[i]->getBlocks()[j].getBlockY() == curFigure->getBlocks()[k].getBlockY() + 1)){
+    //                     return true;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return false;
+    // }
+
+    return false;
 }

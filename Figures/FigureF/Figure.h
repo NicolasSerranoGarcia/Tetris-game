@@ -7,6 +7,7 @@
 #include "constants/constants.h"
 #include <string>
 
+
 //A father class that generalizes all of the figures. It has a leading block
 // that acts as the center of rotation
 class Figure{
@@ -35,10 +36,11 @@ class Figure{
         virtual void setType(std::string type);
 
         virtual void rotate();
-        virtual void loadInitialBlocks(bool constructor) = 0;
+        virtual void loadInitialBlocks(bool constructor);
         virtual void deleteBlock(int pos);
         virtual void addBlock(Block block);
         virtual void deleteAllBlocks();
+
 
         virtual void renderFigure();
 };
