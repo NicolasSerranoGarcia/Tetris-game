@@ -56,3 +56,11 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 [] implement rotation details of the stick figure
 
 [] implement colision details of the figures when getting to the bottom
+
+[] Add collision when figures move horizontally while mantaining freedom of movement
+
+[] MANTAINANCE: add comments, clear code, present the classes...
+
+[X] Make widths and heights relative to the ones in the screen
+
+[] Cleaned files: constants.cc/.h , Screen.cc/.h
