@@ -40,7 +40,7 @@ std::string Image::getName() const{
     return this->imageName;
 }
 
-//only loads to render. TO show the image, do Screen.Update();
+//only loads to render. TO show the image, do Screen::Update();
 void Image::CopyToRender() const{
     //maybe add some other method to set an image as a backogrund directly
     SDL_Rect IMGrect = {getX(), getY(), getW(), getH()};

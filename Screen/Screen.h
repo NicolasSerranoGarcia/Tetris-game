@@ -15,7 +15,7 @@ class Screen {
 
     private:
 
-        //the width of the screen
+        //The width of the screen
         int width;
 
         //The height of the screen

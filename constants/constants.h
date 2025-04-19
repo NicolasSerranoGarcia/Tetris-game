@@ -1,9 +1,9 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-#include <SDL2/SDL.h>
-
 #include "Screen/Screen.h"
+
+#include <SDL2/SDL.h>
 
 
 //The width in pixels of the screen. Currently static
