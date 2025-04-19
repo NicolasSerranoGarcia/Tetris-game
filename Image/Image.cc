@@ -3,46 +3,65 @@
 Image::Image(int x, int y, int w, int h, std::string imgName, std::string imgType){
     this->x = x;
     this->y = y;
-    this->w = w;
-    this->h = h;
-    this->imageType = imgType;
-    this->imageName = imgName;
+    width = w;
+    height = h;
+
+    imageType = imgType;
+    imageName = imgName;
+
     std::string path = "IMG/" + getName() + "." + getType();
-    this->IMGTexture = IMG_LoadTexture(mainScreen.getRender(), path.c_str());
+    imageTexture = IMG_LoadTexture(mainScreen.getRender(), path.c_str());
 }
 
+Image::~Image(){
+    x = 0; 
+    y = 0;
+    width = 0;
+    height = 0;
 
-int Image::getW() const{
-    return this->w;
+    imageType = "";
+    imageName = "";
+
+    SDL_DestroyTexture(imageTexture);
+    imageTexture = nullptr;
 }
 
-int Image::getH() const{
-    return this->h;
-}
 
 int Image::getX() const{
-    return this->x;
+    return x;
 }
 
 int Image::getY() const{
-    return this->y;
+    return y;
+}
+
+int Image::getWidth() const{
+    return width;
+}
+
+int Image::getHeight() const{
+    return height;
 }
 
 std::string Image::getType() const{
-    return this->imageType;
-}
-
-SDL_Texture * Image::getTexture() const{
-    return this->IMGTexture;
+    return imageType;
 }
 
 std::string Image::getName() const{
-    return this->imageName;
+    return imageName;
 }
 
-//only loads to render. TO show the image, do Screen::Update();
+SDL_Texture * Image::getTexture() const{
+    return imageTexture;
+}
+
+
 void Image::CopyToRender() const{
-    //maybe add some other method to set an image as a backogrund directly
-    SDL_Rect IMGrect = {getX(), getY(), getW(), getH()};
-    SDL_RenderCopy(mainScreen.getRender(), getTexture(), NULL, &IMGrect);
+    SDL_Rect ImageRect = {getX(), getY(), getWidth(), getHeight()};
+    SDL_RenderCopy(mainScreen.getRender(), getTexture(), NULL, &ImageRect);
+}
+
+void Image::setAsBackground() const{
+    SDL_Rect ImageRect = {0, 0, mainScreen.getWidth(), mainScreen.getHeight()};
+    SDL_RenderCopy(mainScreen.getRender(), getTexture(), NULL, &ImageRect);
 }

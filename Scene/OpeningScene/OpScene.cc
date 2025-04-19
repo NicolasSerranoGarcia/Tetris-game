@@ -22,7 +22,7 @@ void OpScene::render(Uint32 * lastTick){
 
     //Load the background image
     Image background(0, 0, mainScreen.getWidth(), mainScreen.getHeight(), "OpScene-background", "png");
-    background.CopyToRender();
+    background.setAsBackground();
 
     //Load the title and the play button
     Font Title(&mainScreen, "BungeeTint-Regular", 150, "TETRIS", RED);

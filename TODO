@@ -64,3 +64,5 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 [X] Make widths and heights relative to the ones in the screen
 
 [] Cleaned files: constants.cc/.h , Screen.cc/.h, Button.cc/.h
+
+[] method in Image to set one instance as a background

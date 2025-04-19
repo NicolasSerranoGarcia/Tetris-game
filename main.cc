@@ -45,6 +45,7 @@ Scene * currentScene = new OpScene;
 
 int main() {
     std::srand(time(NULL));
+
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
         std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
         return 1;
@@ -62,12 +63,14 @@ int main() {
         return -1;
     }
 
+    //Implement the main program inside a scope to ensure
+    //no remainder of classes or objects are left behind
+    //without being destroyed
     {
-        bool running = true;
-        SDL_Event e;
-
-        Uint32 lastTick = SDL_GetTicks();
-
+    bool running = true;
+    SDL_Event e;
+    
+    Uint32 lastTick = SDL_GetTicks();
         while (running) {
             while (SDL_PollEvent(&e)) {
                 if (e.type == SDL_QUIT) {
@@ -77,14 +80,16 @@ int main() {
             }
             
             currentScene->render(&lastTick);
-
-
+            
+            
             currentScene->clear();
-
+            
             SDL_Delay(10);
         }
     }
-
+        
+    IMG_Quit();
     TTF_Quit();
+    SDL_Quit();
     return 0;
 }
