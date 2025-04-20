@@ -133,15 +133,15 @@ void MainScene::render(Uint32 * lastTick){
                         }
                     }
                 }
-                deletedLines.push_back(i);
-            }
-        }
-    
-        for(int i = 0; i < deletedLines.size(); i++){
-            for(unsigned int i = 0; i < this->gameBoard.size(); i++){
-                for(int j = 0; j < gameBoard[i]->getBlocks().size(); j++){
-                    gameBoard[i]->getBlocks()[j].setBlockY(gameBoard[i]->getBlocks()[j].getBlockY() + 1);
-                }
+                
+                // for(unsigned int j = 0; j < this->gameBoard.size(); j++){
+                //     for(int k = 0; k < gameBoard[i]->getBlocks().size(); k++){
+                //         if(gameBoard[j]->getBlocks()[k].getBlockY() < i){
+                //             gameBoard[j]->getBlocks()[k].setBlockY(gameBoard[j]->getBlocks()[k].getBlockY() + 1);
+                //         }
+                //     }
+                // }
+                // i++;
             }
         }
 
