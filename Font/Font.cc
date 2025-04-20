@@ -1,21 +1,15 @@
 #include "Font.h"
 
-#include <string>
-
-//Constructor
 Font::Font(){
-    this->x = 0;
-    this->y = 0;
-    this->screen = nullptr;
-    fontName = "";
+    x = 0;
+    y = 0;
+    textColor = {0, 0, 0, 0};
     fontSize = 0;
-    this->text = "";
-    this->textColor = {0, 0, 0, 0};
-    screen = nullptr;
     font = nullptr;
+    fontName = "";
+    text = "";
 }
 
-//Constructor
 Font::Font(Screen * screen, const char * name, int size, const char * text, SDL_Color color){
     
     this->screen = screen;
@@ -37,104 +31,67 @@ Font::Font(Screen * screen, const char * name, int size, const char * text, SDL_
     textTexture = SDL_CreateTextureFromSurface(screen->getRender(), textSurface);
 }
 
-//Destructor
 Font::~Font() {
-    if (textSurface) SDL_FreeSurface(textSurface);
-    if (textTexture) SDL_DestroyTexture(textTexture);
-    if (font) TTF_CloseFont(font);
+    if (textSurface != nullptr){
+        SDL_FreeSurface(textSurface);
+    }
+    if (textTexture != nullptr){
+        SDL_DestroyTexture(textTexture);
+    }
+    if (font != nullptr){
+        TTF_CloseFont(font);
+    }
 }
 
-//Getter
-Screen * Font::getScreen() const {
-    return screen;
+
+int Font::getX() const{
+    return x;
 }
 
-//Getter
-std::string Font::getFontName() const{
-    return fontName;
+int Font::getY() const{
+    return y;
 }
 
-//Getter
-int Font::getfontSize() const{
-    return fontSize;
-}
-
-//Getter
-std::string Font::getText() const{
-    return text;
-}
-
-//Getter
 SDL_Color Font::getColor() const{
     return textColor;
 }
 
-//Getter
+int Font::getfontSize() const{
+    return fontSize;
+}
+
+TTF_Font * Font::getFont() const{
+    return font;
+}
+
+std::string Font::getFontName() const{
+    return fontName;
+}
+
+std::string Font::getText() const{
+    return text;
+}
+
+Screen * Font::getScreen() const {
+    return screen;
+}
+
 SDL_Surface * Font::getTextSurface() const{
     return textSurface;
 }
 
-//Getter
 SDL_Texture * Font::getTextTexture() const{
     return textTexture;
 }
 
-//Getter
-TTF_Font * Font::getFont() const{
-    return this->font;
-}
-
-int Font::getX() const{
-    return this->x;
-}
-
-int Font::getY() const{
-    return this->y;
-}
-
-//changes font main color
-//something strange happends and the function resets the screen when called
-void Font::setColor(SDL_Color newColor){
-    SDL_FreeSurface(getTextSurface());
-    SDL_DestroyTexture(getTextTexture());
-    this->textColor = newColor;
-    this->textSurface = TTF_RenderText_Solid(font, getText().c_str(), newColor);
-    this->textTexture = SDL_CreateTextureFromSurface(screen->getRender(), textSurface);
-}
-
-//changes displayed text
-void Font::setText(const char * newText){
-    SDL_FreeSurface(getTextSurface());
-    SDL_DestroyTexture(getTextTexture());
-    this->text = newText;
-    this->textSurface = TTF_RenderText_Solid(font, newText, getColor());
-    this->textTexture = SDL_CreateTextureFromSurface(screen->getRender(), textSurface);
-}
-
-//reset the font used (or set it if there was no previous set) 
-//NOTE: you need to call this method at least once if you didn't construct the instance directly (you called the constructor with no parameters)
-void Font::setFont(TTF_Font * font){
-
-    std::string path = "fonts/" + getFontName() + ".ttf";
-    font = TTF_OpenFont(path.c_str(), getfontSize()); //load the font
-
-    SDL_FreeSurface(getTextSurface());
-    SDL_DestroyTexture(getTextTexture());
-    this->font = font;
-    this->textSurface = TTF_RenderText_Solid(font, getText().c_str(), getColor());
-    this->textTexture = SDL_CreateTextureFromSurface(screen->getRender(), textSurface);
-}
 
 void Font::setCoords(int x, int y){
-    //also save the posiiton where it is printed
     this->x = x;
     this->y = y;
 }
 
-//load teh coords via absolute position see AbsPosition enum for options
 void Font::setCoords(AbsPosition position){
 
-    
     int relativeCenterX = this->textSurface->w/2;
     int relativeCenterY = this->textSurface->h/2;
 
@@ -181,9 +138,44 @@ void Font::setCoords(AbsPosition position){
     }
 }
 
+void Font::setColor(SDL_Color newColor){
+    
+    //Free the previous parameters
+    SDL_FreeSurface(getTextSurface());
+    SDL_DestroyTexture(getTextTexture());
 
-//only loads the text to the selected render previously in class calls. To show de text use Screen::Update()
+    textColor = newColor;
+    textSurface = TTF_RenderText_Solid(font, getText().c_str(), newColor);
+    textTexture = SDL_CreateTextureFromSurface(screen->getRender(), textSurface);
+}
+
+void Font::setFont(TTF_Font * font){
+
+    std::string path = "fonts/" + getFontName() + ".ttf";
+    font = TTF_OpenFont(path.c_str(), getfontSize()); //load the font
+    
+    //Free the previous parameters
+    SDL_FreeSurface(getTextSurface());
+    SDL_DestroyTexture(getTextTexture());
+
+    textSurface = TTF_RenderText_Solid(font, getText().c_str(), getColor());
+    textTexture = SDL_CreateTextureFromSurface(screen->getRender(), textSurface);
+}
+
+void Font::setText(const char * newText){
+   
+    //Free the previous parameters
+    SDL_FreeSurface(getTextSurface());
+    SDL_DestroyTexture(getTextTexture());
+
+    text = newText;
+    textSurface = TTF_RenderText_Solid(font, newText, getColor());
+    textTexture = SDL_CreateTextureFromSurface(screen->getRender(), textSurface);
+}
+
+
 int Font::drawTextToRender(){
+
     SDL_Rect textRect = {x, y, textSurface->w, textSurface->h};
     SDL_RenderCopy(screen->getRender(), getTextTexture(), NULL, &textRect);
     return 0;
