@@ -95,7 +95,56 @@ void MainScene::render(Uint32 * lastTick){
         gameBoard.push_back(this->currentFigure);
         getRandomFigure(currentFigure);
     }
+
+    //HANDLE LINE ELIMINATION
+
+        //calculate the highest point where the figures have gotten to. 
+        //Take into account that the y-axis is inverted
+
+        std::vector <int> deletedLines;
+
+        int maxHeight = 19;
+        for(int i = 0; i < gameBoard.size(); i++){
+            for(int j = 0; j < gameBoard[i]->getBlocks().size(); j++){
+                if(gameBoard[i]->getBlocks()[j].getBlockY() < maxHeight){
+                    maxHeight = gameBoard[i]->getBlocks()[j].getBlockY();
+                }
+            }
+        }
+
+
+        for(int i = 19; i > maxHeight; i--){
+            int blockCount = 0;
+            //calculate the number of blocks that are in the current line (i)
+            for(int k = 0; k < gameBoard.size(); k++){
+                for(int t = 0; t < gameBoard[k]->getBlocks().size(); t++){
+                    if(gameBoard[k]->getBlocks()[t].getBlockY() == i){
+                        blockCount += 1;
+                    }
+                }
+            }
+
+            if(blockCount == 10){//the line is filled
+                for(int k = 0; k < gameBoard.size(); k++){
+                    for(int t = 0; t < gameBoard[k]->getBlocks().size(); t++){
+                        if(gameBoard[k]->getBlocks()[t].getBlockY() == i){
+                            gameBoard[k]->getBlocks().erase(gameBoard[k]->getBlocks().cbegin() + t);
+                            t--;
+                        }
+                    }
+                }
+                deletedLines.push_back(i);
+            }
+        }
     
+        for(int i = 0; i < deletedLines.size(); i++){
+            for(unsigned int i = 0; i < this->gameBoard.size(); i++){
+                for(int j = 0; j < gameBoard[i]->getBlocks().size(); j++){
+                    gameBoard[i]->getBlocks()[j].setBlockY(gameBoard[i]->getBlocks()[j].getBlockY() + 1);
+                }
+            }
+        }
+
     //render all the figures that are at the bottom
     for(unsigned int i = 0; i < this->gameBoard.size(); i++){
         this->gameBoard[i]->renderFigure();
