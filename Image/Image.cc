@@ -9,7 +9,7 @@ Image::Image(int x, int y, int w, int h, std::string imgName, std::string imgTyp
     imageType = imgType;
     imageName = imgName;
 
-    std::string path = "IMG/" + getName() + "." + getType();
+    std::string path = "IMG/" + imageName + "." + imageType;
     imageTexture = IMG_LoadTexture(mainScreen.getRender(), path.c_str());
 }
 
@@ -53,6 +53,37 @@ std::string Image::getName() const{
 
 SDL_Texture * Image::getTexture() const{
     return imageTexture;
+}
+
+
+void Image::setNewPhoto(std::string newName, std::string newType){
+    imageName = newName;
+    imageType = newType;
+
+    x = 0;
+    y = 0;
+
+    width = 50;
+    height = 50;
+
+    std::string path = "IMG/" + imageName + "." + imageType;
+    imageTexture = IMG_LoadTexture(mainScreen.getRender(), path.c_str());
+}
+
+void Image::setHeight(int height){
+    this->height = height;
+}
+
+void Image::setWidth(int width){
+    this->width = width;
+}
+
+void Image::setX(int x){
+    this->x = x;
+}
+
+void Image::setY(int y){
+    this->y = y;
 }
 
 

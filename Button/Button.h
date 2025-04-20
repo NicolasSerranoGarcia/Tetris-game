@@ -83,19 +83,19 @@ class Button{
 
         //Getter
         //
-        //Returns:
+        //RETURNS:
         //A pointer to the screen that the button is using
         Screen * getScreen() const;
 
         //Getter
         //
-        //Returns:
+        //RETURNS:
         //The SDL_Rect that delimits the button 
         SDL_Rect getContainer() const;
 
         //Getter
         //
-        //Returns:
+        //RETURNS:
         //The SDL_Color instance of the button
         SDL_Color getColor() const;
 

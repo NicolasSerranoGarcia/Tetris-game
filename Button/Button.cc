@@ -43,6 +43,7 @@ Button::~Button(){
     this->screen = nullptr;
     this->font =  nullptr;
     this->image = nullptr;
+
 }
 
 

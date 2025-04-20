@@ -52,63 +52,100 @@ class Image{
 
         //Getter
         //
-        //Returns:
+        //RETURNS:
         //An integer representing the X position in pixels of the image
         int getX() const;
 
         //Getter
         //
-        //Returns:
+        //RETURNS:
         //An integer representing the Y position in pixels of the image
         int getY() const;
 
         //Getter
         //
-        //Returns:
+        //RETURNS:
         //An integer representing the Width in pixels of the image
         int getWidth() const;
 
         //Getter
         //
-        //Returns:
+        //RETURNS:
         //An integer representing the Height in pixels of the image
         int getHeight() const;
 
         //Getter
         //
-        //Returns:
+        //RETURNS:
         //A string representing the file type of the iamge (.png or .jpg)
         std::string getType() const;
         
         //Getter
         //
-        //Returns:
+        //RETURNS:
         //A string representing the name that precedes the file type (NAME.png)
         std::string getName() const;
         
         //Getter
         //
-        //Returns:
+        //RETURNS:
         //A pointer to the texture that holds the image
         SDL_Texture * getTexture() const;
 
 
         //SETTERS
-    
+        
+        //Setter
+        //Loads a new image texture with a standard dimension of 50x50 px
+        //To change x,y,w,h properties use setters. Keep in mind any rendering
+        //performed after calling this method will place the image on (0,0)
         //
+        //RETURNS:
+        //void
+        void setNewPhoto(std::string newName, std::string newType);
 
+        //Setter
+        //
+        //RETURNS:
+        //void
+        void setHeight(int height);
 
+        //Setter
+        //
+        //RETURNS:
+        //void
+        void setWidth(int width);
+
+        //Setter
+        //
+        //RETURNS:
+        //void
+        void setX(int x);
+
+        //Setter
+        //
+        //RETURNS:
+        //void
+        void setY(int y);
+
+        
         //MISCELANEOUS
 
         //This method renders the image to the screen. Keep
         //in mind this deosn't show the image, you will need
         //to do Screen::update() or directly call mainScreen.update()
+        //
+        //RETURNS:
+        //void
         void CopyToRender() const;
 
         //This method does the same as CopyToRender() but sets the width
         //and the height of the image to the ones of the mainScreen. Keep
         //in mind this deosn't show the image, you will need
         //to do Screen::update() or directly call mainScreen.update()
+        //
+        //RETURNS:
+        //void
         void setAsBackground() const;
 };
 
