@@ -79,11 +79,6 @@ int Figure::update(SDL_Event event){
 
         //in this function I check the angle of the figure and update it accordingly
         this->updateBlocks();
-
-        //I don't know why but when I was playing tetris to get a hint on how the figures rotate, it happens that the stick figure doesn't quite "rotate" with
-        //the leading block as the center of rotation. In fact the whole figure rotates relative to the point on the center-right of the figure. In any case 
-        //the way to go is to apply the formulas using pixels instead and moving the center of rotation
- 
     }
 
     //When we update the figure, the figure might have gone out of boundaries. In the case the figure is out, make a "push" effect, where the figure reallocates to the inside
@@ -144,7 +139,7 @@ int Figure::update(SDL_Event event){
 }
 
 void Figure::rotate(){
-    int tile = (mainScreen.getWidth() - 500)/10;
+    //int tile = (mainScreen.getWidth() - 500)/10;
 
     Block leadingBlock = this->blocks[this->getLeadingBlockPos()];
 
@@ -171,6 +166,7 @@ void Figure::rotate(){
 }
 
 void Figure::loadInitialBlocks(bool constructor){
+    constructor = constructor;
     return;
 }
 

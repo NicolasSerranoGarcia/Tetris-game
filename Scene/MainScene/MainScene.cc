@@ -70,10 +70,10 @@ void MainScene::render(Uint32 * lastTick){
         }
         
         if((largestY < 19)){
-            if(colides(this->gameBoard, SDLK_DOWN, currentFigure)){
-                gameBoard.push_back(this->currentFigure);
-                currentFigure = nullptr;
-                getRandomFigure(currentFigure);
+            if(colides(this->gameBoard, CONTROLDOWN, currentFigure)){
+                    gameBoard.push_back(this->currentFigure);
+                    getRandomFigure(currentFigure);
+
             } else{
                 this->currentFigure->getBlocks()[this->currentFigure->getLeadingBlockPos()].setBlockY(this->currentFigure->getBlocks()[this->currentFigure->getLeadingBlockPos()].getBlockY() + 1);
                 this->currentFigure->updateBlocks();
@@ -83,8 +83,7 @@ void MainScene::render(Uint32 * lastTick){
         *lastTick = SDL_GetTicks();
     }
     
-    
-    //when the figure reaches the bottom, place it and change the 
+    //when the figure reaches the bottom, place it and change the figure
     int largestY = 0;
     for(unsigned int i = 0; i < this->currentFigure->getBlocks().size(); i++){
         if(this->currentFigure->getBlocks()[i].getBlockY() > largestY){
@@ -94,14 +93,15 @@ void MainScene::render(Uint32 * lastTick){
     
     if(largestY == 19){
         gameBoard.push_back(this->currentFigure);
-        currentFigure = nullptr;
         getRandomFigure(currentFigure);
     }
     
+    //render all the figures that are at the bottom
     for(unsigned int i = 0; i < this->gameBoard.size(); i++){
         this->gameBoard[i]->renderFigure();
     }
 
+    //Render the figure that is falling
     this->getCurrentFigure()->renderFigure();
     
     //Show all the scene
@@ -129,7 +129,6 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene){
     if(colides(this->gameBoard, event.key.keysym.sym, currentFigure)){
         if(event.key.keysym.sym == CONTROLDOWN){
             gameBoard.push_back(this->currentFigure);
-            currentFigure = nullptr;
             getRandomFigure(currentFigure);
         }
     } else{
@@ -143,8 +142,8 @@ Figure * MainScene::getCurrentFigure(){
 
 //FUNCTIONS
 void getRandomFigure(Figure *& curFigure){
-    delete curFigure;
     curFigure = nullptr;
+    delete curFigure;
 
     //Future implementation when all the figures are created
     int number = std::rand() % 7;
@@ -195,7 +194,7 @@ bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure *&curFigur
         return false;
     }
     
-    else if(CONTROLLEFT == key){
+     if(CONTROLLEFT == key){
 
         for(int i = 0; i < (int) gameBoard.size(); i++){
             for(int j = 0; j < (int) gameBoard[i]->getBlocks().size(); j++){
@@ -210,7 +209,7 @@ bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure *&curFigur
         return false;
     }
 
-    else if(CONTROLRIGHT == key){
+     if(CONTROLRIGHT == key){
 
         for(int i = 0; i < (int) gameBoard.size(); i++){
             for(int j = 0; j < (int) gameBoard[i]->getBlocks().size(); j++){
@@ -225,19 +224,25 @@ bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure *&curFigur
         return false;
     }
 
-    // else if(CONTROLROTATE == key){
-    //     for(int i = gameBoard.size(); i > (int) 0; i--){
-    //         for(int j = 0; j < (int) gameBoard[i]->getBlocks().size(); j++){
-    //             for(int k = 0; k < (int) curFigure->getBlocks().size(); k++){
-    //                 if((gameBoard[i]->getBlocks()[j].getBlockX() == curFigure->getBlocks()[k].getBlockX()) &&
-    //                 (gameBoard[i]->getBlocks()[j].getBlockY() == curFigure->getBlocks()[k].getBlockY() + 1)){
-    //                     return true;
-    //                 }
-    //             }
-    //         }
-    //     }
-    //     return false;
-    // }
+     if(CONTROLROTATE == key){
+        
+        Figure FigTemp = *curFigure;
+
+        FigTemp.rotate();
+
+
+        for(int i = 0; i < (int) gameBoard.size(); i++){
+            for(int j = 0; j < (int) gameBoard[i]->getBlocks().size(); j++){
+                for(int k = 0; k < (int) FigTemp.getBlocks().size(); k++){
+                    if((gameBoard[i]->getBlocks()[j].getBlockX() == FigTemp.getBlocks()[k].getBlockX()) &&
+                    (gameBoard[i]->getBlocks()[j].getBlockY() == FigTemp.getBlocks()[k].getBlockY())){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
     return false;
 }
