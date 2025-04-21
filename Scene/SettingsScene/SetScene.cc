@@ -26,7 +26,12 @@ void SetScene::clear(){
     Scene::clear();
 }
 
-void SetScene::handleEvents(SDL_Event event, Scene *& curScene){
+void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
+    if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE)){
+        std::cout << "Go back" << std::endl;
+        delete curScene;
+        curScene = mScene;
+    }
 }
 
 

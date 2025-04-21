@@ -150,7 +150,7 @@ void MainScene::render(Uint32 * lastTick){
                 i++;
             }
         }
-        
+
 
     //RENDERING
 
@@ -172,11 +172,11 @@ void MainScene::clear(){
     //""
 }
 
-void MainScene::handleEvents(SDL_Event event, Scene *& curScene){
+void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
     //If the setting button is clicked or the user hit ESC open the settings
     if(this->settingsButton.isClicked(&event) || ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE))){
         std::cout << "Settings" << std::endl;
-        Scene * mainScene = curScene;
+        mScene = curScene;
         curScene = nullptr;
         curScene = new SetScene;
 

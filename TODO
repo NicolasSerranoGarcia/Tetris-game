@@ -66,3 +66,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 [X] Cleaned files: constants.cc/.h , Screen.cc/.h, Button.cc/.h, Image.cc/.h, Font.cc/.h
 
 [X] method in Image to set one instance as a background
+
+[] add the curScene as a paraemeter on Scene::render()
+
+[] add the pointer mainScene as a global parameter, to save the progress when the settings is running

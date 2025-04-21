@@ -50,6 +50,7 @@
 #include <SDL2/SDL_image.h>
 
 Scene *currentScene = new OpScene;
+Scene *mainScene = nullptr;
 
 int main()
 {
@@ -91,7 +92,7 @@ int main()
                 {
                     running = false;
                 }
-                currentScene->handleEvents(e, currentScene);
+                currentScene->handleEvents(e, currentScene, mainScene);
             }
 
             currentScene->render(&lastTick);
