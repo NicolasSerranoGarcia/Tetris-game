@@ -70,3 +70,11 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 [] add the curScene as a paraemeter on Scene::render()
 
 [] add the pointer mainScene as a global parameter, to save the progress when the settings is running
+
+[] create the pointing system of the cleared blocks
+
+[] add a figure visualizer for the following 3 figures
+
+[] add the settings scene
+
+[] add the death case

@@ -14,9 +14,10 @@ class OpScene: public Scene{
     public:
         OpScene();
         void update(SDL_Renderer * render) override;
-        void render(Uint32 * lastTick) override;
+        void render() override;
         void clear() override;
         void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene) override;
+        void handleLogic(Uint32 * lastTick) override;
 };
 
 #endif

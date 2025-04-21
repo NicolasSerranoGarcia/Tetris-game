@@ -19,7 +19,12 @@ void SetScene::update(SDL_Renderer * render){
 
 }
 
-void SetScene::render(Uint32 * lastTick){
+void SetScene::render(){
+
+    SDL_Rect rect = {50, SCREENHEIGHT/4 ,SCREENWIDTH - 100 , SCREENHEIGHT/2};
+    SDL_SetRenderDrawColor(mainScreen.getRender(), WHITE.r, WHITE.g, WHITE.b, WHITE.a);
+    SDL_RenderFillRect(mainScreen.getRender(), &rect);
+    SDL_RenderPresent(mainScreen.getRender());
 }
 
 void SetScene::clear(){
@@ -32,6 +37,10 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         delete curScene;
         curScene = mScene;
     }
+}
+
+void SetScene::handleLogic(Uint32 * lastTick){
+    
 }
 
 

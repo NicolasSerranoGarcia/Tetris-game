@@ -17,7 +17,7 @@ void OpScene::update(SDL_Renderer * render){
     //I'll probably place something here hehe
 }
 
-void OpScene::render(Uint32 * lastTick){
+void OpScene::render(){
     //All the implementation of the scene is going here. 
 
     //Load the background image
@@ -54,4 +54,8 @@ void OpScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
         curScene = new MainScene;
         mScene = curScene;
     }
+}
+
+void OpScene::handleLogic(Uint32 * lastTick){
+
 }

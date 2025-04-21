@@ -14,7 +14,7 @@ void MainScene::update(SDL_Renderer * render){
     Scene::update(render);
 }
 
-void MainScene::render(Uint32 * lastTick){
+void MainScene::render(){
 
     //the number of hor. tiles is 10, the number of vertical tiles is 20. the pixels of a tile are 46x46
     int tile = (mainScreen.getWidth() - 500)/10;
@@ -51,6 +51,48 @@ void MainScene::render(Uint32 * lastTick){
 
     //TODO: draw the rectangles and the borders of the timer, the points of the player...
 
+    //render all the figures that are at the bottom
+    for(unsigned int i = 0; i < this->gameBoard.size(); i++){
+        this->gameBoard[i]->renderFigure();
+    }
+
+    //Render the figure that is falling
+    this->getCurrentFigure()->renderFigure();
+    
+    //Show all the scene
+    SDL_RenderPresent(mainScreen.getRender());
+}
+
+void MainScene::clear(){
+    Scene::clear();
+    //""
+}
+
+void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
+    //If the setting button is clicked or the user hit ESC open the settings
+    if(this->settingsButton.isClicked(&event) || ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE))){
+        std::cout << "Settings" << std::endl;
+        mScene = curScene;
+        curScene = nullptr;
+        curScene = new SetScene;
+
+        //mainScene now saves the progres made on the game. Put the var as a global, like curScene
+        //find a way to open the settings as a popup (the mainScene still shows on the background). 
+    } else if(event.type != SDL_KEYDOWN){
+        return;
+    }
+
+    if(colides(this->gameBoard, event.key.keysym.sym, currentFigure)){
+        if(event.key.keysym.sym == CONTROLDOWN){
+            gameBoard.push_back(this->currentFigure);
+            getRandomFigure(currentFigure);
+        }
+    } else{
+        currentFigure->update(event);
+    }
+}
+
+void MainScene::handleLogic(Uint32 * lastTick){
 
     //IMPLEMENTATION OF THE LOGIC IN THE GAME
 
@@ -150,50 +192,6 @@ void MainScene::render(Uint32 * lastTick){
                 i++;
             }
         }
-
-
-    //RENDERING
-
-    //render all the figures that are at the bottom
-    for(unsigned int i = 0; i < this->gameBoard.size(); i++){
-        this->gameBoard[i]->renderFigure();
-    }
-
-    //Render the figure that is falling
-    this->getCurrentFigure()->renderFigure();
-    
-    //Show all the scene
-    
-    SDL_RenderPresent(mainScreen.getRender());
-}
-
-void MainScene::clear(){
-    Scene::clear();
-    //""
-}
-
-void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
-    //If the setting button is clicked or the user hit ESC open the settings
-    if(this->settingsButton.isClicked(&event) || ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE))){
-        std::cout << "Settings" << std::endl;
-        mScene = curScene;
-        curScene = nullptr;
-        curScene = new SetScene;
-
-        //mainScene now saves the progres made on the game. Put the var as a global, like curScene
-        //find a way to open the settings as a popup (the mainScene still shows on the background). 
-    } else if(event.type != SDL_KEYDOWN){
-        return;
-    }
-
-    if(colides(this->gameBoard, event.key.keysym.sym, currentFigure)){
-        if(event.key.keysym.sym == CONTROLDOWN){
-            gameBoard.push_back(this->currentFigure);
-            getRandomFigure(currentFigure);
-        }
-    } else{
-        currentFigure->update(event);
-    }
 }
 
 Figure * MainScene::getCurrentFigure(){

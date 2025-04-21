@@ -4,6 +4,7 @@ Figure::Figure(){
     this->leadingBlockPos = 0;
     this->figureColor = WHITE;
     this->angle = 0;
+    this->type = "";
 }
 
 Figure::~Figure(){

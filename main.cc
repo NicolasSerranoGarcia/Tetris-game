@@ -47,7 +47,6 @@
 #include "constants/constants.h" //Contains things like SDL_Color colors, positioning variables and so
 
 #include <iostream>
-#include <SDL2/SDL_image.h>
 
 Scene *currentScene = new OpScene;
 Scene *mainScene = nullptr;
@@ -95,7 +94,9 @@ int main()
                 currentScene->handleEvents(e, currentScene, mainScene);
             }
 
-            currentScene->render(&lastTick);
+            currentScene->handleLogic(&lastTick);
+
+            currentScene->render();
 
             currentScene->clear();
 

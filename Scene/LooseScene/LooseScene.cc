@@ -13,7 +13,7 @@ void LooseScene::update(SDL_Renderer * render){
 
 }
 
-void LooseScene::render(Uint32 * lastTick){
+void LooseScene::render(){
 
 }
 
