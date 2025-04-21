@@ -14,6 +14,7 @@
 //
 // THANKS TO: 
 //  - The Builder (https://www.youtube.com/@TheBuilder) for teaching me the basics of SDL
+//  - Tetris (https://tetris.com/play-tetris) for letting me visualize and play arround with the mechanics of the game
 //  - Google Fonts (https://fonts.google.com/) for the fonts I used in the project
 //
 //
@@ -26,6 +27,10 @@
 //  handling so I have also learnt a bit of make. Other things like .gitignore have been really usefull with a project of this size. I've never made something bigger than 2 files.
 //  This is also the first time I've used git and Github in the correct way (I think). I really like this tool. Overall, I have learnt a LOT of things. Rn developing games
 //  is the most direct way for me of learning. Follow my github to check out on some other projects I'll be developing in the future.
+//
+//
+//  LICENSE: This project has absolutely no license nor it is aimed to profit me in any financial way. If anything, it is a way for me to show my apreciation for retro
+//  games and an attempt to recreate one
 //
 //  Thanks for reading and enjoy my implementation of tetris ;)
 //

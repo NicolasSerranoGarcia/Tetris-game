@@ -49,6 +49,9 @@ extern SDL_KeyCode CONTROLDOWN;
 //An SDL_KeyCode instance that saves the key that the player uses to rotate the figures
 extern SDL_KeyCode CONTROLROTATE;
 
+//An unsigned integer of 32 bits representing the time (ms) that a figure takes to drop one tile
+extern const Uint32 FALLDELAY;
+
 
 //Color palette used in the rest of the project
 //                                   R    G    B    A

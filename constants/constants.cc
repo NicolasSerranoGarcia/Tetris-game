@@ -29,6 +29,8 @@ SDL_KeyCode CONTROLDOWN = SDLK_DOWN;
 
 SDL_KeyCode CONTROLROTATE = SDLK_UP;
 
+const Uint32 FALLDELAY = 1000;
+
 
 int py(AbsPosition position, int objH){
 

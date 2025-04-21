@@ -1,10 +1,8 @@
 #include "MainScene.h"
+
 #include <iostream>
 
-const Uint32 FALLDELAY = 1000;
-
 MainScene::MainScene(){
-
     getRandomFigure(currentFigure);
     Button settingsButton(mainScreen.getWidth() - 75, mainScreen.getHeight() - 75, 50, 50, WHITE, &mainScreen);
     this->settingsButton = settingsButton;
@@ -96,12 +94,11 @@ void MainScene::render(Uint32 * lastTick){
         getRandomFigure(currentFigure);
     }
 
+
     //HANDLE LINE ELIMINATION
 
         //calculate the highest point where the figures have gotten to. 
         //Take into account that the y-axis is inverted
-
-        std::vector <int> deletedLines;
 
         int maxHeight = 19;
         for(int i = 0; i < gameBoard.size(); i++){
@@ -134,16 +131,28 @@ void MainScene::render(Uint32 * lastTick){
                     }
                 }
                 
-                // for(unsigned int j = 0; j < this->gameBoard.size(); j++){
-                //     for(int k = 0; k < gameBoard[i]->getBlocks().size(); k++){
-                //         if(gameBoard[j]->getBlocks()[k].getBlockY() < i){
-                //             gameBoard[j]->getBlocks()[k].setBlockY(gameBoard[j]->getBlocks()[k].getBlockY() + 1);
-                //         }
-                //     }
-                // }
-                // i++;
+                //check if there where figures that have no blocks
+                for(int k = 0; k < gameBoard.size(); k++){
+                    if(gameBoard[k]->getBlocks().size() == 0){
+                        delete gameBoard[k];
+                        gameBoard.erase(gameBoard.cbegin() + k);
+                        k--;
+                    }
+                }
+
+                for(unsigned int j = 0; j < this->gameBoard.size(); j++){
+                    for(int k = 0; k < gameBoard[j]->getBlocks().size(); k++){
+                        if(gameBoard[j]->getBlocks()[k].getBlockY() < i){
+                            gameBoard[j]->getBlocks()[k].setBlockY(gameBoard[j]->getBlocks()[k].getBlockY() + 1);
+                        }
+                    }
+                }
+                i++;
             }
         }
+        
+
+    //RENDERING
 
     //render all the figures that are at the bottom
     for(unsigned int i = 0; i < this->gameBoard.size(); i++){
@@ -167,9 +176,11 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene){
     //If the setting button is clicked or the user hit ESC open the settings
     if(this->settingsButton.isClicked(&event) || ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE))){
         std::cout << "Settings" << std::endl;
-        delete curScene;
+        Scene * mainScene = curScene;
         curScene = nullptr;
         curScene = new SetScene;
+
+        //mainScene now saves the progres made on the game. Put the var as a global, like curScene
         //find a way to open the settings as a popup (the mainScene still shows on the background). 
     } else if(event.type != SDL_KEYDOWN){
         return;
@@ -192,7 +203,6 @@ Figure * MainScene::getCurrentFigure(){
 //FUNCTIONS
 void getRandomFigure(Figure *& curFigure){
     curFigure = nullptr;
-    delete curFigure;
 
     //Future implementation when all the figures are created
     int number = std::rand() % 7;
