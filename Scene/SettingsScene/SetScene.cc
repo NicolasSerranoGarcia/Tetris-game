@@ -23,11 +23,9 @@ void SetScene::render(){
     if(mainScene != nullptr){
         mainScene->render();
     }
-    SDL_Rect rect = {50, SCREENHEIGHT/4 ,SCREENWIDTH - 100 , SCREENHEIGHT/2};
+    SDL_Rect rect = {50, SCREENHEIGHT/6 ,SCREENWIDTH - 100 , SCREENHEIGHT/1.5};
     SDL_SetRenderDrawColor(mainScreen.getRender(), WHITE.r, WHITE.g, WHITE.b, WHITE.a);
     SDL_RenderFillRect(mainScreen.getRender(), &rect);
-    SDL_RenderPresent(mainScreen.getRender());
-
     
 }
 

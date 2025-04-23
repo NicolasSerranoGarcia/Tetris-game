@@ -59,8 +59,6 @@ void MainScene::render(){
     //Render the figure that is falling
     this->getCurrentFigure()->renderFigure();
     
-    //Show all the scene
-    SDL_RenderPresent(mainScreen.getRender());
 }
 
 void MainScene::clear(){
