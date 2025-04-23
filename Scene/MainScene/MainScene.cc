@@ -128,8 +128,6 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
 void MainScene::handleLogic(Uint32 * lastTick){
 
     //IMPLEMENTATION OF THE LOGIC IN THE GAME
-
-    std::cout << nextFigures[0]->getType() << "  " <<  nextFigures[1]->getType() <<  "  " << nextFigures[2]->getType() << std::endl;
     
     Uint32 elapsed = SDL_GetTicks() - *lastTick;
     
@@ -233,6 +231,7 @@ void MainScene::handleLogic(Uint32 * lastTick){
 Figure * MainScene::getCurrentFigure(){
     return this->currentFigure;
 }
+
 
 void getRandomFigure(Figure *& curFigure, Figure * lastFigs[]) {
 
@@ -423,90 +422,90 @@ void renderNextFigures(Figure * nextFigs[], int nextBgH){
                 figs[i].getBlocks()[3].setPixelYDereferenced(y + spacing + i*(BLOCKLENGTH*2 + spacing));
 
                 break;
-            // case 1:
-            //     //FigLRight
-            //     figs[i].getBlocks()[0].setPixelXDereferenced();
-            //     figs[i].getBlocks()[0].setPixelYDereferenced();
-                
-            //     figs[i].getBlocks()[1].setPixelXDereferenced();
-            //     figs[i].getBlocks()[1].setPixelYDereferenced();
+            case 1:
+                //FigLRight
+                figs[i].getBlocks()[0].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
+                figs[i].getBlocks()[0].setPixelYDereferenced(y + spacing + BLOCKLENGTH + i*(BLOCKLENGTH*2 + spacing));
 
-            //     figs[i].getBlocks()[2].setPixelXDereferenced();
-            //     figs[i].getBlocks()[2].setPixelYDereferenced();
+                figs[i].getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
+                figs[i].getBlocks()[1].setPixelYDereferenced(y + spacing + BLOCKLENGTH + i*(BLOCKLENGTH*2 + spacing));
 
-            //     figs[i].getBlocks()[3].setPixelXDereferenced();
-            //     figs[i].getBlocks()[3].setPixelYDereferenced();
-            //     break;
-            // case 2:
-            //     //FigSquare
-            //     figs[i].getBlocks()[0].setPixelXDereferenced();
-            //     figs[i].getBlocks()[0].setPixelYDereferenced();
-                
-            //     figs[i].getBlocks()[1].setPixelXDereferenced();
-            //     figs[i].getBlocks()[1].setPixelYDereferenced();
+                figs[i].getBlocks()[2].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
+                figs[i].getBlocks()[2].setPixelYDereferenced(y + spacing + BLOCKLENGTH + i*(BLOCKLENGTH*2 + spacing));
 
-            //     figs[i].getBlocks()[2].setPixelXDereferenced();
-            //     figs[i].getBlocks()[2].setPixelYDereferenced();
+                figs[i].getBlocks()[3].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
+                figs[i].getBlocks()[3].setPixelYDereferenced(y + spacing + i*(BLOCKLENGTH*2 + spacing));
+                break;
+             case 2:
+                //FigSquare
+                figs[i].getBlocks()[0].setPixelXDereferenced(x + w/2 - BLOCKLENGTH);
+                figs[i].getBlocks()[0].setPixelYDereferenced(y + spacing + BLOCKLENGTH + i*(BLOCKLENGTH*2 + spacing));
 
-            //     figs[i].getBlocks()[3].setPixelXDereferenced();
-            //     figs[i].getBlocks()[3].setPixelYDereferenced();
-            //     break;
-            // case 3:
-            //     //FigStick
-            //     figs[i].getBlocks()[0].setPixelXDereferenced();
-            //     figs[i].getBlocks()[0].setPixelYDereferenced();
-                
-            //     figs[i].getBlocks()[1].setPixelXDereferenced();
-            //     figs[i].getBlocks()[1].setPixelYDereferenced();
+                figs[i].getBlocks()[1].setPixelXDereferenced(x + w/2);
+                figs[i].getBlocks()[1].setPixelYDereferenced(y + spacing + BLOCKLENGTH + i*(BLOCKLENGTH*2 + spacing));
 
-            //     figs[i].getBlocks()[2].setPixelXDereferenced();
-            //     figs[i].getBlocks()[2].setPixelYDereferenced();
+                figs[i].getBlocks()[2].setPixelXDereferenced(x + w/2);
+                figs[i].getBlocks()[2].setPixelYDereferenced(y + spacing + i*(BLOCKLENGTH*2 + spacing));
 
-            //     figs[i].getBlocks()[3].setPixelXDereferenced();
-            //     figs[i].getBlocks()[3].setPixelYDereferenced();
-            //     break;
-            // case 4:
-            //     //FigT
-            //     figs[i].getBlocks()[0].setPixelXDereferenced();
-            //     figs[i].getBlocks()[0].setPixelYDereferenced();
-                
-            //     figs[i].getBlocks()[1].setPixelXDereferenced();
-            //     figs[i].getBlocks()[1].setPixelYDereferenced();
+                figs[i].getBlocks()[3].setPixelXDereferenced(x + w/2 - BLOCKLENGTH);
+                figs[i].getBlocks()[3].setPixelYDereferenced(y + spacing + i*(BLOCKLENGTH*2 + spacing));
+                break;
+            case 3:
+                //FigStick
+                figs[i].getBlocks()[0].setPixelXDereferenced(x + w/2 - BLOCKLENGTH*2);
+                figs[i].getBlocks()[0].setPixelYDereferenced(y + spacing + BLOCKLENGTH/2 + i*(BLOCKLENGTH*2 + spacing));
 
-            //     figs[i].getBlocks()[2].setPixelXDereferenced();
-            //     figs[i].getBlocks()[2].setPixelYDereferenced();
+                figs[i].getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH);
+                figs[i].getBlocks()[1].setPixelYDereferenced(y + spacing + BLOCKLENGTH/2 + i*(BLOCKLENGTH*2 + spacing));
 
-            //     figs[i].getBlocks()[3].setPixelXDereferenced();
-            //     figs[i].getBlocks()[3].setPixelYDereferenced();
-            //     break;
-            // case 5:
-            //     //FigZ
-            //     figs[i].getBlocks()[0].setPixelXDereferenced();
-            //     figs[i].getBlocks()[0].setPixelYDereferenced();
-                
-            //     figs[i].getBlocks()[1].setPixelXDereferenced();
-            //     figs[i].getBlocks()[1].setPixelYDereferenced();
+                figs[i].getBlocks()[2].setPixelXDereferenced(x + w/2);
+                figs[i].getBlocks()[2].setPixelYDereferenced(y + spacing + BLOCKLENGTH/2 + i*(BLOCKLENGTH*2 + spacing));
 
-            //     figs[i].getBlocks()[2].setPixelXDereferenced();
-            //     figs[i].getBlocks()[2].setPixelYDereferenced();
+                figs[i].getBlocks()[3].setPixelXDereferenced(x + w/2 + BLOCKLENGTH);
+                figs[i].getBlocks()[3].setPixelYDereferenced(y + spacing + BLOCKLENGTH/2 + i*(BLOCKLENGTH*2 + spacing));
+                break;
+            case 4:
+                //FigT
+                figs[i].getBlocks()[0].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
+                figs[i].getBlocks()[0].setPixelYDereferenced(y + spacing + BLOCKLENGTH + i*(BLOCKLENGTH*2 + spacing));
 
-            //     figs[i].getBlocks()[3].setPixelXDereferenced();
-            //     figs[i].getBlocks()[3].setPixelYDereferenced();
-            //     break;
-            // case 6:
-            //     //FigZLeft
-            //     figs[i].getBlocks()[0].setPixelXDereferenced();
-            //     figs[i].getBlocks()[0].setPixelYDereferenced();
-                
-            //     figs[i].getBlocks()[1].setPixelXDereferenced();
-            //     figs[i].getBlocks()[1].setPixelYDereferenced();
+                figs[i].getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
+                figs[i].getBlocks()[1].setPixelYDereferenced(y + spacing + BLOCKLENGTH + i*(BLOCKLENGTH*2 + spacing));
 
-            //     figs[i].getBlocks()[2].setPixelXDereferenced();
-            //     figs[i].getBlocks()[2].setPixelYDereferenced();
+                figs[i].getBlocks()[2].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
+                figs[i].getBlocks()[2].setPixelYDereferenced(y + spacing + BLOCKLENGTH + i*(BLOCKLENGTH*2 + spacing));
 
-            //     figs[i].getBlocks()[3].setPixelXDereferenced();
-            //     figs[i].getBlocks()[3].setPixelYDereferenced();
-            //     break;
+                figs[i].getBlocks()[3].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
+                figs[i].getBlocks()[3].setPixelYDereferenced(y + spacing + i*(BLOCKLENGTH*2 + spacing));
+                break;
+            case 5:
+                //FigZ
+                figs[i].getBlocks()[0].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
+                figs[i].getBlocks()[0].setPixelYDereferenced(y + spacing + i*(BLOCKLENGTH*2 + spacing));
+
+                figs[i].getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
+                figs[i].getBlocks()[1].setPixelYDereferenced(y + spacing + BLOCKLENGTH + i*(BLOCKLENGTH*2 + spacing));
+
+                figs[i].getBlocks()[2].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
+                figs[i].getBlocks()[2].setPixelYDereferenced(y + spacing + BLOCKLENGTH + i*(BLOCKLENGTH*2 + spacing));
+
+                figs[i].getBlocks()[3].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
+                figs[i].getBlocks()[3].setPixelYDereferenced(y + spacing + i*(BLOCKLENGTH*2 + spacing));
+                break;
+            case 6:
+                //FigZLeft
+                figs[i].getBlocks()[0].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
+                figs[i].getBlocks()[0].setPixelYDereferenced(y + spacing + i*(BLOCKLENGTH*2 + spacing));
+
+                figs[i].getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
+                figs[i].getBlocks()[1].setPixelYDereferenced(y + spacing + BLOCKLENGTH + i*(BLOCKLENGTH*2 + spacing));
+
+                figs[i].getBlocks()[2].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
+                figs[i].getBlocks()[2].setPixelYDereferenced(y + spacing + BLOCKLENGTH + i*(BLOCKLENGTH*2 + spacing));
+
+                figs[i].getBlocks()[3].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
+                figs[i].getBlocks()[3].setPixelYDereferenced(y + spacing + i*(BLOCKLENGTH*2 + spacing));
+                break;
         }
         figs[i].renderFigure();
     }
