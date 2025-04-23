@@ -196,6 +196,14 @@ std::string Figure::getType() {
     return this->type;
 }
 
+int Figure::getId(){
+    return id;
+}
+
+void Figure::setId(int id){
+    this->id = id;
+}
+
 void Figure::setType(std::string type){
     this->type = type;
 }

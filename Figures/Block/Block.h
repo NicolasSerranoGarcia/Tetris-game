@@ -33,6 +33,8 @@ class Block{
         void setPixelY(int pixelY){this->pixelY = pixelY; this->blockY = this->convertPixelToBlockY(); this->block.y = this->pixelY;};
         void setBlockX(int blockX){this->blockX = blockX; this->pixelX = this->convertBlocktoPixelX(); this->block.x = this->pixelX;};
         void setBlockY(int blockY){this->blockY = blockY; this->pixelY = this->convertBlocktoPixelY(); this->block.y = this->pixelY;};
+        void setPixelXDereferenced(int pixelX){this->pixelX = pixelX; this->block.x = this->pixelX;};
+        void setPixelYDereferenced(int pixelY){this->pixelY = pixelY; this->block.y = this->pixelY;};
         void setPlaced(bool placed){this->isPlaced = placed;};
 
 

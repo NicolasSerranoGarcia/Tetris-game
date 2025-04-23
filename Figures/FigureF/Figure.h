@@ -12,6 +12,7 @@
 // that acts as the center of rotation
 class Figure{
     private:
+        int id;
         std::vector <Block>blocks;
         SDL_Color figureColor;
         // 0º <= θ <= 360º
@@ -28,8 +29,9 @@ class Figure{
         virtual std::vector <Block> &getBlocks();
         virtual int getLeadingBlockPos();
         virtual std::string getType();
+        virtual int getId();
 
-
+        virtual void setId(int id);
         virtual void setColor(SDL_Color color);
         virtual void setLeadingBlockPos(int pos);
         virtual void setAngle(int angle);
