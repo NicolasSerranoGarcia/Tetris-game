@@ -7,7 +7,7 @@
 are handled by the same three methods (or more if there are common paterns), render, update and clear. Render will handle all the logic inside it with the help of C style
 functions and other classes like Font or Button (or Figure for tetris blocks in the future maybe). This way, the main file (this) will just consist of a finite state machine/where I update the global pointer by checking certain key points like a pressed button or an edge case like the player lost. 
 
-[] Create a new class to handle Images with the image library. Use it for easy loading like Font. Make it posible to load an image inside a button (like font). 
+[X] Create a new class to handle Images with the image library. Use it for easy loading like Font. Make it posible to load an image inside a button (like font). 
 
 [X] Create a new  RPosition constant that enables you to place something relative to a specific object (It recieves the x, y, w, h and enables a REL_LEFT for example)
 
@@ -25,7 +25,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [] also add a way to center the font in the center of the container
 
-[] Find a way to open the settings scene as a popup (the mainscene still shows on the back) and when the user returns, there is no chnge (the game froze)
+[X] Find a way to open the settings scene as a popup (the mainscene still shows on the back) and when the user returns, there is no chnge (the game froze)
 
 [] find a pause image that is transparent
 
@@ -33,7 +33,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] make it possible to "slow down" the figure when it is falling without interrupting the render of the scene
 
-[] Complete all the constructors for each figure so that they are "usable".
+[X] Complete all the constructors for each figure so that they are "usable".
 
 [X] implement an algorithm (method update) in Figure that changes the position of the figure given an event and the previous state
 
@@ -55,9 +55,9 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [] implement rotation details of the stick figure
 
-[] implement colision details of the figures when getting to the bottom
+[X] implement colision details of the figures when getting to the bottom
 
-[] Add collision when figures move horizontally while mantaining freedom of movement
+[X] Add collision when figures move horizontally while mantaining freedom of movement
 
 [] MANTAINANCE: add comments, clear code, present the classes...
 
@@ -67,14 +67,22 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] method in Image to set one instance as a background
 
-[] add the curScene as a paraemeter on Scene::render()
+[X] add the curScene as a paraemeter on Scene::render() - changed: not necessary
 
-[] add the pointer mainScene as a global parameter, to save the progress when the settings is running
+[X] add the pointer mainScene as a global parameter, to save the progress when the settings is running - changed: added as a settingsScene atribute
 
 [] create the pointing system of the cleared blocks
 
-[] add a figure visualizer for the following 3 figures
+[/] add a figure visualizer for the following 3 figures
 
-[] add the settings scene
+[/] add the settings scene
 
 [] add the death case
+
+[] when the settings is opened don't show the figures
+
+[X] fix the random figures so that one figure doesn't repeat
+
+[] add ghosting to the figures
+
+[] add hard drop to the figures with default spacebar key

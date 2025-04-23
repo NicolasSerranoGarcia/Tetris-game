@@ -51,9 +51,7 @@
 Scene *currentScene = new OpScene;
 Scene *mainScene = nullptr;
 
-int main()
-{
-    std::srand(time(NULL));
+int main(){
 
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
     {

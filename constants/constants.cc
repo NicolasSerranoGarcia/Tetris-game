@@ -12,11 +12,11 @@ const int BLOCKLENGTH = 46;
 Screen mainScreen(SCREENWIDTH, SCREENHEIGHT, "Tetris");
 
 
-const int BSX = mainScreen.getWidth()/2 - (mainScreen.getWidth() - (int) ((5.0/16) * SCREENWIDTH))/2;
+const int BSX = SCREENWIDTH/2 - (SCREENWIDTH - (int) (((5.0/16) / 1.5) * SCREENWIDTH))/2;
 
 const int BSY = (int) ((1.0/25) * SCREENHEIGHT);
 
-const int BSW = mainScreen.getWidth() - (int) ((50.0/96) * SCREENWIDTH);
+const int BSW = SCREENWIDTH - (int) ((50.0/96) * SCREENWIDTH);
 
 const int BSH = SCREENHEIGHT - BSY*2;
 

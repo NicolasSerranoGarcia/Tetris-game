@@ -1,7 +1,5 @@
-#ifndef SETSCENE_CC
-#define SETSCENE_CC
-
 #include "SetScene.h"
+
 #include <iostream>
 
 SetScene::~SetScene(){
@@ -24,7 +22,7 @@ void SetScene::render(){
         mainScene->render();
     }
     SDL_Rect rect = {50, SCREENHEIGHT/6 ,SCREENWIDTH - 100 , SCREENHEIGHT/1.5};
-    SDL_SetRenderDrawColor(mainScreen.getRender(), WHITE.r, WHITE.g, WHITE.b, WHITE.a);
+    SDL_SetRenderDrawColor(mainScreen.getRender(), NAVY.r, NAVY.g, NAVY.b, NAVY.a);
     SDL_RenderFillRect(mainScreen.getRender(), &rect);
     
 }
@@ -47,6 +45,3 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
 void SetScene::handleLogic(Uint32 * lastTick){
     
 }
-
-
-#endif

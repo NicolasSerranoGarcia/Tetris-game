@@ -1,11 +1,17 @@
 #include "MainScene.h"
 
 #include <iostream>
+#include <random>
 
 MainScene::MainScene(){
-    getRandomFigure(currentFigure);
     Button settingsButton(mainScreen.getWidth() - 75, mainScreen.getHeight() - 75, 50, 50, WHITE, &mainScreen);
     this->settingsButton = settingsButton;
+
+    //Load the next 3 random figures 
+    getRandomFigure(this->nextFigures[0]);
+    getRandomFigure(this->nextFigures[1]);
+    getRandomFigure(this->nextFigures[2]);
+    fetchNextFigure(currentFigure, nextFigures);
 }
 
 //this function is inherited and the normal case is that it doesn't need any further coding. Still, at the moment I'm gonna call the father method from the child one in case 
@@ -51,6 +57,8 @@ void MainScene::render(){
 
     //TODO: draw the rectangles and the borders of the timer, the points of the player...
 
+
+
     //render all the figures that are at the bottom
     for(unsigned int i = 0; i < this->gameBoard.size(); i++){
         this->gameBoard[i]->renderFigure();
@@ -83,7 +91,7 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
     if(colides(this->gameBoard, event.key.keysym.sym, currentFigure)){
         if(event.key.keysym.sym == CONTROLDOWN){
             gameBoard.push_back(this->currentFigure);
-            getRandomFigure(currentFigure);
+            fetchNextFigure(currentFigure, nextFigures);
         }
     } else{
         currentFigure->update(event);
@@ -94,6 +102,7 @@ void MainScene::handleLogic(Uint32 * lastTick){
 
     //IMPLEMENTATION OF THE LOGIC IN THE GAME
 
+    std::cout << nextFigures[0]->getType() << "  " <<  nextFigures[1]->getType() <<  "  " << nextFigures[2]->getType() << std::endl;
     
     Uint32 elapsed = SDL_GetTicks() - *lastTick;
     
@@ -110,7 +119,8 @@ void MainScene::handleLogic(Uint32 * lastTick){
         if((largestY < 19)){
             if(colides(this->gameBoard, CONTROLDOWN, currentFigure)){
                     gameBoard.push_back(this->currentFigure);
-                    getRandomFigure(currentFigure);
+                    fetchNextFigure(currentFigure, nextFigures);
+                    
 
             } else{
                 this->currentFigure->getBlocks()[this->currentFigure->getLeadingBlockPos()].setBlockY(this->currentFigure->getBlocks()[this->currentFigure->getLeadingBlockPos()].getBlockY() + 1);
@@ -131,7 +141,8 @@ void MainScene::handleLogic(Uint32 * lastTick){
     
     if(largestY == 19){
         gameBoard.push_back(this->currentFigure);
-        getRandomFigure(currentFigure);
+        fetchNextFigure(currentFigure, nextFigures);
+        
     }
 
 
@@ -196,39 +207,88 @@ Figure * MainScene::getCurrentFigure(){
     return this->currentFigure;
 }
 
-//FUNCTIONS
-void getRandomFigure(Figure *& curFigure){
-    curFigure = nullptr;
+void getRandomFigure(Figure *& curFigure, Figure * lastFigs[]) {
 
-    //Future implementation when all the figures are created
-    int number = std::rand() % 7;
-    switch (number){
+    curFigure = nullptr;
+    bool valid = false;
+
+    while (!valid) {
+
+        //Random generator
+        std::random_device dev;
+        std::mt19937 rng(dev());
+        std::uniform_int_distribution<std::mt19937::result_type> rnd6(1,6);
+
+        std::string type;
+        Figure* newFig = nullptr;
+
+        switch (rnd6(dev)) {
+            case 0: type = "L"; newFig = new FigL; break;
+            case 1: type = "LRight"; newFig = new FigLRight; break;
+            case 2: type = "Square"; newFig = new FigSquare; break;
+            case 3: type = "Z"; newFig = new FigZ; break;
+            case 4: type = "ZLeft"; newFig = new FigZLeft; break;
+            case 5: type = "T"; newFig = new FigT; break;
+            case 6: type = "Stick"; newFig = new FigStick; break;
+        }
+
+        valid = true;
+        for (int i = 0; i < 3; i++) {
+            if (lastFigs[i] != nullptr && lastFigs[i]->getType() == type) {
+                valid = false;
+                break;
+            }
+        }
+
+        if (valid) {
+            curFigure = newFig;
+        } else {
+            delete newFig;
+        }
+    }
+}
+
+void getRandomFigure(Figure *& Figure){
+    Figure = nullptr;
+
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> rnd6(1,6);
+
+    switch (rnd6(dev)){
     case 0:
-        curFigure = new FigL;
+        Figure = new FigL;
         break;
     case 1:
-        curFigure = new FigLRight;
+        Figure = new FigLRight;
         break;
     case 2:
-        curFigure = new FigSquare;
+        Figure = new FigSquare;
         break;
     case 3:
-        curFigure = new FigZ;
+        Figure = new FigZ;
         break;
     case 4:
-        curFigure = new FigZLeft;
+        Figure = new FigZLeft;
         break;
     case 5:
-        curFigure = new FigT;
+        Figure = new FigT;
         break;
     case 6:
-        curFigure = new FigStick;
+        Figure = new FigStick;
         break;
     default:
         break;
     }
 }
 
+void fetchNextFigure(Figure *& curFigure, Figure * nextFigs[]){
+    curFigure = nextFigs[0]; 
+    nextFigs[0] = nextFigs[1];
+    nextFigs[1] = nextFigs[2];
+    Figure * arr[] = {curFigure, nextFigs[0], nextFigs[1]};
+    getRandomFigure(nextFigs[2], arr);
+}
 
 //return true if the figure colides with any other figure of the gameboard
 bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure *&curFigure){

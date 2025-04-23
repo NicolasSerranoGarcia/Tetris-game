@@ -15,9 +15,10 @@
 
 class MainScene: public Scene{
     private:
-    Button settingsButton;
-    std::vector <Figure*> gameBoard;
-    Figure* currentFigure = nullptr;
+        Button settingsButton;
+        std::vector <Figure*> gameBoard;
+        Figure* currentFigure = nullptr;
+        Figure * nextFigures[3] = {nullptr};
     public:
         MainScene();
         void update(SDL_Renderer * render) override;
@@ -28,7 +29,10 @@ class MainScene: public Scene{
         Figure * getCurrentFigure();
 };
 
-void getRandomFigure(Figure *& curFigure);
+void getRandomFigure(Figure *& curFigure, Figure * lastFigs[]);
+void getRandomFigure(Figure *& Figure);
 bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure *& curFigure);
+void fetchNextFigure(Figure *& curFigure, Figure * nextFigs[]);
+
 
 #endif
