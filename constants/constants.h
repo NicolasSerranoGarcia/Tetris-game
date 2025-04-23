@@ -36,6 +36,18 @@ extern const int BSW;
 extern const int BSH;
 
 
+//The position X in pixels of the rectangle that shows the next figures.
+extern const int FSX;
+
+//The position Y in pixels of the rectangle that shows the next figures.
+extern const int FSY;
+
+//The Width in pixels of the rectangle that shows the next figures.
+extern const int FSW;
+
+//The Height in pixels of the rectangle that shows the next figures.
+extern const int FSH;
+
 
 //An SDL_KeyCode instance that saves the key that the player uses to move the figures to the left
 extern SDL_KeyCode CONTROLLEFT;

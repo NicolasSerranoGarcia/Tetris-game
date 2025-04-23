@@ -22,9 +22,6 @@ void MainScene::update(SDL_Renderer * render){
 
 void MainScene::render(){
 
-    //the number of hor. tiles is 10, the number of vertical tiles is 20. the pixels of a tile are 46x46
-    int tile = (mainScreen.getWidth() - 500)/10;
-
     //draw a WHITE background
     SDL_SetRenderDrawColor(mainScreen.getRender(), WHITE.r, WHITE.g, WHITE.b, WHITE.a);
     SDL_RenderClear(mainScreen.getRender());
@@ -37,11 +34,11 @@ void MainScene::render(){
     //draw the vertical and hor. lines that separate each tile 
     SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r - 30, GREY.g - 30, GREY.b - 30, GREY.a);
     for(int i = 1; i <= 10; i++){
-        SDL_RenderDrawLine(mainScreen.getRender(), tile*i + BSX, BSY, tile*i + BSX, BSY + BSH);
+        SDL_RenderDrawLine(mainScreen.getRender(), BLOCKLENGTH*i + BSX, BSY, BLOCKLENGTH*i + BSX, BSY + BSH);
     }
 
     for(int j = 1; j <= 20; j++){
-        SDL_RenderDrawLine(mainScreen.getRender(), BSX, BSY + j*tile, BSX + BSW, BSY + j*tile);
+        SDL_RenderDrawLine(mainScreen.getRender(), BSX, BSY + j*BLOCKLENGTH, BSX + BSW, BSY + j*BLOCKLENGTH);
     }
 
 
@@ -56,8 +53,32 @@ void MainScene::render(){
     this->settingsButton.drawToRender();
 
     //TODO: draw the rectangles and the borders of the timer, the points of the player...
+    SDL_Rect nextFiguresBackground = {FSX, FSY, FSW, FSH};
+
+    SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, 230);
+    SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
+    SDL_RenderFillRect(mainScreen.getRender(), &nextFiguresBackground);
+    SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_NONE);
 
 
+    SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
+    SDL_RenderDrawRect(mainScreen.getRender(), &nextFiguresBackground);
+
+    Font next(&mainScreen, "Ubuntu-Bold", 30, "NEXT", TEAL);
+    next.setCoords(FSX + FSW/2 - next.getTextSurface()->w/2, FSY);
+
+    SDL_Rect nextBg = {FSX, FSY, FSW, next.getTextSurface()->h};
+
+    SDL_SetRenderDrawColor(mainScreen.getRender(), WHITE.r, WHITE.g, WHITE.b, WHITE.a);
+    SDL_RenderFillRect(mainScreen.getRender(), &nextBg);
+
+    SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
+    SDL_RenderDrawRect(mainScreen.getRender(), &nextBg);
+
+
+    next.drawTextToRender();
+
+    renderNextFigures(nextFigures, nextBg.h);
 
     //render all the figures that are at the bottom
     for(unsigned int i = 0; i < this->gameBoard.size(); i++){
@@ -360,4 +381,8 @@ bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure *&curFigur
     }
 
     return false;
+}
+
+void renderNextFigures(Figure * nextFigs[], int nextBgH){
+    
 }

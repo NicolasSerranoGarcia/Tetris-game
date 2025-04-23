@@ -21,6 +21,15 @@ const int BSW = SCREENWIDTH - (int) ((50.0/96) * SCREENWIDTH);
 const int BSH = SCREENHEIGHT - BSY*2;
 
 
+const int FSY = BSY;
+
+const int FSW = SCREENWIDTH - (FSY*3 + BSW + BSX);
+
+const int FSX = BSX + BSW + (SCREENWIDTH - (BSX + BSW + FSW))/2;
+
+const int FSH = BLOCKLENGTH * 10;
+
+
 SDL_KeyCode CONTROLLEFT = SDLK_LEFT;
 
 SDL_KeyCode CONTROLRIGHT = SDLK_RIGHT;

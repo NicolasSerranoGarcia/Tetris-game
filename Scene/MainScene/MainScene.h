@@ -31,8 +31,9 @@ class MainScene: public Scene{
 
 void getRandomFigure(Figure *& curFigure, Figure * lastFigs[]);
 void getRandomFigure(Figure *& Figure);
-bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure *& curFigure);
 void fetchNextFigure(Figure *& curFigure, Figure * nextFigs[]);
+bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure *& curFigure);
+void renderNextFigures(Figure * nextFigs[], int nextBgH);
 
 
 #endif
