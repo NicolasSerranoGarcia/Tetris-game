@@ -93,6 +93,8 @@ void MainScene::render(){
 
     //Render the figure that is falling
     this->getCurrentFigure()->renderFigure();
+
+    std::cout << LEVEL << POINTS << LINES << std::endl;
     
 }
 
@@ -131,7 +133,7 @@ void MainScene::handleLogic(Uint32 * lastTick){
     
     Uint32 elapsed = SDL_GetTicks() - *lastTick;
     
-    if(elapsed >= FALLDELAY){
+    if(elapsed >= FALLSPEED){
         //update the leading block 1 down and reset the ticks
         
         int largestY = 0;
@@ -166,8 +168,7 @@ void MainScene::handleLogic(Uint32 * lastTick){
     
     if(largestY == 19){
         gameBoard.push_back(this->currentFigure);
-        fetchNextFigure(currentFigure, nextFigures);
-        
+        fetchNextFigure(currentFigure, nextFigures);     
     }
 
 
@@ -185,6 +186,7 @@ void MainScene::handleLogic(Uint32 * lastTick){
             }
         }
 
+        int linesCleared = 0;
 
         for(int i = 19; i > maxHeight; i--){
             int blockCount = 0;
@@ -198,6 +200,8 @@ void MainScene::handleLogic(Uint32 * lastTick){
             }
 
             if(blockCount == 10){//the line is filled
+                LINES += 1;
+                linesCleared += 1;
                 for(int k = 0; k < gameBoard.size(); k++){
                     for(int t = 0; t < gameBoard[k]->getBlocks().size(); t++){
                         if(gameBoard[k]->getBlocks()[t].getBlockY() == i){
@@ -226,6 +230,9 @@ void MainScene::handleLogic(Uint32 * lastTick){
                 i++;
             }
         }
+        POINTS += calculatePoints(linesCleared);
+        LEVEL = getLevel();
+        FALLSPEED = getFallSpeed();
 }
 
 Figure * MainScene::getCurrentFigure(){

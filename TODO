@@ -86,3 +86,8 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 [] add ghosting to the figures
 
 [] add hard drop to the figures with default spacebar key
+
+[X] add points, lines and level count that afects speed
+
+[] add the mechanic of saving a figure
+

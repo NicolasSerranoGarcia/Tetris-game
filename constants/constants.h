@@ -62,11 +62,31 @@ extern SDL_KeyCode CONTROLDOWN;
 extern SDL_KeyCode CONTROLROTATE;
 
 //An unsigned integer of 32 bits representing the time (ms) that a figure takes to drop one tile
-extern const Uint32 FALLDELAY;
+extern Uint32 FALLSPEED;
 
+
+//The points that the player has
+extern unsigned int POINTS;
+
+//The level of the current game
+extern unsigned int LEVEL;
+
+//The lines cleared on the current level
+extern unsigned int LINES;
+
+
+//A function that calculates the points won from clearing a certain number of lines (max. 4)
+int calculatePoints(int linesCleared);
+
+//A function that returns the current level. It depends on the total lines cleared
+int getLevel();
+
+//A function that returns the current speed. It depends on the level
+Uint32 getFallSpeed();
 
 //Color palette used in the rest of the project
 //                                   R    G    B    A
+
 constexpr SDL_Color RED          = {255,   0,   0, 255};
 constexpr SDL_Color GREEN        = {  0, 255,   0, 255};
 constexpr SDL_Color BLUE         = {  0,   0, 255, 255};
