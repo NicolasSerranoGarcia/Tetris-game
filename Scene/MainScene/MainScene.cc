@@ -85,35 +85,59 @@ void MainScene::render(){
     //render the points, the level and the lines info
     SDL_Rect infoBackground = {ISX, ISY, ISW, ISH};
     SDL_Rect whiteBar = {ISX, ISY, ISW, ISH/4};
+
     Font level(&mainScreen, "Ubuntu-Bold", whiteBar.h, "LEVEL", TEAL);
-    Font points(&mainScreen, "Ubuntu-Bold", whiteBar.h, "POINTS", TEAL);;
-    Font lines(&mainScreen, "Ubuntu-Bold", whiteBar.h, "LINES", TEAL);;
+    Font points(&mainScreen, "Ubuntu-Bold", whiteBar.h, "POINTS", TEAL);
+    Font lines(&mainScreen, "Ubuntu-Bold", whiteBar.h, "LINES", TEAL); 
+
+    Font levelNum(&mainScreen, "Ubuntu-Bold", whiteBar.h*2, std::to_string(LEVEL).c_str(), WHITE);
+    
+    Font pointsNum(&mainScreen, "Ubuntu-Bold", whiteBar.h*2, std::to_string(POINTS).c_str(), WHITE);
+    
+    Font linesNum(&mainScreen, "Ubuntu-Bold", whiteBar.h*2, std::to_string(LINES).c_str(), WHITE);
+    
     for(int i = 0; i< 3; i++){
         infoBackground = {ISX, ISY + (ISH + BLOCKLENGTH/3)*i, ISW, ISH};
         whiteBar = {ISX, ISY + (ISH + BLOCKLENGTH/3)*i, ISW, ISH/4};
-
+        
+        
         SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, 230);
         SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
         SDL_RenderFillRect(mainScreen.getRender(), &infoBackground);
         SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_NONE);
-
+        
         SDL_SetRenderDrawColor(mainScreen.getRender(), WHITE.r, WHITE.g, WHITE.b, WHITE.a);
         SDL_RenderFillRect(mainScreen.getRender(), &whiteBar);
         SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
         SDL_RenderDrawRect(mainScreen.getRender(), &whiteBar);
-
+        
         switch (i){
         case 0:
             points.setCoords(whiteBar.x + whiteBar.w/2 - points.getTextSurface()->w/2, whiteBar.y);
             points.drawTextToRender();
+        
+            pointsNum.setCoords(whiteBar.x + whiteBar.w/2 - pointsNum.getTextSurface()->w/2,
+            whiteBar.y + whiteBar.h + (infoBackground.h - whiteBar.h)/2 - pointsNum.getTextSurface()->h/2);
+            pointsNum.setText(std::to_string(POINTS).c_str());
+            pointsNum.drawTextToRender();
             break;
         case 1:
             lines.setCoords(whiteBar.x + whiteBar.w/2 - lines.getTextSurface()->w/2, whiteBar.y);
             lines.drawTextToRender();
+        
+            linesNum.setCoords(whiteBar.x + whiteBar.w/2 - linesNum.getTextSurface()->w/2,
+            whiteBar.y + whiteBar.h + (infoBackground.h - whiteBar.h)/2 - linesNum.getTextSurface()->h/2);
+            pointsNum.setText(std::to_string(LINES).c_str());
+            linesNum.drawTextToRender();
             break;
         case 2:
             level.setCoords(whiteBar.x + whiteBar.w/2 - level.getTextSurface()->w/2, whiteBar.y);
             level.drawTextToRender();
+        
+            levelNum.setCoords(whiteBar.x + whiteBar.w/2 - levelNum.getTextSurface()->w/2,
+            whiteBar.y + whiteBar.h + (infoBackground.h - whiteBar.h)/2 - levelNum.getTextSurface()->h/2);
+            pointsNum.setText(std::to_string(LEVEL).c_str());
+            levelNum.drawTextToRender();
             break;
         default:
             break;
