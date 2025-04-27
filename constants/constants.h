@@ -36,17 +36,31 @@ extern const int BSW;
 extern const int BSH;
 
 
-//The position X in pixels of the rectangle that shows the next figures.
+//The position X in pixels of the background rectangle that shows the next figures.
 extern const int FSX;
 
-//The position Y in pixels of the rectangle that shows the next figures.
+//The position Y in pixels of the background rectangle that shows the next figures.
 extern const int FSY;
 
-//The Width in pixels of the rectangle that shows the next figures.
+//The Width in pixels of the background rectangle that shows the next figures.
 extern const int FSW;
 
-//The Height in pixels of the rectangle that shows the next figures.
+//The Height in pixels of the background rectangle that shows the next figures.
 extern const int FSH;
+
+
+//The position X in pixels of the background rectangle that shows the info about points, level...
+extern const int ISX;
+
+//The position Y in pixels of the background rectangle that shows the info about points, level...
+//The Y position varies depending of which stat we are showing
+extern const int ISY;
+
+//The Width in pixels of the background rectangle that shows the info about points, level...
+extern const int ISW;
+
+//The Height in pixels of the background rectangle that shows the info about points, level...
+extern const int ISH;
 
 
 //An SDL_KeyCode instance that saves the key that the player uses to move the figures to the left

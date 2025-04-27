@@ -54,8 +54,7 @@ void MainScene::render(){
 
 
 
-
-    //TODO: draw the rectangles and the borders of the timer, the points of the player...
+    //Draw the next figures background, figures...
     SDL_Rect nextFiguresBackground = {FSX, FSY, FSW, FSH};
 
     SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, 230);
@@ -83,6 +82,35 @@ void MainScene::render(){
     next.drawTextToRender();
 
 
+    //render the points, the level and the lines info
+    SDL_Rect infoBackground = {ISX, ISY, ISW, ISH};
+    SDL_Rect whiteBar = {ISX, ISY, ISW, ISH/4};
+    for(int i = 0; i< 3; i++){
+        infoBackground = {ISX, ISY + (ISH + BLOCKLENGTH/3)*i, ISW, ISH};
+        whiteBar = {ISX, ISY + (ISH + BLOCKLENGTH/3)*i, ISW, ISH/4};
+
+        SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, 230);
+        SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
+        SDL_RenderFillRect(mainScreen.getRender(), &infoBackground);
+        SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_NONE);
+        SDL_SetRenderDrawColor(mainScreen.getRender(), WHITE.r, WHITE.g, WHITE.b, WHITE.a);
+        SDL_RenderFillRect(mainScreen.getRender(), &whiteBar);
+        SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
+        SDL_RenderDrawRect(mainScreen.getRender(), &whiteBar);
+        
+    }
+
+
+    
+
+    // SDL_Rect whiteBar = {ISX, ISY, ISW, ISH/8};
+    // for(int i = 0; i < 3; i++){
+    //     whiteBar = {ISX, ISY, ISW, ISH/8};
+    //     SDL_SetRenderDrawColor(mainScreen.getRender(), WHITE.r, WHITE.g, WHITE.b, WHITE.a);
+    //     SDL_RenderFillRect(mainScreen.getRender(), &whiteBar);
+    //     SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
+    //     SDL_RenderDrawRect(mainScreen.getRender(), &whiteBar);
+    // }
 
 
 
@@ -93,8 +121,6 @@ void MainScene::render(){
 
     //Render the figure that is falling
     this->getCurrentFigure()->renderFigure();
-
-    std::cout << LEVEL << POINTS << LINES << std::endl;
     
 }
 

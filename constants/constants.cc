@@ -30,6 +30,15 @@ const int FSX = BSX + BSW + (SCREENWIDTH - (BSX + BSW + FSW))/2;
 const int FSH = BLOCKLENGTH * 9;
 
 
+const int ISX = FSX;
+
+const int ISY = FSY + FSH + (SCREENWIDTH - (BSX + BSW) - FSW)/4;
+
+const int ISW = FSW;
+
+const int ISH = BLOCKLENGTH*2;
+
+
 SDL_KeyCode CONTROLLEFT = SDLK_LEFT;
 
 SDL_KeyCode CONTROLRIGHT = SDLK_RIGHT;
