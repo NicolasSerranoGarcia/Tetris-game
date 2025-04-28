@@ -84,6 +84,10 @@ extern SDL_KeyCode CONTROLDOWN;
 //An SDL_KeyCode instance that saves the key that the player uses to rotate the figures
 extern SDL_KeyCode CONTROLROTATE;
 
+//An SDL_KeyCode instance that saves the key that the player uses to instantly place a figure by fast drop
+extern SDL_KeyCode CONTROLFASTDOWN;
+
+
 //An unsigned integer of 32 bits representing the time (ms) that a figure takes to drop one tile
 extern Uint32 FALLSPEED;
 

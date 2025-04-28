@@ -154,8 +154,17 @@ void MainScene::render(){
     // //render the shadow of the current figure
     // Figure shadow = *currentFigure;
     // Figure * sh = &shadow;
-    // while(!colides(gameBoard, CONTROLDOWN, sh)){
+
+    // int largestY = 0;
+    // for(unsigned int i = 0; i < this->currentFigure->getBlocks().size(); i++){
+    //     if(this->currentFigure->getBlocks()[i].getBlockY() > largestY){
+    //         largestY = this->currentFigure->getBlocks()[i].getBlockY();
+    //     }
+    // }
+    // while(!colides(gameBoard, CONTROLDOWN, currentFigure) && (largestY != 19)){
     //     shadow.getBlocks()[shadow.getLeadingBlockPos()].setBlockY(shadow.getBlocks()[shadow.getLeadingBlockPos()].getBlockY() + 1);
+    //     shadow.updateBlocks();
+    //     largestY += 1;
     // }
     // shadow.renderFigure();
 
@@ -182,6 +191,23 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
     } else if(event.type != SDL_KEYDOWN){
         return;
     }
+
+    if(event.key.keysym.sym == CONTROLFASTDOWN){
+        int largestY = 0;
+        for(unsigned int i = 0; i < this->currentFigure->getBlocks().size(); i++){
+            if(this->currentFigure->getBlocks()[i].getBlockY() > largestY){
+                largestY = this->currentFigure->getBlocks()[i].getBlockY();
+            }
+        }
+        while(!colides(gameBoard, CONTROLDOWN, currentFigure) && (largestY != 19)){
+            currentFigure->getBlocks()[currentFigure->getLeadingBlockPos()].setBlockY(currentFigure->getBlocks()[currentFigure->getLeadingBlockPos()].getBlockY() + 1);
+            currentFigure->updateBlocks();
+            largestY += 1;
+        }
+        gameBoard.push_back(currentFigure);
+        fetchNextFigure(currentFigure, nextFigures);
+        return;
+    } 
 
     if(colides(this->gameBoard, event.key.keysym.sym, currentFigure)){
         if(event.key.keysym.sym == CONTROLDOWN){
