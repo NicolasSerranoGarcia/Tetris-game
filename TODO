@@ -91,3 +91,4 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [] add the mechanic of saving a figure
 
+[] add a last event variable to prevent multiple ke y pressing (when the user keeps the space bar pressed, succesive figures get fast dropped)

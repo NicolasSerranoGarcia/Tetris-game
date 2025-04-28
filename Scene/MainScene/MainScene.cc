@@ -151,22 +151,27 @@ void MainScene::render(){
         this->gameBoard[i]->renderFigure();
     }
 
-    // //render the shadow of the current figure
-    // Figure shadow = *currentFigure;
-    // Figure * sh = &shadow;
+    //render the shadow of the current figure
+    Figure shadow = *currentFigure;
+    Figure * sh = &shadow;
 
-    // int largestY = 0;
-    // for(unsigned int i = 0; i < this->currentFigure->getBlocks().size(); i++){
-    //     if(this->currentFigure->getBlocks()[i].getBlockY() > largestY){
-    //         largestY = this->currentFigure->getBlocks()[i].getBlockY();
-    //     }
-    // }
-    // while(!colides(gameBoard, CONTROLDOWN, currentFigure) && (largestY != 19)){
-    //     shadow.getBlocks()[shadow.getLeadingBlockPos()].setBlockY(shadow.getBlocks()[shadow.getLeadingBlockPos()].getBlockY() + 1);
-    //     shadow.updateBlocks();
-    //     largestY += 1;
-    // }
-    // shadow.renderFigure();
+    shadow.setColor(BLACK);
+
+    int largestY = 0;
+    for(unsigned int i = 0; i < shadow.getBlocks().size(); i++){
+        if(shadow.getBlocks()[i].getBlockY() > largestY){
+            largestY = shadow.getBlocks()[i].getBlockY();
+        }
+    }
+    while(!colides(gameBoard, CONTROLDOWN, sh) && (largestY != 19)){
+        for(int i = 0; i < shadow.getBlocks().size(); i++){
+            shadow.getBlocks()[i].setBlockY(shadow.getBlocks()[i].getBlockY() + 1);
+        }
+        // shadow.updateBlocks();
+        largestY += 1;
+    }
+    std::cout <<  shadow.getBlocks()[2].getBlockX() << shadow.getBlocks()[2].getBlockY() << std::endl;
+    shadow.renderFigure();
 
     //Render the figure that is falling
     this->getCurrentFigure()->renderFigure();

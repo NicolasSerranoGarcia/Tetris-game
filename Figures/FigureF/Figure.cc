@@ -210,6 +210,9 @@ void Figure::setType(std::string type){
 
 void Figure::setColor(SDL_Color color){
      this->figureColor = color;
+     for(int i = 0; i < this->blocks.size(); i++){
+        this->blocks[i].setBlockColor(figureColor);
+     }
 }
 
 void Figure::setLeadingBlockPos(int pos){
