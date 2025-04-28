@@ -19,6 +19,7 @@ class MainScene: public Scene{
         std::vector <Figure*> gameBoard;
         Figure* currentFigure = nullptr;
         Figure * nextFigures[3] = {nullptr};
+        bool dead = false;
     public:
         MainScene();
         void update(SDL_Renderer * render) override;
@@ -34,6 +35,7 @@ void getRandomFigure(Figure *& Figure);
 void fetchNextFigure(Figure *& curFigure, Figure * nextFigs[]);
 bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure *& curFigure);
 void renderNextFigures(Figure * nextFigs[], int nextBgH);
+bool isDead(std::vector <Figure*> gameBoard);
 
 
 #endif

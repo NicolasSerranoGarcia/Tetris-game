@@ -25,5 +25,8 @@ void LooseScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScen
 
 }
 
+void LooseScene::handleLogic(Uint32 * lastTick){
+
+}
 
 #endif

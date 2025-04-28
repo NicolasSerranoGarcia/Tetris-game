@@ -12,6 +12,11 @@ const int BLOCKLENGTH = 46;
 Screen mainScreen(SCREENWIDTH, SCREENHEIGHT, "Tetris");
 
 
+// extern Scene * currentScene = new OpScene;
+
+// extern Scene * mainScene = nullptr;
+
+
 const int BSX = SCREENWIDTH/2 - (SCREENWIDTH - (int) (((5.0/16) / 1.5) * SCREENWIDTH))/2;
 
 const int BSY = (int) ((1.0/25) * SCREENHEIGHT);

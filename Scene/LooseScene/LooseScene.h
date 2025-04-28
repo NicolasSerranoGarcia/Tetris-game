@@ -9,10 +9,11 @@ class LooseScene: public Scene{
     private:
     public:
         LooseScene();
-        void update(SDL_Renderer * render) override = 0;
-        void render() override = 0;
-        void clear() override = 0;
-        void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene) override = 0;
+        void update(SDL_Renderer * render) override;
+        void render() override;
+        void clear() override;
+        void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene) override;
+        void handleLogic(Uint32 * lastTick) override;
 };
 
 #endif

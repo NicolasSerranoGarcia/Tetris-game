@@ -145,13 +145,19 @@ void MainScene::render(){
     }
 
 
-    
-
 
     //render all the figures that are at the bottom
     for(unsigned int i = 0; i < this->gameBoard.size(); i++){
         this->gameBoard[i]->renderFigure();
     }
+
+    // //render the shadow of the current figure
+    // Figure shadow = *currentFigure;
+    // Figure * sh = &shadow;
+    // while(!colides(gameBoard, CONTROLDOWN, sh)){
+    //     shadow.getBlocks()[shadow.getLeadingBlockPos()].setBlockY(shadow.getBlocks()[shadow.getLeadingBlockPos()].getBlockY() + 1);
+    // }
+    // shadow.renderFigure();
 
     //Render the figure that is falling
     this->getCurrentFigure()->renderFigure();
@@ -179,8 +185,14 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
 
     if(colides(this->gameBoard, event.key.keysym.sym, currentFigure)){
         if(event.key.keysym.sym == CONTROLDOWN){
-            gameBoard.push_back(this->currentFigure);
-            fetchNextFigure(currentFigure, nextFigures);
+            //calculate the highest point
+            if(isDead(gameBoard)){
+                dead = true;
+            } else{
+                gameBoard.push_back(this->currentFigure);
+                fetchNextFigure(currentFigure, nextFigures);
+            }
+
         }
     } else{
         currentFigure->update(event);
@@ -188,6 +200,7 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
 }
 
 void MainScene::handleLogic(Uint32 * lastTick){
+
 
     //IMPLEMENTATION OF THE LOGIC IN THE GAME
     
@@ -205,10 +218,12 @@ void MainScene::handleLogic(Uint32 * lastTick){
         
         if((largestY < 19)){
             if(colides(this->gameBoard, CONTROLDOWN, currentFigure)){
-                    gameBoard.push_back(this->currentFigure);
-                    fetchNextFigure(currentFigure, nextFigures);
-                    
-
+                    if(isDead(gameBoard)){
+                        dead = true;
+                    } else{
+                        gameBoard.push_back(this->currentFigure);
+                        fetchNextFigure(currentFigure, nextFigures);
+                    }
             } else{
                 this->currentFigure->getBlocks()[this->currentFigure->getLeadingBlockPos()].setBlockY(this->currentFigure->getBlocks()[this->currentFigure->getLeadingBlockPos()].getBlockY() + 1);
                 this->currentFigure->updateBlocks();
@@ -452,6 +467,22 @@ bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure *&curFigur
         return false;
     }
 
+    return false;
+}
+
+bool isDead(std::vector <Figure*> gameBoard){
+    //calculate the highest point
+    int maxHeight = 19;
+    for(int i = 0; i < gameBoard.size(); i++){
+        for(int j = 0; j < gameBoard[i]->getBlocks().size(); j++){
+            if(gameBoard[i]->getBlocks()[j].getBlockY() < maxHeight){
+                maxHeight = gameBoard[i]->getBlocks()[j].getBlockY();
+            }
+        }
+    }
+    if(maxHeight == 0){
+        return true;
+    }
     return false;
 }
 
