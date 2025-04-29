@@ -28,7 +28,6 @@ void FigStick::loadInitialBlocks(bool constructor){
     block.setOutlineColor(CYAN);
 
     if(constructor){
-        block.setPlaced(true);
     
         //Leading block. The position is not always 0,0 (if we cast it on the upper left corner)
         block.setBlockX(4);

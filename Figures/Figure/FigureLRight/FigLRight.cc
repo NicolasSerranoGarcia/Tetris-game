@@ -30,7 +30,6 @@ void FigLRight::loadInitialBlocks(bool constructor){
 
     if(constructor){
         //Leading block. The position is not always 0,0 (if we cast it on the upper left corner)
-        block.setPlaced(true);
 
         block.setBlockX(4);
         block.setBlockY(1);

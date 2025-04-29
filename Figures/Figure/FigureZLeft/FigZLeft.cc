@@ -27,9 +27,7 @@ void FigZLeft::loadInitialBlocks(bool constructor){
     block.setBlockColor(LIGHT_RED);
     block.setOutlineColor(RED);
 
-    if(constructor){
-        block.setPlaced(true);
-        
+    if(constructor){        
         //Leading block. The position is not always 0,0 (if we cast it on the upper left corner)
         block.setBlockX(4);
         block.setBlockY(0);
