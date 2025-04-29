@@ -2,8 +2,6 @@
 #define CONSTANTS_H
 
 #include "Screen/Screen.h"
-// #include "Scene/Scene.h"
-// #include "Scene/Scenes.h"
 
 #include <SDL2/SDL.h>
 
@@ -23,13 +21,6 @@ extern const int BLOCKLENGTH;
 //Instance of the class Screen. This is a global var. To access atributes and methods refer to the class Screen.
 //This instance is read-only and access-only throught the program.
 extern Screen mainScreen;
-
-
-// //
-// extern Scene * currentScene;
-
-// //
-// extern Scene * mainScene;
 
 
 //The position X in pixels of the game board. The game board is the rectangle where the figures fall

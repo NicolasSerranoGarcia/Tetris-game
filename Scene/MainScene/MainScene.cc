@@ -209,8 +209,7 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
         }
         gameBoard.push_back(currentFigure);
         fetchNextFigure(currentFigure, nextFigures);
-        spaceBarPressed = true;
-        return;
+        spaceBarPressed = true; 
     } 
 
     if((event.type == SDL_KEYUP) && (event.key.keysym.sym == CONTROLFASTDOWN)){
@@ -233,9 +232,7 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
     }
 }
 
-void MainScene::handleLogic(Uint32 * lastTick){
-
-
+void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene){
     //IMPLEMENTATION OF THE LOGIC IN THE GAME
     
     Uint32 elapsed = SDL_GetTicks() - *lastTick;
@@ -252,12 +249,12 @@ void MainScene::handleLogic(Uint32 * lastTick){
         
         if((largestY < 19)){
             if(colides(this->gameBoard, CONTROLDOWN, currentFigure)){
-                    if(isDead(gameBoard)){
-                        dead = true;
-                    } else{
-                        gameBoard.push_back(this->currentFigure);
-                        fetchNextFigure(currentFigure, nextFigures);
-                    }
+                if(isDead(gameBoard)){
+                    dead = true;
+                } else{
+                    gameBoard.push_back(this->currentFigure);
+                    fetchNextFigure(currentFigure, nextFigures);
+                }
             } else{
                 this->currentFigure->getBlocks()[this->currentFigure->getLeadingBlockPos()].setBlockY(this->currentFigure->getBlocks()[this->currentFigure->getLeadingBlockPos()].getBlockY() + 1);
                 this->currentFigure->updateBlocks();
@@ -279,69 +276,76 @@ void MainScene::handleLogic(Uint32 * lastTick){
         gameBoard.push_back(this->currentFigure);
         fetchNextFigure(currentFigure, nextFigures);     
     }
-
-
+    
+    
     //HANDLE LINE ELIMINATION
-
-        //calculate the highest point where the figures have gotten to. 
-        //Take into account that the y-axis is inverted
-
-        int maxHeight = 19;
-        for(int i = 0; i < gameBoard.size(); i++){
-            for(int j = 0; j < gameBoard[i]->getBlocks().size(); j++){
-                if(gameBoard[i]->getBlocks()[j].getBlockY() < maxHeight){
-                    maxHeight = gameBoard[i]->getBlocks()[j].getBlockY();
+    
+    //calculate the highest point where the figures have gotten to. 
+    //Take into account that the y-axis is inverted
+    
+    int maxHeight = 19;
+    for(int i = 0; i < gameBoard.size(); i++){
+        for(int j = 0; j < gameBoard[i]->getBlocks().size(); j++){
+            if(gameBoard[i]->getBlocks()[j].getBlockY() < maxHeight){
+                maxHeight = gameBoard[i]->getBlocks()[j].getBlockY();
+            }
+        }
+    }
+    
+    int linesCleared = 0;
+    
+    for(int i = 19; i > maxHeight; i--){
+        int blockCount = 0;
+        //calculate the number of blocks that are in the current line (i)
+        for(int k = 0; k < gameBoard.size(); k++){
+            for(int t = 0; t < gameBoard[k]->getBlocks().size(); t++){
+                if(gameBoard[k]->getBlocks()[t].getBlockY() == i){
+                    blockCount += 1;
                 }
             }
         }
-
-        int linesCleared = 0;
-
-        for(int i = 19; i > maxHeight; i--){
-            int blockCount = 0;
-            //calculate the number of blocks that are in the current line (i)
+        
+        if(blockCount == 10){//the line is filled
+            LINES += 1;
+            linesCleared += 1;
             for(int k = 0; k < gameBoard.size(); k++){
                 for(int t = 0; t < gameBoard[k]->getBlocks().size(); t++){
                     if(gameBoard[k]->getBlocks()[t].getBlockY() == i){
-                        blockCount += 1;
+                        gameBoard[k]->getBlocks().erase(gameBoard[k]->getBlocks().cbegin() + t);
+                        t--;
                     }
                 }
             }
-
-            if(blockCount == 10){//the line is filled
-                LINES += 1;
-                linesCleared += 1;
-                for(int k = 0; k < gameBoard.size(); k++){
-                    for(int t = 0; t < gameBoard[k]->getBlocks().size(); t++){
-                        if(gameBoard[k]->getBlocks()[t].getBlockY() == i){
-                            gameBoard[k]->getBlocks().erase(gameBoard[k]->getBlocks().cbegin() + t);
-                            t--;
-                        }
-                    }
+            
+            //check if there where figures that have no blocks
+            for(int k = 0; k < gameBoard.size(); k++){
+                if(gameBoard[k]->getBlocks().size() == 0){
+                    delete gameBoard[k];
+                    gameBoard.erase(gameBoard.cbegin() + k);
+                    k--;
                 }
-                
-                //check if there where figures that have no blocks
-                for(int k = 0; k < gameBoard.size(); k++){
-                    if(gameBoard[k]->getBlocks().size() == 0){
-                        delete gameBoard[k];
-                        gameBoard.erase(gameBoard.cbegin() + k);
-                        k--;
-                    }
-                }
-
-                for(unsigned int j = 0; j < this->gameBoard.size(); j++){
-                    for(int k = 0; k < gameBoard[j]->getBlocks().size(); k++){
-                        if(gameBoard[j]->getBlocks()[k].getBlockY() < i){
-                            gameBoard[j]->getBlocks()[k].setBlockY(gameBoard[j]->getBlocks()[k].getBlockY() + 1);
-                        }
-                    }
-                }
-                i++;
             }
+            
+            for(unsigned int j = 0; j < this->gameBoard.size(); j++){
+                for(int k = 0; k < gameBoard[j]->getBlocks().size(); k++){
+                    if(gameBoard[j]->getBlocks()[k].getBlockY() < i){
+                        gameBoard[j]->getBlocks()[k].setBlockY(gameBoard[j]->getBlocks()[k].getBlockY() + 1);
+                    }
+                }
+            }
+            i++;
         }
-        POINTS += calculatePoints(linesCleared);
-        LEVEL = getLevel();
-        FALLSPEED = getFallSpeed();
+    }
+    POINTS += calculatePoints(linesCleared);
+    LEVEL = getLevel();
+    FALLSPEED = getFallSpeed();
+    
+    
+    if(dead){
+        curScene = nullptr;
+        curScene = new LooseScene;
+        return;
+    }
 }
 
 Figure * MainScene::getCurrentFigure(){

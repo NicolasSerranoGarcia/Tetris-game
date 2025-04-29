@@ -42,6 +42,6 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
     }
 }
 
-void SetScene::handleLogic(Uint32 * lastTick){
+void SetScene::handleLogic(Uint32 * lastTick, Scene *& curScene){
     
 }

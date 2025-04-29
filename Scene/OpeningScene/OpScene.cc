@@ -55,6 +55,6 @@ void OpScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
     }
 }
 
-void OpScene::handleLogic(Uint32 * lastTick){
+void OpScene::handleLogic(Uint32 * lastTick, Scene *& curScene){
 
 }
