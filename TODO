@@ -77,7 +77,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [/] add the settings scene
 
-[] add the death case
+[X] add the death case
 
 [] when the settings is opened don't show the figures
 

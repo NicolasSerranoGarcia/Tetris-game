@@ -4,6 +4,7 @@
 #include "Screen/Screen.h"
 #include "Font/Font.h"
 #include "Image/Image.h"
+#include "constants/constants.h"
 
 #include <SDL2/SDL.h>
 

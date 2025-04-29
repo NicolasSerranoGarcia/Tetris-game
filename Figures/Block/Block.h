@@ -1,23 +1,51 @@
 #ifndef BLOCK_H
 #define BLOCK_H
 
-#include <SDL2/SDL.h>
 #include "constants/constants.h"
 
+#include <SDL2/SDL.h>
 
-//Each figure is composed of various blocks that are related to each other by the fact they all pertain to the same figure. There is no specific atribute that selects
-//which figure it is associated to. The way to know where a block belongs to is by searching with the specific coordianates of the block. Each block has coordinates that
-//act as a unique key, as there is no superposition and each block is placed uniquely in the gameboard. the block works as an independent object with respect to the figure
+//This class is container for the "virtual" object of a block (I may also refer to it as a tile). Each figure is composed of various blocks that are related to each other 
+//by the fact they all pertain to the same figure. There is no specific atribute that selects which figure it is associated to. The way to know where a block belongs to is 
+//by searching with the specific coordianates of the block. In each figure you will find a vector of blocks which compose the figure. In reality, any given block is not
+// related to any figure in particular (excepet for the fact that the block can be located in the vector array). Each block has coordinates that act as a unique key, as 
+//there is no superposition and each block is placed uniquely in the gameboard. the block works as an independent object with respect to the figure.
+//
+//Another thing to mention is that the blocks have a "special" coordinate (blockX, blockY) which represent the position inside the gameboard. You should not worry much about
+//this, as you can work with pixels without having to worry about this property. This is better explained in the documentation file if you want to understand how I implemented it. 
 class Block{
     private:
+        //The SDL_Rect instance that visually represents the block
         SDL_Rect block;
-        SDL_Color blockColor; //normaly matches the color of the figure it pertains to
-        SDL_Color outlineColor;
+        
+        //The position X in pixels of the block. Internally, it should match
+        //the X position of the SDL_Rect atribute. Created for easier access
         int pixelX;
+        
+        //The position Y in pixels of the block. Internally, it should match
+        //the Y position of the SDL_Rect atribute. Created for easier access
         int pixelY;
+        
+        //The position X in tiles of the block. It automatically updates if
+        //the pixel atributes are altered. More info on documentation
         int blockX;
+
+        //The position X in tiles of the block. It automatically updates if
+        //the pixel atributes are altered. MOre info on documentation
         int blockY;
+
+        //An SDL_Color instance representing the inside color of 
+        //the block. It may be a texture in the future. It normaly 
+        //matches the color of the figure it pertains to
+        SDL_Color blockColor;
+
+        //An SDL_Color instance representing the outline color of the figure
+        SDL_Color outlineColor;
+
+        //A boolean that gives if the block is visible in the gameboard. 
+        //Whenever a figure is created, all its blocks are set to placed.
         bool isPlaced;
+
     public:
         Block();
         SDL_Rect getBlock() const{return block;};
