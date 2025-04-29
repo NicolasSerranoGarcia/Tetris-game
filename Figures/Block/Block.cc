@@ -51,7 +51,7 @@ int Block::getBlockY() const{
 
 
 void Block::renderBlock(){
-    SDL_SetRenderDrawColor(mainScreen.getRender(), blockColor.r, blockColor.g, blockColor.b, blockColor.a);
+    SDL_SetRenderDrawColor(mainScreen.getRender(), inlineColor.r, inlineColor.g, inlineColor.b, inlineColor.a);
     SDL_RenderFillRect(mainScreen.getRender(), &this->block);
     
     SDL_SetRenderDrawColor(mainScreen.getRender(), outlineColor.r, outlineColor.g, outlineColor.b, outlineColor.a);
