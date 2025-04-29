@@ -20,6 +20,7 @@ class MainScene: public Scene{
         Figure* currentFigure = nullptr;
         Figure * nextFigures[3] = {nullptr};
         bool dead = false;
+        bool spaceBarPressed = false;
     public:
         MainScene();
         void update(SDL_Renderer * render) override;

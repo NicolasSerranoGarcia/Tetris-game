@@ -71,7 +71,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] add the pointer mainScene as a global parameter, to save the progress when the settings is running - changed: added as a settingsScene atribute
 
-[] create the pointing system of the cleared blocks
+[X] create the pointing system of the cleared blocks
 
 [/] add a figure visualizer for the following 3 figures
 
@@ -83,12 +83,12 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] fix the random figures so that one figure doesn't repeat
 
-[] add ghosting to the figures
+[X] add shadow to the figures
 
-[] add hard drop to the figures with default spacebar key
+[X] add hard drop to the figures with default spacebar key
 
 [X] add points, lines and level count that afects speed
 
 [] add the mechanic of saving a figure
 
-[] add a last event variable to prevent multiple ke y pressing (when the user keeps the space bar pressed, succesive figures get fast dropped)
+[X] add a last event variable to prevent multiple ke y pressing (when the user keeps the space bar pressed, succesive figures get fast dropped) - changed: by checking if the user lifted the finger from te fast drop key I was able to force it

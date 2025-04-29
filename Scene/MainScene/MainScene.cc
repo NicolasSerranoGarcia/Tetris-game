@@ -167,10 +167,8 @@ void MainScene::render(){
         for(int i = 0; i < shadow.getBlocks().size(); i++){
             shadow.getBlocks()[i].setBlockY(shadow.getBlocks()[i].getBlockY() + 1);
         }
-        // shadow.updateBlocks();
         largestY += 1;
     }
-    std::cout <<  shadow.getBlocks()[2].getBlockX() << shadow.getBlocks()[2].getBlockY() << std::endl;
     shadow.renderFigure();
 
     //Render the figure that is falling
@@ -190,14 +188,14 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
         mScene = curScene;
         curScene = nullptr;
         curScene = new SetScene;
-
         //mainScene now saves the progres made on the game. Put the var as a global, like curScene
         //find a way to open the settings as a popup (the mainScene still shows on the background). 
-    } else if(event.type != SDL_KEYDOWN){
+    } else if((event.type != SDL_KEYDOWN) && (event.type != SDL_KEYUP)){
         return;
     }
 
-    if(event.key.keysym.sym == CONTROLFASTDOWN){
+    
+    if(((event.key.keysym.sym == CONTROLFASTDOWN) && !spaceBarPressed)){
         int largestY = 0;
         for(unsigned int i = 0; i < this->currentFigure->getBlocks().size(); i++){
             if(this->currentFigure->getBlocks()[i].getBlockY() > largestY){
@@ -211,9 +209,14 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
         }
         gameBoard.push_back(currentFigure);
         fetchNextFigure(currentFigure, nextFigures);
+        spaceBarPressed = true;
         return;
     } 
 
+    if((event.type == SDL_KEYUP) && (event.key.keysym.sym == CONTROLFASTDOWN)){
+        spaceBarPressed = false;
+    }
+    
     if(colides(this->gameBoard, event.key.keysym.sym, currentFigure)){
         if(event.key.keysym.sym == CONTROLDOWN){
             //calculate the highest point
