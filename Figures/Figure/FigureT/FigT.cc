@@ -24,7 +24,7 @@ int FigT::updateBlocks(){
 void FigT::loadInitialBlocks(bool constructor){
 
     Block block;
-    block.setBlockColor(LIGHT_PURPLE);
+    block.setInlineColor(LIGHT_PURPLE);
     block.setOutlineColor(PURPLE);
 
     if(constructor){

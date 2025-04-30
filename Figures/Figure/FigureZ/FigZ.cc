@@ -24,7 +24,7 @@ int FigZ::updateBlocks(){
 
 void FigZ::loadInitialBlocks(bool constructor){
     Block block;
-    block.setBlockColor(LIGHT_GREEN);
+    block.setInlineColor(LIGHT_GREEN);
     block.setOutlineColor(GREEN);
 
     if(constructor){

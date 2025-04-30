@@ -25,7 +25,7 @@ int FigLRight::updateBlocks(){
 
 void FigLRight::loadInitialBlocks(bool constructor){
     Block block;
-    block.setBlockColor(LIGHT_BLUE);
+    block.setInlineColor(LIGHT_BLUE);
     block.setOutlineColor(BLUE);
 
     if(constructor){

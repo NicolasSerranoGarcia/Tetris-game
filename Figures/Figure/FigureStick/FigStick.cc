@@ -24,7 +24,7 @@ int FigStick::updateBlocks(){
 
 void FigStick::loadInitialBlocks(bool constructor){
     Block block;
-    block.setBlockColor(LIGHT_CYAN);
+    block.setInlineColor(LIGHT_CYAN);
     block.setOutlineColor(CYAN);
 
     if(constructor){

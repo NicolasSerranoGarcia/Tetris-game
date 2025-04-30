@@ -16,6 +16,7 @@
 //  - The Builder (https://www.youtube.com/@TheBuilder) for teaching me the basics of SDL
 //  - Tetris (https://tetris.com/play-tetris) for letting me visualize and play arround with the mechanics of the game
 //  - Google Fonts (https://fonts.google.com/) for the fonts I used in the project
+//  - CodeCogs (https://editor.codecogs.com/) for letting me create visual formulas in LaTex
 //
 //
 // ABOUT: This project was made from scratch by me. To be honest, I first thought of doing this project right before finishing two C based projects (Pacman and Snake)
@@ -98,9 +99,9 @@ int main(){
 
             SDL_RenderPresent(mainScreen.getRender());
 
-            //currentScene->clear();
+            // currentScene->clear();
 
-            SDL_Delay(10);
+            SDL_Delay(3);
         }
     }
 

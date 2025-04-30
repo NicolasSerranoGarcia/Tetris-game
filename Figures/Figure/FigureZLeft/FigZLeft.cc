@@ -24,7 +24,7 @@ int FigZLeft::updateBlocks(){
 
 void FigZLeft::loadInitialBlocks(bool constructor){
     Block block;
-    block.setBlockColor(LIGHT_RED);
+    block.setInlineColor(LIGHT_RED);
     block.setOutlineColor(RED);
 
     if(constructor){        

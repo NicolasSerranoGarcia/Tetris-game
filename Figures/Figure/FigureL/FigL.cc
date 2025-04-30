@@ -27,7 +27,7 @@ int FigL::updateBlocks(){
 void FigL::loadInitialBlocks(bool constructor){
 
     Block block;
-    block.setBlockColor(LIGHT_ORANGE);
+    block.setInlineColor(LIGHT_ORANGE);
     block.setOutlineColor(ORANGE);
 
     if(constructor){

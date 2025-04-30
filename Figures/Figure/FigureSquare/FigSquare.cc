@@ -20,7 +20,7 @@ int FigSquare::updateBlocks(){
 void FigSquare::loadInitialBlocks(bool constructor){
         
     Block block;
-    block.setBlockColor(LIGHT_YELLOW);
+    block.setInlineColor(LIGHT_YELLOW);
     block.setOutlineColor(YELLOW);
 
     
