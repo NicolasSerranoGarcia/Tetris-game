@@ -4,7 +4,6 @@ Figure::Figure(){
     this->leadingBlockPos = 0;
     this->figureColor = WHITE;
     this->angle = 0;
-    this->type = "";
 }
 
 Figure::~Figure(){
@@ -192,20 +191,12 @@ int Figure::getLeadingBlockPos() {
     return leadingBlockPos;
 }
 
-std::string Figure::getType() {
-    return this->type;
-}
-
 int Figure::getId(){
     return id;
 }
 
 void Figure::setId(int id){
     this->id = id;
-}
-
-void Figure::setType(std::string type){
-    this->type = type;
 }
 
 void Figure::setColor(SDL_Color color){

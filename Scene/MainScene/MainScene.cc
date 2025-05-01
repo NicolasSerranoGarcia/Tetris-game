@@ -365,22 +365,22 @@ void getRandomFigure(Figure *& curFigure, Figure * lastFigs[]) {
         std::mt19937 rng(dev());
         std::uniform_int_distribution<std::mt19937::result_type> rnd6(0,6);
 
-        std::string type;
+        int id;
         Figure* newFig = nullptr;
 
         switch (rnd6(dev)) {
-            case 0: type = "L"; newFig = new FigL; break;
-            case 1: type = "LRight"; newFig = new FigLRight; break;
-            case 2: type = "Square"; newFig = new FigSquare; break;
-            case 3: type = "Z"; newFig = new FigZ; break;
-            case 4: type = "ZLeft"; newFig = new FigZLeft; break;
-            case 5: type = "T"; newFig = new FigT; break;
-            case 6: type = "Stick"; newFig = new FigStick; break;
+            case 0: id = 0; newFig = new FigL; break;
+            case 1: id = 1; newFig = new FigLRight; break;
+            case 2: id = 2; newFig = new FigSquare; break;
+            case 3: id = 3; newFig = new FigStick; break;
+            case 4: id = 4; newFig = new FigT; break;
+            case 5: id = 5; newFig = new FigZ; break;
+            case 6: id = 6; newFig = new FigZLeft; break;
         }
 
         valid = true;
         for (int i = 0; i < 3; i++) {
-            if (lastFigs[i] != nullptr && lastFigs[i]->getType() == type) {
+            if (lastFigs[i] != nullptr && lastFigs[i]->getId() == id) {
                 valid = false;
                 break;
             }
