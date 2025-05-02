@@ -155,7 +155,7 @@ void MainScene::render(){
     Figure shadow = *currentFigure;
     Figure * sh = &shadow;
 
-    shadow.setColor(BLACK);
+    shadow.setFigureColor(BLACK);
 
     int largestY = 0;
     for(unsigned int i = 0; i < shadow.getBlocks().size(); i++){
@@ -194,7 +194,7 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
         return;
     }
 
-    
+    //move this into update if you can
     if(((event.key.keysym.sym == CONTROLFASTDOWN) && !spaceBarPressed)){
         int largestY = 0;
         for(unsigned int i = 0; i < this->currentFigure->getBlocks().size(); i++){

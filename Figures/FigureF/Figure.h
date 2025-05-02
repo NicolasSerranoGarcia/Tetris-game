@@ -84,11 +84,49 @@ class Figure{
         //vector of blocks
         virtual int getLeadingBlockPos();
         
+
+        //SETTERS
+
+        //Setter
+        //
+        //RETURNS:
+        //void
         virtual void setId(int id);
+        
+        //Setter
+        //
+        //RETURNS:
+        //void
         virtual void setAngle(int angle);
-        virtual void setColor(SDL_Color color);
+
+        //Setter
+        //Also sets all the blocks inline color to
+        //the parsed variable
+        //
+        //RETURNS:
+        //void
+        virtual void setFigureColor(SDL_Color color);
+
+        //Setter
+        //DO NOT USE 
+        //
+        //RETURNS:
+        //void
         virtual void setLeadingBlockPos(int pos);
         
+
+        //MISCELANEOUS
+
+        //This method takes an event (the event can only be a key press)
+        //and it updates the LEADING BLOCK according to the key pressed.
+        //In the case of rotations, it just updates the angle of the figure.
+        //Regardless of the key action pressed, the method calls updateBlocks()
+        //which will update the rest of the blocks according to the event. 
+        //This function just "triggers" the all of the blocks position to change 
+        //by changing the leading block
+        //RETURNS:
+        //-1 if there were no updates in the figure
+        //0 if the update was done succesfully
         virtual int update(SDL_Event event);
         virtual int updateBlocks();
         virtual void rotate();

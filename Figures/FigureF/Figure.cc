@@ -13,63 +13,54 @@ Figure::~Figure(){
     this->leadingBlockPos = -1;
 }
 
-//This method will likely only be used when the figure is the current figure (the one which is falling). Anyways, using the previous state of the figure (angle and leading
-//block) and an event, it changes the state of the leading block and consecutively, the rest of the blocks. To change the rest of the blocks for each specific figure
-//without overriding this method in the child classes, the method calls another method from the class called updateBlocks() which will be overritten by each child. This
-//way we mantain the event -> render structure in the scenes.
-//RETURNS:
-//-1 if the movement cannot be executed
-//0 if the movement was done correctly
 int Figure::update(SDL_Event event){
-    if(event.type != SDL_KEYDOWN){
+    if((event.type != SDL_KEYDOWN) || !((event.key.keysym.sym == CONTROLDOWN) || 
+       (event.key.keysym.sym == CONTROLLEFT)  || 
+       (event.key.keysym.sym == CONTROLRIGHT) || 
+       (event.key.keysym.sym == CONTROLROTATE))){
         return -1;
-        //or do smth else
     }
 
+    // Once we handle all edge cases, we can know for sure we will have to update the figure in some way.
+    //Calculate once all the limits of the
+
+    int largestY = 0;
+    int largestX = 0;
+    int smallestX = 9;
+    for(unsigned int i = 0; i < this->blocks.size(); i++){
+        if(this->blocks[i].getBlockY() > largestY){
+            largestY = this->blocks[i].getBlockY();
+        }
+        if(this->blocks[i].getBlockX() > largestX){
+            largestX = this->blocks[i].getBlockX();
+        }
+        if(this->blocks[i].getBlockX() < smallestX){
+            smallestX = this->blocks[i].getBlockX();
+        }
+    }
 
     if(event.key.keysym.sym == CONTROLDOWN){
-        int largestY = 0;
-        for(unsigned int i = 0; i < this->blocks.size(); i++){
-            if(this->blocks[i].getBlockY() > largestY){
-                largestY = this->blocks[i].getBlockY();
-            }
-        }
 
         if((largestY < 19)){
             this->blocks[leadingBlockPos].setBlockY(this->blocks[leadingBlockPos].getBlockY() + 1);
         }
-        this->updateBlocks();
     }
 
-    if(event.key.keysym.sym == CONTROLRIGHT){
-        int largestX = 0;
-        for(unsigned int i = 0; i < this->blocks.size(); i++){
-            if(this->blocks[i].getBlockX() > largestX){
-                largestX = this->blocks[i].getBlockX();
-            }
-        }
+    else if(event.key.keysym.sym == CONTROLRIGHT){
 
         if(largestX < 9){
             this->blocks[leadingBlockPos].setBlockX(this->blocks[leadingBlockPos].getBlockX() + 1);
         }
-        this->updateBlocks();
     }
 
-    if(event.key.keysym.sym == CONTROLLEFT){
-        int smallestX = 9;
-        for(unsigned int i = 0; i < this->blocks.size(); i++){
-            if(this->blocks[i].getBlockX() < smallestX){
-                smallestX = this->blocks[i].getBlockX();
-            }
-        }
+    else if(event.key.keysym.sym == CONTROLLEFT){
 
         if(smallestX > 0){
             this->blocks[leadingBlockPos].setBlockX(this->blocks[leadingBlockPos].getBlockX() - 1);
         }
-        this->updateBlocks();
     }
 
-    if(event.key.keysym.sym == CONTROLROTATE){
+    else if(event.key.keysym.sym == CONTROLROTATE){
         
         this->angle -= 90;
         if(this->angle < 0){
@@ -78,59 +69,55 @@ int Figure::update(SDL_Event event){
         //the previous is to ensure the angle is always between 0º and 360ª
 
         //in this function I check the angle of the figure and update it accordingly
-        this->updateBlocks();
     }
+    updateBlocks();
+    
+    //When we rotate the figure, the figure might have gone out of boundaries. In the case the figure is out, make a "push" effect, where the figure reallocates to the inside
+    if(event.key.keysym.sym == CONTROLROTATE){
+        largestY = 0;
+        largestX = 0;
+        smallestX = 9;
+        int smallestY = 0;
+        for(unsigned int i = 0; i < this->blocks.size(); i++){
 
-    //When we update the figure, the figure might have gone out of boundaries. In the case the figure is out, make a "push" effect, where the figure reallocates to the inside
+            if(this->blocks[i].getBlockY() > largestY){
+                largestY = this->blocks[i].getBlockY();
+            }
 
-    int largestY = 0;
-    for(unsigned int i = 0; i < this->blocks.size(); i++){
-        if(this->blocks[i].getBlockY() > largestY){
-            largestY = this->blocks[i].getBlockY();
+            if(this->blocks[i].getBlockX() > largestX){
+                largestX = this->blocks[i].getBlockX();
+            }
+
+            if(this->blocks[i].getBlockX() < smallestX){
+                smallestX = this->blocks[i].getBlockX();
+            }
+
+            if(this->blocks[i].getBlockY() < smallestY){
+                smallestY = this->blocks[i].getBlockY();
+            }
         }
-    }
-
-    if(largestY > 19){
-        this->blocks[getLeadingBlockPos()].setBlockY(19 - (largestY - 19));
-        this->updateBlocks();
-    }
-
-    int smallestY = 0;
-    for(unsigned int i = 0; i < this->blocks.size(); i++){
-        if(this->blocks[i].getBlockY() < smallestY){
-            smallestY = this->blocks[i].getBlockY();
+    
+        if(smallestY < 0){
+            this->blocks[getLeadingBlockPos()].setBlockY(-smallestY);
+            this->updateBlocks();
         }
-    }
+        
 
-    if(smallestY < 0){
-        this->blocks[getLeadingBlockPos()].setBlockY(-smallestY);
-        this->updateBlocks();
-    }
-
-
-
-    int largestX = 0;
-    for(unsigned int i = 0; i < this->blocks.size(); i++){
-        if(this->blocks[i].getBlockX() > largestX){
-            largestX = this->blocks[i].getBlockX();
+        if(largestY > 19){
+            this->blocks[getLeadingBlockPos()].setBlockY(19 - (largestY - 19));
+            this->updateBlocks();
         }
-    }
 
-    if(largestX > 9){
-        this->blocks[getLeadingBlockPos()].setBlockX(9 - (largestX - 9));
-        this->updateBlocks();
-    }
 
-    int smallestX = 0;
-    for(unsigned int i = 0; i < this->blocks.size(); i++){
-        if(this->blocks[i].getBlockX() < smallestX){
-            smallestX = this->blocks[i].getBlockX();
+        if(largestX > 9){
+            this->blocks[getLeadingBlockPos()].setBlockX(9 - (largestX - 9));
+            this->updateBlocks();
         }
-    }
 
-    if(smallestX < 0){
-        this->blocks[getLeadingBlockPos()].setBlockX(-smallestX);
-        this->updateBlocks();
+        if(smallestX < 0){
+            this->blocks[getLeadingBlockPos()].setBlockX(-smallestX);
+            this->updateBlocks();
+        }
     }
     
 
@@ -165,6 +152,7 @@ void Figure::rotate(){
     }
 }
 
+//set that returns boolean and return the param
 void Figure::loadInitialBlocks(bool constructor){
     constructor = constructor;
     return;
@@ -199,7 +187,7 @@ void Figure::setId(int id){
     this->id = id;
 }
 
-void Figure::setColor(SDL_Color color){
+void Figure::setFigureColor(SDL_Color color){
      this->figureColor = color;
      for(int i = 0; i < this->blocks.size(); i++){
         this->blocks[i].setInlineColor(figureColor);

@@ -4,7 +4,7 @@
 
 FigL::FigL(){
     //we need to make the figure relative to the leading block so that when it changes, the whole figure also changes
-    this->setColor(LIGHT_ORANGE);
+    this->setFigureColor(LIGHT_ORANGE);
     this->setId(0);
 
     loadInitialBlocks(true);
