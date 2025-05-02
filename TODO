@@ -43,7 +43,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [] The outline of the squares in the mainscene is not taken into account and it visually seems like the figure is not correctly positioned when you are on the extremes
 
-[] change the deleteBlocks() method from FIgure:: so that it has a better syntax (not i--)
+[X] change the deleteBlocks() method from FIgure:: so that it has a better syntax (not i--) - changed: not necessary
 
 [X] When a figure is rotated and then moved, it updates as if the figure angle is 0. Just create a template to update the blocks depending on the angle for all the blocks.
 
@@ -63,7 +63,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] Make widths and heights relative to the ones in the screen
 
-[X] Cleaned files: constants.cc/.h , Screen.cc/.h, Button.cc/.h, Image.cc/.h, Font.cc/.h, Block.cc/.h
+[X] Cleaned files: constants.cc/.h , Screen.cc/.h, Button.cc/.h, Image.cc/.h, Font.cc/.h, Block.cc/.h, Figure.cc/.h
 
 [X] method in Image to set one instance as a background
 

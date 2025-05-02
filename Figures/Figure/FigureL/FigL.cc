@@ -1,22 +1,24 @@
 #include "FigL.h"
-#include <iostream>
-
 
 FigL::FigL(){
-    //we need to make the figure relative to the leading block so that when it changes, the whole figure also changes
-    this->setFigureColor(LIGHT_ORANGE);
-    this->setId(0);
+    setId(0);
+    setFigureColor(LIGHT_ORANGE);
 
+    //Constructor
     loadInitialBlocks(true);
 }
 
  
 int FigL::updateBlocks(){
-    //We assume that the figure position is changeable beacuse we checked it outside
-    this->deleteAllBlocks();
 
+    //Delete
+    deleteAllBlocks();
+
+    //Create
     loadInitialBlocks(false);
-    for(int i = 0; i < this->getAngle() / 90; i++){
+
+    //Rotate
+    for(int i = 0; i < getAngle() / 90; i++){
         rotate();
     }
 
@@ -30,8 +32,6 @@ bool FigL::loadInitialBlocks(bool constructor){
     block.setOutlineColor(ORANGE);
 
     if(constructor){
-    
-        //Leading block. The position is not always 0,0 (if we cast it on the upper left corner)
         block.setBlockX(4);
         block.setBlockY(1);
         getBlocks().push_back(block);

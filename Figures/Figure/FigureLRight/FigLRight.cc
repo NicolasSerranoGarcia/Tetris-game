@@ -1,21 +1,24 @@
 #include "FigLRight.h"
 
 FigLRight::FigLRight(){
-    //we need to make the figure relative to the leading block so that when it changes, the whole figure also changes
-    this->setFigureColor(LIGHT_BLUE);
     this->setId(1);
+    this->setFigureColor(LIGHT_BLUE);
 
-
+    //Constructor
     loadInitialBlocks(true);
     
 }
 
 int FigLRight::updateBlocks(){
-    //We assume that the figure position is changeable beacuse we cheched it outside
-    this->deleteAllBlocks();
     
+    //Delete
+    deleteAllBlocks();
+
+    //Create
     loadInitialBlocks(false);
-    for(int i = 0; i < this->getAngle() / 90; i++){
+
+    //Rotate
+    for(int i = 0; i < getAngle() / 90; i++){
         rotate();
     }
 
@@ -23,13 +26,12 @@ int FigLRight::updateBlocks(){
 }
 
 bool FigLRight::loadInitialBlocks(bool constructor){
+
     Block block;
     block.setInlineColor(LIGHT_BLUE);
     block.setOutlineColor(BLUE);
 
     if(constructor){
-        //Leading block. The position is not always 0,0 (if we cast it on the upper left corner)
-
         block.setBlockX(4);
         block.setBlockY(1);
         getBlocks().push_back(block);
