@@ -43,8 +43,8 @@
 
 #include "Font/Font.h"
 #include "Button/Button.h"
-#include "Scene/SceneF/Scene.h"
-#include "Scene/Scenes.h"        //This is just a file with all the #include "eachScene.h"
+#include "Scenes/SceneF/Scene.h"
+#include "Scenes/Scenes.h"        //This is just a file with all the #include "eachScene.h"
 #include "constants/constants.h" //Contains things like SDL_Color colors, positioning variables and so
 
 #include <iostream>

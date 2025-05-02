@@ -1,7 +1,7 @@
 #ifndef OPSCENE_H
 #define OPSCENE_H
 
-#include "Scene/SceneF/Scene.h"
+#include "Scenes/SceneF/Scene.h"
 #include "Font/Font.h"
 #include "Button/Button.h"
 

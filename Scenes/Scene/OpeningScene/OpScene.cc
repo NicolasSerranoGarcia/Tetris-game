@@ -1,7 +1,7 @@
 #include "OpScene.h"
 
 #include "Image/Image.h"
-#include "Scene/Scenes.h"
+#include "Scenes/Scenes.h"
 
 #include <SDL2/SDL_image.h>
 

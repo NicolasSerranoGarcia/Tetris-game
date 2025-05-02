@@ -1,7 +1,7 @@
 #ifndef LOOSESCENE_H
 #define LOOSESCENE_H
 
-#include "Scene/SceneF/Scene.h"
+#include "Scenes/SceneF/Scene.h"
 #include "constants/constants.h"
 #include <SDL2/SDL.h>
 

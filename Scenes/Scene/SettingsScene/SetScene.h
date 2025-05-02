@@ -1,10 +1,10 @@
 #ifndef SETSCENE_H
 #define SETSCENE_H
 
-#include "Scene//SceneF/Scene.h"
+#include "Scenes/SceneF/Scene.h"
 #include <SDL2/SDL.h>
 #include "constants/constants.h"
-#include "Scene/Scenes.h"
+#include "Scenes/Scenes.h"
 
 class SetScene: public Scene{
     private:

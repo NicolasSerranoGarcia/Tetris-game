@@ -1,8 +1,9 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include <SDL2/SDL.h>
 #include "constants/constants.h"
+
+#include <SDL2/SDL.h>
 
 class Scene{
     public:

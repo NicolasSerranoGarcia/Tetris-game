@@ -4,7 +4,7 @@ LDFLAGS = $(shell sdl2-config --libs) -lSDL2_ttf -lSDL2_image
 TARGET = tetris
 
 # Source detection
-SRC = $(shell find Screen Font Button Scene Figures constants Image -name '*.cc') main.cc
+SRC = $(shell find Screen Font Button Scenes Figures constants Image -name '*.cc') main.cc
 
 #Object generation
 OBJ = $(SRC:.cc=.o)

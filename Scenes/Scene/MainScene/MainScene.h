@@ -1,14 +1,14 @@
 #ifndef MAINSCENE_H
 #define MAINSCENE_H
 
-#include "Scene/SceneF/Scene.h"
+#include "Scenes/SceneF/Scene.h"
 #include "constants/constants.h"
 #include "Image/Image.h"
 #include "Button/Button.h"
 #include "Font/Font.h"
 #include "Figures/Block/Block.h"
 #include "Figures/FigureF/Figure.h"
-#include "Scene/Scenes.h"
+#include "Scenes/Scenes.h"
 #include "Figures/Figures.h" //This is just all the header file figures in a single file
 
 #include <SDL2/SDL.h>
