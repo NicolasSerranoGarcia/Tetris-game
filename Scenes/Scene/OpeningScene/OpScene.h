@@ -9,7 +9,6 @@
 
 class OpScene: public Scene{
     private:
-        Button playButton;
     public:
         OpScene();
         void update(SDL_Renderer * render) override;

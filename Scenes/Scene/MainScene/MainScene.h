@@ -23,6 +23,7 @@ class MainScene: public Scene{
         bool spaceBarPressed = false;
     public:
         MainScene();
+        ~MainScene() override;
         void update(SDL_Renderer * render) override;
         void render() override;
         void clear() override;

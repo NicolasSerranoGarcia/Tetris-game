@@ -1,12 +1,21 @@
 #include "Scenes/SceneF/Scene.h"
 
-Scene::Scene(){};
+Scene::Scene(){
+    
+};
 
 Scene::~Scene(){};
+
+
+std::map <std::string, Button> Scene::getButtonMap(){
+    return name_buttons;
+}
+
 
 void Scene::update(SDL_Renderer * render){ 
     SDL_RenderPresent(render);
 }
+
 void Scene::clear(){ 
     SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a); 
     SDL_RenderClear(mainScreen.getRender()); 

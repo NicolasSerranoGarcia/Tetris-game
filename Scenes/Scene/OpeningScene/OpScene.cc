@@ -7,7 +7,7 @@
 
 OpScene::OpScene(){
     Button playButton({px(AbsPosition::POS_CENTER_DOWN, 320), py(AbsPosition::POS_CENTER_LEFT, 140), 320, 140}, GREEN, &mainScreen);
-    this->playButton = playButton;
+    getButtonMap()["play"] = playButton;
 }
 
 //this function is inherited and the normal case is that it doesn't need any further coding. Still, at the moment I'm gonna call the father method from the child one in case 
@@ -33,8 +33,8 @@ void OpScene::render(){
 
 
     Font Play(&mainScreen, "Ubuntu-Bold", 125, "PLAY", BLACK);
-    this->playButton.setFont(&Play);
-    this->playButton.drawToRender();
+    getButtonMap()["play"].setFont(&Play);
+    getButtonMap()["play"].drawToRender();
 
     SDL_RenderPresent(mainScreen.getRender());
 
@@ -46,7 +46,7 @@ void OpScene::clear(){
 }
 
 void OpScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
-    if(this->playButton.isClicked(&event) || ((event.type == SDL_KEYDOWN) && event.key.keysym.sym == SDLK_RETURN)){
+    if(getButtonMap()["play"].isClicked(&event) || ((event.type == SDL_KEYDOWN) && event.key.keysym.sym == SDLK_RETURN)){
         OpScene::clear();
         delete curScene;
         curScene = new MainScene;

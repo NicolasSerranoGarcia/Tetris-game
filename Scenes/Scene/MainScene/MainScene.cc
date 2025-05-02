@@ -14,6 +14,10 @@ MainScene::MainScene(){
     fetchNextFigure(currentFigure, nextFigures);
 }
 
+MainScene::~MainScene(){
+    gameBoard.~vector();
+}
+
 //this function is inherited and the normal case is that it doesn't need any further coding. Still, at the moment I'm gonna call the father method from the child one in case 
 //I need to make extra implementations
 void MainScene::update(SDL_Renderer * render){
