@@ -22,7 +22,7 @@ int FigLRight::updateBlocks(){
     return 0;
 }
 
-void FigLRight::loadInitialBlocks(bool constructor){
+bool FigLRight::loadInitialBlocks(bool constructor){
     Block block;
     block.setInlineColor(LIGHT_BLUE);
     block.setOutlineColor(BLUE);
@@ -52,4 +52,6 @@ void FigLRight::loadInitialBlocks(bool constructor){
     block.setBlockX(LeadingBlockX - 1);
     block.setBlockY(LeadingBlockY + 1);
     getBlocks().push_back(block);
+
+    return constructor;
 }

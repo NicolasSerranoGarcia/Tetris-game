@@ -21,7 +21,7 @@ int FigStick::updateBlocks(){
     return 0;
 }
 
-void FigStick::loadInitialBlocks(bool constructor){
+bool FigStick::loadInitialBlocks(bool constructor){
     Block block;
     block.setInlineColor(LIGHT_CYAN);
     block.setOutlineColor(CYAN);
@@ -51,4 +51,6 @@ void FigStick::loadInitialBlocks(bool constructor){
     block.setBlockX(LeadingBlockX);
     block.setBlockY(LeadingBlockY + 1);
     getBlocks().push_back(block);
+
+    return constructor;
 }

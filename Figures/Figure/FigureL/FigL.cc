@@ -23,7 +23,7 @@ int FigL::updateBlocks(){
     return 0;
 }
 
-void FigL::loadInitialBlocks(bool constructor){
+bool FigL::loadInitialBlocks(bool constructor){
 
     Block block;
     block.setInlineColor(LIGHT_ORANGE);
@@ -54,4 +54,6 @@ void FigL::loadInitialBlocks(bool constructor){
     block.setBlockX(LeadingBlockX + 1);
     block.setBlockY(LeadingBlockY + 1);
     getBlocks().push_back(block);
+
+    return constructor;
 }

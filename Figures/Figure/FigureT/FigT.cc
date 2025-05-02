@@ -20,7 +20,7 @@ int FigT::updateBlocks(){
     return 0;
 }
 
-void FigT::loadInitialBlocks(bool constructor){
+bool FigT::loadInitialBlocks(bool constructor){
 
     Block block;
     block.setInlineColor(LIGHT_PURPLE);
@@ -51,4 +51,6 @@ void FigT::loadInitialBlocks(bool constructor){
     block.setBlockX(LeadingBlockX + 1);
     block.setBlockY(LeadingBlockY);
     getBlocks().push_back(block);
+
+    return constructor;
 }

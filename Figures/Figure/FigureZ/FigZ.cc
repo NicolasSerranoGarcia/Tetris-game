@@ -21,7 +21,7 @@ int FigZ::updateBlocks(){
     return 0;
 }
 
-void FigZ::loadInitialBlocks(bool constructor){
+bool FigZ::loadInitialBlocks(bool constructor){
     Block block;
     block.setInlineColor(LIGHT_GREEN);
     block.setOutlineColor(GREEN);
@@ -51,4 +51,6 @@ void FigZ::loadInitialBlocks(bool constructor){
     block.setBlockX(LeadingBlockX - 1);
     block.setBlockY(LeadingBlockY + 1);
     getBlocks().push_back(block);
+
+    return constructor;
 }

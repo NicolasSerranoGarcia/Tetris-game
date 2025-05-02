@@ -128,15 +128,63 @@ class Figure{
         //-1 if there were no updates in the figure
         //0 if the update was done succesfully
         virtual int update(SDL_Event event);
+
+        //This method updates the blocks after a figure event (like moving to the left).
+        //Each figure has it's own updateBlocks(), so you will see the father method empty.
+        //Anyways, all the methods of the figures have the same procedure. The figure blocks are 
+        //deleted, then built again, then rotated. This way, it is safe to call the method even 
+        //if the figure hasn't been updated in any way. This is because if no parameters of the 
+        //figure have been changed, the method will construct the same figure again. See the
+        //documentation for detailed info
+        //
+        //RETURNS:
+        //Always 0
         virtual int updateBlocks();
+
+        //This method rotates the figure, having the axis of rotation in the leading block.
+        //The figure will always rotate by 90º, regardless of the angle.  
+        //
+        //RETURNS:
+        //void
         virtual void rotate();
-        virtual void loadInitialBlocks(bool constructor);
+
+        //This method is a virtual method. Each child class implements it's own way of handling
+        //with the figure creation. In short, what this method does is build the figure as it 
+        //it had 0º of rotation, BUT it does it relative to the leading block, which is not changed.
+        //This method is usually called after deleteAllBlocks(), as it is needed to update the figure
+        //if there are any events, like rotating. The parameter is used as a way to know if it is the first
+        //time constructing the figure. It will enable setting the position of the leading block.
+        //It will normally only be true if we are calling the method from the constructor.
+        //
+        //RETURNS:
+        //the value of the parameter
+        virtual bool loadInitialBlocks(bool constructor);
+
+        //This method deletes blocks[pos]. Keep in mind it compacts the vector
+        //
+        //RETURNS:
+        //void
         virtual void deleteBlock(int pos);
-        virtual void addBlock(Block block);
+
+        //This method deletes all blocks inside the vector, except for the leading block
+        //
+        //RETURNS:
+        //void
         virtual void deleteAllBlocks();
 
+        //This method adds a block to the end of the vector of blocks. 
+        //
+        //RETURNS:
+        //void
+        virtual void addBlock(Block block);
 
+        //This method renders the figure by rendering all the distinct blocks. Keep in mind
+        //it doesn't directly show the figure
+        //
+        //RETURNS:
+        //void
         virtual void renderFigure();
+
 };
 
 #endif

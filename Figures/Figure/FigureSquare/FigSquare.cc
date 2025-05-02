@@ -16,7 +16,7 @@ int FigSquare::updateBlocks(){
     return 0;
 }
 
-void FigSquare::loadInitialBlocks(bool constructor){
+bool FigSquare::loadInitialBlocks(bool constructor){
         
     Block block;
     block.setInlineColor(LIGHT_YELLOW);
@@ -47,4 +47,6 @@ void FigSquare::loadInitialBlocks(bool constructor){
     block.setBlockX(LeadingBlockX + 1);
     block.setBlockY(LeadingBlockY + 1);
     getBlocks().push_back(block);
+
+    return constructor;
 }
