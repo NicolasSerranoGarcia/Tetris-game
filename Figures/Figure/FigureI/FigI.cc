@@ -1,34 +1,39 @@
-#include "FigStick.h"
+#include "FigI.h"
 
-FigStick::FigStick(){
-    //we need to make the figure relative to the leading block so that when it changes, the whole figure also changes
-    this->setFigureColor(LIGHT_CYAN);
-    this->setId(3);
+FigI::FigI(){
 
+    setId(3);
+    setFigureColor(LIGHT_CYAN);
+
+    //Constructor
     loadInitialBlocks(true);
-    
 }
 
-int FigStick::updateBlocks(){
-    //We assume that the figure position is changeable beacuse we cheched it outside
-    this->deleteAllBlocks();
-    
+
+int FigI::updateBlocks(){
+
+    //Delete
+    deleteAllBlocks();
+
+    //Create
     loadInitialBlocks(false);
-    for(int i = 0; i < this->getAngle() / 90; i++){
+
+    //Rotate
+    for(int i = 0; i < getAngle() / 90; i++){
         rotate();
     }
     
     return 0;
 }
 
-bool FigStick::loadInitialBlocks(bool constructor){
+bool FigI::loadInitialBlocks(bool constructor){
+
     Block block;
     block.setInlineColor(LIGHT_CYAN);
     block.setOutlineColor(CYAN);
 
     if(constructor){
-    
-        //Leading block. The position is not always 0,0 (if we cast it on the upper left corner)
+        
         block.setBlockX(4);
         block.setBlockY(2);
         getBlocks().push_back(block);

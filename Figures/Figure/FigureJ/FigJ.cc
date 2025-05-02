@@ -1,15 +1,16 @@
-#include "FigLRight.h"
+#include "FigJ.h"
 
-FigLRight::FigLRight(){
+FigJ::FigJ(){
+    
     this->setId(1);
     this->setFigureColor(LIGHT_BLUE);
 
     //Constructor
-    loadInitialBlocks(true);
-    
+    loadInitialBlocks(true); 
 }
 
-int FigLRight::updateBlocks(){
+
+int FigJ::updateBlocks(){
     
     //Delete
     deleteAllBlocks();
@@ -25,13 +26,14 @@ int FigLRight::updateBlocks(){
     return 0;
 }
 
-bool FigLRight::loadInitialBlocks(bool constructor){
+bool FigJ::loadInitialBlocks(bool constructor){
 
     Block block;
     block.setInlineColor(LIGHT_BLUE);
     block.setOutlineColor(BLUE);
 
     if(constructor){
+
         block.setBlockX(4);
         block.setBlockY(1);
         getBlocks().push_back(block);

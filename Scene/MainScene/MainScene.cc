@@ -370,12 +370,12 @@ void getRandomFigure(Figure *& curFigure, Figure * lastFigs[]) {
 
         switch (rnd6(dev)) {
             case 0: id = 0; newFig = new FigL; break;
-            case 1: id = 1; newFig = new FigLRight; break;
-            case 2: id = 2; newFig = new FigSquare; break;
-            case 3: id = 3; newFig = new FigStick; break;
+            case 1: id = 1; newFig = new FigJ; break;
+            case 2: id = 2; newFig = new FigO; break;
+            case 3: id = 3; newFig = new FigI; break;
             case 4: id = 4; newFig = new FigT; break;
-            case 5: id = 5; newFig = new FigZ; break;
-            case 6: id = 6; newFig = new FigZLeft; break;
+            case 5: id = 5; newFig = new FigS; break;
+            case 6: id = 6; newFig = new FigZ; break;
         }
 
         valid = true;
@@ -406,22 +406,22 @@ void getRandomFigure(Figure *& Figure){
         Figure = new FigL;
         break;
     case 1:
-        Figure = new FigLRight;
+        Figure = new FigJ;
         break;
     case 2:
-        Figure = new FigSquare;
+        Figure = new FigO;
         break;
     case 3:
-        Figure = new FigZ;
+        Figure = new FigS;
         break;
     case 4:
-        Figure = new FigZLeft;
+        Figure = new FigZ;
         break;
     case 5:
         Figure = new FigT;
         break;
     case 6:
-        Figure = new FigStick;
+        Figure = new FigI;
         break;
     default:
         break;
@@ -573,7 +573,7 @@ void renderNextFigures(Figure * nextFigs[], int nextBgH){
                 figs[i].getBlocks()[3].setPixelYDereferenced(y + spacing + i*(BLOCKLENGTH*2 + spacing));
                 break;
              case 2:
-                //FigSquare
+                //FigO
                 figs[i].getBlocks()[0].setPixelXDereferenced(x + w/2 - BLOCKLENGTH);
                 figs[i].getBlocks()[0].setPixelYDereferenced(y + spacing + BLOCKLENGTH + i*(BLOCKLENGTH*2 + spacing));
 
@@ -587,7 +587,7 @@ void renderNextFigures(Figure * nextFigs[], int nextBgH){
                 figs[i].getBlocks()[3].setPixelYDereferenced(y + spacing + i*(BLOCKLENGTH*2 + spacing));
                 break;
             case 3:
-                //FigStick
+                //FigI
                 figs[i].getBlocks()[0].setPixelXDereferenced(x + w/2 - BLOCKLENGTH*2);
                 figs[i].getBlocks()[0].setPixelYDereferenced(y + spacing + BLOCKLENGTH/2 + i*(BLOCKLENGTH*2 + spacing));
 
@@ -615,7 +615,7 @@ void renderNextFigures(Figure * nextFigs[], int nextBgH){
                 figs[i].getBlocks()[3].setPixelYDereferenced(y + spacing + i*(BLOCKLENGTH*2 + spacing));
                 break;
             case 5:
-                //FigZ
+                //FigS
                 figs[i].getBlocks()[0].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
                 figs[i].getBlocks()[0].setPixelYDereferenced(y + spacing + i*(BLOCKLENGTH*2 + spacing));
 
@@ -629,7 +629,7 @@ void renderNextFigures(Figure * nextFigs[], int nextBgH){
                 figs[i].getBlocks()[3].setPixelYDereferenced(y + spacing + i*(BLOCKLENGTH*2 + spacing));
                 break;
             case 6:
-                //FigZLeft
+                //FigZ
                 figs[i].getBlocks()[0].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
                 figs[i].getBlocks()[0].setPixelYDereferenced(y + spacing + i*(BLOCKLENGTH*2 + spacing));
 

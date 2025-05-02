@@ -1,38 +1,47 @@
-#include "FigSquare.h"
+#include "FigS.h"
 
-FigSquare::FigSquare(){
-    //we need to make the figure relative to the leading block so that when it changes, the whole figure also changes
-    this->setFigureColor(LIGHT_YELLOW);
-    this->setId(2);
+FigS::FigS(){
 
+    this->setId(5);
+    this->setFigureColor(LIGHT_GREEN);
+
+    //Constructor
     loadInitialBlocks(true);
 }
 
-int FigSquare::updateBlocks(){
-    //We assume that the figure position is changeable beacuse we cheched it outside
-    this->deleteAllBlocks();
+
+int FigS::updateBlocks(){
+
+    //Delete
+    deleteAllBlocks();
+
+    //Create
     loadInitialBlocks(false);
 
+    //Rotate
+    for(int i = 0; i < getAngle() / 90; i++){
+        rotate();
+    }  
+    
     return 0;
 }
 
-bool FigSquare::loadInitialBlocks(bool constructor){
-        
-    Block block;
-    block.setInlineColor(LIGHT_YELLOW);
-    block.setOutlineColor(YELLOW);
+bool FigS::loadInitialBlocks(bool constructor){
 
-    
+    Block block;
+    block.setInlineColor(LIGHT_GREEN);
+    block.setOutlineColor(GREEN);
+
     if(constructor){
-        
-        //Leading block. The position is not always 0,0 (if we cast it on the upper left corner)
+
         block.setBlockX(4);
         block.setBlockY(0);
         getBlocks().push_back(block);
     }
+
     int LeadingBlockX = getBlocks()[getLeadingBlockPos()].getBlockX();
     int LeadingBlockY = getBlocks()[getLeadingBlockPos()].getBlockY();
-    
+
     //Block 1
     block.setBlockX(LeadingBlockX);
     block.setBlockY(LeadingBlockY + 1);
@@ -44,7 +53,7 @@ bool FigSquare::loadInitialBlocks(bool constructor){
     getBlocks().push_back(block);
 
     //Block 3
-    block.setBlockX(LeadingBlockX + 1);
+    block.setBlockX(LeadingBlockX - 1);
     block.setBlockY(LeadingBlockY + 1);
     getBlocks().push_back(block);
 

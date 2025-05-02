@@ -1,23 +1,23 @@
-#ifndef FIGURESQUARE_H
-#define FIGURESQUARE_H
+#ifndef FIGURES_H
+#define FIGURES_H
 
 #include "Figures/FigureF/Figure.h"
 
 #include <SDL2/SDL.h>
 
-class FigSquare: public Figure{
+class FigS: public Figure{
 
     public:
 
         //CONSTRUCTOR
-
-        FigSquare();
+        
+        FigS();
 
 
         //MISCELANEOUS
 
         int updateBlocks() override;
-        
+
         bool loadInitialBlocks(bool constructor) override;
 
 };

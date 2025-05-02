@@ -1,34 +1,38 @@
 #include "FigZ.h"
 
 FigZ::FigZ(){
-    //we need to make the figure relative to the leading block so that when it changes, the whole figure also changes
-    this->setFigureColor(LIGHT_GREEN);
-    this->setId(5);
+    
+    this->setId(6);
+    this->setFigureColor(LIGHT_RED);
 
-
+    //Constructor
     loadInitialBlocks(true);
 }
 
-int FigZ::updateBlocks(){
-    //We assume that the figure position is changeable beacuse we cheched it outside
-    this->deleteAllBlocks();
 
+int FigZ::updateBlocks(){
+
+    //Delete
+    deleteAllBlocks();
+
+    //Create
     loadInitialBlocks(false);
-    for(int i = 0; i < (this->getAngle() / 90); i++){
+
+    //Rotate
+    for(int i = 0; i < getAngle() / 90; i++){
         rotate();
-    }   
-    
+    }
+
     return 0;
 }
 
 bool FigZ::loadInitialBlocks(bool constructor){
     Block block;
-    block.setInlineColor(LIGHT_GREEN);
-    block.setOutlineColor(GREEN);
+    block.setInlineColor(LIGHT_RED);
+    block.setOutlineColor(RED);
 
-    if(constructor){
-    
-        //Leading block. The position is not always 0,0 (if we cast it on the upper left corner)
+    if(constructor){        
+
         block.setBlockX(4);
         block.setBlockY(0);
         getBlocks().push_back(block);
@@ -43,12 +47,12 @@ bool FigZ::loadInitialBlocks(bool constructor){
     getBlocks().push_back(block);
 
     //Block 2
-    block.setBlockX(LeadingBlockX + 1);
+    block.setBlockX(LeadingBlockX - 1);
     block.setBlockY(LeadingBlockY);
     getBlocks().push_back(block);
 
     //Block 3
-    block.setBlockX(LeadingBlockX - 1);
+    block.setBlockX(LeadingBlockX + 1);
     block.setBlockY(LeadingBlockY + 1);
     getBlocks().push_back(block);
 

@@ -1,19 +1,25 @@
 #include "FigT.h"
 
 FigT::FigT(){
-    //we need to make the figure relative to the leading block so that when it changes, the whole figure also changes
-    this->setFigureColor(LIGHT_PURPLE);
+    
     this->setId(4);
+    this->setFigureColor(LIGHT_PURPLE);
 
+    //Constructor
     loadInitialBlocks(true);
 }
 
-int FigT::updateBlocks(){
-    //We assume that the figure position is changeable beacuse we cheched it outside
-    this->deleteAllBlocks();
 
+int FigT::updateBlocks(){
+
+    //Delete
+    deleteAllBlocks();
+
+    //Create
     loadInitialBlocks(false);
-    for(int i = 0; i < (this->getAngle() / 90); i++){
+
+    //Rotate
+    for(int i = 0; i < getAngle() / 90; i++){
         rotate();
     }
 
@@ -27,8 +33,7 @@ bool FigT::loadInitialBlocks(bool constructor){
     block.setOutlineColor(PURPLE);
 
     if(constructor){
-    
-        //Leading block. The position is not always 0,0 (if we cast it on the upper left corner)
+
         block.setBlockX(4);
         block.setBlockY(1);
         getBlocks().push_back(block);

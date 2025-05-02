@@ -1,6 +1,7 @@
 #include "FigL.h"
 
 FigL::FigL(){
+    
     setId(0);
     setFigureColor(LIGHT_ORANGE);
 
@@ -32,6 +33,7 @@ bool FigL::loadInitialBlocks(bool constructor){
     block.setOutlineColor(ORANGE);
 
     if(constructor){
+        
         block.setBlockX(4);
         block.setBlockY(1);
         getBlocks().push_back(block);

@@ -1,21 +1,21 @@
-#ifndef FIGURET_H
-#define FIGURET_H
+#ifndef FIGUREO_H
+#define FIGUREO_H
 
 #include "Figures/FigureF/Figure.h"
 
 #include <SDL2/SDL.h>
 
-class FigT: public Figure{
+class FigO: public Figure{
 
     public:
 
         //CONSTRUCTOR
 
-        FigT();
+        FigO();
 
-        
+
         //MISCELANEOUS
-        
+
         int updateBlocks() override;
 
         bool loadInitialBlocks(bool constructor) override;

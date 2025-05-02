@@ -1,17 +1,17 @@
-#ifndef FIGURELRIGHT_H
-#define FIGURELRIGHT_H
+#ifndef FIGUREJ_H
+#define FIGUREJ_H
 
 #include "Figures/FigureF/Figure.h"
 
 #include <SDL2/SDL.h>
 
-class FigLRight: public Figure{
+class FigJ: public Figure{
 
     public:
 
         //CONSTRUCTOR
 
-        FigLRight();
+        FigJ();
 
 
         //MISCELANEOUS  
