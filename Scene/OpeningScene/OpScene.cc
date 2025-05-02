@@ -1,9 +1,9 @@
 #include "OpScene.h"
 
-#include <iostream>
-#include <SDL2/SDL_image.h>
 #include "Image/Image.h"
 #include "Scene/Scenes.h"
+
+#include <SDL2/SDL_image.h>
 
 OpScene::OpScene(){
     Button playButton({px(AbsPosition::POS_CENTER_DOWN, 320), py(AbsPosition::POS_CENTER_LEFT, 140), 320, 140}, GREEN, &mainScreen);
@@ -47,7 +47,6 @@ void OpScene::clear(){
 
 void OpScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
     if(this->playButton.isClicked(&event) || ((event.type == SDL_KEYDOWN) && event.key.keysym.sym == SDLK_RETURN)){
-        std::cout << "Play" << std::endl; 
         OpScene::clear();
         delete curScene;
         curScene = new MainScene;
@@ -55,6 +54,6 @@ void OpScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
     }
 }
 
-void OpScene::handleLogic(Uint32 * lastTick, Scene *& curScene){
+void OpScene::handleLogic(Uint32 *, Scene *&){
 
 }

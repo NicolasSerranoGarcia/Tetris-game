@@ -14,14 +14,14 @@ SetScene::SetScene(){
 }
 
 void SetScene::update(SDL_Renderer * render){
-
+    Scene::update(render);
 }
 
 void SetScene::render(){
     if(mainScene != nullptr){
         mainScene->render();
     }
-    SDL_Rect rect = {50, SCREENHEIGHT/6 ,SCREENWIDTH - 100 , SCREENHEIGHT/1.5};
+    SDL_Rect rect = {50, SCREENHEIGHT/6 ,SCREENWIDTH - 100 , (int) (SCREENHEIGHT/1.5)};
     SDL_SetRenderDrawColor(mainScreen.getRender(), NAVY.r, NAVY.g, NAVY.b, NAVY.a);
     SDL_RenderFillRect(mainScreen.getRender(), &rect);
     
@@ -42,6 +42,6 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
     }
 }
 
-void SetScene::handleLogic(Uint32 * lastTick, Scene *& curScene){
+void SetScene::handleLogic(Uint32 *, Scene *&){
     
 }

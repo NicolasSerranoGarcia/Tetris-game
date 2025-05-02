@@ -1,7 +1,7 @@
 #ifndef MAINSCENE_H
 #define MAINSCENE_H
 
-#include "Scene/Scene.h"
+#include "Scene/SceneF/Scene.h"
 #include "constants/constants.h"
 #include "Image/Image.h"
 #include "Button/Button.h"

@@ -11,7 +11,7 @@ LooseScene::LooseScene(){
 }
 
 void LooseScene::update(SDL_Renderer * render){
-
+    Scene::update(render);
 }
 
 void LooseScene::render(){
@@ -25,13 +25,13 @@ void LooseScene::clear(){
     Scene::clear();
 }
 
-void LooseScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
+void LooseScene::handleEvents(SDL_Event, Scene *&, Scene *& mScene){
    if(mainScene == nullptr){   
        mainScene = mScene;
     }
 }
 
-void LooseScene::handleLogic(Uint32 * lastTick, Scene *& curScene){
+void LooseScene::handleLogic(Uint32 *, Scene *&){
 
 }
 
