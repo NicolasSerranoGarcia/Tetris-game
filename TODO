@@ -94,3 +94,5 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 [X] add a last event variable to prevent multiple ke y pressing (when the user keeps the space bar pressed, succesive figures get fast dropped) - changed: by checking if the user lifted the finger from te fast drop key I was able to force it
 
 [] add visuals like a timer when starting or the points won from a line clear
+
+[] make sure that auziliary classes call things like freeSurface() and that scenes and stuff call the destructors of the aux classes they use

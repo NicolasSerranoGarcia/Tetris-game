@@ -86,7 +86,7 @@ extern Uint32 FALLSPEED;
 //The points that the player has
 extern unsigned int POINTS;
 
-//The level of the current game
+//The current level of the game
 extern unsigned int LEVEL;
 
 //The lines cleared on the current level
