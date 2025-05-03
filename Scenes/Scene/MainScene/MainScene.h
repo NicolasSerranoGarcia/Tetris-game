@@ -84,12 +84,17 @@ class MainScene: public Scene{
         void handleLogic(Uint32 * lastTick, Scene *& curScene) override;
 
         Figure * getCurrentFigure();
+        Figure ** getNextFigures();
+        bool getSpaceBar();
+
+        void setSpaceBar(bool b);
 };
 
 void getRandomFigure(Figure *& curFigure, Figure * lastFigs[]);
 void getRandomFigure(Figure *& Figure);
 void fetchNextFigure(Figure *& curFigure, Figure * nextFigs[]);
 bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure *& curFigure);
+void handleFastDrop(std::vector <Figure*>& gameBoard, SDL_Keycode key, Figure *&figure, MainScene& m);
 void renderNextFigures(Figure * nextFigs[], int nextBgH);
 bool isDead(std::vector <Figure*> gameBoard);
 

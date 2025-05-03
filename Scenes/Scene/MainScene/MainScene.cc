@@ -258,23 +258,7 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
         return;
     }
 
-    //move this into update if you can
-    if(((event.key.keysym.sym == CONTROLFASTDOWN) && !spaceBarPressed)){
-        int largestY = 0;
-        for(unsigned int i = 0; i < currentFigure->getBlocks().size(); i++){
-            if(currentFigure->getBlocks()[i].getBlockY() > largestY){
-                largestY = currentFigure->getBlocks()[i].getBlockY();
-            }
-        }
-        while(!colides(gameBoard, CONTROLDOWN, currentFigure) && (largestY != 19)){
-            currentFigure->getBlocks()[currentFigure->getLeadingBlockPos()].setBlockY(currentFigure->getBlocks()[currentFigure->getLeadingBlockPos()].getBlockY() + 1);
-            currentFigure->updateBlocks();
-            largestY += 1;
-        }
-        gameBoard.push_back(currentFigure);
-        fetchNextFigure(currentFigure, nextFigures);
-        spaceBarPressed = true; 
-    } 
+    handleFastDrop(gameBoard, event.key.keysym.sym, currentFigure, *this);
 
     if((event.type == SDL_KEYUP) && (event.key.keysym.sym == CONTROLFASTDOWN)){
         spaceBarPressed = false;
@@ -294,7 +278,6 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
                 gameBoard.push_back(this->currentFigure);
                 fetchNextFigure(currentFigure, nextFigures);
             }
-
         }
     } else{
         currentFigure->update(event);
@@ -417,9 +400,20 @@ void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene){
 }
 
 Figure * MainScene::getCurrentFigure(){
-    return this->currentFigure;
+    return currentFigure;
 }
 
+Figure ** MainScene::getNextFigures(){
+    return nextFigures;
+}
+
+bool MainScene::getSpaceBar(){
+    return spaceBarPressed;
+}
+
+void MainScene::setSpaceBar(bool b){
+    spaceBarPressed = b;
+}
 
 void getRandomFigure(Figure *& curFigure, Figure * lastFigs[]) {
 
@@ -581,6 +575,28 @@ bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure *&figure){
 
     return false;
 }
+
+void handleFastDrop(std::vector <Figure*>& gameBoard, SDL_Keycode key, Figure *&figure, MainScene& m){
+
+    if(((key == CONTROLFASTDOWN) && !m.getSpaceBar())){
+        int largestY = 0;
+        for(unsigned int i = 0; i < figure->getBlocks().size(); i++){
+            if(figure->getBlocks()[i].getBlockY() > largestY){
+                largestY = figure->getBlocks()[i].getBlockY();
+            }
+        }
+        while(!colides(gameBoard, CONTROLDOWN, figure) && (largestY != 19)){
+            figure->getBlocks()[figure->getLeadingBlockPos()].setBlockY(figure->getBlocks()[figure->getLeadingBlockPos()].getBlockY() + 1);
+            figure->updateBlocks();
+            largestY += 1;
+        }
+        gameBoard.push_back(figure);
+        fetchNextFigure(figure, m.getNextFigures());
+        m.setSpaceBar(true);
+    }
+}
+
+
 
 bool isDead(std::vector <Figure*> gameBoard){
 
