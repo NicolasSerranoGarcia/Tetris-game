@@ -97,7 +97,7 @@ int main(){
 
             currentScene->render();
 
-            SDL_RenderPresent(mainScreen.getRender());
+            currentScene->update(mainScreen.getRender());
 
             // currentScene->clear();
 

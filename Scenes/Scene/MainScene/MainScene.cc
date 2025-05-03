@@ -16,6 +16,7 @@ MainScene::MainScene(){
 
 MainScene::~MainScene(){
     gameBoard.~vector();
+    Scene::~Scene();
 }
 
 //this function is inherited and the normal case is that it doesn't need any further coding. Still, at the moment I'm gonna call the father method from the child one in case 
