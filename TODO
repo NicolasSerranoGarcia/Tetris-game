@@ -63,7 +63,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] Make widths and heights relative to the ones in the screen
 
-[X] Cleaned files: constants.cc/.h , Screen.cc/.h, Button.cc/.h, Image.cc/.h, Font.cc/.h, Block.cc/.h, Figure.cc/.h, all child figures
+[X] Cleaned files: constants.cc/.h , Screen.cc/.h, Button.cc/.h, Image.cc/.h, Font.cc/.h, Block.cc/.h, Figure.cc/.h, all child figures, Scene.cc/.h, mainScene and opScene
 
 [X] method in Image to set one instance as a background
 
@@ -96,3 +96,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 [] add visuals like a timer when starting or the points won from a line clear
 
 [] make sure that auziliary classes call things like freeSurface() and that scenes and stuff call the destructors of the aux classes they use
+
+[X] Handle the death case in a separate method
+
+[] make it so that the rotation key is discrete

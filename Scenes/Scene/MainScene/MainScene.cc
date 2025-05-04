@@ -1,6 +1,5 @@
 #include "MainScene.h"
 
-#include <iostream>
 #include <random>
 
 MainScene::MainScene(){
@@ -39,6 +38,7 @@ MainScene::~MainScene(){
 
     Scene::~Scene();
 }
+
 
 void MainScene::render(){
 
@@ -244,162 +244,195 @@ void MainScene::render(){
 }
 
 void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
-
-    //If the settings button is clicked or the user hit ESC open the settings
-    if(getButtonMap()["settings"].isClicked(&event) || ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE))){
-        mScene = curScene;
-        curScene = nullptr;
-        curScene = new SetScene;
-
-        //mainScene now saves the progres made on the game even if the settings is opened
-
-    } else if((event.type != SDL_KEYDOWN) && (event.type != SDL_KEYUP)){
-        //Events that are not pressing keys are not handled
+   
+    //Events that are not pressing keys are not handled
+    if((event.type != SDL_KEYDOWN) && (event.type != SDL_KEYUP)){
         return;
     }
 
-    handleFastDrop(gameBoard, event.key.keysym.sym, currentFigure, *this);
-
-    if((event.type == SDL_KEYUP) && (event.key.keysym.sym == CONTROLFASTDOWN)){
-        spaceBarPressed = false;
+    //If the settings button is clicked or the user hit ESC open the settings
+    if(getButtonMap()["settings"].isClicked(&event) || ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE))){
+        //mainScene now saves the progres made on the game even if the settings is opened
+        mScene = curScene;
+        curScene = nullptr;
+        curScene = new SetScene;
+        return;
     }
-    
-    // if((event.type == SDL_KEYUP) && (event.key.keysym.sym == CONTROLROTATE)){
-    //     rotateKeyPressed = false;
-    // }
 
     
-    if(colides(gameBoard, event.key.keysym.sym, currentFigure)){
-        if(event.key.keysym.sym == CONTROLDOWN){
-            //calculate the highest point
-            if(isDead(gameBoard)){
-                dead = true;
-            } else{
-                gameBoard.push_back(this->currentFigure);
-                fetchNextFigure(currentFigure, nextFigures);
-            }
-        }
-    } else{
+    bool colision = colides(gameBoard, event.key.keysym.sym, currentFigure);
+    
+    //If there is no colision then it is safe to update
+    if(!colision){
         currentFigure->update(event);
+        handleFastDrop(event, currentFigure, *this);
+    } 
+    //If there will be a colision and the user wants to move the figure down, place the figure.
+    //Also check if the user is dead after placing
+    else if(event.key.keysym.sym == CONTROLDOWN){
+        gameBoard.push_back(currentFigure);
+        fetchNextFigure(currentFigure, nextFigures);
+        dead = isDead(gameBoard) ? true : false;
     }
+
+    handleDeath(curScene);
 }
 
 void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene){
-    //IMPLEMENTATION OF THE LOGIC IN THE GAME
+
+    //We calculate the current figure's highest y value. It will be reused
+
+        int largestY = 0;
+        for(unsigned int i = 0; i < currentFigure->getBlocks().size(); i++){
+            if(currentFigure->getBlocks()[i].getBlockY() > largestY){
+                largestY = currentFigure->getBlocks()[i].getBlockY();
+            }
+        }
+
+        //Then we check if the figure is at the bottom
+        if(largestY == 19){
+            gameBoard.push_back(currentFigure);
+            fetchNextFigure(currentFigure, nextFigures);  
+        }
+   
+    //This piece of code updates the figure one position down depending on the interval of time (FALLSPEED).
+    //Keep in mind the fallspeed changes depending on the level. Consecuently, this block will not execute every time 
+    //handleLogic() is called, only when enough time has passed.
+
+        Uint32 elapsed = SDL_GetTicks() - *lastTick;
+    
+        if(elapsed >= FALLSPEED){   
+            //We know for sure the figure's highest y value is at most 18 (if it was 19 it would have been updated).
+            //We are guaranteed to have at least one more down movement, so we can execute this code without checking
+
+            //We create an artifical event of moving down. We "simulate" the down key being pressed
+            SDL_Event event;
+            event.type = SDL_KEYDOWN;
+            event.key.keysym.sym = CONTROLDOWN;
+
+            bool colision = colides(gameBoard, event.key.keysym.sym, currentFigure);
+
+            //If there is no colision then it is safe to update
+            if(!colision){
+                currentFigure->update(event);
+            }
+            else{
+                gameBoard.push_back(currentFigure);
+                fetchNextFigure(currentFigure, nextFigures);
+                dead = isDead(gameBoard) ? true : false;
+            }
+            
+            *lastTick = SDL_GetTicks();
+        } 
+        
+        
+    //At this point, all the events will have been handled (the handleEvents() loop is already called).
+    //We also have taken care of automatic falling. This means that at this point the figure cannot
+    //move in any way. Also, if it needed to be placed (and conscuently belonging to the gameBoard at that moment),
+    //it was before this point. Now we have a static gameBoard and a static figure. We need to take care of the lines
+    //that need to be cleared
+    
+    
+    //We start by calculating the height of the gameBoard figures. It will be needed later
+
+        int maxHeight = 19;
+        
+        for(int i = 0; i < (int) gameBoard.size(); i++){
+            for(int j = 0; j < (int) gameBoard[i]->getBlocks().size(); j++){
+                if(gameBoard[i]->getBlocks()[j].getBlockY() < maxHeight){
+                    maxHeight = gameBoard[i]->getBlocks()[j].getBlockY();
+                }
+            }
+        }
+
+    //If there is a line that needs to be cleared, it will be between [19, maxHeight].
+    //To check if there is a line that needs to be cleared, we will check all the lines
+    //in the range, and see if any of them has 10 blocks of figures in it
+    
+        int linesCleared = 0; //at most 4
+        
+        for(int i = 19; i > maxHeight; i--){
+
+            
+            //Here we calculate the number of blocks that are in the current line (i)
+            //We check all the blocks and see if their y coord. coincides with the current line
+            
+                int blockCount = 0;
+
+                for(int j = 0; j < (int) gameBoard.size(); j++){
+                    for(int k = 0; k < (int) gameBoard[j]->getBlocks().size(); k++){
+                        if(gameBoard[j]->getBlocks()[k].getBlockY() == i){
+                            blockCount += 1;
+                        }
+                    }
+                }
+            
+            //If the line has 10 blocks, then it needs to be cleared
+
+            if(blockCount == 10){
+
+                //The total number of cleared lines is updated, as well as the lines of the current tick
+                LINES += 1;
+                linesCleared += 1;
+
+                //We check all the figures again, deleting the blocks that are in the line, as now we know
+                //that the line needs to be cleared
+                for(int j = 0; j < (int) gameBoard.size(); j++){
+                    for(int k = 0; k < (int) gameBoard[j]->getBlocks().size(); k++){
+                        if(gameBoard[j]->getBlocks()[k].getBlockY() == i){
+                            gameBoard[j]->getBlocks().erase(gameBoard[j]->getBlocks().cbegin() + k);
+                            k--;
+                        }
+                    }
+                }
+                
+                //Deleting a line by deleting the blocks of the figure can lead to having a figure whose
+                //vector of blocks is empty (we delete blocks, but not figures). Here we check if
+                //there is a figure with no blocks and delete it from the gameboard
+
+                    for(int k = 0; k < (int) gameBoard.size(); k++){
+                        if(gameBoard[k]->getBlocks().size() == 0){
+                            delete gameBoard[k];
+                            gameBoard.erase(gameBoard.cbegin() + k);
+                            k--;
+                        }
+                    }
+
+                //Lastly we need to move the blocks that are above our line one position down. We do this by checking
+                //if a block y position is bigger than the line. Then we just sum +1 to the blocks y position
+                
+                    for(int j = 0; j < (int) gameBoard.size(); j++){
+                        for(int k = 0; k < (int) gameBoard[j]->getBlocks().size(); k++){
+                            if(gameBoard[j]->getBlocks()[k].getBlockY() < i){
+                                gameBoard[j]->getBlocks()[k].setBlockY(gameBoard[j]->getBlocks()[k].getBlockY() + 1);
+                            }
+                        }
+                    }
+                //Moving the blocks means that the next line we have to check is already the one that we are in.
+                i++;
+            }
+        }
+        
+        //In the case there are lines cleared, update the general info
+
+            if(linesCleared){
+                POINTS += calculatePoints(linesCleared);
+                LEVEL = getLevel();
+                FALLSPEED = getFallSpeed();
+            } 
+
+    handleDeath(curScene);   
+}
+
+void MainScene::handleDeath(Scene *& curScene){
     if(dead){
         curScene = nullptr;
         curScene = new LooseScene;
     }
-    
-    Uint32 elapsed = SDL_GetTicks() - *lastTick;
-    
-    if(elapsed >= FALLSPEED){
-        //update the leading block 1 down and reset the ticks
-        
-        int largestY = 0;
-        for(unsigned int i = 0; i < this->currentFigure->getBlocks().size(); i++){
-            if(this->currentFigure->getBlocks()[i].getBlockY() > largestY){
-                largestY = this->currentFigure->getBlocks()[i].getBlockY();
-            }
-        }
-        
-        if((largestY < 19)){
-            if(colides(this->gameBoard, CONTROLDOWN, currentFigure)){
-                if(isDead(gameBoard)){
-                    dead = true;
-                } else{
-                    gameBoard.push_back(this->currentFigure);
-                    fetchNextFigure(currentFigure, nextFigures);
-                }
-            } else{
-                this->currentFigure->getBlocks()[this->currentFigure->getLeadingBlockPos()].setBlockY(this->currentFigure->getBlocks()[this->currentFigure->getLeadingBlockPos()].getBlockY() + 1);
-                this->currentFigure->updateBlocks();
-            }
-        }
-        
-        *lastTick = SDL_GetTicks();
-    }
-    
-    //when the figure reaches the bottom, place it and change the figure
-    int largestY = 0;
-    for(unsigned int i = 0; i < this->currentFigure->getBlocks().size(); i++){
-        if(this->currentFigure->getBlocks()[i].getBlockY() > largestY){
-            largestY = this->currentFigure->getBlocks()[i].getBlockY();
-        }
-    }
-    
-    if(largestY == 19){
-        gameBoard.push_back(this->currentFigure);
-        fetchNextFigure(currentFigure, nextFigures);     
-    }
-    
-    
-    //HANDLE LINE ELIMINATION
-    
-    //calculate the highest point where the figures have gotten to. 
-    //Take into account that the y-axis is inverted
-    
-    int maxHeight = 19;
-    for(int i = 0; i < (int) gameBoard.size(); i++){
-        for(int j = 0; j < (int) gameBoard[i]->getBlocks().size(); j++){
-            if(gameBoard[i]->getBlocks()[j].getBlockY() < maxHeight){
-                maxHeight = gameBoard[i]->getBlocks()[j].getBlockY();
-            }
-        }
-    }
-    
-    int linesCleared = 0;
-    
-    for(int i = 19; i > maxHeight; i--){
-        int blockCount = 0;
-        //calculate the number of blocks that are in the current line (i)
-        for(int k = 0; k < (int) gameBoard.size(); k++){
-            for(int t = 0; t < (int) gameBoard[k]->getBlocks().size(); t++){
-                if(gameBoard[k]->getBlocks()[t].getBlockY() == i){
-                    blockCount += 1;
-                }
-            }
-        }
-        
-        if(blockCount == 10){//the line is filled
-            LINES += 1;
-            linesCleared += 1;
-            for(int k = 0; k < (int) gameBoard.size(); k++){
-                for(int t = 0; t < (int) gameBoard[k]->getBlocks().size(); t++){
-                    if(gameBoard[k]->getBlocks()[t].getBlockY() == i){
-                        gameBoard[k]->getBlocks().erase(gameBoard[k]->getBlocks().cbegin() + t);
-                        t--;
-                    }
-                }
-            }
-            
-            //check if there where figures that have no blocks
-            for(int k = 0; k < (int) gameBoard.size(); k++){
-                if(gameBoard[k]->getBlocks().size() == 0){
-                    delete gameBoard[k];
-                    gameBoard.erase(gameBoard.cbegin() + k);
-                    k--;
-                }
-            }
-            
-            for(int j = 0; j < (int) gameBoard.size(); j++){
-                for(int k = 0; k < (int) gameBoard[j]->getBlocks().size(); k++){
-                    if(gameBoard[j]->getBlocks()[k].getBlockY() < i){
-                        gameBoard[j]->getBlocks()[k].setBlockY(gameBoard[j]->getBlocks()[k].getBlockY() + 1);
-                    }
-                }
-            }
-            i++;
-        }
-    }
-    POINTS += calculatePoints(linesCleared);
-    LEVEL = getLevel();
-    FALLSPEED = getFallSpeed();
-    
-    
 }
 
-Figure * MainScene::getCurrentFigure(){
+
+Figure * MainScene::getCurrentFigure() const{
     return currentFigure;
 }
 
@@ -407,59 +440,24 @@ Figure ** MainScene::getNextFigures(){
     return nextFigures;
 }
 
-bool MainScene::getSpaceBar(){
+std::vector<Figure*>& MainScene::getGameBoard(){
+    return gameBoard;
+}
+
+bool MainScene::getSpaceBar() const{
     return spaceBarPressed;
 }
+
 
 void MainScene::setSpaceBar(bool b){
     spaceBarPressed = b;
 }
 
-void getRandomFigure(Figure *& curFigure, Figure * lastFigs[]) {
 
-    curFigure = nullptr;
-    bool valid = false;
-
-    while (!valid) {
-
-        //Random generator
-
-        std::random_device dev;
-        std::mt19937 rng(dev());
-        std::uniform_int_distribution<std::mt19937::result_type> rnd6(0,6);
-
-        int id;
-        Figure* newFig = nullptr;
-
-        switch (rnd6(dev)) {
-            case 0: id = 0; newFig = new FigL; break;
-            case 1: id = 1; newFig = new FigJ; break;
-            case 2: id = 2; newFig = new FigO; break;
-            case 3: id = 3; newFig = new FigI; break;
-            case 4: id = 4; newFig = new FigT; break;
-            case 5: id = 5; newFig = new FigS; break;
-            case 6: id = 6; newFig = new FigZ; break;
-        }
-
-        valid = true;
-
-        //make sure the figures don't repeat in a range of 3
-        for (int i = 0; i < 3; i++) {
-            if (lastFigs[i] != nullptr && lastFigs[i]->getId() == id){
-                valid = false;
-                break;
-            }
-        }
-
-        if (valid) {
-            curFigure = newFig;
-        } else{
-            delete newFig;
-        }
-    }
-}
+//FUNCTIONS
 
 void getRandomFigure(Figure *& Figure){
+
     Figure = nullptr;
 
     std::random_device dev;
@@ -491,6 +489,50 @@ void getRandomFigure(Figure *& Figure){
     default:
         break;
     }
+
+}
+
+void getRandomFigure(Figure *& curFigure, Figure * lastFigs[]) {
+
+    curFigure = nullptr;
+    bool valid = false;
+
+    while (!valid) {
+
+        std::random_device dev;
+        std::mt19937 rng(dev());
+        std::uniform_int_distribution<std::mt19937::result_type> rnd6(0,6);
+
+        int id;
+        Figure* newFig = nullptr;
+
+        switch (rnd6(dev)) {
+            case 0: id = 0; newFig = new FigL; break;
+            case 1: id = 1; newFig = new FigJ; break;
+            case 2: id = 2; newFig = new FigO; break;
+            case 3: id = 3; newFig = new FigI; break;
+            case 4: id = 4; newFig = new FigT; break;
+            case 5: id = 5; newFig = new FigS; break;
+            case 6: id = 6; newFig = new FigZ; break;
+        }
+
+        valid = true;
+
+        //make sure the figures don't repeat in a range of 3
+
+        for (int i = 0; i < 3; i++) {
+            if (lastFigs[i] != nullptr && lastFigs[i]->getId() == id){
+                valid = false;
+                break;
+            }
+        }
+
+        if (valid) {
+            curFigure = newFig;
+        } else{
+            delete newFig;
+        }
+    }
 }
 
 void fetchNextFigure(Figure *& curFigure, Figure * nextFigs[]){
@@ -505,8 +547,7 @@ void fetchNextFigure(Figure *& curFigure, Figure * nextFigs[]){
     getRandomFigure(nextFigs[2], arr);
 }
 
-//return true if the figure colides with any other figure of the gameboard
-bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure *&figure){
+bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure * const &figure){
 
     if(CONTROLDOWN == key){
 
@@ -555,16 +596,16 @@ bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure *&figure){
 
      if(CONTROLROTATE == key){
         
-        Figure RotatedFigure = *figure;
+        Figure rotatedFigure = *figure;
 
-        RotatedFigure.rotate();
+        rotatedFigure.rotate();
 
 
         for(int i = 0; i < (int) gameBoard.size(); i++){
             for(int j = 0; j < (int) gameBoard[i]->getBlocks().size(); j++){
-                for(int k = 0; k < (int) RotatedFigure.getBlocks().size(); k++){
-                    if((gameBoard[i]->getBlocks()[j].getBlockX() == RotatedFigure.getBlocks()[k].getBlockX()) &&
-                    (gameBoard[i]->getBlocks()[j].getBlockY() == RotatedFigure.getBlocks()[k].getBlockY())){
+                for(int k = 0; k < (int) rotatedFigure.getBlocks().size(); k++){
+                    if((gameBoard[i]->getBlocks()[j].getBlockX() == rotatedFigure.getBlocks()[k].getBlockX()) &&
+                    (gameBoard[i]->getBlocks()[j].getBlockY() == rotatedFigure.getBlocks()[k].getBlockY())){
                         return true;
                     }
                 }
@@ -573,30 +614,39 @@ bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure *&figure){
         return false;
     }
 
+    //Any other key is not handled
     return false;
 }
 
-void handleFastDrop(std::vector <Figure*>& gameBoard, SDL_Keycode key, Figure *&figure, MainScene& m){
+void handleFastDrop(SDL_Event event, Figure*& figure, MainScene& m){
 
-    if(((key == CONTROLFASTDOWN) && !m.getSpaceBar())){
+    if(((event.key.keysym.sym == CONTROLFASTDOWN) && !m.getSpaceBar())){
+
         int largestY = 0;
+
         for(unsigned int i = 0; i < figure->getBlocks().size(); i++){
             if(figure->getBlocks()[i].getBlockY() > largestY){
                 largestY = figure->getBlocks()[i].getBlockY();
             }
         }
-        while(!colides(gameBoard, CONTROLDOWN, figure) && (largestY != 19)){
+
+        //Move the figure down until it colides
+        while(!colides(m.getGameBoard(), CONTROLDOWN, figure) && (largestY != 19)){
             figure->getBlocks()[figure->getLeadingBlockPos()].setBlockY(figure->getBlocks()[figure->getLeadingBlockPos()].getBlockY() + 1);
             figure->updateBlocks();
             largestY += 1;
         }
-        gameBoard.push_back(figure);
+
+        m.getGameBoard().push_back(figure);
         fetchNextFigure(figure, m.getNextFigures());
+
         m.setSpaceBar(true);
     }
+
+    if((event.type == SDL_KEYUP) && (event.key.keysym.sym == CONTROLFASTDOWN)){
+        m.setSpaceBar(false);
+    }
 }
-
-
 
 bool isDead(std::vector <Figure*> gameBoard){
 
@@ -766,5 +816,4 @@ void renderNextFigures(Figure * nextFigs[], int nextBgH){
         figs[i].renderFigure();
     }
     
-
 }

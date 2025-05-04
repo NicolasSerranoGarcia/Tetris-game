@@ -8,6 +8,14 @@
 #include <map>
 #include <utility>
 
+//This father class implements a dynamic way to handle the game state. The basic functioning
+//of the program is to switch between scenes triggered by user interaction. The whole program
+//consists of a combination of scenes that change depending on this input. Every child implements
+//it's own methods for rendering the scene, handling the events that come from the user and, depending
+//on the complexity of the scene, other methods like handling the logic. Except special cases, whenever
+//a scene is switched, the scene that was showing will be deleted. This means that the instance of the 
+//child scene will be deleted. If the user invoques the scene again, a new instance will be created. 
+//For more info see the documentation
 class Scene{
 
     private:

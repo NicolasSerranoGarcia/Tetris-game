@@ -1,15 +1,19 @@
 #ifndef OPSCENE_H
 #define OPSCENE_H
 
-#include "Scenes/SceneF/Scene.h"
+//Files for auxiliary classes
 #include "Font/Font.h"
 #include "Button/Button.h"
 #include "Image/Image.h"
+
+//Files for the scenes
+#include "Scenes/SceneF/Scene.h"
 #include "Scenes/Scenes.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+//This class is a child. More info on the father class Scene
 class OpScene: public Scene{
 
     public:

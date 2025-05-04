@@ -19,6 +19,7 @@
 
 #include <SDL2/SDL.h>
 
+//This class is a child. More info on the father class Scene
 class MainScene: public Scene{
 
     private:
@@ -35,32 +36,70 @@ class MainScene: public Scene{
         //and this pointer will point to a newly created figure. Notice that in this process the 
         //figure is NOT deleted (but this pointer no longer references it)
         Figure* currentFigure = nullptr;
-
+        
         //This array saves the next 3 figures that will be fetched to the gameboard. Whenever
         //a figure is placed, the pointer to the current figure will be replaced with nextFigures[0]
         //and this array will loose the reference to that figure. A reference to a newly created figure
         //will be placed in nextFigures[2]. Of course nextFigures[0] will now be the previous nextFigures[1]
         //and so on
         Figure * nextFigures[3] = {nullptr};
-
+        
         //Player looses ? => dead = true
         bool dead = false;
-
+        
         //This boolean is used to check wether if the user is mantaining the spacebar key
         bool spaceBarPressed = false;
-
-        //This boolean is used to check wether if the user is mantaining the rotate key
-        bool rotateKeyPressed = false;
-
-    public:
-
+        
+        //NOT IMPLEMENTED
+        // //This boolean is used to check wether if the user is mantaining the rotate key
+        // bool rotateKeyPressed = false;
+        
+    public:   
+    
         //CONSTRUCTORS/DESTRUCTOR
-
+        
         //Cnstructor
         MainScene();
-
-        //Destructor. Also calls the father desructor
+        
+        //Destructor. Also calls the father destructor Scene::~Scene()
         ~MainScene() override;
+    
+
+        //GETTERS
+
+        //Getter
+        //
+        //RETURNS:
+        //a pointer to the current figure
+        Figure * getCurrentFigure() const;
+
+        //Getter
+        //
+        //RETURNS:
+        //a pointer to the array of next figures
+        Figure ** getNextFigures();
+
+        //Getter
+        //
+        //RETURNS:
+        //a reference to the vector of figures (gameboard)
+        std::vector <Figure*>& getGameBoard();
+
+        //Getter
+        //
+        //RETURNS:
+        //The boolean that checks if the space bar 
+        //is pressed
+        bool getSpaceBar() const;
+
+
+        //SETTERS
+
+        //Setter
+        //
+        //RETURNS:
+        //void
+        void setSpaceBar(bool b);
 
 
         //MISCELLANEOUS
@@ -74,28 +113,93 @@ class MainScene: public Scene{
         void render() override;
 
         //This method is an override. To see more info on what
-        //it does see the father method. This one handles the settings button,
+        //it does see the father method. This one handles the settings button and the
+        //controls (left, down, rotate...)
         //
         //
         //RETURNS:
         //void
         void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene) override;
 
+        //This method is an override. To see more info on what
+        //it does see the father method. This one handles the automatic figure drop
+        //and line clearing
+        //
+        //
+        //RETURNS:
+        //void
         void handleLogic(Uint32 * lastTick, Scene *& curScene) override;
 
-        Figure * getCurrentFigure();
-        Figure ** getNextFigures();
-        bool getSpaceBar();
+        //This method handles the death of the user. It is called at the end of methods
+        //that can trigger a death case. It switches the scene to a new one in case the
+        //user dies
+        //
+        //RETURNS:
+        //void
+        void handleDeath(Scene *& curScene);
 
-        void setSpaceBar(bool b);
 };
 
-void getRandomFigure(Figure *& curFigure, Figure * lastFigs[]);
+
+//FUNCTIONS
+
+//This function loads the figure passed as a parameter with a new, random figure
+//
+//RETURNS:
+//void
 void getRandomFigure(Figure *& Figure);
+
+//This function loads the figure passed as a parameter with a new, random figure.
+//It update it with a figure distinct from the last 3. The second parameter
+//represents this concept
+//
+//RETURNS:
+//void
+void getRandomFigure(Figure *& curFigure, Figure * lastFigs[]);
+
+//This function fetches the next figure from the next figures array. In the process it calls
+//getRandomFigure(). At the end the next figures array will be updated with a new figure at
+//the end of it. See the documentation for more info
+//
+//RETURNS:
+//void
 void fetchNextFigure(Figure *& curFigure, Figure * nextFigs[]);
-bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure *& curFigure);
-void handleFastDrop(std::vector <Figure*>& gameBoard, SDL_Keycode key, Figure *&figure, MainScene& m);
+
+//This function returns true if the figure passed as a parameter colides with any of the figures
+//of the gameboard. 
+//NOTE: Keep in mind that the figure will be checked with a movement. That is
+//the function checks if the figure colides IN THE CASE the figure is moved in the way that
+//the "key" parameter dictates. 
+//
+//RETURNS:
+//-true if the function colides
+//-false in any other case. It will also return false if the parameter passed as "key" is not
+//one of the game keys. The current game keys that need collision checking are rotate, 
+//move left, move right and move down.
+bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure * const & curFigure);
+
+//This function handles the mechanic of the fast drop. The figure passed as a parameter will be
+//updated as if it was "dropped" until the lowest possible point without coliding with another
+//figure or the grid. 
+//NOTE: If the event passed as a parameter is not the CONTROLFASTDOWN one, the function won't do 
+//anything
+//
+//RETURNS:
+//void
+void handleFastDrop(SDL_Event event, Figure*& figure, MainScene& m);
+
+//This function renders the next 3 figures in it's box. It takes the next figures array as a parameter
+//
+//RETURNS:
+//void
 void renderNextFigures(Figure * nextFigs[], int nextBgH);
+
+//This function checks wether if the current state of the game is a death point. This function will not
+//interfere with any atribute of the class. It will normally be called as a condition for something else.
+//
+//RETURNS:
+//-false if the user is not dead
+//-true otherwise
 bool isDead(std::vector <Figure*> gameBoard);
 
 #endif
