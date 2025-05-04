@@ -18,6 +18,8 @@
 #include "Figures/Figures.h"
 
 #include <SDL2/SDL.h>
+#include <random>
+
 
 //This class is a child. More info on the father class Scene
 class MainScene: public Scene{

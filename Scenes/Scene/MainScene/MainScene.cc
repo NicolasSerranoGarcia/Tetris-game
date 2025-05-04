@@ -1,7 +1,5 @@
 #include "MainScene.h"
 
-#include <random>
-
 MainScene::MainScene(){
 
     Button settingsButton(mainScreen.getWidth() - 75, mainScreen.getHeight() - 75, 50, 50, WHITE, &mainScreen);
