@@ -79,7 +79,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] add the death case
 
-[] when the settings is opened don't show the figures
+[X] when the settings is opened don't show the figures
 
 [X] fix the random figures so that one figure doesn't repeat
 
@@ -102,3 +102,5 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 [] make it so that the rotation key is discrete
 
 [] trigger a screen to ak for the input. It is more visual for the user
+
+[] make some type of user save info. Save binds, best games...

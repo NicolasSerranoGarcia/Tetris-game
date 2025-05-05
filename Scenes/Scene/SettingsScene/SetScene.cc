@@ -1,7 +1,5 @@
 #include "SetScene.h"
 
-#include <iostream>
-
 SetScene::~SetScene(){
 
 }
@@ -27,7 +25,7 @@ SetScene::SetScene(){
 
 void SetScene::render(){
     if(mainScene != nullptr){
-        mainScene->render();
+        mainScene->renderWithoutFigures();
     }
     SDL_Rect settingsRect = {SBX, SBY, SBW, SBH};
     SDL_SetRenderDrawColor(mainScreen.getRender(), NAVY.r, NAVY.g, NAVY.b, NAVY.a);
@@ -77,7 +75,6 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                 if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym != SDLK_ESCAPE)){
                     valid = true;
                     CONTROLROTATE = newEvent.key.keysym.sym;
-                    SDL_PushEvent(&newEvent);
                     break;
                 }
                  else if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym == SDLK_ESCAPE)){
@@ -99,7 +96,6 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                 if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym != SDLK_ESCAPE)){
                     valid = true;
                     CONTROLLEFT = newEvent.key.keysym.sym;
-                    SDL_PushEvent(&newEvent);
                     break;
                 }
                  else if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym == SDLK_ESCAPE)){
@@ -121,7 +117,6 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                 if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym != SDLK_ESCAPE)){
                     valid = true;
                     CONTROLRIGHT = newEvent.key.keysym.sym;
-                    SDL_PushEvent(&newEvent);
                     break;
                 }
                  else if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym == SDLK_ESCAPE)){
@@ -143,7 +138,6 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                 if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym != SDLK_ESCAPE)){
                     valid = true;
                     CONTROLDOWN = newEvent.key.keysym.sym;
-                    SDL_PushEvent(&newEvent);
                     break;
                 }
                  else if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym == SDLK_ESCAPE)){
@@ -165,14 +159,12 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                 if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym != SDLK_ESCAPE)){
                     valid = true;
                     CONTROLFASTDOWN = newEvent.key.keysym.sym;
-                    SDL_PushEvent(&newEvent);
                     break;
                 }
                  else if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym == SDLK_ESCAPE)){
                     valid = true;
                     break;
                 }
-
             }
         }
     }

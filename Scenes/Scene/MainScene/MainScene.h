@@ -114,6 +114,10 @@ class MainScene: public Scene{
         //void
         void render() override;
 
+
+        void renderWithoutFigures() override;
+
+
         //This method is an override. To see more info on what
         //it does see the father method. This one handles the settings button and the
         //controls (left, down, rotate...)

@@ -62,6 +62,9 @@ class Scene{
         //void
         virtual void render() = 0;
 
+        //
+        virtual void renderWithoutFigures();
+
         //This method clears the scene by calling SDL_RenderClear()
         //
         //RETURNS:

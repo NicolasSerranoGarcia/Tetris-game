@@ -16,6 +16,8 @@ void Scene::update(SDL_Renderer * render){
     SDL_RenderPresent(render);
 }
 
+void Scene::renderWithoutFigures(){}
+
 void Scene::clear(){ 
     SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a); 
     SDL_RenderClear(mainScreen.getRender()); 

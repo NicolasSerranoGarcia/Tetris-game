@@ -27,7 +27,7 @@
 //  been a way to learn some more advanced things like object polimorfhism using abstract classes and virtual methods, dynamic pointers... I've had to deal with a lot of header
 //  handling so I have also learnt a bit of make. Other things like .gitignore have been really usefull with a project of this size. I've never made something bigger than 2 files.
 //  This is also the first time I've used git and Github in the correct way (I think). I really like this tool. Overall, I have learnt a LOT of things. Rn developing games
-//  is the most direct way for me of learning. Follow my github to check out on some other projects I'll be developing in the future.
+//  is the most direct way for me to learn. Follow my github to check out on some other projects I'll be developing in the future.
 //
 //
 //  LICENSE: This project has absolutely no license nor it is aimed to profit me in any financial way. If anything, it is a way for me to show my apreciation for retro
@@ -41,9 +41,7 @@
 // The general structure of the project consists of several scenes that switch via events (like button presses or death cases). This scenes are supported by auxilary classes
 // like Font or Button that implement SDL functionalities in a fast-access way. There's a pointer to the current scene that switches depending on the events.
 
-#include "Font/Font.h"
-#include "Button/Button.h"
-#include "Scenes/SceneF/Scene.h"
+#include "Scenes/SceneF/Scene.h" //The father class of the Scenes
 #include "Scenes/Scenes.h"        //This is just a file with all the #include "eachScene.h"
 #include "constants/constants.h" //Contains things like SDL_Color colors, positioning variables and so
 
@@ -94,14 +92,12 @@ int main(){
             }
 
             currentScene->handleLogic(&lastTick, currentScene);
-
+            
             currentScene->render();
 
             currentScene->update(mainScreen.getRender());
 
             // currentScene->clear();
-
-            SDL_Delay(3);
         }
     }
 
