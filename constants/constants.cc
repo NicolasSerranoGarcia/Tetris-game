@@ -39,15 +39,24 @@ const int ISW = FSW;
 const int ISH = BLOCKLENGTH*2;
 
 
-SDL_KeyCode CONTROLLEFT = SDLK_LEFT;
+const int SBX = 50;
 
-SDL_KeyCode CONTROLRIGHT = SDLK_RIGHT;
+const int SBY = SCREENHEIGHT/6;
 
-SDL_KeyCode CONTROLDOWN = SDLK_DOWN;
+const int SBW = SCREENWIDTH - SBX*2;
 
-SDL_KeyCode CONTROLROTATE = SDLK_UP;
+const int SBH = (int) (SCREENHEIGHT/1.5);
 
-SDL_KeyCode CONTROLFASTDOWN = SDLK_SPACE;
+
+SDL_Keycode CONTROLLEFT = SDLK_LEFT;
+
+SDL_Keycode CONTROLRIGHT = SDLK_RIGHT;
+
+SDL_Keycode CONTROLDOWN = SDLK_DOWN;
+
+SDL_Keycode CONTROLROTATE = SDLK_UP;
+
+SDL_Keycode CONTROLFASTDOWN = SDLK_SPACE;
 
 
 Uint32 FALLSPEED = 1250;
@@ -188,3 +197,138 @@ int px(AbsPosition position, int objW){
         default:                               return 0;
     }
 };
+
+std::string convertKeyToLetter(SDL_Keycode key) {
+    switch (key) {
+        // Letras
+        case SDLK_a: return "A";
+        case SDLK_b: return "B";
+        case SDLK_c: return "C";
+        case SDLK_d: return "D";
+        case SDLK_e: return "E";
+        case SDLK_f: return "F";
+        case SDLK_g: return "G";
+        case SDLK_h: return "H";
+        case SDLK_i: return "I";
+        case SDLK_j: return "J";
+        case SDLK_k: return "K";
+        case SDLK_l: return "L";
+        case SDLK_m: return "M";
+        case SDLK_n: return "N";
+        case SDLK_o: return "O";
+        case SDLK_p: return "P";
+        case SDLK_q: return "Q";
+        case SDLK_r: return "R";
+        case SDLK_s: return "S";
+        case SDLK_t: return "T";
+        case SDLK_u: return "U";
+        case SDLK_v: return "V";
+        case SDLK_w: return "W";
+        case SDLK_x: return "X";
+        case SDLK_y: return "Y";
+        case SDLK_z: return "Z";
+
+        // Números
+        case SDLK_0: return "0";
+        case SDLK_1: return "1";
+        case SDLK_2: return "2";
+        case SDLK_3: return "3";
+        case SDLK_4: return "4";
+        case SDLK_5: return "5";
+        case SDLK_6: return "6";
+        case SDLK_7: return "7";
+        case SDLK_8: return "8";
+        case SDLK_9: return "9";
+
+        // Teclas especiales
+        case SDLK_RETURN: return "ENTER";
+        case SDLK_ESCAPE: return "ESCAPE";
+        case SDLK_BACKSPACE: return "BACKSPACE";
+        case SDLK_TAB: return "TAB";
+        case SDLK_SPACE: return "SPACE";
+        case SDLK_DELETE: return "DELETE";
+        case SDLK_UP: return "UP";
+        case SDLK_DOWN: return "DOWN";
+        case SDLK_LEFT: return "LEFT";
+        case SDLK_RIGHT: return "RIGHT";
+        case SDLK_LSHIFT: return "LSHIFT";
+        case SDLK_RSHIFT: return "RSHIFT";
+        case SDLK_LCTRL: return "LCTRL";
+        case SDLK_RCTRL: return "RCTRL";
+        case SDLK_LALT: return "LALT";
+        case SDLK_RALT: return "RALT";
+        case SDLK_CAPSLOCK: return "CAPSLOCK";
+
+        // Símbolos (teclado US)
+        case SDLK_MINUS: return "-";
+        case SDLK_EQUALS: return "=";
+        case SDLK_LEFTBRACKET: return "[";
+        case SDLK_RIGHTBRACKET: return "]";
+        case SDLK_BACKSLASH: return "\\";
+        case SDLK_SEMICOLON: return ";";
+        case SDLK_QUOTE: return "'";
+        case SDLK_BACKQUOTE: return "`";
+        case SDLK_COMMA: return ",";
+        case SDLK_PERIOD: return ".";
+        case SDLK_SLASH: return "/";
+
+        // Teclado numérico
+        case SDLK_KP_0: return "KP_0";
+        case SDLK_KP_1: return "KP_1";
+        case SDLK_KP_2: return "KP_2";
+        case SDLK_KP_3: return "KP_3";
+        case SDLK_KP_4: return "KP_4";
+        case SDLK_KP_5: return "KP_5";
+        case SDLK_KP_6: return "KP_6";
+        case SDLK_KP_7: return "KP_7";
+        case SDLK_KP_8: return "KP_8";
+        case SDLK_KP_9: return "KP_9";
+        case SDLK_KP_PLUS: return "KP_PLUS";
+        case SDLK_KP_MINUS: return "KP_MINUS";
+        case SDLK_KP_MULTIPLY: return "KP_MULTIPLY";
+        case SDLK_KP_DIVIDE: return "KP_DIVIDE";
+        case SDLK_KP_ENTER: return "KP_ENTER";
+        case SDLK_KP_PERIOD: return "KP_PERIOD";
+
+        default:
+            return "UNKNOWN";
+    }
+}
+
+SDL_Keycode convertLetterToKeycode(char c) {
+    if (c >= 'a' && c <= 'z') {
+        return SDLK_a + (c - 'a');
+    } else if (c >= 'A' && c <= 'Z') {
+        return SDLK_a + (c - 'A');
+    } else if (c >= '0' && c <= '9') {
+        return SDLK_0 + (c - '0');
+    }
+
+    switch (c) {
+        case ' ': return SDLK_SPACE;
+        case '\n': return SDLK_RETURN;
+        case '\b': return SDLK_BACKSPACE;
+        case '\t': return SDLK_TAB;
+        case 27:   return SDLK_ESCAPE; // char ESC
+
+        // Símbolos comunes (layout US)
+        case '-': return SDLK_MINUS;
+        case '=': return SDLK_EQUALS;
+        case '[': return SDLK_LEFTBRACKET;
+        case ']': return SDLK_RIGHTBRACKET;
+        case '\\': return SDLK_BACKSLASH;
+        case ';': return SDLK_SEMICOLON;
+        case '\'': return SDLK_QUOTE;
+        case '`': return SDLK_BACKQUOTE;
+        case ',': return SDLK_COMMA;
+        case '.': return SDLK_PERIOD;
+        case '/': return SDLK_SLASH;
+
+        // Numpad equiv. opcional
+        case '*': return SDLK_KP_MULTIPLY;
+        case '+': return SDLK_KP_PLUS;
+
+        default:
+            return SDLK_UNKNOWN;
+    }
+}

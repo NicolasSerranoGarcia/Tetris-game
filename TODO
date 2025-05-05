@@ -51,7 +51,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] when the figures are rotated, the can faze through the walls. Fix that
 
-[] The class nmes of the figures are not well placed. FigZ, FigL... 
+[X] The class nmes of the figures are not well placed. FigZ, FigL... 
 
 [] implement rotation details of the stick figure
 
@@ -100,3 +100,5 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 [X] Handle the death case in a separate method
 
 [] make it so that the rotation key is discrete
+
+[] trigger a screen to ak for the input. It is more visual for the user

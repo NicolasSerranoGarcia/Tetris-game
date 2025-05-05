@@ -63,20 +63,34 @@ extern const int ISW;
 extern const int ISH;
 
 
-//An SDL_KeyCode instance that saves the key that the player uses to move the figures to the left
-extern SDL_KeyCode CONTROLLEFT;
+//The position X in pixels of the background rectangle in the settings
+extern const int SBX;
+
+//The position Y in pixels of the background rectangle in the settings
+//The Y position varies depending of which stat we are showing
+extern const int SBY;
+
+//The Width in pixels of the background rectangle in the settings
+extern const int SBW;
+
+//The Height in pixels of the background rectangle in the settings
+extern const int SBH;
+
+
+//An SDL_Keycode instance that saves the key that the player uses to move the figures to the left
+extern SDL_Keycode CONTROLLEFT;
 
 //An SDL_KeyCode instance that saves the key that the player uses to move the figures to the right
-extern SDL_KeyCode CONTROLRIGHT;
+extern SDL_Keycode CONTROLRIGHT;
 
-//An SDL_KeyCode instance that saves the key that the player uses to move the figures down
-extern SDL_KeyCode CONTROLDOWN;
+//An SDL_Keycode instance that saves the key that the player uses to move the figures down
+extern SDL_Keycode CONTROLDOWN;
 
-//An SDL_KeyCode instance that saves the key that the player uses to rotate the figures
-extern SDL_KeyCode CONTROLROTATE;
+//An SDL_Keycode instance that saves the key that the player uses to rotate the figures
+extern SDL_Keycode CONTROLROTATE;
 
-//An SDL_KeyCode instance that saves the key that the player uses to instantly place a figure by fast drop
-extern SDL_KeyCode CONTROLFASTDOWN;
+//An SDL_Keycode instance that saves the key that the player uses to instantly place a figure by fast drop
+extern SDL_Keycode CONTROLFASTDOWN;
 
 
 //An unsigned integer of 32 bits representing the time (ms) that a figure takes to drop one tile
@@ -191,5 +205,10 @@ int py(AbsPosition position, int objH);
 //RETURNS:
 //An integer representing the pixels of the X position specified by the enum
 int px(AbsPosition position, int objW);
+
+
+std::string convertKeyToLetter(SDL_Keycode key);
+
+SDL_Keycode convertLetterToKeycode(char c);
 
 #endif
