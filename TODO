@@ -59,7 +59,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] Add collision when figures move horizontally while mantaining freedom of movement
 
-[] MANTAINANCE: add comments, clear code, present the classes...
+[X] MANTAINANCE: add comments, clear code, present the classes...
 
 [X] Make widths and heights relative to the ones in the screen
 
@@ -73,7 +73,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] create the pointing system of the cleared blocks
 
-[/] add a figure visualizer for the following 3 figures
+[X] add a figure visualizer for the following 3 figures
 
 [/] add the settings scene
 
@@ -104,3 +104,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 [] trigger a screen to ak for the input. It is more visual for the user
 
 [] make some type of user save info. Save binds, best games...
+
+[X] the shadow is not "pushed" when the figure gets out of bounds
+
+[] render without figures is not updated if you change render(). Keep in mind

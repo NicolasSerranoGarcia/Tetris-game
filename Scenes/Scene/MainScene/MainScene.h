@@ -114,7 +114,12 @@ class MainScene: public Scene{
         //void
         void render() override;
 
-
+        //This method is an override, but it is unique to the class
+        //MainScene. It does the same as render() but without the figures.
+        //By figures I mean the gameboard, the current figure and the next figures
+        //
+        //RETURNS:
+        //void
         void renderWithoutFigures() override;
 
 

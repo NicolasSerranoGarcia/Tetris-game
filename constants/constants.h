@@ -67,7 +67,6 @@ extern const int ISH;
 extern const int SBX;
 
 //The position Y in pixels of the background rectangle in the settings
-//The Y position varies depending of which stat we are showing
 extern const int SBY;
 
 //The Width in pixels of the background rectangle in the settings
@@ -75,6 +74,19 @@ extern const int SBW;
 
 //The Height in pixels of the background rectangle in the settings
 extern const int SBH;
+
+
+//The position X in pixels of the hold figure background rectangle
+extern const int HFX;
+
+//The position Y in pixels of the hold figure background rectangle
+extern const int HFY;
+
+//The Width in pixels of the hold figure background rectangle
+extern const int HFW;
+
+//The Height in pixels of the hold figure background rectangle
+extern const int HFH;
 
 
 //An SDL_Keycode instance that saves the key that the player uses to move the figures to the left

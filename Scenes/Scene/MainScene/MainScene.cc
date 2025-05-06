@@ -2,7 +2,7 @@
 
 MainScene::MainScene(){
 
-    Button settingsButton(mainScreen.getWidth() - 75, mainScreen.getHeight() - 75, 50, 50, WHITE, &mainScreen);
+    Button settingsButton({mainScreen.getWidth() - 65, mainScreen.getHeight() - 65, 50, 50}, WHITE, &mainScreen);
     getButtonMap()["settings"] = settingsButton;
 
     //Load the next 3 random figures 
@@ -199,6 +199,12 @@ void MainScene::render(){
         }
     }
 
+    //Render the background for the hold figure
+
+        SDL_Rect rect = {HFX,HFY,HFW,HFH};
+        SDL_RenderDrawRect(mainScreen.getRender(), &rect);
+
+
 
     //render all the figures that are already placed
 
@@ -218,6 +224,7 @@ void MainScene::render(){
 
         //We first calculate the real smallest Y coordinate of the figure
         int smallestY = 0;
+
         for(unsigned int i = 0; i < shadow.getBlocks().size(); i++){
             if(shadow.getBlocks()[i].getBlockY() > smallestY){
                 smallestY = shadow.getBlocks()[i].getBlockY();
@@ -229,6 +236,28 @@ void MainScene::render(){
         while(!colides(gameBoard, CONTROLDOWN, sh) && (smallestY != 19)){
             for(int i = 0; i < (int) shadow.getBlocks().size(); i++){
                 shadow.getBlocks()[i].setBlockY(shadow.getBlocks()[i].getBlockY() + 1);
+
+                //If we detect a block of the shadow that is outside of the grid, we'll move the figure
+                //the number of tiles the block we found is outside. I do this because of a very specific
+                //thing. When a figure is out of bounds it gets pushed back inside, but the shadow doesn't.
+                //Sometimes the shadow is seen outside the grid even though the figure is inside. 
+
+                    if(shadow.getBlocks()[i].getBlockX() < 0){
+
+                        int offset = -shadow.getBlocks()[i].getBlockX();
+
+                        for(int j = 0; j < (int) shadow.getBlocks().size(); j++){
+                            shadow.getBlocks()[j].setBlockX(shadow.getBlocks()[j].getBlockX() + offset);
+                        }
+                    }
+                    else if(shadow.getBlocks()[i].getBlockX() > 19){
+
+                        int offset = 19 - shadow.getBlocks()[i].getBlockX();
+
+                        for(int j = 0; j < (int) shadow.getBlocks().size(); j++){
+                            shadow.getBlocks()[j].setBlockX(shadow.getBlocks()[j].getBlockX() - offset);
+                        }
+                    }
             }
             smallestY += 1;
         }
@@ -402,7 +431,7 @@ void MainScene::renderWithoutFigures(){
 void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
    
     //Events that are not pressing keys are not handled
-    if((event.type != SDL_KEYDOWN) && (event.type != SDL_KEYUP)){
+    if((event.type != SDL_KEYDOWN) && (event.type != SDL_KEYUP) && (event.type != SDL_MOUSEBUTTONDOWN)){
         return;
     }
 

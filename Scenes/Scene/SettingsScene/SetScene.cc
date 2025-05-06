@@ -107,7 +107,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         }
     }
 
-    if(getButtonMap()["right"].isClicked(&event)){
+    else if(getButtonMap()["right"].isClicked(&event)){
         //maybe trigger a screen to ask for the input
         bool valid = false;
         SDL_Event newEvent;

@@ -62,7 +62,11 @@ class Scene{
         //void
         virtual void render() = 0;
 
+        //This method is specific for MainScene. It does the same as 
+        //Scene::Render(), but without rendering the figures (all of them)
         //
+        //RETURNS:
+        //void
         virtual void renderWithoutFigures();
 
         //This method clears the scene by calling SDL_RenderClear()

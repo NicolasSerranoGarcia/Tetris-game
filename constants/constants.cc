@@ -48,6 +48,15 @@ const int SBW = SCREENWIDTH - SBX*2;
 const int SBH = (int) (SCREENHEIGHT/1.5);
 
 
+const int HFX = ISX;
+
+const int HFY = BSY + BSH - BLOCKLENGTH*3;
+
+const int HFW = ISW;
+
+const int HFH = BLOCKLENGTH*2 + (int) (BLOCKLENGTH*(2.0/3));
+
+
 SDL_Keycode CONTROLLEFT = SDLK_LEFT;
 
 SDL_Keycode CONTROLRIGHT = SDLK_RIGHT;
