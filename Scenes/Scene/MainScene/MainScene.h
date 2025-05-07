@@ -195,7 +195,7 @@ void fetchNextFigure(Figure *& curFigure, Figure * nextFigs[]);
 
 //This function returns true if the figure passed as a parameter colides with any of the figures
 //of the gameboard. 
-//NOTE: Keep in mind that the figure will be checked with a movement. That is
+//NOTE: Keep in mind that the figure will be checked with a movement. That is,
 //the function checks if the figure colides IN THE CASE the figure is moved in the way that
 //the "key" parameter dictates. 
 //
@@ -205,6 +205,16 @@ void fetchNextFigure(Figure *& curFigure, Figure * nextFigs[]);
 //one of the game keys. The current game keys that need collision checking are rotate, 
 //move left, move right and move down.
 bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure * const & curFigure);
+
+//This function returns true if the figure passed as a parameter colides with any of the figures
+//of the gameboard. 
+//NOTE: This function, unlike colides(), checks if the figure colides in it's current position (no 
+//movement in advance). This function also checks collision with the borders
+//
+//RETURNS:
+//-true if the function colides
+//-false in any other case
+bool colidesStatic(std::vector <Figure*> gameBoard, Figure * const &figure);
 
 //This function handles the mechanic of the fast drop. The figure passed as a parameter will be
 //updated as if it was "dropped" until the lowest possible point without coliding with another

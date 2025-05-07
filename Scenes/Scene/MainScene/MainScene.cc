@@ -839,6 +839,47 @@ bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure * const &f
     return false;
 }
 
+bool colidesStatic(std::vector <Figure*> gameBoard, Figure * const &figure){
+    for(int i = 0; i < (int) gameBoard.size(); i++){
+        for(int j = 0; j < (int) gameBoard[i]->getBlocks().size(); j++){
+            for(int k = 0; k < (int) figure->getBlocks().size(); k++){
+                if((gameBoard[i]->getBlocks()[j].getBlockX() == figure->getBlocks()[k].getBlockX()) &&
+                   (gameBoard[i]->getBlocks()[j].getBlockY() == (figure->getBlocks()[k].getBlockY()))){
+                    return true;
+                }
+            }
+        }
+    }
+
+    int smallestY = 0;
+    int largestY = 0;
+    int smallestX = 0;
+    int largestX = 0;
+
+    for(unsigned int i = 0; i < figure->getBlocks().size(); i++){
+        if(figure->getBlocks()[i].getBlockY() > smallestY){
+            smallestY = figure->getBlocks()[i].getBlockY();
+        }
+        if(figure->getBlocks()[i].getBlockY() > smallestX){
+            smallestX = figure->getBlocks()[i].getBlockY();
+        }
+        if(figure->getBlocks()[i].getBlockY() < largestY){
+            largestY = figure->getBlocks()[i].getBlockY();
+        }
+        if(figure->getBlocks()[i].getBlockY() < largestX){
+            largestX = figure->getBlocks()[i].getBlockY();
+        }
+        
+    }
+
+    if((smallestX < 0) || (smallestY < 0) || (largestX > 9) || (largestY > 19)){
+        return true;
+    }
+
+
+    return false;   
+}
+
 void handleFastDrop(SDL_Event event, Figure*& figure, MainScene& m){
 
     if(((event.key.keysym.sym == CONTROLFASTDOWN) && !m.getSpaceBar())){
@@ -1046,12 +1087,10 @@ void handleSwap(Figure *& fallingFigure, Figure *& holdedFigure, Figure * nextFi
         fetchNextFigure(fallingFigure, nextFigs);
 
         *numSwaps = 0;
-        std::cout << "W";
         return;
     }
 
     if(*numSwaps != 2){
-        std::cout << "H" <<std::endl;
         Figure * temp = fallingFigure;
         //check if the swap makes the figure colide. If it does, swap is not enabled
         holdedFigure->getBlocks()[holdedFigure->getLeadingBlockPos()].setBlockX(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockX());
