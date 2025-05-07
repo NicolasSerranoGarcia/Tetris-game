@@ -1,5 +1,7 @@
 #include "MainScene.h"
 
+#include <iostream>
+
 MainScene::MainScene(){
 
     Button settingsButton({mainScreen.getWidth() - 65, mainScreen.getHeight() - 65, 50, 50}, WHITE, &mainScreen);
@@ -212,8 +214,8 @@ void MainScene::render(){
             Figure fig = *holdedFigure;
 
             Figure * f = &fig;
-            changeSwappedFigurePosition(f);
-            f->renderFigure();
+            // changeSwappedFigurePosition(f);
+            fig.renderFigure();
         }
 
     //render all the figures that are already placed
@@ -461,7 +463,7 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
     }
 
     //Handle the swapping of the figure. The function does everyting
-    if(event.key.keysym.sym == CONTROLSWAP){
+    if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == CONTROLSWAP) && !event.key.repeat){
         handleSwap(currentFigure, holdedFigure, nextFigures, &numberSwaps);
         return;
     }
@@ -668,6 +670,9 @@ void MainScene::setSpaceBar(bool b){
     spaceBarPressed = b;
 }
 
+void MainScene::setNumSwaps(int swap){
+    numberSwaps = swap;
+}
 
 //FUNCTIONS
 
@@ -855,6 +860,7 @@ void handleFastDrop(SDL_Event event, Figure*& figure, MainScene& m){
 
         m.getGameBoard().push_back(figure);
         fetchNextFigure(figure, m.getNextFigures());
+        m.setNumSwaps(0);
 
         m.setSpaceBar(true);
     }
@@ -1039,16 +1045,19 @@ void handleSwap(Figure *& fallingFigure, Figure *& holdedFigure, Figure * nextFi
         holdedFigure = fallingFigure;
         fetchNextFigure(fallingFigure, nextFigs);
 
-        numSwaps = 0;
+        *numSwaps = 0;
+        std::cout << "W";
+        return;
     }
 
     if(*numSwaps != 2){
-
-        Figure *& temp = fallingFigure;
+        std::cout << "H" <<std::endl;
+        Figure * temp = fallingFigure;
         fallingFigure = holdedFigure;
         holdedFigure = temp;
+        std::cout << holdedFigure->getId();
 
-        numSwaps++;
+        *numSwaps += 1;
     }
 }
 

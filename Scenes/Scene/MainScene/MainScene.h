@@ -115,6 +115,11 @@ class MainScene: public Scene{
         //void
         void setSpaceBar(bool b);
 
+        //Setter
+        //
+        //RETURNS:
+        //void
+        void setNumSwaps(int swap);
 
         //MISCELLANEOUS
 
