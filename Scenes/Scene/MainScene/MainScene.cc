@@ -214,7 +214,7 @@ void MainScene::render(){
             Figure fig = *holdedFigure;
 
             Figure * f = &fig;
-            // changeSwappedFigurePosition(f);
+            changeSwappedFigurePosition(f);
             fig.renderFigure();
         }
 
@@ -1053,8 +1053,13 @@ void handleSwap(Figure *& fallingFigure, Figure *& holdedFigure, Figure * nextFi
     if(*numSwaps != 2){
         std::cout << "H" <<std::endl;
         Figure * temp = fallingFigure;
+        //check if the swap makes the figure colide. If it does, swap is not enabled
+        holdedFigure->getBlocks()[holdedFigure->getLeadingBlockPos()].setBlockX(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockX());
+        holdedFigure->getBlocks()[holdedFigure->getLeadingBlockPos()].setBlockY(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockY());
+        holdedFigure->updateBlocks();
         fallingFigure = holdedFigure;
         holdedFigure = temp;
+        
         std::cout << holdedFigure->getId();
 
         *numSwaps += 1;
@@ -1068,6 +1073,8 @@ void changeSwappedFigurePosition(Figure *& holdedFigure){
     int w = HFW;
     int h = HFH;
 
+    int spacing = (int) ((h - BLOCKLENGTH*6)/10);    
+
     //Choose which figure we are dealing to
         switch(holdedFigure->getId()){
             case 0:
@@ -1075,16 +1082,16 @@ void changeSwappedFigurePosition(Figure *& holdedFigure){
                 //FigL
 
                 holdedFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
-                holdedFigure->getBlocks()[0].setPixelYDereferenced(y + BLOCKLENGTH);
+                holdedFigure->getBlocks()[0].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
                 holdedFigure->getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[1].setPixelYDereferenced(y + BLOCKLENGTH);
+                holdedFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
                 holdedFigure->getBlocks()[2].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[2].setPixelYDereferenced(y + BLOCKLENGTH);
+                holdedFigure->getBlocks()[2].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
                 holdedFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[3].setPixelYDereferenced(y);
+                holdedFigure->getBlocks()[3].setPixelYDereferenced(y - spacing);
 
                 break;
             case 1:
@@ -1092,16 +1099,16 @@ void changeSwappedFigurePosition(Figure *& holdedFigure){
                 //FigLRight
 
                 holdedFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
-                holdedFigure->getBlocks()[0].setPixelYDereferenced(y + BLOCKLENGTH);
+                holdedFigure->getBlocks()[0].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
                 holdedFigure->getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[1].setPixelYDereferenced(y + BLOCKLENGTH);
+                holdedFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
                 holdedFigure->getBlocks()[2].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[2].setPixelYDereferenced(y + BLOCKLENGTH);
+                holdedFigure->getBlocks()[2].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
                 holdedFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
-                holdedFigure->getBlocks()[3].setPixelYDereferenced(y);
+                holdedFigure->getBlocks()[3].setPixelYDereferenced(y - spacing);
 
                 break;
              case 2:
@@ -1109,16 +1116,16 @@ void changeSwappedFigurePosition(Figure *& holdedFigure){
                 //FigO
 
                 holdedFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - BLOCKLENGTH);
-                holdedFigure->getBlocks()[0].setPixelYDereferenced(y + BLOCKLENGTH);
+                holdedFigure->getBlocks()[0].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
                 holdedFigure->getBlocks()[1].setPixelXDereferenced(x + w/2);
-                holdedFigure->getBlocks()[1].setPixelYDereferenced(y + BLOCKLENGTH);
+                holdedFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
                 holdedFigure->getBlocks()[2].setPixelXDereferenced(x + w/2);
-                holdedFigure->getBlocks()[2].setPixelYDereferenced(y);
+                holdedFigure->getBlocks()[2].setPixelYDereferenced(y - spacing);
 
                 holdedFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 - BLOCKLENGTH);
-                holdedFigure->getBlocks()[3].setPixelYDereferenced(y);
+                holdedFigure->getBlocks()[3].setPixelYDereferenced(y - spacing);
 
                 break;
             case 3:
@@ -1126,16 +1133,16 @@ void changeSwappedFigurePosition(Figure *& holdedFigure){
                 //FigI
 
                 holdedFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - BLOCKLENGTH*2);
-                holdedFigure->getBlocks()[0].setPixelYDereferenced(y + BLOCKLENGTH/2);
+                holdedFigure->getBlocks()[0].setPixelYDereferenced(y - spacing + BLOCKLENGTH/2);
 
                 holdedFigure->getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH);
-                holdedFigure->getBlocks()[1].setPixelYDereferenced(y + BLOCKLENGTH/2);
+                holdedFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH/2);
 
                 holdedFigure->getBlocks()[2].setPixelXDereferenced(x + w/2);
-                holdedFigure->getBlocks()[2].setPixelYDereferenced(y + BLOCKLENGTH/2);
+                holdedFigure->getBlocks()[2].setPixelYDereferenced(y - spacing + BLOCKLENGTH/2);
 
                 holdedFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 + BLOCKLENGTH);
-                holdedFigure->getBlocks()[3].setPixelYDereferenced(y + BLOCKLENGTH/2);
+                holdedFigure->getBlocks()[3].setPixelYDereferenced(y - spacing + BLOCKLENGTH/2);
 
                 break;
             case 4:
@@ -1143,16 +1150,16 @@ void changeSwappedFigurePosition(Figure *& holdedFigure){
                 //FigT
 
                 holdedFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
-                holdedFigure->getBlocks()[0].setPixelYDereferenced(y + BLOCKLENGTH);
+                holdedFigure->getBlocks()[0].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
                 holdedFigure->getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[1].setPixelYDereferenced(y + BLOCKLENGTH);
+                holdedFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
                 holdedFigure->getBlocks()[2].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[2].setPixelYDereferenced(y + BLOCKLENGTH);
+                holdedFigure->getBlocks()[2].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
                 holdedFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[3].setPixelYDereferenced(y);
+                holdedFigure->getBlocks()[3].setPixelYDereferenced(y - spacing);
 
                 break;
             case 5:
@@ -1160,16 +1167,16 @@ void changeSwappedFigurePosition(Figure *& holdedFigure){
                 //FigS
 
                 holdedFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[0].setPixelYDereferenced(y);
+                holdedFigure->getBlocks()[0].setPixelYDereferenced(y - spacing);
 
                 holdedFigure->getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[1].setPixelYDereferenced(y + BLOCKLENGTH);
+                holdedFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
                 holdedFigure->getBlocks()[2].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[2].setPixelYDereferenced(y + BLOCKLENGTH);
+                holdedFigure->getBlocks()[2].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
                 holdedFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
-                holdedFigure->getBlocks()[3].setPixelYDereferenced(y);
+                holdedFigure->getBlocks()[3].setPixelYDereferenced(y - spacing);
 
                 break;
             case 6:
@@ -1177,16 +1184,16 @@ void changeSwappedFigurePosition(Figure *& holdedFigure){
                 //FigZ
 
                 holdedFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[0].setPixelYDereferenced(y);
+                holdedFigure->getBlocks()[0].setPixelYDereferenced(y - spacing);
 
                 holdedFigure->getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[1].setPixelYDereferenced(y + BLOCKLENGTH);
+                holdedFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
                 holdedFigure->getBlocks()[2].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
-                holdedFigure->getBlocks()[2].setPixelYDereferenced(y + BLOCKLENGTH);
+                holdedFigure->getBlocks()[2].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
                 holdedFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[3].setPixelYDereferenced(y);
+                holdedFigure->getBlocks()[3].setPixelYDereferenced(y - spacing);
 
                 break;
         }
