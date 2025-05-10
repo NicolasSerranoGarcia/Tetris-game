@@ -61,13 +61,6 @@ class MainScene: public Scene{
         //Player looses ? => dead = true
         bool dead = false;
         
-        //This boolean is used to check wether if the user is mantaining the spacebar key
-        bool spaceBarPressed = false;
-        
-        //NOT IMPLEMENTED
-        // //This boolean is used to check wether if the user is mantaining the rotate key
-        // bool rotateKeyPressed = false;
-        
     public:   
     
         //CONSTRUCTORS/DESTRUCTOR
@@ -99,21 +92,8 @@ class MainScene: public Scene{
         //a reference to the vector of figures (gameboard)
         std::vector <Figure*>& getGameBoard();
 
-        //Getter
-        //
-        //RETURNS:
-        //The boolean that checks if the space bar 
-        //is pressed
-        bool getSpaceBar() const;
-
 
         //SETTERS
-
-        //Setter
-        //
-        //RETURNS:
-        //void
-        void setSpaceBar(bool b);
 
         //Setter
         //

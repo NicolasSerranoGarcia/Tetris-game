@@ -672,15 +672,6 @@ std::vector<Figure*>& MainScene::getGameBoard(){
     return gameBoard;
 }
 
-bool MainScene::getSpaceBar() const{
-    return spaceBarPressed;
-}
-
-
-void MainScene::setSpaceBar(bool b){
-    spaceBarPressed = b;
-}
-
 void MainScene::setNumSwaps(int swap){
     numberSwaps = swap;
 }
@@ -893,7 +884,7 @@ bool colidesStatic(std::vector <Figure*> gameBoard, Figure *&figure){
 
 void handleFastDrop(SDL_Event event, Figure*& figure, MainScene& m){
 
-    if(((event.key.keysym.sym == CONTROLFASTDOWN) && !m.getSpaceBar())){
+    if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == CONTROLFASTDOWN) && !event.key.repeat){
 
         int largestY = 0;
 
@@ -913,12 +904,6 @@ void handleFastDrop(SDL_Event event, Figure*& figure, MainScene& m){
         m.getGameBoard().push_back(figure);
         fetchNextFigure(figure, m.getNextFigures());
         m.setNumSwaps(0);
-
-        m.setSpaceBar(true);
-    }
-
-    if((event.type == SDL_KEYUP) && (event.key.keysym.sym == CONTROLFASTDOWN)){
-        m.setSpaceBar(false);
     }
 }
 

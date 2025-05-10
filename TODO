@@ -106,3 +106,5 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 [] make some type of user save info. Save binds, best games...
 
 [X] the shadow is not "pushed" when the figure gets out of bounds
+
+[X] add the space bar the same way as rotate key (event.key.pressed)
