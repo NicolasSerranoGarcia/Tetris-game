@@ -27,7 +27,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] Find a way to open the settings scene as a popup (the mainscene still shows on the back) and when the user returns, there is no chnge (the game froze)
 
-[] find a pause image that is transparent
+[X] find a pause image that is transparent
 
 [X] Implement some sort of velocity to the figures
 
@@ -51,7 +51,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] when the figures are rotated, the can faze through the walls. Fix that
 
-[X] The class nmes of the figures are not well placed. FigZ, FigL... 
+[X] The class names of the figures are not well placed. FigZ, FigL... 
 
 [] implement rotation details of the stick figure
 
@@ -89,7 +89,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] add points, lines and level count that afects speed
 
-[] add the mechanic of saving a figure
+[X] add the mechanic of saving a figure
 
 [X] add a last event variable to prevent multiple ke y pressing (when the user keeps the space bar pressed, succesive figures get fast dropped) - changed: by checking if the user lifted the finger from te fast drop key I was able to force it
 
@@ -99,12 +99,10 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] Handle the death case in a separate method
 
-[] make it so that the rotation key is discrete
+[X] make it so that the rotation key is discrete
 
 [] trigger a screen to ak for the input. It is more visual for the user
 
 [] make some type of user save info. Save binds, best games...
 
 [X] the shadow is not "pushed" when the figure gets out of bounds
-
-[] render without figures is not updated if you change render(). Keep in mind

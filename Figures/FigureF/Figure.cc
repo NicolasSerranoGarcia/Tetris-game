@@ -105,7 +105,7 @@ int Figure::update(SDL_Event event){
         leadingBlock->setBlockX(leadingBlock->getBlockX() - 1);
     }
 
-    else if(event.key.keysym.sym == CONTROLROTATE){
+    else if(event.key.keysym.sym == CONTROLROTATE && !event.key.repeat){
         //ensure the angle is betweeen 0º and 360º
         angle -= 90;
         if(angle < 0){
