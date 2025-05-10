@@ -122,7 +122,7 @@ int Figure::update(SDL_Event event){
         largestY = 0;
         largestX = 0;
         smallestX = 9;
-        int smallestY = 0;
+        int smallestY = 19;
 
         for(unsigned int i = 0; i < blocks.size(); i++){
 
@@ -145,19 +145,19 @@ int Figure::update(SDL_Event event){
     
 
         if(smallestY < 0){
-            leadingBlock->setBlockY(-smallestY);
+            leadingBlock->setBlockY(leadingBlock->getBlockY() - smallestY);
         }
         
         if(largestY > 19){
-            leadingBlock->setBlockY(19 - (largestY - 19));
+            leadingBlock->setBlockY(leadingBlock->getBlockY() - (largestY - 19));
         }
 
         if(largestX > 9){
-            leadingBlock->setBlockX(9 - (largestX - 9));
+            leadingBlock->setBlockX(leadingBlock->getBlockX() - (largestX - 9));
         }
 
         if(smallestX < 0){
-            leadingBlock->setBlockX(-smallestX);
+            leadingBlock->setBlockX(leadingBlock->getBlockX() - smallestX);
         }
         updateBlocks();
     }

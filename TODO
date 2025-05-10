@@ -41,8 +41,6 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] implement the logic for the figure moveing downwards
 
-[] The outline of the squares in the mainscene is not taken into account and it visually seems like the figure is not correctly positioned when you are on the extremes
-
 [X] change the deleteBlocks() method from FIgure:: so that it has a better syntax (not i--) - changed: not necessary
 
 [X] When a figure is rotated and then moved, it updates as if the figure angle is 0. Just create a template to update the blocks depending on the angle for all the blocks.
@@ -52,8 +50,6 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 [X] when the figures are rotated, the can faze through the walls. Fix that
 
 [X] The class names of the figures are not well placed. FigZ, FigL... 
-
-[] implement rotation details of the stick figure
 
 [X] implement colision details of the figures when getting to the bottom
 
@@ -93,8 +89,6 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] add a last event variable to prevent multiple ke y pressing (when the user keeps the space bar pressed, succesive figures get fast dropped) - changed: by checking if the user lifted the finger from te fast drop key I was able to force it
 
-[] add visuals like a timer when starting or the points won from a line clear
-
 [] make sure that auziliary classes call things like freeSurface() and that scenes and stuff call the destructors of the aux classes they use
 
 [X] Handle the death case in a separate method
@@ -108,3 +102,9 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 [X] the shadow is not "pushed" when the figure gets out of bounds
 
 [X] add the space bar the same way as rotate key (event.key.pressed)
+
+[] add visuals like a timer when starting or the points won from a line clear
+
+[] The outline of the squares in the mainscene is not taken into account and it visually seems like the figure is not correctly positioned when you are on the extremes
+
+[X] implement rotation details of the stick figure
