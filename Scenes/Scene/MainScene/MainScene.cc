@@ -464,7 +464,7 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
 
     //Handle the swapping of the figure. The function does everyting
     if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == CONTROLSWAP) && !event.key.repeat){
-        handleSwap(currentFigure, holdedFigure, nextFigures, &numberSwaps);
+        handleSwap(currentFigure, holdedFigure, nextFigures, &numberSwaps, gameBoard);
         return;
     }
 
@@ -506,6 +506,9 @@ void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene){
         if(largestY == 19){
             gameBoard.push_back(currentFigure);
             fetchNextFigure(currentFigure, nextFigures);  
+
+            //reset
+            numberSwaps = 0;
         }
    
     //This piece of code updates the figure one position down depending on the interval of time (FALLSPEED).
@@ -839,12 +842,12 @@ bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure * const &f
     return false;
 }
 
-bool colidesStatic(std::vector <Figure*> gameBoard, Figure * const &figure){
+bool colidesStatic(std::vector <Figure*> gameBoard, Figure *&figure){
     for(int i = 0; i < (int) gameBoard.size(); i++){
         for(int j = 0; j < (int) gameBoard[i]->getBlocks().size(); j++){
             for(int k = 0; k < (int) figure->getBlocks().size(); k++){
                 if((gameBoard[i]->getBlocks()[j].getBlockX() == figure->getBlocks()[k].getBlockX()) &&
-                   (gameBoard[i]->getBlocks()[j].getBlockY() == (figure->getBlocks()[k].getBlockY()))){
+                   (gameBoard[i]->getBlocks()[j].getBlockY() == figure->getBlocks()[k].getBlockY())){
                     return true;
                 }
             }
@@ -1081,7 +1084,7 @@ bool isDead(std::vector <Figure*> gameBoard){
     return false;
 }
 
-void handleSwap(Figure *& fallingFigure, Figure *& holdedFigure, Figure * nextFigs[], int * numSwaps){
+void handleSwap(Figure *& fallingFigure, Figure *& holdedFigure, Figure * nextFigs[], int * numSwaps, std::vector <Figure*> gameBoard){
     if(holdedFigure == nullptr){
         holdedFigure = fallingFigure;
         fetchNextFigure(fallingFigure, nextFigs);
@@ -1089,8 +1092,16 @@ void handleSwap(Figure *& fallingFigure, Figure *& holdedFigure, Figure * nextFi
         *numSwaps = 0;
         return;
     }
+    Figure * temp1 = holdedFigure;
+    temp1->getBlocks()[temp1->getLeadingBlockPos()].setBlockX(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockX());
+    temp1->getBlocks()[temp1->getLeadingBlockPos()].setBlockY(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockY());
+    temp1->updateBlocks();
 
-    if(*numSwaps != 2){
+    if(colidesStatic(gameBoard, temp1)){
+        return;
+    }
+
+    if((*numSwaps != 2)){
         Figure * temp = fallingFigure;
         //check if the swap makes the figure colide. If it does, swap is not enabled
         holdedFigure->getBlocks()[holdedFigure->getLeadingBlockPos()].setBlockX(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockX());

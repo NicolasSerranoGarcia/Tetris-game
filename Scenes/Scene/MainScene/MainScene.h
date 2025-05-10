@@ -240,7 +240,7 @@ void renderNextFigures(Figure * nextFigs[], int nextBgH);
 //-true otherwise
 bool isDead(std::vector <Figure*> gameBoard);
 
-void handleSwap(Figure *& fallingFigure, Figure *& holdedFigure, Figure * nextFigs[], int * numSwaps);
+void handleSwap(Figure *& fallingFigure, Figure *& holdedFigure, Figure * nextFigs[], int * numSwaps, std::vector <Figure*> gameBoard);
 
 void changeSwappedFigurePosition(Figure *& holdedFigure);
 
