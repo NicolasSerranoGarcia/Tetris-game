@@ -211,11 +211,10 @@ void MainScene::render(){
         SDL_RenderDrawRect(mainScreen.getRender(), &holdBackground);
 
         if(holdedFigure != nullptr){
-            Figure fig = *holdedFigure;
+            Figure * fig = holdedFigure;
 
-            Figure * f = &fig;
-            changeSwappedFigurePosition(f);
-            fig.renderFigure();
+            changeSwappedFigurePosition(fig);
+            fig->renderFigure();
         }
 
     //render all the figures that are already placed
@@ -437,7 +436,16 @@ void MainScene::renderWithoutFigures(){
 
             break;
         }
-    }    
+    }   
+    
+    //Render the background for the hold figure
+
+        SDL_Rect holdBackground = {HFX,HFY,HFW,HFH};
+
+        SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
+
+        SDL_RenderFillRect(mainScreen.getRender(), &holdBackground);
+        SDL_RenderDrawRect(mainScreen.getRender(), &holdBackground);
 }
 
 void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
@@ -1092,25 +1100,19 @@ void handleSwap(Figure *& fallingFigure, Figure *& holdedFigure, Figure * nextFi
         *numSwaps = 0;
         return;
     }
-    Figure * temp1 = holdedFigure;
-    temp1->getBlocks()[temp1->getLeadingBlockPos()].setBlockX(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockX());
-    temp1->getBlocks()[temp1->getLeadingBlockPos()].setBlockY(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockY());
-    temp1->updateBlocks();
+    Figure * temp = holdedFigure;
+    temp->getBlocks()[temp->getLeadingBlockPos()].setBlockX(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockX());
+    temp->getBlocks()[temp->getLeadingBlockPos()].setBlockY(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockY());
+    temp->updateBlocks();
 
-    if(colidesStatic(gameBoard, temp1)){
-        return;
-    }
-
-    if((*numSwaps != 2)){
-        Figure * temp = fallingFigure;
+    if((*numSwaps != 2) && !colidesStatic(gameBoard, temp)){
+        temp = fallingFigure;
         //check if the swap makes the figure colide. If it does, swap is not enabled
         holdedFigure->getBlocks()[holdedFigure->getLeadingBlockPos()].setBlockX(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockX());
         holdedFigure->getBlocks()[holdedFigure->getLeadingBlockPos()].setBlockY(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockY());
         holdedFigure->updateBlocks();
         fallingFigure = holdedFigure;
         holdedFigure = temp;
-        
-        std::cout << holdedFigure->getId();
 
         *numSwaps += 1;
     }
