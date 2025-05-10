@@ -1,30 +1,30 @@
 #include "Block.h"
 
 Block::Block(){
-    this->block = {BSX, BSY, BLOCKLENGTH, BLOCKLENGTH};
+    block = {BSX, BSY, BLOCKLENGTH, BLOCKLENGTH};
 
-    this->pixelX = BSX;
-    this->pixelY = BSY;
+    pixelX = BSX;
+    pixelY = BSY;
 
-    this->blockX = 0;
-    this->blockY = 0;
+    blockX = 0;
+    blockY = 0;
     
 
-    this->inlineColor = WHITE;
-    this->outlineColor = WHITE;
+    inlineColor = WHITE;
+    outlineColor = WHITE;
 }
 
 Block::~Block(){
-    this->block = {0,0,0,0};
+    block = {0,0,0,0};
 
-    this->pixelX = 0;
-    this->pixelY = 0;
+    pixelX = 0;
+    pixelY = 0;
 
-    this->blockX = 0;
-    this->blockY = 0;
+    blockX = 0;
+    blockY = 0;
 
-    this->inlineColor = WHITE;
-    this->outlineColor = WHITE;
+    inlineColor = WHITE;
+    outlineColor = WHITE;
 }
 
 

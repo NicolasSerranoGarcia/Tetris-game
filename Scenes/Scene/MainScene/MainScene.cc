@@ -230,8 +230,15 @@ void MainScene::render(){
         //reference to the copied figure
         Figure * sh = &shadow;
 
-        //Only draw the outline of the figure
-        shadow.setFigureColor(BLACK);
+        SDL_Color color = shadow.getBlocks()[0].getInlineColor();
+        SDL_Color colorb = shadow.getBlocks()[0].getOutlineColor();
+
+        color.a = 50;
+        colorb.a = 140;
+        for(int i = 0; i < shadow.getBlocks().size(); i++){
+            shadow.getBlocks()[i].setInlineColor(color);
+            shadow.getBlocks()[i].setOutlineColor(colorb);
+        }
 
         //We first calculate the real smallest Y coordinate of the figure
         int smallestY = 0;
@@ -273,7 +280,9 @@ void MainScene::render(){
             smallestY += 1;
         }
 
+        SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
         shadow.renderFigure();
+        SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_NONE);
 
     //Render the figure that is falling
 

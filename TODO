@@ -108,3 +108,5 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 [] The outline of the squares in the mainscene is not taken into account and it visually seems like the figure is not correctly positioned when you are on the extremes
 
 [X] implement rotation details of the stick figure
+
+[X] implement a slight color inside the shadow figure to better distinguish it
