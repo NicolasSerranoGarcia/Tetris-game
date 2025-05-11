@@ -63,7 +63,8 @@ int Figure::update(SDL_Event event){
     if((event.type != SDL_KEYDOWN) || !((event.key.keysym.sym == CONTROLDOWN) || 
        (event.key.keysym.sym == CONTROLLEFT)  || 
        (event.key.keysym.sym == CONTROLRIGHT) || 
-       (event.key.keysym.sym == CONTROLROTATE))){
+       (event.key.keysym.sym == CONTROLROTATERIGHT) ||
+       (event.key.keysym.sym == CONTROLROTATELEFT))){
         return -1;
     }
 
@@ -105,11 +106,17 @@ int Figure::update(SDL_Event event){
         leadingBlock->setBlockX(leadingBlock->getBlockX() - 1);
     }
 
-    else if(event.key.keysym.sym == CONTROLROTATE && !event.key.repeat){
+    else if(event.key.keysym.sym == CONTROLROTATERIGHT && !event.key.repeat){
         //ensure the angle is betweeen 0º and 360º
         angle -= 90;
         if(angle < 0){
             angle = 360 + angle;
+        }
+    } 
+    else if(event.key.keysym.sym == CONTROLROTATELEFT && !event.key.repeat){
+        angle += 90;
+        if(angle >= 360){
+            angle -= 360;
         }
     }
     updateBlocks();
@@ -117,7 +124,7 @@ int Figure::update(SDL_Event event){
     //When we rotate the figure, the figure might have gone out of boundaries. In the case the figure is out, 
     //make a "push" effect, where the figure reallocates to the inside. We will have to recalculate the
     //boundaries of the figure as rotating is not as "predictable" as moving down, left or right
-    if(event.key.keysym.sym == CONTROLROTATE){
+    if((event.key.keysym.sym == CONTROLROTATERIGHT) || (event.key.keysym.sym == CONTROLROTATELEFT)){
 
         largestY = 0;
         largestX = 0;
@@ -169,7 +176,7 @@ int Figure::updateBlocks(){
     return 0;
 }
 
-void Figure::rotate(){
+void Figure::rotateRight(){
 
     Block leadingBlock = blocks[leadingBlockPos];
 
@@ -188,6 +195,33 @@ void Figure::rotate(){
             //The original formula simplifies as the rotations are always by 90 degrees
             int x_prime = leadingBlock.getBlockX() + (blocks[i].getBlockY() - leadingBlock.getBlockY());
             int y_prime = leadingBlock.getBlockY() - (blocks[i].getBlockX() - leadingBlock.getBlockX());
+            
+            blocks[i].setBlockX(x_prime);
+            blocks[i].setBlockY(y_prime);
+        }
+    }
+}
+
+
+void Figure::rotateLeft(){
+
+    Block leadingBlock = blocks[leadingBlockPos];
+
+    /*  x' = x*cos(theta) - y*sin(theta)
+    *   y' = x*sin(theta) + y*cos(theta)
+    *
+    *   As in my case, the "origin" of the coordinates is the leading block, I will "reallocate"
+    *   the origin by summing the position of the leading block
+    */
+
+    //for each block in the figure, rotate it by the angle
+
+    for(unsigned int i = 0; i < blocks.size(); i ++){
+        //the leading block is not rotated, as it is the axis of rotation
+        if((int) i != leadingBlockPos){
+            //The original formula simplifies as the rotations are always by -90 degrees
+            int x_prime = leadingBlock.getBlockX() - (blocks[i].getBlockY() - leadingBlock.getBlockY());
+            int y_prime = leadingBlock.getBlockY() + (blocks[i].getBlockX() - leadingBlock.getBlockX());
             
             blocks[i].setBlockX(x_prime);
             blocks[i].setBlockY(y_prime);

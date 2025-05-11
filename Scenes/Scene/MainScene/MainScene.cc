@@ -826,11 +826,11 @@ bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure * const &f
         return false;
     }
 
-     if(CONTROLROTATE == key){
+     if(CONTROLROTATERIGHT == key){
         
         Figure rotatedFigure = *figure;
 
-        rotatedFigure.rotate();
+        rotatedFigure.rotateRight();
 
 
         for(int i = 0; i < (int) gameBoard.size(); i++){

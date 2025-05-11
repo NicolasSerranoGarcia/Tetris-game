@@ -122,7 +122,7 @@ class MainScene: public Scene{
 
         //This method is an override. To see more info on what
         //it does see the father method. This one handles the settings button and the
-        //controls (left, down, rotate...)
+        //controls (left, down, rotateRight...)
         //
         //
         //RETURNS:
@@ -182,7 +182,7 @@ void fetchNextFigure(Figure *& curFigure, Figure * nextFigs[]);
 //RETURNS:
 //-true if the function colides
 //-false in any other case. It will also return false if the parameter passed as "key" is not
-//one of the game keys. The current game keys that need collision checking are rotate, 
+//one of the game keys. The current game keys that need collision checking are rotateRight, 
 //move left, move right and move down.
 bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure * const & curFigure);
 

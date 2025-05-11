@@ -7,7 +7,7 @@ SetScene::~SetScene(){
 SetScene::SetScene(){
     //Create the buttons 
     Button rotateButton({SBX, SBY + SBX + 10, SBW/2, SBX}, WHITE, &mainScreen);
-    getButtonMap()["rotate"] = rotateButton;
+    getButtonMap()["rotateRight"] = rotateButton;
 
     Button leftButton({SBX, SBY + (SBX + 10)*2, SBW/2, SBX}, WHITE, &mainScreen);
     getButtonMap()["left"] = leftButton;
@@ -36,8 +36,8 @@ void SetScene::render(){
     SDL_RenderFillRect(mainScreen.getRender(), &settingsRect);
     
     //Render all the buttons
-    Font rotateLetter(&mainScreen, "Ubuntu-Regular", SBX, convertKeyToLetter(CONTROLROTATE).c_str(), BLACK);
-    getButtonMap()["rotate"].setFont(&rotateLetter);
+    Font rotateLetter(&mainScreen, "Ubuntu-Regular", SBX, convertKeyToLetter(CONTROLROTATERIGHT).c_str(), BLACK);
+    getButtonMap()["rotateRight"].setFont(&rotateLetter);
 
     
     Font leftLetter(&mainScreen, "Ubuntu-Regular", SBX, convertKeyToLetter(CONTROLLEFT).c_str(), BLACK);
@@ -72,7 +72,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         return;
     }
 
-    if(getButtonMap()["rotate"].isClicked(&event)){
+    if(getButtonMap()["rotateRight"].isClicked(&event)){
         //maybe trigger a screen to ask for the input
         bool valid = false;
         SDL_Event newEvent;
@@ -81,7 +81,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
             while(SDL_PollEvent(&newEvent)){
                 if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym != SDLK_ESCAPE)){
                     valid = true;
-                    CONTROLROTATE = newEvent.key.keysym.sym;
+                    CONTROLROTATERIGHT = newEvent.key.keysym.sym;
                     break;
                 }
                  else if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym == SDLK_ESCAPE)){
@@ -175,7 +175,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
             }
         }
     }
-    
+
     else if(getButtonMap()["swap"].isClicked(&event)){
         //maybe trigger a screen to ask for the input
         bool valid = false;

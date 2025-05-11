@@ -20,7 +20,7 @@ int FigZ::updateBlocks(){
 
     //Rotate
     for(int i = 0; i < getAngle() / 90; i++){
-        rotate();
+        rotateRight();
     }
 
     return 0;

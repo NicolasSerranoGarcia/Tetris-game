@@ -146,7 +146,15 @@ class Figure{
         //
         //RETURNS:
         //void
-        virtual void rotate();
+        virtual void rotateRight();
+
+        //This method rotates the figure, having the axis of rotation in the leading block.
+        //The figure will always rotate by -90º, regardless of the angle.  
+        //
+        //RETURNS:
+        //void
+        virtual void rotateLeft();
+
 
         //This method is a virtual method. Each child class implements it's own way of handling
         //with the figure creation. In short, what this method does is build the figure as it 
