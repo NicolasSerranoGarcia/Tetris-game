@@ -176,7 +176,7 @@ int Figure::updateBlocks(){
     return 0;
 }
 
-void Figure::rotateRight(){
+void Figure::rotate(){
 
     Block leadingBlock = blocks[leadingBlockPos];
 
@@ -202,32 +202,6 @@ void Figure::rotateRight(){
     }
 }
 
-
-void Figure::rotateLeft(){
-
-    Block leadingBlock = blocks[leadingBlockPos];
-
-    /*  x' = x*cos(theta) - y*sin(theta)
-    *   y' = x*sin(theta) + y*cos(theta)
-    *
-    *   As in my case, the "origin" of the coordinates is the leading block, I will "reallocate"
-    *   the origin by summing the position of the leading block
-    */
-
-    //for each block in the figure, rotate it by the angle
-
-    for(unsigned int i = 0; i < blocks.size(); i ++){
-        //the leading block is not rotated, as it is the axis of rotation
-        if((int) i != leadingBlockPos){
-            //The original formula simplifies as the rotations are always by -90 degrees
-            int x_prime = leadingBlock.getBlockX() - (blocks[i].getBlockY() - leadingBlock.getBlockY());
-            int y_prime = leadingBlock.getBlockY() + (blocks[i].getBlockX() - leadingBlock.getBlockX());
-            
-            blocks[i].setBlockX(x_prime);
-            blocks[i].setBlockY(y_prime);
-        }
-    }
-}
 
 bool Figure::loadInitialBlocks(bool constructor){
     return constructor;

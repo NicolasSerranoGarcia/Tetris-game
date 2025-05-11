@@ -18,10 +18,7 @@ int FigO::updateBlocks(){
     //Create
     loadInitialBlocks(false);
 
-    //Rotate
-    for(int i = 0; i < getAngle() / 90; i++){
-        rotateRight();
-    }
+    //This figure doesnt need rotation
     
     return 0;
 }

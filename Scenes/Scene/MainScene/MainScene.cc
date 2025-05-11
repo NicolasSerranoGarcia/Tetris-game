@@ -830,7 +830,7 @@ bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure * const &f
         
         Figure rotatedFigure = *figure;
 
-        rotatedFigure.rotateRight();
+        rotatedFigure.rotate();
 
 
         for(int i = 0; i < (int) gameBoard.size(); i++){

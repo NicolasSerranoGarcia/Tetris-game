@@ -6,22 +6,25 @@ SetScene::~SetScene(){
 
 SetScene::SetScene(){
     //Create the buttons 
-    Button rotateButton({SBX, SBY + SBX + 10, SBW/2, SBX}, WHITE, &mainScreen);
-    getButtonMap()["rotateRight"] = rotateButton;
+    Button rotateButtonR({SBX, SBY + SBX + 10, SBW/2, SBX}, WHITE, &mainScreen);
+    getButtonMap()["rotateRight"] = rotateButtonR;
 
-    Button leftButton({SBX, SBY + (SBX + 10)*2, SBW/2, SBX}, WHITE, &mainScreen);
+    Button rotateButtonL({SBX, SBY + (SBX + 10)*2, SBW/2, SBX}, WHITE, &mainScreen);
+    getButtonMap()["rotateLeft"] = rotateButtonL;
+
+    Button leftButton({SBX, SBY + (SBX + 10)*3, SBW/2, SBX}, WHITE, &mainScreen);
     getButtonMap()["left"] = leftButton;
 
-    Button rightButton({SBX, SBY + (SBX + 10)*3, SBW/2, SBX}, WHITE, &mainScreen);
+    Button rightButton({SBX, SBY + (SBX + 10)*4, SBW/2, SBX}, WHITE, &mainScreen);
     getButtonMap()["right"] = rightButton;
 
-    Button downButton({SBX, SBY + (SBX + 10)*4, SBW/2, SBX}, WHITE, &mainScreen);
+    Button downButton({SBX, SBY + (SBX + 10)*5, SBW/2, SBX}, WHITE, &mainScreen);
     getButtonMap()["down"] = downButton;
 
-    Button fastDownButton({SBX, SBY + (SBX + 10)*5, SBW/2, SBX}, WHITE, &mainScreen);
+    Button fastDownButton({SBX, SBY + (SBX + 10)*6, SBW/2, SBX}, WHITE, &mainScreen);
     getButtonMap()["fastDown"] = fastDownButton;
 
-    Button swapButton({SBX, SBY + (SBX + 10)*6, SBW/2, SBX}, WHITE, &mainScreen);
+    Button swapButton({SBX, SBY + (SBX + 10)*7, SBW/2, SBX}, WHITE, &mainScreen);
     getButtonMap()["swap"] = swapButton;
 
 
@@ -36,8 +39,12 @@ void SetScene::render(){
     SDL_RenderFillRect(mainScreen.getRender(), &settingsRect);
     
     //Render all the buttons
-    Font rotateLetter(&mainScreen, "Ubuntu-Regular", SBX, convertKeyToLetter(CONTROLROTATERIGHT).c_str(), BLACK);
-    getButtonMap()["rotateRight"].setFont(&rotateLetter);
+
+    Font rotateLetterR(&mainScreen, "Ubuntu-Regular", SBX, convertKeyToLetter(CONTROLROTATERIGHT).c_str(), BLACK);
+    getButtonMap()["rotateRight"].setFont(&rotateLetterR);
+
+    Font rotateLetterL(&mainScreen, "Ubuntu-Regular", SBX, convertKeyToLetter(CONTROLROTATELEFT).c_str(), BLACK);
+    getButtonMap()["rotateLeft"].setFont(&rotateLetterL);
 
     
     Font leftLetter(&mainScreen, "Ubuntu-Regular", SBX, convertKeyToLetter(CONTROLLEFT).c_str(), BLACK);
@@ -82,6 +89,27 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                 if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym != SDLK_ESCAPE)){
                     valid = true;
                     CONTROLROTATERIGHT = newEvent.key.keysym.sym;
+                    break;
+                }
+                 else if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym == SDLK_ESCAPE)){
+                    valid = true;
+                    break;
+                }
+
+            }
+        }
+    }
+
+    else if(getButtonMap()["rotateLeft"].isClicked(&event)){
+        //maybe trigger a screen to ask for the input
+        bool valid = false;
+        SDL_Event newEvent;
+
+        while(!valid){
+            while(SDL_PollEvent(&newEvent)){
+                if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym != SDLK_ESCAPE)){
+                    valid = true;
+                    CONTROLROTATELEFT = newEvent.key.keysym.sym;
                     break;
                 }
                  else if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym == SDLK_ESCAPE)){
