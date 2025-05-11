@@ -18,5 +18,6 @@ class SetScene: public Scene{
         void renderButtons();
 };
 
+void renderKeyBindChange();
 
 #endif
