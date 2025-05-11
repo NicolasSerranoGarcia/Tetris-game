@@ -21,6 +21,10 @@ SetScene::SetScene(){
     Button fastDownButton({SBX, SBY + (SBX + 10)*5, SBW/2, SBX}, WHITE, &mainScreen);
     getButtonMap()["fastDown"] = fastDownButton;
 
+    Button swapButton({SBX, SBY + (SBX + 10)*6, SBW/2, SBX}, WHITE, &mainScreen);
+    getButtonMap()["swap"] = swapButton;
+
+
 }
 
 void SetScene::render(){
@@ -28,7 +32,7 @@ void SetScene::render(){
         mainScene->renderWithoutFigures();
     }
     SDL_Rect settingsRect = {SBX, SBY, SBW, SBH};
-    SDL_SetRenderDrawColor(mainScreen.getRender(), NAVY.r, NAVY.g, NAVY.b, NAVY.a);
+    SDL_SetRenderDrawColor(mainScreen.getRender(), LIGHT_GREY.r, LIGHT_GREY.g, LIGHT_GREY.b, LIGHT_GREY.a);
     SDL_RenderFillRect(mainScreen.getRender(), &settingsRect);
     
     //Render all the buttons
@@ -47,6 +51,9 @@ void SetScene::render(){
     
     Font fastDownLetter(&mainScreen, "Ubuntu-Regular", SBX, convertKeyToLetter(CONTROLFASTDOWN).c_str(), BLACK);
     getButtonMap()["fastDown"].setFont(&fastDownLetter);
+
+    Font swapLetter(&mainScreen, "Ubuntu-Regular", SBX, convertKeyToLetter(CONTROLSWAP).c_str(), BLACK);
+    getButtonMap()["swap"].setFont(&swapLetter);
 
     renderButtons();
 
@@ -168,6 +175,27 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
             }
         }
     }
+    
+    else if(getButtonMap()["swap"].isClicked(&event)){
+        //maybe trigger a screen to ask for the input
+        bool valid = false;
+        SDL_Event newEvent;
+
+        while(!valid){
+            while(SDL_PollEvent(&newEvent)){
+                if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym != SDLK_ESCAPE)){
+                    valid = true;
+                    CONTROLSWAP = newEvent.key.keysym.sym;
+                    break;
+                }
+                 else if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym == SDLK_ESCAPE)){
+                    valid = true;
+                    break;
+                }
+            }
+        }
+    }
+
 }
 
 void SetScene::handleLogic(Uint32 *, Scene *&){
@@ -175,11 +203,7 @@ void SetScene::handleLogic(Uint32 *, Scene *&){
 }
 
 void SetScene::renderButtons(){
-
-    getButtonMap()["rotate"].drawToRender();
-    getButtonMap()["left"].drawToRender();
-    getButtonMap()["right"].drawToRender();
-    getButtonMap()["down"].drawToRender();
-    getButtonMap()["fastDown"].drawToRender();
-
+    for (auto i = getButtonMap().begin(); i != getButtonMap().end(); i++){
+        i->second.drawToRender();
+    }
 }   

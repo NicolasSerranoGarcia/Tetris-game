@@ -105,7 +105,8 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [] add visuals like a timer when starting or the points won from a line clear
 
-[] The outline of the squares in the mainscene is not taken into account and it visually seems like the figure is not correctly positioned when you are on the extremes
+[/] The outline of the squares in the mainscene is not taken into account and it visually seems like the figure is not correctly positioned when you are on the extremes:
+I think I will fix it when I add textures, doing it now is a temporal solution bc I will end up deleting it anyways
 
 [X] implement rotation details of the stick figure
 

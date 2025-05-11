@@ -230,14 +230,14 @@ void MainScene::render(){
         //reference to the copied figure
         Figure * sh = &shadow;
 
-        SDL_Color color = shadow.getBlocks()[0].getInlineColor();
-        SDL_Color colorb = shadow.getBlocks()[0].getOutlineColor();
+        SDL_Color colorInline = shadow.getBlocks()[0].getInlineColor();
+        SDL_Color colorOutline = shadow.getBlocks()[0].getOutlineColor();
 
-        color.a = 50;
-        colorb.a = 140;
+        colorInline.a = 50;
+        colorOutline.a = 140;
         for(int i = 0; i < shadow.getBlocks().size(); i++){
-            shadow.getBlocks()[i].setInlineColor(color);
-            shadow.getBlocks()[i].setOutlineColor(colorb);
+            shadow.getBlocks()[i].setInlineColor(colorInline);
+            shadow.getBlocks()[i].setOutlineColor(colorOutline);
         }
 
         //We first calculate the real smallest Y coordinate of the figure
