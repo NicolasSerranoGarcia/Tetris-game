@@ -74,6 +74,9 @@ SDL_Keycode CONTROLROTATELEFT = SDLK_v;
 
 Uint32 FALLSPEED = 1250;
 
+int SCROLLFACTOR = 20;
+
+
 
 unsigned int POINTS = 0;
 

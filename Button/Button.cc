@@ -244,7 +244,7 @@ void Button::drawToRender(){
 
     //also add the text if there is one
     if(font != nullptr){
-        this->font->setCoords(this->container.x + container.w/2 - font->getTextSurface()->w/2, this->container.y);
+        this->font->setCoords(this->container.x + container.w/2 - font->getTextSurface()->w/2, this->container.y + container.h/2 - font->getTextSurface()->h/2);
         this->font->drawTextToRender();
     }
 }

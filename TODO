@@ -111,3 +111,27 @@ I think I will fix it when I add textures, doing it now is a temporal solution b
 [X] implement rotation details of the stick figure
 
 [X] implement a slight color inside the shadow figure to better distinguish it
+
+[X] Put a title in the settings for the keybind part
+
+[/] implement scrolling in the settings
+
+[] implement an X button to close the settings manually
+
+[] implement a button to return to the opening scene
+
+[] implement a button to go to your socials
+
+[] implement the sound slidebar for the future
+
+[X] put a reference for what the keybind stands for on the left
+
+[] Put some button to let the user log in
+
+[] put a settings button on the opening scene
+
+[X] blur the background on the settings: Impossible
+
+[X] Make settings a texture instead of a rectangle
+
+[] The keybind buttons actual position does not move with the texture when scrolling

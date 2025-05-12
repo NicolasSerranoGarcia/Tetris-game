@@ -114,6 +114,9 @@ extern SDL_Keycode CONTROLROTATELEFT;
 //An unsigned integer of 32 bits representing the time (ms) that a figure takes to drop one tile
 extern Uint32 FALLSPEED;
 
+//AN integer representing the number of times the scroll input is multiplied 
+extern int SCROLLFACTOR;
+
 
 //The points that the player has
 extern unsigned int POINTS;
