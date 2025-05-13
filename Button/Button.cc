@@ -46,6 +46,9 @@ Button::~Button(){
 
 }
 
+bool Button::getVisibility() const{
+    return isVisible;
+}
 
 Screen * Button::getScreen() const{
     return this->screen;
@@ -63,6 +66,10 @@ Font * Button::getFont() const{
     return this->font;
 }
 
+
+void Button::setVisibility(bool newVisibility){
+    isVisible = newVisibility;
+}
 
 void Button::setFont(Font * newFont){
     this->font = newFont;

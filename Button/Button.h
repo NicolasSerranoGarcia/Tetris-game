@@ -28,6 +28,10 @@ struct Coord{
 class Button{
 
     private:
+
+        //This variable is used to check if the button is visible in the screen.
+        //Partially visible buttons (for example in settings when you scroll) are considered visible
+        bool isVisible = true;
         
         //This is the rectangle that determines the surface
         //of the button
@@ -85,6 +89,12 @@ class Button{
         //Getter
         //
         //RETURNS:
+        //A boolean that represents the visibility of the button 
+        bool getVisibility() const;
+
+        //Getter
+        //
+        //RETURNS:
         //A pointer to the screen that the button is using
         Screen * getScreen() const;
 
@@ -108,6 +118,12 @@ class Button{
 
 
         //SETTERS
+
+        //Setter
+        //
+        //RETURNS:
+        //void
+        void setVisibility(bool newVisibility);
 
         //Setter
         //

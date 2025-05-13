@@ -6,12 +6,18 @@
 #include "constants/constants.h"
 #include "Scenes/Scenes.h"
 
+struct ButClick{
+    Button button;
+    bool clicked;
+};
+
 class SetScene: public Scene{
     private:
         Scene * mainScene = nullptr;
         SDL_Rect sourceRect = {0,0, SBW, SBH};
         int deltaY;
-        std::map <Button, bool> mapButtonPressed;
+        std::map <std::string, ButClick> mapButtonPressed;
+        bool anyButtonPressed = false;
     public:
         SetScene();
         ~SetScene() override;
@@ -27,6 +33,6 @@ class SetScene: public Scene{
         void setDeltaY(int y);
 };
 
-void renderKeyBindChange(Button button);
+void renderKeyBindChange(Button button, SetScene & s);
 
 #endif
