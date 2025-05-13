@@ -205,15 +205,13 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         }
         rect.y -= getDeltaY();
         i->second.setContainer(rect);
-        SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
-        i->second.drawToRender();
     }
     
     if(maps["rotateRight"].isClicked(&event)){
         bool valid = false;
         SDL_Event newEvent;
         
-        renderKeyBindChange();
+        renderKeyBindChange(maps["rotateRight"]);
         while(!valid){
             while(SDL_PollEvent(&newEvent)){
                 if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym != SDLK_ESCAPE)){
@@ -235,7 +233,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         bool valid = false;
         SDL_Event newEvent;
         
-        renderKeyBindChange();
+        renderKeyBindChange(maps["rotateLeft"]);
         while(!valid){
             while(SDL_PollEvent(&newEvent)){
                 if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym != SDLK_ESCAPE)){
@@ -257,7 +255,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         bool valid = false;
         SDL_Event newEvent;
         
-        renderKeyBindChange();
+        renderKeyBindChange(maps["left"]);
         while(!valid){
             while(SDL_PollEvent(&newEvent)){
                 if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym != SDLK_ESCAPE)){
@@ -279,7 +277,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         bool valid = false;
         SDL_Event newEvent;
         
-        renderKeyBindChange();
+        renderKeyBindChange(maps["right"]);
         while(!valid){
             while(SDL_PollEvent(&newEvent)){
                 if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym != SDLK_ESCAPE)){
@@ -301,7 +299,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         bool valid = false;
         SDL_Event newEvent;
         
-        renderKeyBindChange();
+        renderKeyBindChange(maps["down"]);
         while(!valid){
             while(SDL_PollEvent(&newEvent)){
                 if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym != SDLK_ESCAPE)){
@@ -323,7 +321,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         bool valid = false;
         SDL_Event newEvent;
         
-        renderKeyBindChange();
+        renderKeyBindChange(maps["fastDown"]);
         while(!valid){
             while(SDL_PollEvent(&newEvent)){
                 if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym != SDLK_ESCAPE)){
@@ -344,7 +342,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         bool valid = false;
         SDL_Event newEvent;
         
-        renderKeyBindChange();
+        renderKeyBindChange(maps["swap"]);
         while(!valid){
             while(SDL_PollEvent(&newEvent)){
                 if((newEvent.type == SDL_KEYDOWN) && (newEvent.key.keysym.sym != SDLK_ESCAPE)){
@@ -380,15 +378,16 @@ void SetScene::renderButtons(std::map <std::string, Button> map){
 
 //FUNCTIONS
 
-void renderKeyBindChange(){
-    SDL_Rect rect = {0,0, SBW/2, SBH/2};
-    rect.x = py(AbsPosition::POS_CENTER, rect.w);
-    rect.y = py(AbsPosition::POS_CENTER, rect.h);
+void renderKeyBindChange(Button button){
+    SDL_Rect rect = {button.getContainer().x, button.getContainer().y, button.getContainer().w, button.getContainer().h};
+
 
     SDL_SetRenderDrawColor(mainScreen.getRender(), LIGHT_BLUE.r, LIGHT_BLUE.g, LIGHT_BLUE.b, LIGHT_BLUE.a);
     SDL_RenderFillRect(mainScreen.getRender(), &rect);
-    Font font(&mainScreen, "Ubuntu-BoldItalic", 30, "Press any key", BLACK);
-    font.setCoords(AbsPosition::POS_CENTER);
+    SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
+    SDL_RenderDrawRect(mainScreen.getRender(), &rect);
+    Font font(&mainScreen, "Ubuntu-BoldItalic", 30, "...", BLACK);
+    font.setCoords(rect.x + rect.w/2 - font.getTextSurface()->w/2, rect.y + rect.h/2 - font.getTextSurface()->h/2);
     font.drawTextToRender(); 
 
     SDL_RenderPresent(mainScreen.getRender());

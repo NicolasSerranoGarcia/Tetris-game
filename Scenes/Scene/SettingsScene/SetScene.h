@@ -11,6 +11,7 @@ class SetScene: public Scene{
         Scene * mainScene = nullptr;
         SDL_Rect sourceRect = {0,0, SBW, SBH};
         int deltaY;
+        std::map <Button, bool> mapButtonPressed;
     public:
         SetScene();
         ~SetScene() override;
@@ -26,6 +27,6 @@ class SetScene: public Scene{
         void setDeltaY(int y);
 };
 
-void renderKeyBindChange();
+void renderKeyBindChange(Button button);
 
 #endif
