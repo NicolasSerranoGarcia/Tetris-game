@@ -138,6 +138,6 @@ I think I will fix it when I add textures, doing it now is a temporal solution b
 
 [X] put the change keybind message in the actual button
 
-[] maybe add a event listener but that when a button is pressed, it activates a flag for that button so that in the render you can put all the
+[X] maybe add a event listener but that when a button is pressed, it activates a flag for that button so that in the render you can put all the
 things that now live in the landleEvents. This way you have all the render in the mainScene, like the renderKeyBindChange. This way maybe you can also remove the pollevent from handleEvents.
 You check if there is a button pressed and if so you make it not possible to click on another one. If a key event is gotten, you put that as the key of the button. 

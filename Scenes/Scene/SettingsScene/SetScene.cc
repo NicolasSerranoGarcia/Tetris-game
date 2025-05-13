@@ -250,8 +250,21 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
 
     for(auto i = mapButtonPressed.begin(); i != mapButtonPressed.end(); i++){
         if(i->second.button.getVisibility() && i->second.button.isClicked(&event) && !anyButtonPressed){
-            i->second.clicked = true;
-            anyButtonPressed = true;
+
+            if((i->second.button.getContainer().y < SBY) && i->second.button.isClickedSubdivision(&event, 
+                                                        {0, 
+                                                        SBY - i->second.button.getContainer().y, 
+                                                        i->second.button.getContainer().w, 
+                                                        i->second.button.getContainer().h - (SBY - i->second.button.getContainer().y)})){
+
+                i->second.clicked = true;
+                anyButtonPressed = true;
+            }
+
+            if(i->second.button.getContainer().y > SBY){
+                i->second.clicked = true;
+                anyButtonPressed = true;
+            }
             return;
         }
     }

@@ -115,6 +115,41 @@ bool Button::isClicked(SDL_Event * event){
     return false;
 }
 
+bool Button::isClickedSubdivision(SDL_Event * event, SDL_Rect rect){
+    if((rect.x == 0) && (rect.y == 0) && (rect.w == 0) && (rect.h == 0)){    
+        return isClicked(event);
+    }
+
+    Coord mouse;
+
+    //loads the two intgers with the position in pixels of the mouse
+    SDL_GetMouseState(&mouse.x, &mouse.y);
+
+    //Normalise the coords of the rectangle to have (0,0) at the upper left point of our button
+    int x = rect.x + container.x;
+    int y = rect.y + container.y;
+    int w = rect.w;
+    int h = rect.h;
+
+    //check if the cursor is inside the whole button and then if the cursor is inside of the desired rectangle
+    if((!((mouse.x <= (getContainer().x + getContainer().w)) && (mouse.x >= getContainer().x) && 
+          (mouse.y <= (getContainer().y + getContainer().h)) && (mouse.y >= getContainer().y))) 
+         ||
+         (!((mouse.x <= (x + w)) && (mouse.x >= x) && 
+            (mouse.y <= (y + h)) && (mouse.y >= y)))){
+
+            return false;
+    }
+
+
+    //check if the user clicked
+    if(event->type == SDL_MOUSEBUTTONDOWN){
+        return true;
+    }
+
+    return false;
+}
+
 void Button::setRelativeTo(Button refButton, RPosition position){
 
     int selfHeight = this->container.h;

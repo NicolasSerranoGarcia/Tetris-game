@@ -167,6 +167,27 @@ class Button{
         //-false otherwise
         bool isClicked(SDL_Event * event);
 
+        //This method checks if the user clicked the button.
+        //Clicking means the cursor is ON the surface AND
+        //the user presses the right or left mouse button
+        //
+        //NOTE: This method checks if the user clicked in a
+        //specific region of the button. The second parameter
+        //rect represents the region that it is intended
+        //to click. If a default rect (all 0) is passed, the 
+        //function will do the same as Button::isClicked()
+        //
+        //NOTE 2: Keep in mind that the rectangle that is passed
+        //is assumed to have it's (0,0) on the upper left corner
+        //of our original button. E.g. if we want the parameter
+        //rect to cover the right half part of our button, we would
+        //pass {Button.w/2, 0, Button.w - Button.w/2, Button.h}.
+        //
+        //RETURNS:
+        //-true if the user clikced the button
+        //-false otherwise
+        bool isClickedSubdivision(SDL_Event * event, SDL_Rect rect);
+        
         //This method automatically sets the button relative to 
         //another button. For that, it uses the enum class
         //RPosition. It works in exactly the same way that
