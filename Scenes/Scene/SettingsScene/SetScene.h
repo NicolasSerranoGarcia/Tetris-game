@@ -10,6 +10,7 @@ class SetScene: public Scene{
     private:
         Scene * mainScene = nullptr;
         SDL_Rect sourceRect = {0,0, SBW, SBH};
+        int deltaY;
     public:
         SetScene();
         ~SetScene() override;
@@ -18,8 +19,11 @@ class SetScene: public Scene{
         void handleLogic(Uint32 *, Scene *&) override;
         void renderButtons(std::map <std::string, Button> map);
         SDL_Rect getSourceRect();
+        int getDeltaY();
+
 
         void setSourceRect(SDL_Rect rect);
+        void setDeltaY(int y);
 };
 
 void renderKeyBindChange();

@@ -39,6 +39,14 @@ void SetScene::setSourceRect(SDL_Rect rect){
     sourceRect = rect;
 }
 
+int SetScene::getDeltaY(){
+    return deltaY;
+}
+
+void SetScene::setDeltaY(int y){
+    deltaY = y;
+}
+
 void SetScene::render(){
     if(mainScene != nullptr){
         mainScene->renderWithoutFigures();
@@ -150,7 +158,8 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
     if(mainScene == nullptr){
         mainScene = mScene;
     }
-
+    
+    
     if((event.type != SDL_KEYDOWN) && (event.type != SDL_KEYUP) && (event.type != SDL_MOUSEBUTTONDOWN) && (event.type != SDL_MOUSEWHEEL)){
         return;
     }
@@ -161,12 +170,13 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         return;
     }
 
+    int delta;
     if (event.type == SDL_MOUSEWHEEL && event.wheel.y != 0) {
-
+        
         SDL_Rect newSrc = getSourceRect();
         int scrollDir = event.wheel.y / abs(event.wheel.y); //-1 or 1
+        delta = SCROLLFACTOR * scrollDir;
 
-        int delta = SCROLLFACTOR * scrollDir;
         int newY = newSrc.y - delta;
     
         if (scrollDir == -1) {
@@ -180,14 +190,26 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                 newSrc.y = newY;
             }
         }
-    
+        setDeltaY(newY);
         setSourceRect(newSrc);
-        return;
     }
     
-
-
-    if(getButtonMap()["rotateRight"].isClicked(&event)){
+    auto maps = getButtonMap();
+    for(auto i = maps.begin(); i != maps.end(); i++){
+        SDL_Rect rect = i->second.getContainer();
+        if((sourceRect.y == 0)){
+            rect.y += getDeltaY();
+        } 
+        else if(((sourceRect.y) == (200))){
+            rect.y += SCROLLFACTOR;
+        }
+        rect.y -= getDeltaY();
+        i->second.setContainer(rect);
+        SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
+        i->second.drawToRender();
+    }
+    
+    if(maps["rotateRight"].isClicked(&event)){
         bool valid = false;
         SDL_Event newEvent;
         
@@ -208,7 +230,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         }
     }
 
-    else if(getButtonMap()["rotateLeft"].isClicked(&event)){
+    else if(maps["rotateLeft"].isClicked(&event)){
         
         bool valid = false;
         SDL_Event newEvent;
@@ -230,7 +252,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         }
     }
 
-    else if(getButtonMap()["left"].isClicked(&event)){
+    else if(maps["left"].isClicked(&event)){
         
         bool valid = false;
         SDL_Event newEvent;
@@ -252,7 +274,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         }
     }
 
-    else if(getButtonMap()["right"].isClicked(&event)){
+    else if(maps["right"].isClicked(&event)){
         
         bool valid = false;
         SDL_Event newEvent;
@@ -274,7 +296,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         }
     }
 
-    else if(getButtonMap()["down"].isClicked(&event)){
+    else if(maps["down"].isClicked(&event)){
         
         bool valid = false;
         SDL_Event newEvent;
@@ -296,7 +318,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         }
     }
 
-    else if(getButtonMap()["fastDown"].isClicked(&event)){
+    else if(maps["fastDown"].isClicked(&event)){
         
         bool valid = false;
         SDL_Event newEvent;
@@ -317,7 +339,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         }
     }
 
-    else if(getButtonMap()["swap"].isClicked(&event)){
+    else if(maps["swap"].isClicked(&event)){
         
         bool valid = false;
         SDL_Event newEvent;

@@ -135,3 +135,5 @@ I think I will fix it when I add textures, doing it now is a temporal solution b
 [X] Make settings a texture instead of a rectangle
 
 [] The keybind buttons actual position does not move with the texture when scrolling
+
+[] put the change keybind message in the actual button
