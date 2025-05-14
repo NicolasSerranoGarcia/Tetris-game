@@ -143,3 +143,5 @@ things that now live in the landleEvents. This way you have all the render in th
 You check if there is a button pressed and if so you make it not possible to click on another one. If a key event is gotten, you put that as the key of the button. 
 
 [] add a manual slider to the settings
+
+[] clicking on another button keybind should change the the button tht is currently asking for a key

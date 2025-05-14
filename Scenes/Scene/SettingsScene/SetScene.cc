@@ -36,7 +36,7 @@ SetScene::SetScene(){
 
     Button sliderButton(SBX + SBW - BLOCKLENGTH/3, SBY, BLOCKLENGTH/3, (int) (SBH*(SBH/((float) (SBH + 200)))), GREY, &mainScreen);
 
-    rightSlider = {sliderButton, BSY, BSY + 200, LIGHT_BLUE};
+    rightSlider = {sliderButton, BSY, BSY + 200, GREY};
 }
 
 SDL_Rect SetScene::getSourceRect(){
@@ -172,18 +172,28 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
     }
 
     if((event.type == SDL_MOUSEMOTION) && rightSlider.getClickedNow()){
-        SDL_Rect newSrc = getSourceRect();
         int scrollDir = -(event.motion.yrel / abs(event.motion.yrel)); //-1 or 1
+
+            // Scrolling towards me
+            if (((rightSlider.getSliderButton().getContainer().y + rightSlider.getSliderButton().getContainer().h + (SCROLLFACTOR - 10)) <= SBY + SBH) && 
+            (((rightSlider.getSliderButton().getContainer().y + (SCROLLFACTOR - 10)) >= SBY))){
+                Button button = rightSlider.getSliderButton();
+            
+                button.setContainer({button.getContainer().x, rightSlider.getSliderButton().getContainer().y + (SCROLLFACTOR - 10), button.getContainer().w, button.getContainer().h});
+                rightSlider.setSliderButton(button);
+            }
+
+        SDL_Rect newSrc = getSourceRect();
         int delta = (SCROLLFACTOR - 10) * scrollDir;
 
         int newY = newSrc.y - delta;
     
-        if (scrollDir == -1) {
+        if (scrollDir == -1){
             // Scrolling towards me
-            if (newY + newSrc.h <= SBH + 200){
+            if (newY + newSrc.h <= SBY + SBH){
                 newSrc.y = newY;
             }
-        } else {
+        } else{
             // Scrolling away from me
             if (newY >= 0) {
                 newSrc.y = newY;
