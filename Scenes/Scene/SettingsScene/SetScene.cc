@@ -33,6 +33,10 @@ SetScene::SetScene(){
     for(auto i = getButtonMap().begin(); i != getButtonMap().end(); i++){
         mapButtonPressed[i->first] = {i->second, false};
     }
+
+    Button sliderButton(SBX + SBW - BLOCKLENGTH/3, SBY, BLOCKLENGTH/3, (int) (SBH*(SBH/((float) (SBH + 200)))), GREY, &mainScreen);
+
+    rightSlider = {sliderButton, BSY, BSY + 200, LIGHT_BLUE};
 }
 
 SDL_Rect SetScene::getSourceRect(){
@@ -140,7 +144,7 @@ void SetScene::render(){
     SDL_Rect rect = getSourceRect();
     SDL_RenderCopy(mainScreen.getRender(), texture, &rect, &settingsRect);
 
-
+    rightSlider.render();
 
     SDL_DestroyTexture(texture);
 }

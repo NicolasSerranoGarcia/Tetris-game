@@ -5,6 +5,7 @@
 #include <SDL2/SDL.h>
 #include "constants/constants.h"
 #include "Scenes/Scenes.h"
+#include "Slider/Slider.h"
 
 struct ButClick{
     Button button;
@@ -18,6 +19,7 @@ class SetScene: public Scene{
         int deltaY;
         std::map <std::string, ButClick> mapButtonPressed;
         bool anyButtonPressed = false;
+        Slider rightSlider;
     public:
         SetScene();
         ~SetScene() override;
