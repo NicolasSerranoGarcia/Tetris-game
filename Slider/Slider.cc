@@ -25,6 +25,15 @@ int Slider::getMaxY() {
     return maxY;
 }
 
+bool Slider::getClickedNow(){
+    return isClickedNow;
+}
+
+
+void Slider::setClickedNow(bool state){
+    isClickedNow = state;
+}
+
 SDL_Color Slider::getPressedColor() {
     return pressedColor;
 }
@@ -65,4 +74,8 @@ void Slider::render(){
         slider.drawToRender();
         SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
     }
+}
+
+bool Slider::isClicked(SDL_Event *event){
+    return slider.isClicked(&*event);
 }

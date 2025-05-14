@@ -37,7 +37,9 @@ class Slider{
         int getMinY();
         int getMaxY();
         SDL_Color getPressedColor();
+        bool getClickedNow();
 
+        void setClickedNow(bool state);
         void setSliderButton(Button newSlider);
         void setSliderY(int y);
         void setMinY(int y);
@@ -46,6 +48,7 @@ class Slider{
 
 
         void render();
+        bool isClicked(SDL_Event *event);
 
 };
 

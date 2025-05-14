@@ -156,16 +156,67 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
     }
     
     
-    if((event.type != SDL_KEYDOWN) && (event.type != SDL_KEYUP) && (event.type != SDL_MOUSEBUTTONDOWN) && (event.type != SDL_MOUSEWHEEL)){
+    if((event.type != SDL_KEYDOWN) && (event.type != SDL_KEYUP) && (event.type != SDL_MOUSEBUTTONDOWN) && 
+       (event.type != SDL_MOUSEWHEEL) && (event.type != SDL_MOUSEMOTION) && (event.type != SDL_MOUSEBUTTONUP)){
         return;
     }
 
-    int delta;
+
+    if(rightSlider.isClicked(&event)){
+        rightSlider.setClickedNow(true);
+    }
+
+    if((event.type == SDL_MOUSEBUTTONUP) && rightSlider.getClickedNow()){
+        rightSlider.setClickedNow(false);
+        return;
+    }
+
+    if((event.type == SDL_MOUSEMOTION) && rightSlider.getClickedNow()){
+        SDL_Rect newSrc = getSourceRect();
+        int scrollDir = -(event.motion.yrel / abs(event.motion.yrel)); //-1 or 1
+        int delta = (SCROLLFACTOR - 10) * scrollDir;
+
+        int newY = newSrc.y - delta;
+    
+        if (scrollDir == -1) {
+            // Scrolling towards me
+            if (newY + newSrc.h <= SBH + 200){
+                newSrc.y = newY;
+            }
+        } else {
+            // Scrolling away from me
+            if (newY >= 0) {
+                newSrc.y = newY;
+            }
+        }
+        setDeltaY(newY);
+        setSourceRect(newSrc);
+
+        auto maps = getButtonMap();
+        for(auto i = maps.begin(); i != maps.end(); i++){
+            SDL_Rect rect = i->second.getContainer();
+            if(((sourceRect.y) == (200))){
+                rect.y += SCROLLFACTOR - 10;
+            }
+            if((sourceRect.y != 0)){
+                rect.y -= getDeltaY();
+            } 
+            i->second.setContainer(rect);
+
+            if((i->second.getContainer().y + i->second.getContainer().h) <= sourceRect.y){
+                i->second.setVisibility(false);
+            } else{
+                i->second.setVisibility(true);
+            }
+            
+            mapButtonPressed[i->first].button = i->second;
+        }
+    }
+
     if (event.type == SDL_MOUSEWHEEL && event.wheel.y != 0) {
-        
         SDL_Rect newSrc = getSourceRect();
         int scrollDir = event.wheel.y / abs(event.wheel.y); //-1 or 1
-        delta = SCROLLFACTOR * scrollDir;
+        int delta = SCROLLFACTOR * scrollDir;
 
         int newY = newSrc.y - delta;
     
