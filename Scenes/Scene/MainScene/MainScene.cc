@@ -235,7 +235,7 @@ void MainScene::render(){
 
         colorInline.a = 50;
         colorOutline.a = 140;
-        for(int i = 0; i < shadow.getBlocks().size(); i++){
+        for(int i = 0; i < (int) shadow.getBlocks().size(); i++){
             shadow.getBlocks()[i].setInlineColor(colorInline);
             shadow.getBlocks()[i].setOutlineColor(colorOutline);
         }

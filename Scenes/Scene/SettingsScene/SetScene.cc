@@ -175,16 +175,16 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         int scrollDir = -(event.motion.yrel / abs(event.motion.yrel)); //-1 or 1
 
             // Scrolling towards me
-            if (((rightSlider.getSliderButton().getContainer().y + rightSlider.getSliderButton().getContainer().h + (SCROLLFACTOR - 10)) <= SBY + SBH) && 
-            (((rightSlider.getSliderButton().getContainer().y + (SCROLLFACTOR - 10)) >= SBY))){
+            if (((rightSlider.getSliderButton().getContainer().y + rightSlider.getSliderButton().getContainer().h + (event.motion.yrel)) <= SBY + SBH) && 
+            (((rightSlider.getSliderButton().getContainer().y + (event.motion.yrel)) >= SBY))){
                 Button button = rightSlider.getSliderButton();
             
-                button.setContainer({button.getContainer().x, rightSlider.getSliderButton().getContainer().y + (SCROLLFACTOR - 10), button.getContainer().w, button.getContainer().h});
+                button.setContainer({button.getContainer().x, rightSlider.getSliderButton().getContainer().y + (event.motion.yrel), button.getContainer().w, button.getContainer().h});
                 rightSlider.setSliderButton(button);
             }
 
         SDL_Rect newSrc = getSourceRect();
-        int delta = (SCROLLFACTOR - 10) * scrollDir;
+        int delta = (abs(event.motion.yrel)) * scrollDir;
 
         int newY = newSrc.y - delta;
     
@@ -206,7 +206,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         for(auto i = maps.begin(); i != maps.end(); i++){
             SDL_Rect rect = i->second.getContainer();
             if(((sourceRect.y) == (200))){
-                rect.y += SCROLLFACTOR - 10;
+                rect.y += event.motion.yrel;
             }
             if((sourceRect.y != 0)){
                 rect.y -= getDeltaY();
@@ -243,6 +243,14 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         }
         setDeltaY(newY);
         setSourceRect(newSrc);
+
+        if (((rightSlider.getSliderButton().getContainer().y + rightSlider.getSliderButton().getContainer().h + (-delta)) <= SBY + SBH) && 
+            (((rightSlider.getSliderButton().getContainer().y + (-delta)) >= SBY))){
+                Button button = rightSlider.getSliderButton();
+            
+                button.setContainer({button.getContainer().x, rightSlider.getSliderButton().getContainer().y + (-delta), button.getContainer().w, button.getContainer().h});
+                rightSlider.setSliderButton(button);
+            }
 
         auto maps = getButtonMap();
         for(auto i = maps.begin(); i != maps.end(); i++){
@@ -355,7 +363,7 @@ void SetScene::renderButtons(std::map <std::string, Button> map){
 //FUNCTIONS
 
 void renderKeyBindChange(Button button, SetScene & s){
-    SDL_Rect rect = {button.getContainer().x - SBX, button.getContainer().y - SBY + (SCROLLFACTOR)*(s.getSourceRect().y/SCROLLFACTOR), button.getContainer().w, button.getContainer().h};
+    SDL_Rect rect = {button.getContainer().x - SBX, button.getContainer().y - SBY  + s.getSourceRect().y/* + (SCROLLFACTOR)*(s.getSourceRect().y/SCROLLFACTOR) */, button.getContainer().w, button.getContainer().h};
 
 
     SDL_SetRenderDrawColor(mainScreen.getRender(), LIGHT_BLUE.r, LIGHT_BLUE.g, LIGHT_BLUE.b, LIGHT_BLUE.a);

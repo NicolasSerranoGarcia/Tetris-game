@@ -220,8 +220,19 @@ void renderNextFigures(Figure * nextFigs[], int nextBgH);
 //-true otherwise
 bool isDead(std::vector <Figure*> gameBoard);
 
+//This function takes all the info necesary to swap a figure when the swap key is pressed. Notice that the function does not check if the key pressed
+//is the swap key. Therefore this function should be called when we WANT to swap a figure. There's also no check for the number of times a figure is swapped.
+//All of this is left asside of the function.
+//
+//RETURNS:
+//void
 void handleSwap(Figure *& fallingFigure, Figure *& holdedFigure, Figure * nextFigs[], int * numSwaps, std::vector <Figure*> gameBoard);
 
+//This function places the holded figure in it's corresponding sqaure in the screen. This is just a function to change the position of the holded figure
+//so that it is rendered on the correct position
+//
+//RETURNS:
+//void
 void changeSwappedFigurePosition(Figure *& holdedFigure);
 
 #endif

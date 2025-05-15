@@ -12,27 +12,48 @@ struct ButClick{
     bool clicked;
 };
 
+//This class is a child. MOre info on the father class Scene
 class SetScene: public Scene{
+
     private:
+
         Scene * mainScene = nullptr;
+
         SDL_Rect sourceRect = {0,0, SBW, SBH};
+
         int deltaY;
+
         std::map <std::string, ButClick> mapButtonPressed;
+
         bool anyButtonPressed = false;
+
         Slider rightSlider;
+
     public:
+
         SetScene();
+
         ~SetScene() override;
-        void render() override;
-        void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene) override;
-        void handleLogic(Uint32 *, Scene *&) override;
-        void renderButtons(std::map <std::string, Button> map);
+
+        
         SDL_Rect getSourceRect();
+
         int getDeltaY();
-
-
+        
+        
         void setSourceRect(SDL_Rect rect);
+        
         void setDeltaY(int y);
+        
+        
+        void handleLogic(Uint32 *, Scene *&) override;
+
+        void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene) override;
+
+        void renderButtons(std::map <std::string, Button> map);
+
+        void render() override;
+
 };
 
 void renderKeyBindChange(Button button, SetScene & s);
