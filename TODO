@@ -145,3 +145,5 @@ You check if there is a button pressed and if so you make it not possible to cli
 [] add a manual slider to the settings
 
 [] clicking on another button keybind should change the the button tht is currently asking for a key
+
+[] change the amount of scrolling of the settings  when moving it by clicking the slider to be the same as the other one

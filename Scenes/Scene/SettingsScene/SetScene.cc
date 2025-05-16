@@ -13,17 +13,36 @@ SetScene::SetScene(){
     keys = {"rotateRight", "rotateLeft", "left", "right", "down", "fastDown", "swap"};
    
     for(int i = 0; i < (int) keys.size(); i++){
-        Button button({(SETTINGSBACKGROUNDW*3)/4 + SETTINGSBACKGROUNDX - (SETTINGSBACKGROUNDW/3 + BLOCKLENGTH)/2, BLOCKLENGTH/2 + SETTINGSBACKGROUNDY + (SETTINGSBACKGROUNDX + 10)*(i+1), SETTINGSBACKGROUNDW/3 + BLOCKLENGTH, SETTINGSBACKGROUNDX}, WHITE, &mainScreen);
+
+        Button button(
+            //The rectangle
+            {(SETTINGSBACKGROUNDW*3)/4 + SETTINGSBACKGROUNDX - (SETTINGSBACKGROUNDW/3 + BLOCKLENGTH)/2, 
+            BLOCKLENGTH/2 + SETTINGSBACKGROUNDY + (SETTINGSBACKGROUNDX + 10)*(i+1), 
+            SETTINGSBACKGROUNDW/3 + BLOCKLENGTH, 
+            SETTINGSBACKGROUNDX}, 
+            //Others
+            WHITE, &mainScreen);
+
         getButtonMap()[keys[i]] = button;
 
-        //set the clicked map with the same info as 
+        //set the clicked map with the same info as the button map
         mapButtonPressed[keys[i]] = {button, false};
     }
 
     //Create the right slider 
 
-    Button sliderButton(SETTINGSBACKGROUNDX + SETTINGSBACKGROUNDW - BLOCKLENGTH/3, SETTINGSBACKGROUNDY, BLOCKLENGTH/3, (int) ( (SETTINGSBACKGROUNDH*SETTINGSBACKGROUNDH) / (SETTINGSTEXTUREH) ), GREY, &mainScreen);
-    rightSlider = {sliderButton, SETTINGSBACKGROUNDY, SETTINGSBACKGROUNDY + sourceRect.h, GREY};
+        Button sliderButton(
+            //x
+            SETTINGSBACKGROUNDX + SETTINGSBACKGROUNDW - BLOCKLENGTH/3, 
+            //y
+            SETTINGSBACKGROUNDY,
+            //w
+             BLOCKLENGTH/3, 
+             //h
+            (SETTINGSBACKGROUNDH*SETTINGSBACKGROUNDH) / SETTINGSTEXTUREH, 
+            GREY, &mainScreen);
+
+        settingsSlider = {sliderButton, SETTINGSBACKGROUNDY, SETTINGSBACKGROUNDY + sourceRect.h, GREY};
 
 }
 
@@ -130,67 +149,101 @@ void SetScene::render(){
 
     //render the slider to the screen
 
-        rightSlider.render();
+        settingsSlider.render();
 
     SDL_DestroyTexture(settingsTexture);
 }
 
 void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
 
-    if(mainScene == nullptr){
-        mainScene = mScene;
-    }
+    //Set the mainScene that comes from the main as an atribute (for rendering the background)
+
+        if(mainScene == nullptr){
+            mainScene = mScene;
+        }
     
-    
-    if((event.type != SDL_KEYDOWN) && (event.type != SDL_KEYUP) && (event.type != SDL_MOUSEBUTTONDOWN) && 
-       (event.type != SDL_MOUSEWHEEL) && (event.type != SDL_MOUSEMOTION) && (event.type != SDL_MOUSEBUTTONUP)){
-        return;
-    }
+    //Events that are not one of the listed are not handled
+
+        if((event.type != SDL_KEYDOWN) && (event.type != SDL_KEYUP) && (event.type != SDL_MOUSEBUTTONDOWN) && 
+           (event.type != SDL_MOUSEWHEEL) && (event.type != SDL_MOUSEMOTION) && (event.type != SDL_MOUSEBUTTONUP)){
+            return;
+        }
+
+    //If there is no pressed button and the user presses ESC, return to the game
+
+        if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE) && !anyButtonPressed){
+            delete curScene;
+            curScene = mScene;
+            /* add a countdown */
+            return;
+        }
+
+    //All the "exceptions" are handled at this point
 
 
-    if(rightSlider.isClicked(&event)){
-        rightSlider.setClickedNow(true);
-    }
+    //If the user clicks on the slider, change the state of the slidebar to clicked
 
-    if((event.type == SDL_MOUSEBUTTONUP) && rightSlider.getClickedNow()){
-        rightSlider.setClickedNow(false);
-        return;
-    }
+        if((event.type == SDL_MOUSEBUTTONDOWN) && settingsSlider.isClicked(&event)){
+            settingsSlider.setClickedNow(true);
+        }
 
-    if((event.type == SDL_MOUSEMOTION) && rightSlider.getClickedNow()){
-        int scrollDir = -(event.motion.yrel / abs(event.motion.yrel)); //-1 or 1
+    //If the user, on the other hand, lets go the click, change the slider state consequently
 
-            // Scrolling towards me
-            if (((rightSlider.getSliderButton().getContainer().y + rightSlider.getSliderButton().getContainer().h + (event.motion.yrel)) <= SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH) && 
-            (((rightSlider.getSliderButton().getContainer().y + (event.motion.yrel)) >= SETTINGSBACKGROUNDY))){
-                Button button = rightSlider.getSliderButton();
-            
-                button.setContainer({button.getContainer().x, rightSlider.getSliderButton().getContainer().y + (event.motion.yrel), button.getContainer().w, button.getContainer().h});
-                rightSlider.setSliderButton(button);
+        if((event.type == SDL_MOUSEBUTTONUP) && settingsSlider.getClickedNow()){
+            settingsSlider.setClickedNow(false);
+        }
+
+
+    if((event.type == SDL_MOUSEMOTION) && settingsSlider.getClickedNow()){
+
+        //Inside here we need to move the slider, because the user has pressed the slider previously and
+        //now it is being moved
+
+            int sliderX = settingsSlider.getSliderButton().getContainer().x;
+            int sliderY = settingsSlider.getSliderButton().getContainer().y;
+            int sliderW = settingsSlider.getSliderButton().getContainer().w;
+            int sliderH = settingsSlider.getSliderButton().getContainer().h;
+
+        //if moving the slider results inside the limits of the settings, then move the slider
+
+            if (((sliderY + sliderH + event.motion.yrel) <= SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH) && 
+                (((sliderY + event.motion.yrel) >= SETTINGSBACKGROUNDY))){
+
+                //Change the button container y coord. only
+
+                Button button = settingsSlider.getSliderButton();
+                button.setContainer({sliderX, sliderY + event.motion.yrel, sliderW, sliderH});
+
+                settingsSlider.setSliderButton(button);
             }
 
         SDL_Rect newSrc = getSourceRect();
-        int delta = (abs(event.motion.yrel)) * scrollDir;
+        int delta = event.motion.yrel;
+        
+        //event.motion.yrel is positive if the user away from us
 
-        int newY = newSrc.y - delta;
-    
-        if (scrollDir == -1){
-            // Scrolling towards me
-            if (newY + newSrc.h <= SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
-                newSrc.y = newY;
+            int scrollDir = event.motion.yrel / abs(event.motion.yrel); //-1 or 1
+
+        if (scrollDir == 1){
+
+            if (newSrc.y + newSrc.h + delta <= SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
+                newSrc.y += delta;
             }
         } else{
-            // Scrolling away from me
-            if (newY >= 0) {
-                newSrc.y = newY;
+            if (newSrc.y + delta >= 0) {
+                newSrc.y += delta;
             }
         }
-        setDeltaY(newY);
+        setDeltaY(newSrc.y);
         setSourceRect(newSrc);
 
+        //make a copy
         auto maps = getButtonMap();
+        
         for(auto i = maps.begin(); i != maps.end(); i++){
+
             SDL_Rect rect = i->second.getContainer();
+
             if(((sourceRect.y) == (200))){
                 rect.y += event.motion.yrel;
             }
@@ -198,18 +251,13 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                 rect.y -= getDeltaY();
             } 
             i->second.setContainer(rect);
-
-            if((i->second.getContainer().y + i->second.getContainer().h) <= sourceRect.y){
-                i->second.setVisibility(false);
-            } else{
-                i->second.setVisibility(true);
-            }
             
             mapButtonPressed[i->first].button = i->second;
         }
     }
 
-    if (event.type == SDL_MOUSEWHEEL && event.wheel.y != 0) {
+    if (event.type == SDL_MOUSEWHEEL && event.wheel.y != 0){
+
         SDL_Rect newSrc = getSourceRect();
         int scrollDir = event.wheel.y / abs(event.wheel.y); //-1 or 1
         int delta = SCROLLFACTOR * scrollDir;
@@ -230,12 +278,12 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         setDeltaY(newY);
         setSourceRect(newSrc);
 
-        if (((rightSlider.getSliderButton().getContainer().y + rightSlider.getSliderButton().getContainer().h + (-delta)) <= SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH) && 
-            (((rightSlider.getSliderButton().getContainer().y + (-delta)) >= SETTINGSBACKGROUNDY))){
-                Button button = rightSlider.getSliderButton();
+        if (((settingsSlider.getSliderButton().getContainer().y + settingsSlider.getSliderButton().getContainer().h + (-delta)) <= SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH) && 
+            (((settingsSlider.getSliderButton().getContainer().y + (-delta)) >= SETTINGSBACKGROUNDY))){
+                Button button = settingsSlider.getSliderButton();
             
-                button.setContainer({button.getContainer().x, rightSlider.getSliderButton().getContainer().y -delta, button.getContainer().w, button.getContainer().h});
-                rightSlider.setSliderButton(button);
+                button.setContainer({button.getContainer().x, settingsSlider.getSliderButton().getContainer().y -delta, button.getContainer().w, button.getContainer().h});
+                settingsSlider.setSliderButton(button);
             }
 
         auto maps = getButtonMap();
@@ -248,83 +296,59 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                 rect.y -= getDeltaY();
             } 
             i->second.setContainer(rect);
-
-            if((i->second.getContainer().y + i->second.getContainer().h) <= sourceRect.y){
-                i->second.setVisibility(false);
-            } else{
-                i->second.setVisibility(true);
-            }
             
             mapButtonPressed[i->first].button = i->second;
         }
         return;
     }
 
-    for(auto i = mapButtonPressed.begin(); (i != mapButtonPressed.end()); i++){
-        if((i->second.button.getContainer().y + i->second.button.getContainer().h) <= sourceRect.y){
-            i->second.button.setVisibility(false);
-        } else{
-            i->second.button.setVisibility(true);
-        }
-        if(i->second.clicked){
-            if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym != SDLK_ESCAPE)){
-                if(i->first == "rotateRight"){
-                    CONTROLROTATERIGHT = event.key.keysym.sym;
+
+     for(auto i = mapButtonPressed.begin(); i != mapButtonPressed.end(); i++){
+
+        //easier access
+
+            Button curButton = i->second.button;
+
+            int y = i->second.button.getContainer().y;
+            int w = i->second.button.getContainer().w;
+            int h = i->second.button.getContainer().h;
+
+        //Also use the loop if there is a button that needs to change it's visibility
+
+            //when the whole button is outside of the screen, set the visibility to false.
+            //otherwise true
+
+            curButton.setVisibility((y + h) > sourceRect.y);
+
+
+            if(i->second.clicked){
+                if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym != SDLK_ESCAPE)){
+
+                    //returns a reference
+                    getKeyBindByKey(i->first) = event.key.keysym.sym;
+
+                    anyButtonPressed = false;
+                    i->second.clicked = false;
+                    return;
                 }
-                else if(i->first == "rotateLeft"){
-                    CONTROLROTATELEFT = event.key.keysym.sym;
+
+                else if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE)){
+                    i->second.clicked = false;
+                    anyButtonPressed = false;
+                    return;
                 }
-                else if(i->first == "left"){
-                    CONTROLLEFT = event.key.keysym.sym;
-                }
-                else if(i->first == "right"){
-                    CONTROLRIGHT = event.key.keysym.sym;
-                }
-                else if(i->first == "down"){
-                    CONTROLDOWN = event.key.keysym.sym;
-                }
-                else if(i->first == "fastDown"){
-                    CONTROLFASTDOWN = event.key.keysym.sym;
-                }
-                else if(i->first == "swap"){
-                    CONTROLSWAP = event.key.keysym.sym;
-                }
-                anyButtonPressed = false;
-                i->second.clicked = false;
-                return;
             }
-             else if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE)){
-                i->second.clicked = false;
-                anyButtonPressed = false;
-                return;
-            }
-        }
-    }
 
-    if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE) && !anyButtonPressed){
-        delete curScene;
-        curScene = mScene;
-        return;
-    }
 
-    for(auto i = mapButtonPressed.begin(); i != mapButtonPressed.end(); i++){
-        if(i->second.button.getVisibility() && i->second.button.isClicked(&event) && !anyButtonPressed){
 
-            if((i->second.button.getContainer().y < SETTINGSBACKGROUNDY) && i->second.button.isClickedSubdivision(&event, 
-                                                        {0, 
-                                                        SETTINGSBACKGROUNDY - i->second.button.getContainer().y, 
-                                                        i->second.button.getContainer().w, 
-                                                        i->second.button.getContainer().h - (SETTINGSBACKGROUNDY - i->second.button.getContainer().y)})){
+        if(curButton.getVisibility() && curButton.isClicked(&event) && !anyButtonPressed){
+
+            if(((y < SETTINGSBACKGROUNDY) && curButton.isClickedSubdivision(&event, {0, SETTINGSBACKGROUNDY - y, w, h - (SETTINGSBACKGROUNDY - y)})) || 
+                 y > SETTINGSBACKGROUNDY){
 
                 i->second.clicked = true;
                 anyButtonPressed = true;
             }
-
-            if(i->second.button.getContainer().y > SETTINGSBACKGROUNDY){
-                i->second.clicked = true;
-                anyButtonPressed = true;
-            }
-            return;
         }
     }
 }
@@ -333,9 +357,8 @@ void SetScene::handleLogic(Uint32 *, Scene *&){
     
 }
 
-void SetScene::renderButtons(std::map <std::string, Button> map){
+void SetScene::renderAllButtons(std::map <std::string, Button> map){
     for (auto i = map.begin(); i != map.end(); i++){
-
         
         i->second.setContainer({i->second.getContainer().x - SETTINGSBACKGROUNDX, i->second.getContainer().y - SETTINGSBACKGROUNDY, i->second.getContainer().w, i->second.getContainer().h});
         i->second.drawToRender();
@@ -375,12 +398,12 @@ void renderKeyBindChange(Button button, SetScene & s){
     SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
     SDL_RenderDrawRect(mainScreen.getRender(), &coverRect);
 
-    Font font(&mainScreen, "Ubuntu-BoldItalic", 30, "...", BLACK);
-    font.setCoords(coverRect.x + coverRect.w/2 - font.getTextSurface()->w/2, coverRect.y + coverRect.h/2 - font.getTextSurface()->h/2);
-    font.drawTextToRender();    
+    Font coverFont(&mainScreen, "Ubuntu-BoldItalic", 30, "...", BLACK);
+    coverFont.setCoords(coverRect.x + coverRect.w/2 - coverFont.getTextSurface()->w/2, coverRect.y + coverRect.h/2 - coverFont.getTextSurface()->h/2);
+    coverFont.drawTextToRender();    
 }
 
-SDL_Keycode getKeyBindByKey(std::string key){
+SDL_Keycode& getKeyBindByKey(std::string key){
 
     if(key == "rotateRight"){
         return CONTROLROTATERIGHT;
@@ -404,7 +427,7 @@ SDL_Keycode getKeyBindByKey(std::string key){
         return CONTROLSWAP;
     }
 
-    return SDLK_SPACE;
+    return CONTROLFASTDOWN;
 }
 
 const char * getMessageByKey(std::string key){

@@ -27,7 +27,7 @@ class SetScene: public Scene{
 
         bool anyButtonPressed = false;
 
-        Slider rightSlider;
+        Slider settingsSlider;
 
         std::vector <std::string> keys;
 
@@ -52,7 +52,7 @@ class SetScene: public Scene{
 
         void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene) override;
 
-        void renderButtons(std::map <std::string, Button> map);
+        void renderAllButtons(std::map <std::string, Button> map);
 
         void render() override;
 
@@ -63,7 +63,7 @@ class SetScene: public Scene{
     
     void renderKeyBindChange(Button button, SetScene & s);
     
-    SDL_Keycode getKeyBindByKey(std::string key);
+    SDL_Keycode& getKeyBindByKey(std::string key);
 
     const char * getMessageByKey(std::string key);
 
