@@ -19,7 +19,7 @@ class SetScene: public Scene{
 
         Scene * mainScene = nullptr;
 
-        SDL_Rect sourceRect = {0,0, SBW, SBH};
+        SDL_Rect sourceRect = {0,0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH};
 
         int deltaY;
 
@@ -28,6 +28,8 @@ class SetScene: public Scene{
         bool anyButtonPressed = false;
 
         Slider rightSlider;
+
+        std::vector <std::string> keys;
 
     public:
 
@@ -54,8 +56,15 @@ class SetScene: public Scene{
 
         void render() override;
 
-};
+        void renderButton(Button button);
 
-void renderKeyBindChange(Button button, SetScene & s);
+
+    };
+    
+    void renderKeyBindChange(Button button, SetScene & s);
+    
+    SDL_Keycode getKeyBindByKey(std::string key);
+
+    const char * getMessageByKey(std::string key);
 
 #endif

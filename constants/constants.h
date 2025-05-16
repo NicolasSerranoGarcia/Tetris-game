@@ -64,16 +64,20 @@ extern const int ISH;
 
 
 //The position X in pixels of the background rectangle in the settings
-extern const int SBX;
+extern const int SETTINGSBACKGROUNDX;
 
 //The position Y in pixels of the background rectangle in the settings
-extern const int SBY;
+extern const int SETTINGSBACKGROUNDY;
 
 //The Width in pixels of the background rectangle in the settings
-extern const int SBW;
+extern const int SETTINGSBACKGROUNDW;
 
 //The Height in pixels of the background rectangle in the settings
-extern const int SBH;
+extern const int SETTINGSBACKGROUNDH;
+
+//The Height in pixels of the background texture in the settings.
+//The rest (x,y,w) is the same as SETTINGSBACKGROUND
+extern const int SETTINGSTEXTUREH;
 
 
 //The position X in pixels of the hold figure background rectangle
