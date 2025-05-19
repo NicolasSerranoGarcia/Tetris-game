@@ -234,24 +234,17 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                 newSrc.y += delta;
             }
         }
-        setDeltaY(newSrc.y);
         setSourceRect(newSrc);
 
-        //make a copy
+        //make a copy. the getter always returns the buttons in the base position
         auto maps = getButtonMap();
         
         for(auto i = maps.begin(); i != maps.end(); i++){
 
-            SDL_Rect rect = i->second.getContainer();
-
-            if(((sourceRect.y) == (200))){
-                rect.y += event.motion.yrel;
-            }
-            if((sourceRect.y != 0)){
-                rect.y -= getDeltaY();
-            } 
-            i->second.setContainer(rect);
+            //set the map button to 
+            i->second.setContainer({i->second.getContainer().x, i->second.getContainer().y - sourceRect.y, i->second.getContainer().w, i->second.getContainer().h});
             
+            //we also need to set the position of the pressed buttons becu
             mapButtonPressed[i->first].button = i->second;
         }
     }
