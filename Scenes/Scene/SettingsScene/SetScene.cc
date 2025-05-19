@@ -193,108 +193,106 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
             settingsSlider.setClickedNow(false);
         }
 
+    //If the user is currently clicking the slider and moves the mouse, update the settings
 
-    if((event.type == SDL_MOUSEMOTION) && settingsSlider.getClickedNow()){
+        if((event.type == SDL_MOUSEMOTION) && settingsSlider.getClickedNow()) {
 
-        //Inside here we need to move the slider, because the user has pressed the slider previously and
-        //now it is being moved
+            //Faster access
 
-            int sliderX = settingsSlider.getSliderButton().getContainer().x;
-            int sliderY = settingsSlider.getSliderButton().getContainer().y;
-            int sliderW = settingsSlider.getSliderButton().getContainer().w;
-            int sliderH = settingsSlider.getSliderButton().getContainer().h;
+                Button sliderBtn = settingsSlider.getSliderButton();
+                int sliderX = sliderBtn.getContainer().x;
+                int sliderY = sliderBtn.getContainer().y;
+                int sliderW = sliderBtn.getContainer().w;
+                int sliderH = sliderBtn.getContainer().h;
 
-        //if moving the slider results inside the limits of the settings, then move the slider
+                int sliderMin = settingsSlider.getMinY();
+                int sliderMax = settingsSlider.getMaxY();
 
-            if (((sliderY + sliderH + event.motion.yrel) <= SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH) && 
-                (((sliderY + event.motion.yrel) >= SETTINGSBACKGROUNDY))){
+                int newY = sliderY + event.motion.yrel;
 
-                //Change the button container y coord. only
-
-                Button button = settingsSlider.getSliderButton();
-                button.setContainer({sliderX, sliderY + event.motion.yrel, sliderW, sliderH});
-
-                settingsSlider.setSliderButton(button);
-            }
-
-        SDL_Rect newSrc = getSourceRect();
-        int delta = event.motion.yrel;
-        
-        //event.motion.yrel is positive if the user away from us
-
-            int scrollDir = event.motion.yrel / abs(event.motion.yrel); //-1 or 1
-
-        if (scrollDir == 1){
-
-            if (newSrc.y + newSrc.h + delta <= SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
-                newSrc.y += delta;
-            }
-        } else{
-            if (newSrc.y + delta >= 0) {
-                newSrc.y += delta;
-            }
-        }
-        setSourceRect(newSrc);
-
-        //make a copy. the getter always returns the buttons in the base position
-        auto maps = getButtonMap();
-        
-        for(auto i = maps.begin(); i != maps.end(); i++){
-
-            //set the map button to 
-            i->second.setContainer({i->second.getContainer().x, i->second.getContainer().y - sourceRect.y, i->second.getContainer().w, i->second.getContainer().h});
+            //This sets newY to be inside the limits of the settings
             
-            //we also need to set the position of the pressed buttons becu
-            mapButtonPressed[i->first].button = i->second;
+                newY = std::max(sliderMin, std::min(newY, sliderMax - sliderH));
+
+            // set the slider to the new position
+
+                sliderBtn.setContainer({sliderX, newY, sliderW, sliderH});
+                settingsSlider.setSliderButton(sliderBtn);
+
+            //Calculate the proportional movement of the slider
+
+                int sliderTrackH = sliderMax - sliderMin - sliderH;
+
+                int scrollRange = SETTINGSTEXTUREH - SETTINGSBACKGROUNDH;
+
+            // Make sure we dont divide by 0 when calculating the relation
+
+                int sliderOffset = newY - sliderMin;
+
+                float sliderRatio = (sliderTrackH > 0) ? ((float)sliderOffset / sliderTrackH) : 0.0f;
+
+            SDL_Rect newSrc = getSourceRect();
+            newSrc.y = (int)(sliderRatio * scrollRange);
+            setSourceRect(newSrc);
+
+           //update the buttons accordingly
+
+                auto maps = getButtonMap();
+                for(auto i = maps.begin(); i != maps.end(); i++) {
+
+                    i->second.setContainer({i->second.getContainer().x, i->second.getContainer().y - newSrc.y, i->second.getContainer().w, i->second.getContainer().h});
+
+                    mapButtonPressed[i->first].button = i->second;
+                }
         }
-    }
 
-    if (event.type == SDL_MOUSEWHEEL && event.wheel.y != 0){
+    //If the user is currently scrolling, update the settings
 
-        SDL_Rect newSrc = getSourceRect();
-        int scrollDir = event.wheel.y / abs(event.wheel.y); //-1 or 1
-        int delta = SCROLLFACTOR * scrollDir;
+        if (event.type == SDL_MOUSEWHEEL && event.wheel.y != 0) {
 
-        int newY = newSrc.y - delta;
-    
-        if (scrollDir == -1) {
-            // Scrolling towards me
-            if (newY + newSrc.h <= SETTINGSBACKGROUNDH + 200){
+            SDL_Rect newSrc = getSourceRect();
+
+            int scrollRange = SETTINGSTEXTUREH - SETTINGSBACKGROUNDH;
+
+            int sliderMin = settingsSlider.getMinY();
+            int sliderMax = settingsSlider.getMaxY();
+
+            Button sliderBtn = settingsSlider.getSliderButton();
+
+            SDL_Rect sliderRect = sliderBtn.getContainer();
+
+            int sliderTrackH = sliderMax - sliderMin - sliderRect.h;
+
+
+            int scrollDir = (event.wheel.y > 0) ? -1 : 1;
+
+            int delta = SCROLLFACTOR * scrollDir;
+
+            //Recalculate the new limits ofthe source rect
+
+                int newY = newSrc.y + delta;
+                newY = std::max(0, std::min(newY, scrollRange));
                 newSrc.y = newY;
-            }
-        } else {
-            // Scrolling away from me
-            if (newY >= 0) {
-                newSrc.y = newY;
-            }
+                setSourceRect(newSrc);
+
+            // Having the new source rect, recaulclate the slider position
+                
+                float ratio = (float)newSrc.y / scrollRange;
+                int sliderY = sliderMin + (int)(ratio * sliderTrackH);
+                sliderBtn.setContainer({sliderRect.x, sliderY, sliderRect.w, sliderRect.h});
+                settingsSlider.setSliderButton(sliderBtn);
+
+            //update the buttons
+
+                auto maps = getButtonMap();
+                for(auto i = maps.begin(); i != maps.end(); i++) {
+                    SDL_Rect orig = i->second.getContainer();
+                    i->second.setContainer({orig.x, orig.y - newSrc.y, orig.w, orig.h});
+                    mapButtonPressed[i->first].button = i->second;
+                }
+
+            return;
         }
-        setDeltaY(newY);
-        setSourceRect(newSrc);
-
-        if (((settingsSlider.getSliderButton().getContainer().y + settingsSlider.getSliderButton().getContainer().h + (-delta)) <= SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH) && 
-            (((settingsSlider.getSliderButton().getContainer().y + (-delta)) >= SETTINGSBACKGROUNDY))){
-                Button button = settingsSlider.getSliderButton();
-            
-                button.setContainer({button.getContainer().x, settingsSlider.getSliderButton().getContainer().y -delta, button.getContainer().w, button.getContainer().h});
-                settingsSlider.setSliderButton(button);
-            }
-
-        auto maps = getButtonMap();
-        for(auto i = maps.begin(); i != maps.end(); i++){
-            SDL_Rect rect = i->second.getContainer();
-            if(((sourceRect.y) == (200))){
-                rect.y += SCROLLFACTOR;
-            }
-            if((sourceRect.y != 0)){
-                rect.y -= getDeltaY();
-            } 
-            i->second.setContainer(rect);
-            
-            mapButtonPressed[i->first].button = i->second;
-        }
-        return;
-    }
-
 
      for(auto i = mapButtonPressed.begin(); i != mapButtonPressed.end(); i++){
 
