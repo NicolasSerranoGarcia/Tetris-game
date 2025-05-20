@@ -35,6 +35,10 @@ class SetScene: public Scene{
 
         Slider soundSlider;
 
+        int soundLevel = 100;
+
+        int effectsLevel = 100;
+
     public:
 
         SetScene();

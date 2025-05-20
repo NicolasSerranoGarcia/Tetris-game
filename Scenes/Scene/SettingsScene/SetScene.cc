@@ -59,9 +59,9 @@ SetScene::SetScene(){
 
     //Create the sound slider
         
-        Button soundSliderButton(TEXTURESOUNDW/5 - 10, TEXTURESOUNDY + TEXTURESOUNDH/3 - 20, 40, 40, WHITE, &mainScreen);
+        Button soundSliderButton(SETTINGSBACKGROUNDX + 4*TEXTURESOUNDW/5 - 20, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15, 40, 40, WHITE, &mainScreen);
 
-        soundSlider = {soundSliderButton, TEXTURESOUNDW/5, 3*TEXTURESOUNDW/5, WHITE};
+        soundSlider = {soundSliderButton, SETTINGSBACKGROUNDX + TEXTURESOUNDW/5 - 20, SETTINGSBACKGROUNDX + 4*TEXTURESOUNDW/5 - 20, WHITE};
 
     //Setup the exit button
 
@@ -157,7 +157,7 @@ void SetScene::render(){
 
         Font soundTitle(&mainScreen, "Ubuntu-Regular", 50, "SOUND", BLACK);
 
-        soundTitle.setCoords(TEXTURESOUNDX + TEXTURESOUNDW/2 - soundTitle.getTextSurface()->w/2, TEXTURESOUNDY);
+        soundTitle.setCoords(TEXTURESOUNDX + TEXTURESOUNDW/2 - soundTitle.getTextSurface()->w/2, TEXTURESOUNDY + 7);
 
         soundTitle.drawTextToRender();
 
@@ -168,7 +168,7 @@ void SetScene::render(){
 
         //rectangle
 
-            SDL_Rect rect = {x, TEXTURESOUNDY + TEXTURESOUNDH/3 - 10, 3*TEXTURESOUNDW/5, 20 + 1};
+            SDL_Rect rect = {x, TEXTURESOUNDY + TEXTURESOUNDH/3 - 10 + 15, 3*TEXTURESOUNDW/5, 20 + 1};
 
             SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
             SDL_RenderFillRect(mainScreen.getRender(), &rect);
@@ -179,22 +179,40 @@ void SetScene::render(){
         //left circle
 
             SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
-            SDL_RenderFillCircle(mainScreen.getRender(), x, TEXTURESOUNDY + TEXTURESOUNDH/3, 10);
+            SDL_RenderFillCircle(mainScreen.getRender(), x, TEXTURESOUNDY + TEXTURESOUNDH/3 + 15, 10);
             
             SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
-            SDL_RenderDrawCircle(mainScreen.getRender(), x, TEXTURESOUNDY + TEXTURESOUNDH/3, 10, 0);
+            SDL_RenderDrawCircle(mainScreen.getRender(), x, TEXTURESOUNDY + TEXTURESOUNDH/3 + 15, 10, 0);
 
         //right circle
 
             SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
-            SDL_RenderFillCircle(mainScreen.getRender(), x + 3*TEXTURESOUNDW/5, TEXTURESOUNDY + TEXTURESOUNDH/3, 10);
+            SDL_RenderFillCircle(mainScreen.getRender(), x + 3*TEXTURESOUNDW/5, TEXTURESOUNDY + TEXTURESOUNDH/3 + 15, 10);
             
             SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
-            SDL_RenderDrawCircle(mainScreen.getRender(), x + 3*TEXTURESOUNDW/5, TEXTURESOUNDY + TEXTURESOUNDH/3, 10, 1);
+            SDL_RenderDrawCircle(mainScreen.getRender(), x + 3*TEXTURESOUNDW/5, TEXTURESOUNDY + TEXTURESOUNDH/3 + 15, 10, 1);
 
         //render the slider
 
-            soundSlider.RenderAsCircle();
+            Slider slider = soundSlider;
+
+            Button button = slider.getSliderButton();
+
+            button.setContainer({button.getContainer().x - SETTINGSBACKGROUNDX, button.getContainer().y - SETTINGSBACKGROUNDY, button.getContainer().w, button.getContainer().h});
+
+            slider.setSliderButton(button);
+
+            slider.setPressedColor(LIGHT_BLUE);
+
+            slider.RenderAsCircle();
+
+    //Render a text for the info os the slider
+
+        Font GeneralSoundText(&mainScreen, "Ubuntu-Regular", 25, "General", BLACK);
+
+        GeneralSoundText.setCoords(TEXTURESOUNDW/2 - GeneralSoundText.getTextSurface()->w/2, TEXTURESOUNDY + TEXTURESOUNDH/3 - 42);
+
+        GeneralSoundText.drawTextToRender();
 
     //Set the render target back to the mainScreen
 
@@ -254,16 +272,24 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
     //All the "exceptions" are handled at this point
 
 
-    //If the user clicks on the slider, change the state of the slidebar to clicked
+    //If the user clicks on the slider (any of them), change the state of the slidebar to clicked
 
         if((event.type == SDL_MOUSEBUTTONDOWN) && settingsSlider.isClicked(&event)){
             settingsSlider.setClickedNow(true);
+        }
+        
+        if((event.type == SDL_MOUSEBUTTONDOWN) && soundSlider.isClicked(&event)){
+            soundSlider.setClickedNow(true);
         }
 
     //If the user, on the other hand, lets go the click, change the slider state consequently
 
         if((event.type == SDL_MOUSEBUTTONUP) && settingsSlider.getClickedNow()){
             settingsSlider.setClickedNow(false);
+        }
+
+        if((event.type == SDL_MOUSEBUTTONUP) && soundSlider.getClickedNow()){
+            soundSlider.setClickedNow(false);
         }
 
     //If the user is currently clicking the slider and moves the mouse, update the settings
@@ -317,6 +343,41 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
 
                     mapButtonPressed[i->first].button = i->second;
                 }
+        }
+
+        if((event.type == SDL_MOUSEMOTION) && soundSlider.getClickedNow()){
+                        //Faster access
+
+                Button sliderBtn = soundSlider.getSliderButton();
+                int sliderX = sliderBtn.getContainer().x;
+                int sliderY = sliderBtn.getContainer().y;
+                int sliderW = sliderBtn.getContainer().w;
+                int sliderH = sliderBtn.getContainer().h;
+
+                int sliderMin = soundSlider.getMinY();
+                int sliderMax = soundSlider.getMaxY();
+
+                int newX = sliderX + event.motion.xrel;
+
+            //This sets newX to be inside the limits of the settings
+            
+                newX = std::max(sliderMin, std::min(newX, sliderMax));
+
+            // set the slider to the new position
+
+                sliderBtn.setContainer({newX, sliderY, sliderW, sliderH});
+                soundSlider.setSliderButton(sliderBtn);
+
+            //Calculate the % of the sound
+
+                // newX -= sliderW;
+
+                int newSoundLevel =(int) (100 * ((double) (newX - soundSlider.getMinY())/ (soundSlider.getMaxY() - soundSlider.getMinY())));
+
+                std::cout << newSoundLevel << " %"<< std::endl;
+
+
+                soundLevel = newSoundLevel;
         }
 
     //If the user is currently scrolling, update the settings
