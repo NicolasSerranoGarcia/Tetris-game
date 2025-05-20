@@ -31,6 +31,8 @@ class SetScene: public Scene{
 
         std::vector <std::string> keys;
 
+        Button exitButton;
+
     public:
 
         SetScene();

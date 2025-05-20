@@ -10,8 +10,10 @@ SetScene::SetScene(){
 
     //Setup the keys for an easier loading
 
-    keys = {"rotateRight", "rotateLeft", "left", "right", "down", "fastDown", "swap"};
+        keys = {"rotateRight", "rotateLeft", "left", "right", "down", "fastDown", "swap"};
    
+    int highestY = 0;
+
     for(int i = 0; i < (int) keys.size(); i++){
 
         Button button(
@@ -26,8 +28,19 @@ SetScene::SetScene(){
         getButtonMap()[keys[i]] = button;
 
         //set the clicked map with the same info as the button map
-        mapButtonPressed[keys[i]] = {button, false};
+
+            mapButtonPressed[keys[i]] = {button, false};
+
+        if(highestY < button.getContainer().y - SETTINGSBACKGROUNDY){
+            highestY = button.getContainer().y - SETTINGSBACKGROUNDY;
+        }
     }
+
+    //Choose any height of the button, as all of them have the same
+
+        TEXTURESOUNDY = highestY + mapButtonPressed[keys[0]].button.getContainer().h + 15;
+
+    TEXTURESOUNDH = SETTINGSTEXTUREH - TEXTURESOUNDY;
 
     //Create the right slider 
 
@@ -42,8 +55,11 @@ SetScene::SetScene(){
             (SETTINGSBACKGROUNDH*SETTINGSBACKGROUNDH) / SETTINGSTEXTUREH, 
             GREY, &mainScreen);
 
-        settingsSlider = {sliderButton, SETTINGSBACKGROUNDY, SETTINGSBACKGROUNDY + sourceRect.h, GREY};
+        settingsSlider = {sliderButton, SETTINGSBACKGROUNDY, SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH, GREY};
 
+    //Setup the exit button
+
+        exitButton = {SETTINGSBACKGROUNDX, SETTINGSBACKGROUNDY, (int) (BLOCKLENGTH*1.3), (int) (BLOCKLENGTH*1.3), LIGHT_GREY, &mainScreen};
 }
 
 SDL_Rect SetScene::getSourceRect(){
@@ -84,14 +100,14 @@ void SetScene::render(){
 
         SDL_SetRenderDrawColor(mainScreen.getRender(), LIGHT_GREY.r, LIGHT_GREY.g, LIGHT_GREY.b, LIGHT_GREY.a);
 
-        SDL_RenderClear(mainScreen.getRender());    
+        SDL_RenderClear(mainScreen.getRender());
 
     //Render a title for the keybinds
 
-        Font keyBindText(&mainScreen, "Ubuntu-Regular", 50, "KEYBINDS", BLACK);
-        keyBindText.setCoords(SETTINGSBACKGROUNDW/2 - keyBindText.getTextSurface()->w/2, 5);
+        Font keyBindTitle(&mainScreen, "Ubuntu-Regular", 50, "KEYBINDS", BLACK);
+        keyBindTitle.setCoords(SETTINGSBACKGROUNDW/2 - keyBindTitle.getTextSurface()->w/2, 5);
 
-        keyBindText.drawTextToRender();
+        keyBindTitle.drawTextToRender();
 
     //Render all the buttons
 
@@ -131,6 +147,23 @@ void SetScene::render(){
         }
     }
 
+    //Render a title for the sound
+
+        Font soundTitle(&mainScreen, "Ubuntu-Regular", 50, "SOUND", BLACK);
+
+        soundTitle.setCoords(TEXTURESOUNDX + TEXTURESOUNDW/2 - soundTitle.getTextSurface()->w/2, TEXTURESOUNDY);
+
+        soundTitle.drawTextToRender();
+
+    
+    //Render a slider bar for the sound
+
+        SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
+        SDL_RenderFillCircle(mainScreen.getRender(), TEXTURESOUNDX + TEXTURESOUNDW/2, TEXTURESOUNDY + TEXTURESOUNDH/3, 20);
+        
+        SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
+        SDL_RenderDrawCircle(mainScreen.getRender(), TEXTURESOUNDX + TEXTURESOUNDW/2, TEXTURESOUNDY + TEXTURESOUNDH/3, 20);
+
     //Set the render target back to the mainScreen
 
         SDL_SetRenderTarget(mainScreen.getRender(), nullptr);
@@ -150,6 +183,13 @@ void SetScene::render(){
     //render the slider to the screen
 
         settingsSlider.render();
+
+    //render the exit button
+
+         Image image(exitButton.getContainer().x, exitButton.getContainer().y, exitButton.getContainer().w, exitButton.getContainer().h, "SetScene_X", "png");
+        exitButton.setImage(&image);
+
+        exitButton.drawToRender();
 
     SDL_DestroyTexture(settingsTexture);
 }
@@ -171,7 +211,8 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
 
     //If there is no pressed button and the user presses ESC, return to the game
 
-        if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE) && !anyButtonPressed){
+        if(((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE) && !anyButtonPressed) ||
+           ((event.type == SDL_MOUSEBUTTONDOWN) && exitButton.isClicked(&event))){
             delete curScene;
             curScene = mScene;
             /* add a countdown */

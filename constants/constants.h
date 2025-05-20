@@ -4,6 +4,7 @@
 #include "Screen/Screen.h"
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_render.h>
 
 
 //The width in pixels of the screen. Currently static
@@ -78,6 +79,23 @@ extern const int SETTINGSBACKGROUNDH;
 //The Height in pixels of the background texture in the settings.
 //The rest (x,y,w) is the same as SETTINGSBACKGROUND
 extern const int SETTINGSTEXTUREH;
+
+
+//Refers to the x position where the sound settings start in the texture. This should be used solely for the
+//rendering. It is calculated when the buttons in the settings are setted
+extern const int TEXTURESOUNDX;
+
+//Refers to the y position where the sound settings start in the texture. This should be used solely for the
+//rendering 
+extern int TEXTURESOUNDY;
+
+//Refers to the width where the sound settings start in the texture. This should be used solely for the
+//rendering . It is calculated when the buttons in the settings are setted
+extern const int TEXTURESOUNDW;
+
+//Refers to the height where the sound settings start in the texture. This should be used solely for the
+//rendering 
+extern int TEXTURESOUNDH;
 
 
 //The position X in pixels of the hold figure background rectangle
@@ -235,5 +253,12 @@ int px(AbsPosition position, int objW);
 std::string convertKeyToLetter(SDL_Keycode key);
 
 SDL_Keycode convertLetterToKeycode(char c);
+
+
+int roundUpToMultipleOfEight(int v);
+
+int SDL_RenderDrawCircle(SDL_Renderer * renderer, int x, int y, int radius);
+
+int SDL_RenderFillCircle(SDL_Renderer * renderer, int x, int y, int radius);
 
 #endif
