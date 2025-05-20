@@ -98,6 +98,23 @@ extern const int TEXTURESOUNDW;
 extern int TEXTURESOUNDH;
 
 
+//Refers to the x position where the sound slider is. This should be used solely for the
+//rendering. It is calculated when the buttons in the settings are setted
+extern const int SLIDERSOUNDX;
+
+//Refers to the y position where the sound slider is. This should be used solely for the
+//rendering 
+extern const int SLIDERSOUNDY;
+
+//Refers to the width where the sound slider is. This should be used solely for the
+//rendering . It is calculated when the buttons in the settings are setted
+extern const int SLIDERSOUNDW;
+
+//Refers to the height where the sound slider is. This should be used solely for the
+//rendering 
+extern const int SLIDERSOUNDH;
+
+
 //The position X in pixels of the hold figure background rectangle
 extern const int HFX;
 
@@ -255,9 +272,9 @@ std::string convertKeyToLetter(SDL_Keycode key);
 SDL_Keycode convertLetterToKeycode(char c);
 
 
-int roundUpToMultipleOfEight(int v);
-
 int SDL_RenderDrawCircle(SDL_Renderer * renderer, int x, int y, int radius);
+
+int SDL_RenderDrawCircle(SDL_Renderer * renderer, int x, int y, int radius, bool onlyRightQuadrant);
 
 int SDL_RenderFillCircle(SDL_Renderer * renderer, int x, int y, int radius);
 

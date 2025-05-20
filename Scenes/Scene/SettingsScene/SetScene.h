@@ -33,6 +33,8 @@ class SetScene: public Scene{
 
         Button exitButton;
 
+        Slider soundSlider;
+
     public:
 
         SetScene();

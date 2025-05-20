@@ -40,7 +40,7 @@ SetScene::SetScene(){
 
         TEXTURESOUNDY = highestY + mapButtonPressed[keys[0]].button.getContainer().h + 15;
 
-    TEXTURESOUNDH = SETTINGSTEXTUREH - TEXTURESOUNDY;
+        TEXTURESOUNDH = SETTINGSTEXTUREH - TEXTURESOUNDY;
 
     //Create the right slider 
 
@@ -56,6 +56,12 @@ SetScene::SetScene(){
             GREY, &mainScreen);
 
         settingsSlider = {sliderButton, SETTINGSBACKGROUNDY, SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH, GREY};
+
+    //Create the sound slider
+        
+        Button soundSliderButton(TEXTURESOUNDW/5 - 10, TEXTURESOUNDY + TEXTURESOUNDH/3 - 20, 40, 40, WHITE, &mainScreen);
+
+        soundSlider = {soundSliderButton, TEXTURESOUNDW/5, 3*TEXTURESOUNDW/5, WHITE};
 
     //Setup the exit button
 
@@ -158,11 +164,37 @@ void SetScene::render(){
     
     //Render a slider bar for the sound
 
-        SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
-        SDL_RenderFillCircle(mainScreen.getRender(), TEXTURESOUNDX + TEXTURESOUNDW/2, TEXTURESOUNDY + TEXTURESOUNDH/3, 20);
-        
-        SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
-        SDL_RenderDrawCircle(mainScreen.getRender(), TEXTURESOUNDX + TEXTURESOUNDW/2, TEXTURESOUNDY + TEXTURESOUNDH/3, 20);
+        int x = TEXTURESOUNDX + TEXTURESOUNDW/5;
+
+        //rectangle
+
+            SDL_Rect rect = {x, TEXTURESOUNDY + TEXTURESOUNDH/3 - 10, 3*TEXTURESOUNDW/5, 20 + 1};
+
+            SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
+            SDL_RenderFillRect(mainScreen.getRender(), &rect);
+
+            SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
+            SDL_RenderDrawRect(mainScreen.getRender(), &rect);
+
+        //left circle
+
+            SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
+            SDL_RenderFillCircle(mainScreen.getRender(), x, TEXTURESOUNDY + TEXTURESOUNDH/3, 10);
+            
+            SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
+            SDL_RenderDrawCircle(mainScreen.getRender(), x, TEXTURESOUNDY + TEXTURESOUNDH/3, 10, 0);
+
+        //right circle
+
+            SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
+            SDL_RenderFillCircle(mainScreen.getRender(), x + 3*TEXTURESOUNDW/5, TEXTURESOUNDY + TEXTURESOUNDH/3, 10);
+            
+            SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
+            SDL_RenderDrawCircle(mainScreen.getRender(), x + 3*TEXTURESOUNDW/5, TEXTURESOUNDY + TEXTURESOUNDH/3, 10, 1);
+
+        //render the slider
+
+            soundSlider.RenderAsCircle();
 
     //Set the render target back to the mainScreen
 
@@ -186,7 +218,7 @@ void SetScene::render(){
 
     //render the exit button
 
-         Image image(exitButton.getContainer().x, exitButton.getContainer().y, exitButton.getContainer().w, exitButton.getContainer().h, "SetScene_X", "png");
+        Image image(exitButton.getContainer().x, exitButton.getContainer().y, exitButton.getContainer().w, exitButton.getContainer().h, "SetScene_X", "png");
         exitButton.setImage(&image);
 
         exitButton.drawToRender();

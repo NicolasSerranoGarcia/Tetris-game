@@ -54,9 +54,18 @@ const int TEXTURESOUNDX = 0;
 
 int TEXTURESOUNDY;
 
-const int TEXTURESOUNDW =SETTINGSBACKGROUNDW;
+const int TEXTURESOUNDW = SETTINGSBACKGROUNDW;
 
 int TEXTURESOUNDH;
+
+
+// const int SLIDERSOUNDX = TEXTURESOUNDX + TEXTURESOUNDW/5;
+
+// const int SLIDERSOUNDY = TEXTURESOUNDY + TEXTURESOUNDH/3;
+
+// const int SLIDERSOUNDW = 2*TEXTURESOUNDX/5;
+
+// const int SLIDERSOUNDH = 20;
 
 
 const int HFX = ISX;
@@ -361,11 +370,6 @@ SDL_Keycode convertLetterToKeycode(char c) {
 }
 
 
-// rounding helper, simplified version of the function I use
-int roundUpToMultipleOfEight(int v){
-    return (v + (8 - 1)) & -8;
-}
-
 int SDL_RenderDrawCircle(SDL_Renderer * renderer, int x, int y, int radius){
     int offsetx, offsety, d;
     int status;
@@ -376,14 +380,76 @@ int SDL_RenderDrawCircle(SDL_Renderer * renderer, int x, int y, int radius){
     status = 0;
 
     while (offsety >= offsetx) {
+
+        //lower right cuadrant
         status += SDL_RenderDrawPoint(renderer, x + offsetx, y + offsety);
         status += SDL_RenderDrawPoint(renderer, x + offsety, y + offsetx);
+
+        //lower left cuadrant
         status += SDL_RenderDrawPoint(renderer, x - offsetx, y + offsety);
         status += SDL_RenderDrawPoint(renderer, x - offsety, y + offsetx);
+
+        //upper right cuadrant
         status += SDL_RenderDrawPoint(renderer, x + offsetx, y - offsety);
         status += SDL_RenderDrawPoint(renderer, x + offsety, y - offsetx);
+
+        //upper left cuadrant
         status += SDL_RenderDrawPoint(renderer, x - offsetx, y - offsety);
         status += SDL_RenderDrawPoint(renderer, x - offsety, y - offsetx);
+
+        if (status < 0) {
+            status = -1;
+            break;
+        }
+
+        if (d >= 2*offsetx) {
+            d -= 2*offsetx + 1;
+            offsetx +=1;
+        }
+        else if (d < 2 * (radius - offsety)) {
+            d += 2 * offsety - 1;
+            offsety -= 1;
+        }
+        else {
+            d += 2 * (offsety - offsetx - 1);
+            offsety -= 1;
+            offsetx += 1;
+        }
+    }
+
+    return status;
+}
+
+int SDL_RenderDrawCircle(SDL_Renderer * renderer, int x, int y, int radius, bool onlyRightQuadrant){
+    int offsetx, offsety, d;
+    int status;
+
+    offsetx = 0;
+    offsety = radius;
+    d = radius -1;
+    status = 0;
+
+    while (offsety >= offsetx) {
+
+        if(onlyRightQuadrant){
+
+            //upper right cuadrant
+            status += SDL_RenderDrawPoint(renderer, x + offsetx, y - offsety);
+            status += SDL_RenderDrawPoint(renderer, x + offsety, y - offsetx);
+    
+            //lower right cuadrant
+            status += SDL_RenderDrawPoint(renderer, x + offsetx, y + offsety);
+            status += SDL_RenderDrawPoint(renderer, x + offsety, y + offsetx);
+        } else{
+
+            //upper left cuadrant
+            status += SDL_RenderDrawPoint(renderer, x - offsetx, y - offsety);
+            status += SDL_RenderDrawPoint(renderer, x - offsety, y - offsetx);
+    
+            //lower left cuadrant
+            status += SDL_RenderDrawPoint(renderer, x - offsetx, y + offsety);
+            status += SDL_RenderDrawPoint(renderer, x - offsety, y + offsetx);
+        }   
 
         if (status < 0) {
             status = -1;

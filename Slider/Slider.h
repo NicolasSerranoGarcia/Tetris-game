@@ -30,7 +30,7 @@ class Slider{
         
     public:
         Slider();
-        Slider(SDL_Rect rect, SDL_Color pressedColor, SDL_Color defaultColor);
+        // Slider(SDL_Rect rect, SDL_Color pressedColor, SDL_Color defaultColor);
         Slider(Button button, int minY, int maxY, SDL_Color pressedColor);
 
         Button getSliderButton();
@@ -48,6 +48,10 @@ class Slider{
 
 
         void render();
+
+        //This method won't work unless the button of the slider is a sqaure
+        void RenderAsCircle();
+
         bool isClicked(SDL_Event *event);
 
 };

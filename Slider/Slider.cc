@@ -1,5 +1,7 @@
 #include "Slider.h"
 
+#include <iostream>
+
 Slider::Slider(){
 }
 
@@ -10,8 +12,7 @@ Slider::Slider(Button button, int minY, int maxY, SDL_Color pressedColor){
     this->pressedColor = pressedColor;
 }
 
-Slider::Slider(SDL_Rect rect, SDL_Color pressedColor, SDL_Color defaultColor){
-}
+// Slider::Slider(SDL_Rect rect, SDL_Color pressedColor, SDL_Color defaultColor){}
 
 Button Slider::getSliderButton() {
     return slider;
@@ -78,4 +79,32 @@ void Slider::render(){
 
 bool Slider::isClicked(SDL_Event *event){
     return slider.isClicked(&*event);
+}
+
+void Slider::RenderAsCircle(){
+    if(slider.getContainer().h != slider.getContainer().w){
+        std::cout << "Not possible" << std::endl;
+        return;
+    }
+
+    if(isClickedNow){
+        SDL_SetRenderDrawColor(mainScreen.getRender(), pressedColor.r, pressedColor.g, pressedColor.b, pressedColor.a);
+        SDL_RenderFillCircle(mainScreen.getRender(), slider.getContainer().x + slider.getContainer().w/2, slider.getContainer().y + slider.getContainer().h/2, slider.getContainer().w/2);
+    
+        SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
+        SDL_RenderDrawCircle(mainScreen.getRender(), slider.getContainer().x + slider.getContainer().w/2, slider.getContainer().y + slider.getContainer().h/2, slider.getContainer().w/2);
+    } else{
+        SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
+        SDL_Color color = slider.getColor();
+        color.a = 255;
+
+        SDL_SetRenderDrawColor(mainScreen.getRender(), color.r, color.g, color.b, color.a);
+        SDL_RenderFillCircle(mainScreen.getRender(), slider.getContainer().x + slider.getContainer().w/2, slider.getContainer().y + slider.getContainer().h/2, slider.getContainer().w/2);
+        
+        SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
+        SDL_RenderDrawCircle(mainScreen.getRender(), slider.getContainer().x + slider.getContainer().w/2, slider.getContainer().y + slider.getContainer().h/2, slider.getContainer().w/2);
+
+
+        SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
+    }
 }
