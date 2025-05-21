@@ -77,6 +77,11 @@ SetScene::SetScene(){
     //Setup the exit button
 
         exitButton = {SETTINGSBACKGROUNDX, SETTINGSBACKGROUNDY, (int) (BLOCKLENGTH*1.3), (int) (BLOCKLENGTH*1.3), LIGHT_GREY, &mainScreen};
+
+    //Setup the buttons of the socials and so
+
+            /* setup this */
+        linktree = {SETTINGSBACKGROUNDW/2, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100, (int) (BLOCKLENGTH*1.3), (int) (BLOCKLENGTH*1.3), LIGHT_GREY, &mainScreen};
 }
 
 SDL_Rect SetScene::getSourceRect(){
@@ -273,6 +278,14 @@ void SetScene::render(){
         GeneralSoundText.setCoords(TEXTURESOUNDW/2 - GeneralSoundText.getTextSurface()->w/2, TEXTURESOUNDY + TEXTURESOUNDH/3 - 42 + 100);
 
         GeneralSoundText.drawTextToRender();
+
+    
+    //Render the social buttons
+
+        Image linktreeIMG(linktree.getContainer().x, linktree.getContainer().y, linktree.getContainer().w, linktree.getContainer().h, "SetScene-linktree", "png");
+        linktree.setImage(&linktreeIMG);
+
+        linktree.drawToRender();
     
 
     //Set the render target back to the mainScreen

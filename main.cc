@@ -18,6 +18,7 @@
 //  - Google Fonts (https://fonts.google.com/) for the fonts I used in the project
 //  - CodeCogs (https://editor.codecogs.com/) for letting me create visual formulas in LaTex
 //  - Gumichan01 (https://gist.github.com/Gumichan01/332c26f6197a432db91cc4327fcabb1c) for creating functions to render a circle (magic)
+//  - The logo of linktre https://iconscout.com/icons/linktree by "https://iconscout.com/contributors/ihdizein" on https://iconscout.com/
 //
 //
 // ABOUT: This project was made from scratch by me. To be honest, I first thought of doing this project right before finishing two C based projects (Pacman and Snake)

@@ -36,6 +36,8 @@ class SetScene: public Scene{
         Slider effectsSlider;
         Slider LogicEffectsSlider;
 
+        Button linktree;
+
     public:
 
         SetScene();
@@ -45,8 +47,6 @@ class SetScene: public Scene{
         
         SDL_Rect getSourceRect();
 
-        int getDeltaY();
-        
         
         void setSourceRect(SDL_Rect rect);
         
