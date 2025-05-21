@@ -346,15 +346,18 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
             int w = LogicSoundSlider.getSliderButton().getContainer().w;
             int h = LogicSoundSlider.getSliderButton().getContainer().h;
 
-            if((y + h > SETTINGSBACKGROUNDY) && button.isClickedSubdivision(&event, {0, 0, w, h - (SETTINGSBACKGROUNDY - y)})){
+            if(((y + h) > (SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH)) && button.isClickedSubdivision(&event, {0, 0, w, h - ((y + h) - (SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH))})){
                 LogicSoundSlider.setClickedNow(true);
                 soundSlider.setClickedNow(true);
+            }
+
+            else if ((y + h) < (SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH)){
+                LogicSoundSlider.setClickedNow(true);
+                soundSlider.setClickedNow(true);   
             }
         }
 
         if((event.type == SDL_MOUSEBUTTONDOWN) && LogicEffectsSlider.isClicked(&event) && LogicEffectsSlider.getVisibility()){
-
-
 
             Button button = LogicEffectsSlider.getSliderButton();
 
@@ -362,7 +365,12 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
             int w = LogicEffectsSlider.getSliderButton().getContainer().w;
             int h = LogicEffectsSlider.getSliderButton().getContainer().h;
 
-            if((y + h > SETTINGSBACKGROUNDY) && button.isClickedSubdivision(&event, {0, 0, w, h - (SETTINGSBACKGROUNDY - y)})){
+            if(((y + h) > (SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH)) && button.isClickedSubdivision(&event, {0, 0, w, h - ((y + h) - (SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH))})){
+                LogicEffectsSlider.setClickedNow(true);
+                effectsSlider.setClickedNow(true);
+            }
+
+            else if ((y + h) < (SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH)){
                 LogicEffectsSlider.setClickedNow(true);
                 effectsSlider.setClickedNow(true);
             }
@@ -491,6 +499,15 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                 sliderBtn.setContainer({newX, sliderY, sliderW, sliderH});
                 soundSlider.setSliderButton(sliderBtn);
 
+                sliderBtn = LogicSoundSlider.getSliderButton();
+                sliderX = sliderBtn.getContainer().x;
+                sliderY = sliderBtn.getContainer().y;
+                sliderW = sliderBtn.getContainer().w;
+                sliderH = sliderBtn.getContainer().h;
+
+                sliderBtn.setContainer({newX, sliderY, sliderW, sliderH});
+                LogicSoundSlider.setSliderButton(sliderBtn);
+
             //Calculate the % of the sound
 
                 int newSoundLevel =(int) (100 * ((double) (newX - soundSlider.getMinY())/ (soundSlider.getMaxY() - soundSlider.getMinY())));
@@ -521,6 +538,15 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
 
                 sliderBtn.setContainer({newX, sliderY, sliderW, sliderH});
                 effectsSlider.setSliderButton(sliderBtn);
+
+                sliderBtn = LogicEffectsSlider.getSliderButton();
+                sliderX = sliderBtn.getContainer().x;
+                sliderY = sliderBtn.getContainer().y;
+                sliderW = sliderBtn.getContainer().w;
+                sliderH = sliderBtn.getContainer().h;
+
+                sliderBtn.setContainer({newX, sliderY, sliderW, sliderH});
+                LogicEffectsSlider.setSliderButton(sliderBtn);
 
             //Calculate the % of the sound
 
