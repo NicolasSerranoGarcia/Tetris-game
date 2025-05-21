@@ -30,13 +30,17 @@ bool Slider::getClickedNow(){
     return isClickedNow;
 }
 
+SDL_Color Slider::getPressedColor() {
+    return pressedColor;
+}
+
+bool Slider::getVisibility(){
+    return isVisible;
+}
+
 
 void Slider::setClickedNow(bool state){
     isClickedNow = state;
-}
-
-SDL_Color Slider::getPressedColor() {
-    return pressedColor;
 }
 
 void Slider::setSliderButton(Button newSlider) {
@@ -60,6 +64,10 @@ void Slider::setMaxY(int y) {
 
 void Slider::setPressedColor(SDL_Color color) {
     pressedColor = color;
+}
+
+void Slider::setVisibility(bool v){
+    isVisible = v;
 }
 
 

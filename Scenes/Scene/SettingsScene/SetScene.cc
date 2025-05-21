@@ -339,14 +339,33 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
             settingsSlider.setClickedNow(true);
         }
         
-        if((event.type == SDL_MOUSEBUTTONDOWN) && LogicSoundSlider.isClicked(&event)){
-            LogicSoundSlider.setClickedNow(true);
-            soundSlider.setClickedNow(true);
+        if((event.type == SDL_MOUSEBUTTONDOWN) && LogicSoundSlider.isClicked(&event) && LogicSoundSlider.getVisibility()){
+            Button button = LogicSoundSlider.getSliderButton();
+
+            int y = LogicSoundSlider.getSliderButton().getContainer().y;
+            int w = LogicSoundSlider.getSliderButton().getContainer().w;
+            int h = LogicSoundSlider.getSliderButton().getContainer().h;
+
+            if((y + h > SETTINGSBACKGROUNDY) && button.isClickedSubdivision(&event, {0, 0, w, h - (SETTINGSBACKGROUNDY - y)})){
+                LogicSoundSlider.setClickedNow(true);
+                soundSlider.setClickedNow(true);
+            }
         }
 
-        if((event.type == SDL_MOUSEBUTTONDOWN) && LogicEffectsSlider.isClicked(&event)){
-            LogicEffectsSlider.setClickedNow(true);
-            effectsSlider.setClickedNow(true);
+        if((event.type == SDL_MOUSEBUTTONDOWN) && LogicEffectsSlider.isClicked(&event) && LogicEffectsSlider.getVisibility()){
+
+
+
+            Button button = LogicEffectsSlider.getSliderButton();
+
+            int y = LogicEffectsSlider.getSliderButton().getContainer().y;
+            int w = LogicEffectsSlider.getSliderButton().getContainer().w;
+            int h = LogicEffectsSlider.getSliderButton().getContainer().h;
+
+            if((y + h > SETTINGSBACKGROUNDY) && button.isClickedSubdivision(&event, {0, 0, w, h - (SETTINGSBACKGROUNDY - y)})){
+                LogicEffectsSlider.setClickedNow(true);
+                effectsSlider.setClickedNow(true);
+            }
         }
 
     //If the user, on the other hand, lets go the click, change the slider state consequently
@@ -425,6 +444,12 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
 
                 LogicSoundSlider.setSliderButton(s);
 
+                if(LogicSoundSlider.getSliderButton().getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
+                    LogicSoundSlider.setVisibility(false);
+                } else {
+                    LogicSoundSlider.setVisibility(true);
+                }
+
             //update the effects slider
 
                 s = effectsSlider.getSliderButton();
@@ -432,9 +457,17 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                 s.setContainer({s.getContainer().x, effectsSlider.getSliderButton().getContainer().y - newSrc.y, s.getContainer().w, s.getContainer().h});
 
                 LogicEffectsSlider.setSliderButton(s);
+
+                if(LogicEffectsSlider.getSliderButton().getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
+                    LogicEffectsSlider.setVisibility(false);
+                } else {
+                    LogicEffectsSlider.setVisibility(true);
+                }
+
+
         }
 
-        if((event.type == SDL_MOUSEMOTION) && LogicSoundSlider.getClickedNow()){
+        if((event.type == SDL_MOUSEMOTION) && LogicSoundSlider.getClickedNow() && LogicSoundSlider.getVisibility()){
 
             //Faster access
 
@@ -465,7 +498,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                 GENERALSOUNDLVL = newSoundLevel;
             }
 
-        if((event.type == SDL_MOUSEMOTION) && LogicEffectsSlider.getClickedNow()){
+        if((event.type == SDL_MOUSEMOTION) && LogicEffectsSlider.getClickedNow() && effectsSlider.getVisibility()){
 
             //Faster access
 
@@ -549,6 +582,13 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
 
                 LogicSoundSlider.setSliderButton(s);
 
+                if(LogicSoundSlider.getSliderButton().getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
+                    LogicSoundSlider.setVisibility(false);
+                } else {
+                    LogicSoundSlider.setVisibility(true);
+                }
+
+
             // update the effects slider
 
                 s = effectsSlider.getSliderButton();
@@ -556,6 +596,12 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                 s.setContainer({s.getContainer().x, effectsSlider.getSliderButton().getContainer().y - newSrc.y, s.getContainer().w, s.getContainer().h});
 
                 LogicEffectsSlider.setSliderButton(s);
+
+                if(LogicEffectsSlider.getSliderButton().getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
+                    LogicEffectsSlider.setVisibility(false);
+                } else {
+                    LogicEffectsSlider.setVisibility(true);
+                }
 
             return;
         }

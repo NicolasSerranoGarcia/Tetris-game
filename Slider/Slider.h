@@ -28,6 +28,7 @@ class Slider{
 
         bool isClickedNow = false;
         
+        bool isVisible;
     public:
         Slider();
         // Slider(SDL_Rect rect, SDL_Color pressedColor, SDL_Color defaultColor);
@@ -38,6 +39,7 @@ class Slider{
         int getMaxY();
         SDL_Color getPressedColor();
         bool getClickedNow();
+        bool getVisibility();
 
         void setClickedNow(bool state);
         void setSliderButton(Button newSlider);
@@ -45,6 +47,7 @@ class Slider{
         void setMinY(int y);
         void setMaxY(int y);
         void setPressedColor(SDL_Color color);
+        void setVisibility(bool v);
 
 
         void render();
