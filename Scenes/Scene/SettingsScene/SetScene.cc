@@ -59,9 +59,20 @@ SetScene::SetScene(){
 
     //Create the sound slider
         
-        Button soundSliderButton(SETTINGSBACKGROUNDX + 4*TEXTURESOUNDW/5 - 20, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15, 40, 40, WHITE, &mainScreen);
+        Button soundSliderButton(getXposFromSoundLvl(SETTINGSBACKGROUNDX + TEXTURESOUNDW/5 - 20), SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15, 40, 40, WHITE, &mainScreen);
 
         soundSlider = {soundSliderButton, SETTINGSBACKGROUNDX + TEXTURESOUNDW/5 - 20, SETTINGSBACKGROUNDX + 4*TEXTURESOUNDW/5 - 20, WHITE};
+
+        LogicSoundSlider = soundSlider;
+
+
+    //Create the effects slider
+
+        Button effectsSliderButton(getXposFromEffectsLvl(SETTINGSBACKGROUNDX + TEXTURESOUNDW/5 - 20), SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100, 40, 40, WHITE, &mainScreen);
+
+        effectsSlider = {effectsSliderButton, SETTINGSBACKGROUNDX + TEXTURESOUNDW/5 - 20, SETTINGSBACKGROUNDX + 4*TEXTURESOUNDW/5 - 20, WHITE};
+
+        LogicEffectsSlider = effectsSlider;
 
     //Setup the exit button
 
@@ -76,13 +87,6 @@ void SetScene::setSourceRect(SDL_Rect rect){
     sourceRect = rect;
 }
 
-int SetScene::getDeltaY(){
-    return deltaY;
-}
-
-void SetScene::setDeltaY(int y){
-    deltaY = y;
-}
 
 void SetScene::render(){
 
@@ -160,7 +164,8 @@ void SetScene::render(){
         soundTitle.setCoords(TEXTURESOUNDX + TEXTURESOUNDW/2 - soundTitle.getTextSurface()->w/2, TEXTURESOUNDY + 7);
 
         soundTitle.drawTextToRender();
-
+    
+    {
     
     //Render a slider bar for the sound
 
@@ -206,13 +211,69 @@ void SetScene::render(){
 
             slider.RenderAsCircle();
 
-    //Render a text for the info os the slider
+    //Render a text for the info of the slider
 
         Font GeneralSoundText(&mainScreen, "Ubuntu-Regular", 25, "General", BLACK);
 
         GeneralSoundText.setCoords(TEXTURESOUNDW/2 - GeneralSoundText.getTextSurface()->w/2, TEXTURESOUNDY + TEXTURESOUNDH/3 - 42);
 
         GeneralSoundText.drawTextToRender();
+
+    }
+
+
+    //Render a slider bar for the sound
+
+        int x = TEXTURESOUNDX + TEXTURESOUNDW/5;
+
+        //rectangle
+
+            SDL_Rect rect = {x, TEXTURESOUNDY + TEXTURESOUNDH/3 - 10 + 15 + 100, 3*TEXTURESOUNDW/5, 20 + 1};
+
+            SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
+            SDL_RenderFillRect(mainScreen.getRender(), &rect);
+
+            SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
+            SDL_RenderDrawRect(mainScreen.getRender(), &rect);
+
+        //left circle
+
+            SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
+            SDL_RenderFillCircle(mainScreen.getRender(), x, TEXTURESOUNDY + TEXTURESOUNDH/3 + 15 + 100, 10);
+            
+            SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
+            SDL_RenderDrawCircle(mainScreen.getRender(), x, TEXTURESOUNDY + TEXTURESOUNDH/3 + 15 + 100, 10, 0);
+
+        //right circle
+
+            SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
+            SDL_RenderFillCircle(mainScreen.getRender(), x + 3*TEXTURESOUNDW/5, TEXTURESOUNDY + TEXTURESOUNDH/3 + 15 + 100, 10);
+            
+            SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
+            SDL_RenderDrawCircle(mainScreen.getRender(), x + 3*TEXTURESOUNDW/5, TEXTURESOUNDY + TEXTURESOUNDH/3 + 15 + 100, 10, 1);
+
+        //render the slider
+
+            Slider slider = effectsSlider;
+
+            Button button = slider.getSliderButton();
+
+            button.setContainer({button.getContainer().x - SETTINGSBACKGROUNDX, button.getContainer().y - SETTINGSBACKGROUNDY, button.getContainer().w, button.getContainer().h});
+
+            slider.setSliderButton(button);
+
+            slider.setPressedColor(LIGHT_BLUE);
+
+            slider.RenderAsCircle();
+
+    //Render a text for the info of the slider
+
+        Font GeneralSoundText(&mainScreen, "Ubuntu-Regular", 25, "Effects", BLACK);
+
+        GeneralSoundText.setCoords(TEXTURESOUNDW/2 - GeneralSoundText.getTextSurface()->w/2, TEXTURESOUNDY + TEXTURESOUNDH/3 - 42 + 100);
+
+        GeneralSoundText.drawTextToRender();
+    
 
     //Set the render target back to the mainScreen
 
@@ -278,8 +339,14 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
             settingsSlider.setClickedNow(true);
         }
         
-        if((event.type == SDL_MOUSEBUTTONDOWN) && soundSlider.isClicked(&event)){
+        if((event.type == SDL_MOUSEBUTTONDOWN) && LogicSoundSlider.isClicked(&event)){
+            LogicSoundSlider.setClickedNow(true);
             soundSlider.setClickedNow(true);
+        }
+
+        if((event.type == SDL_MOUSEBUTTONDOWN) && LogicEffectsSlider.isClicked(&event)){
+            LogicEffectsSlider.setClickedNow(true);
+            effectsSlider.setClickedNow(true);
         }
 
     //If the user, on the other hand, lets go the click, change the slider state consequently
@@ -288,8 +355,14 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
             settingsSlider.setClickedNow(false);
         }
 
-        if((event.type == SDL_MOUSEBUTTONUP) && soundSlider.getClickedNow()){
+        if((event.type == SDL_MOUSEBUTTONUP) && LogicSoundSlider.getClickedNow()){
+            LogicSoundSlider.setClickedNow(false);
             soundSlider.setClickedNow(false);
+        }
+
+        if((event.type == SDL_MOUSEBUTTONUP) && LogicEffectsSlider.getClickedNow()){
+            LogicEffectsSlider.setClickedNow(false);
+            effectsSlider.setClickedNow(false);
         }
 
     //If the user is currently clicking the slider and moves the mouse, update the settings
@@ -343,10 +416,27 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
 
                     mapButtonPressed[i->first].button = i->second;
                 }
+
+            //update the sound slider
+
+                Button s = soundSlider.getSliderButton();
+
+                s.setContainer({s.getContainer().x, soundSlider.getSliderButton().getContainer().y - newSrc.y, s.getContainer().w, s.getContainer().h});
+
+                LogicSoundSlider.setSliderButton(s);
+
+            //update the effects slider
+
+                s = effectsSlider.getSliderButton();
+
+                s.setContainer({s.getContainer().x, effectsSlider.getSliderButton().getContainer().y - newSrc.y, s.getContainer().w, s.getContainer().h});
+
+                LogicEffectsSlider.setSliderButton(s);
         }
 
-        if((event.type == SDL_MOUSEMOTION) && soundSlider.getClickedNow()){
-                        //Faster access
+        if((event.type == SDL_MOUSEMOTION) && LogicSoundSlider.getClickedNow()){
+
+            //Faster access
 
                 Button sliderBtn = soundSlider.getSliderButton();
                 int sliderX = sliderBtn.getContainer().x;
@@ -370,15 +460,41 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
 
             //Calculate the % of the sound
 
-                // newX -= sliderW;
-
                 int newSoundLevel =(int) (100 * ((double) (newX - soundSlider.getMinY())/ (soundSlider.getMaxY() - soundSlider.getMinY())));
 
-                std::cout << newSoundLevel << " %"<< std::endl;
+                GENERALSOUNDLVL = newSoundLevel;
+            }
 
+        if((event.type == SDL_MOUSEMOTION) && LogicEffectsSlider.getClickedNow()){
 
-                soundLevel = newSoundLevel;
-        }
+            //Faster access
+
+                Button sliderBtn = effectsSlider.getSliderButton();
+                int sliderX = sliderBtn.getContainer().x;
+                int sliderY = sliderBtn.getContainer().y;
+                int sliderW = sliderBtn.getContainer().w;
+                int sliderH = sliderBtn.getContainer().h;
+
+                int sliderMin = effectsSlider.getMinY();
+                int sliderMax = effectsSlider.getMaxY();
+
+                int newX = sliderX + event.motion.xrel;
+
+            //This sets newX to be inside the limits of the settings
+            
+                newX = std::max(sliderMin, std::min(newX, sliderMax));
+
+            // set the slider to the new position
+
+                sliderBtn.setContainer({newX, sliderY, sliderW, sliderH});
+                effectsSlider.setSliderButton(sliderBtn);
+
+            //Calculate the % of the sound
+
+                int newSoundLevel =(int) (100 * ((double) (newX - effectsSlider.getMinY())/ (effectsSlider.getMaxY() - effectsSlider.getMinY())));
+
+                EFFECTSSOUNDLVL = newSoundLevel;
+            }
 
     //If the user is currently scrolling, update the settings
 
@@ -425,6 +541,22 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                     mapButtonPressed[i->first].button = i->second;
                 }
 
+            //update the sound slider
+
+                Button s = soundSlider.getSliderButton();
+
+                s.setContainer({s.getContainer().x, soundSlider.getSliderButton().getContainer().y - newSrc.y, s.getContainer().w, s.getContainer().h});
+
+                LogicSoundSlider.setSliderButton(s);
+
+            // update the effects slider
+
+                s = effectsSlider.getSliderButton();
+
+                s.setContainer({s.getContainer().x, effectsSlider.getSliderButton().getContainer().y - newSrc.y, s.getContainer().w, s.getContainer().h});
+
+                LogicEffectsSlider.setSliderButton(s);
+
             return;
         }
 
@@ -466,10 +598,16 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
 
 
 
-        if(curButton.getVisibility() && curButton.isClicked(&event) && !anyButtonPressed){
+        if(curButton.getVisibility() && curButton.isClicked(&event)){
 
             if(((y < SETTINGSBACKGROUNDY) && curButton.isClickedSubdivision(&event, {0, SETTINGSBACKGROUNDY - y, w, h - (SETTINGSBACKGROUNDY - y)})) || 
                  y > SETTINGSBACKGROUNDY){
+
+                for(auto i = mapButtonPressed.begin(); i != mapButtonPressed.end(); i++){
+                    if(i->second.clicked){
+                        i->second.clicked = false;
+                    }
+                }
 
                 i->second.clicked = true;
                 anyButtonPressed = true;
@@ -580,4 +718,12 @@ const char * getMessageByKey(std::string key){
     }
 
     return "Unknown";
+}
+
+int getXposFromSoundLvl(int minX){
+    return  (int) minX + ((GENERALSOUNDLVL/100.0)*(SETTINGSBACKGROUNDX + 4*TEXTURESOUNDW/5 - 20.0 - minX));
+}
+
+int getXposFromEffectsLvl(int minX){
+    return  (int) minX + ((EFFECTSSOUNDLVL/100.0)*(SETTINGSBACKGROUNDX + 4*TEXTURESOUNDW/5 - 20.0 - minX));
 }

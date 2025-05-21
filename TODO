@@ -142,10 +142,16 @@ I think I will fix it when I add textures, doing it now is a temporal solution b
 things that now live in the landleEvents. This way you have all the render in the mainScene, like the renderKeyBindChange. This way maybe you can also remove the pollevent from handleEvents.
 You check if there is a button pressed and if so you make it not possible to click on another one. If a key event is gotten, you put that as the key of the button. 
 
-[] add a manual slider to the settings
+[X] add a manual slider to the settings
 
 [] clicking on another button keybind should change the the button tht is currently asking for a key
 
-[] change the amount of scrolling of the settings  when moving it by clicking the slider to be the same as the other one
+[X] change the amount of scrolling of the settings  when moving it by clicking the slider to be the same as the other one
 
 [] maybe put an image on the slider of the sound
+
+[X] create a temporary sound slider that is used only for the logic. The atribute should not be touched
+
+[X] create a global sound var 
+
+[] if the user wants to add a keybind that is already being used, do something

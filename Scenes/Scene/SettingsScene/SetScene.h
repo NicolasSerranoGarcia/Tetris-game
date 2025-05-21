@@ -19,25 +19,22 @@ class SetScene: public Scene{
 
         Scene * mainScene = nullptr;
 
-        SDL_Rect sourceRect = {0,0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH};
-
-        int deltaY;
+        Button exitButton;
 
         std::map <std::string, ButClick> mapButtonPressed;
+        std::vector <std::string> keys;
 
         bool anyButtonPressed = false;
 
+        SDL_Rect sourceRect = {0,0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH};
+
         Slider settingsSlider;
 
-        std::vector <std::string> keys;
-
-        Button exitButton;
-
         Slider soundSlider;
+        Slider LogicSoundSlider;
 
-        int soundLevel = 100;
-
-        int effectsLevel = 100;
+        Slider effectsSlider;
+        Slider LogicEffectsSlider;
 
     public:
 
@@ -52,8 +49,6 @@ class SetScene: public Scene{
         
         
         void setSourceRect(SDL_Rect rect);
-        
-        void setDeltaY(int y);
         
         
         void handleLogic(Uint32 *, Scene *&) override;
@@ -74,5 +69,9 @@ class SetScene: public Scene{
     SDL_Keycode& getKeyBindByKey(std::string key);
 
     const char * getMessageByKey(std::string key);
+    
+    int getXposFromSoundLvl(int minX);
+
+    int getXposFromEffectsLvl(int minX);
 
 #endif

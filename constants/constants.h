@@ -166,6 +166,12 @@ extern unsigned int LEVEL;
 //The lines cleared on the current level
 extern unsigned int LINES;
 
+//0 <= sound <= 100
+extern int GENERALSOUNDLVL;
+
+//0 <= sound <= 100
+extern int EFFECTSSOUNDLVL;
+
 
 //A function that calculates the points won from clearing a certain number of lines (max. 4)
 int calculatePoints(int linesCleared);

@@ -105,6 +105,11 @@ unsigned int LEVEL = 0;
 unsigned int LINES = 0;
 
 
+int GENERALSOUNDLVL = 100;
+
+int EFFECTSSOUNDLVL = 100;
+
+
 int calculatePoints(int linesCleared){
     switch(linesCleared){
         case 1: 
