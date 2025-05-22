@@ -81,8 +81,11 @@ SetScene::SetScene(){
     //Setup the buttons of the socials and so
 
             /* setup this */
-        linktree = {SETTINGSBACKGROUNDW/2, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100, (int) (BLOCKLENGTH*1.3), (int) (BLOCKLENGTH*1.3), LIGHT_GREY, &mainScreen};
-}
+        linktree = {SETTINGSBACKGROUNDW/2 + SETTINGSBACKGROUNDX, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.3), (int) (BLOCKLENGTH*1.3), LIGHT_GREY, &mainScreen};
+        linktreeLogic = linktree;
+        linktrr.button= linktreeLogic;
+        linktrr.clicked = false;
+    }
 
 SDL_Rect SetScene::getSourceRect(){
     return sourceRect;
@@ -278,21 +281,29 @@ void SetScene::render(){
         GeneralSoundText.setCoords(TEXTURESOUNDW/2 - GeneralSoundText.getTextSurface()->w/2, TEXTURESOUNDY + TEXTURESOUNDH/3 - 42 + 100);
 
         GeneralSoundText.drawTextToRender();
-
     
-    //Render the social buttons
-
-        Image linktreeIMG(linktree.getContainer().x, linktree.getContainer().y, linktree.getContainer().w, linktree.getContainer().h, "SetScene-linktree", "png");
-        linktree.setImage(&linktreeIMG);
-
-        linktree.drawToRender();
+        //Render the social buttons
     
+            Image linktreeIMG(linktree.getContainer().x - SETTINGSBACKGROUNDX, linktree.getContainer().y - SETTINGSBACKGROUNDY, linktree.getContainer().w, linktree.getContainer().h, "SetScene-linktree", "png");
 
+            Button linkBtn = linktree;
+
+            linkBtn.setContainer({linkBtn.getContainer().x - SETTINGSBACKGROUNDX, linkBtn.getContainer().y - SETTINGSBACKGROUNDY, linkBtn.getContainer().w, linkBtn.getContainer().h});
+
+            linkBtn.setImage(&linktreeIMG);
+    
+            
+            linkBtn.drawToRender();
+
+            if(linktrr.clicked){
+                std::cout << "Hi" << std::endl;
+            }
+        
+        
     //Set the render target back to the mainScreen
-
+        
         SDL_SetRenderTarget(mainScreen.getRender(), nullptr);
-    
-
+        
     //IMPORTANT: From now on all the rendering is being done on the mainScreen
 
 
@@ -389,6 +400,11 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
             }
         }
 
+        if((event.type == SDL_MOUSEBUTTONDOWN) && linktreeLogic.isClicked(&event)){
+            linktrr.clicked = true;
+            system("xdg-open https://linktr.ee/NicolasSerrano");
+        }
+
     //If the user, on the other hand, lets go the click, change the slider state consequently
 
         if((event.type == SDL_MOUSEBUTTONUP) && settingsSlider.getClickedNow()){
@@ -403,6 +419,10 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         if((event.type == SDL_MOUSEBUTTONUP) && LogicEffectsSlider.getClickedNow()){
             LogicEffectsSlider.setClickedNow(false);
             effectsSlider.setClickedNow(false);
+        }
+
+        if((event.type == SDL_MOUSEBUTTONUP) && linktrr.clicked){
+            linktrr.clicked = false;
         }
 
     //If the user is currently clicking the slider and moves the mouse, update the settings
@@ -483,6 +503,17 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                     LogicEffectsSlider.setVisibility(false);
                 } else {
                     LogicEffectsSlider.setVisibility(true);
+                }
+
+
+            //update the linktree button
+
+                linktreeLogic.setContainer({linktree.getContainer().x, linktree.getContainer().y - newSrc.y, linktree.getContainer().w, linktree.getContainer().h});
+
+                if(linktreeLogic.getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
+                    linktreeLogic.setVisibility(false);
+                } else {
+                    linktreeLogic.setVisibility(true);
                 }
 
 
@@ -640,6 +671,16 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                     LogicEffectsSlider.setVisibility(false);
                 } else {
                     LogicEffectsSlider.setVisibility(true);
+                }
+
+            //update the linktree button
+
+                linktreeLogic.setContainer({linktreeLogic.getContainer().x, linktree.getContainer().y - newSrc.y, linktree.getContainer().w, linktree.getContainer().h}); 
+
+                if(linktreeLogic.getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
+                    linktreeLogic.setVisibility(false);
+                } else {
+                    linktreeLogic.setVisibility(true);
                 }
 
             return;

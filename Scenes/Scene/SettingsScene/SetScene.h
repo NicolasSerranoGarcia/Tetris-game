@@ -37,6 +37,8 @@ class SetScene: public Scene{
         Slider LogicEffectsSlider;
 
         Button linktree;
+        Button linktreeLogic;
+        ButClick linktrr;
 
     public:
 
