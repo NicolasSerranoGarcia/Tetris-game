@@ -32,7 +32,7 @@
 
 ## Overview
 
-**Tetris-game** is a modern take on the classic Tetris game, developed in C++ using the SDL2 library as a rendering engine. This project is designed for developers interested in game programming and offers a solid foundation for understanding game mechanics and scene management.
+**Tetris-game** is a modern take on the classic Tetris game, developed in C++ using the SDL2 library as a rendering engine. This project was designed completely by me, and offers a solid foundation for understanding game mechanics and scene management.
 
 ### Key Features
 
@@ -52,12 +52,34 @@ Before building and running the game, make sure you have:
 
 - **OS:** Ubuntu 20.04+ (or similar Linux distro)
 - **Compiler:** g++ (GCC) 9.3.0 or later
-- **Libraries:** SDL2, SDL2_ttf
+- **Libraries:** SDL2, SDL2_ttf, SDL_Image
 
+### Installation
 To install required libraries on Ubuntu:
 
 ```bash
-sudo apt-get update
-sudo apt-get install -y libsdl2-dev libsdl2-ttf-dev
+sudo apt update
+sudo apt install build-essential libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev
 ```
 
+To clone the repo locally:
+```bash
+git clone https://github.com/NicolasSerranoGarcia/Tetris-game.git
+cd Tetris-game
+```
+
+To compile the game into an executable:
+
+```bash
+make
+```
+Note: The executable will be named "tetris" and will be located on the repo clone
+
+To run the game:
+```bash
+./tetris
+```
+
+### Usage
+
+This project is open source, and by no means it is aimed to benefit me in a financial way. The motivation behind this project is solely a desire to learn and overcome new obstacles. Feel free to fork the project and make any changes you find useful. You can also contact me via any of my socials if you need any information related to the project. I'm open to talk!
