@@ -83,3 +83,17 @@ To run the game:
 ### Usage
 
 This project is open source, and by no means it is aimed to benefit me in a financial way. The motivation behind this project is solely a desire to learn and overcome new obstacles. Feel free to fork the project and make any changes you find useful. You can also contact me via any of my socials if you need any information related to the project. I'm open to talk!
+
+### Testing
+
+---
+
+## Project Structure
+
+---
+
+## Contributing
+
+---
+
+## License
