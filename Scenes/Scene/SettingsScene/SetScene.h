@@ -40,6 +40,14 @@ class SetScene: public Scene{
         Button linktreeLogic;
         ButClick linktrr;
 
+        Button github;
+        Button githubLogic;
+        ButClick git;
+
+        Button instagram;
+        Button instagramLogic;
+        ButClick insta;
+
     public:
 
         SetScene();

@@ -80,11 +80,25 @@ SetScene::SetScene(){
 
     //Setup the buttons of the socials and so
 
-            /* setup this */
-        linktree = {SETTINGSBACKGROUNDW/2 + SETTINGSBACKGROUNDX, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.3), (int) (BLOCKLENGTH*1.3), LIGHT_GREY, &mainScreen};
+        linktree = {SETTINGSBACKGROUNDW/10 + SETTINGSBACKGROUNDX, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.2), (int) (BLOCKLENGTH*1.2), LIGHT_GREY, &mainScreen};
         linktreeLogic = linktree;
         linktrr.button= linktreeLogic;
         linktrr.clicked = false;
+
+    //Setup the buttons of the socials and so
+
+        github = {SETTINGSBACKGROUNDW/6 + 10 + SETTINGSBACKGROUNDX, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.2), (int) (BLOCKLENGTH*1.2), LIGHT_GREY, &mainScreen};
+        githubLogic = github;
+        git.button= githubLogic;
+        git.clicked = false;
+
+
+    //Setup the buttons of the socials and so
+
+        instagram = {23 + SETTINGSBACKGROUNDX, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.3), (int) (BLOCKLENGTH*1.3), LIGHT_GREY, &mainScreen};
+        instagramLogic = instagram;
+        insta.button= instagramLogic;
+        insta.clicked = false;
     }
 
 SDL_Rect SetScene::getSourceRect(){
@@ -282,8 +296,9 @@ void SetScene::render(){
 
         GeneralSoundText.drawTextToRender();
     
-        //Render the social buttons
+    //Render the social buttons
     
+        {
             Image linktreeIMG(linktree.getContainer().x - SETTINGSBACKGROUNDX, linktree.getContainer().y - SETTINGSBACKGROUNDY, linktree.getContainer().w, linktree.getContainer().h, "SetScene-linktree", "png");
 
             Button linkBtn = linktree;
@@ -291,14 +306,51 @@ void SetScene::render(){
             linkBtn.setContainer({linkBtn.getContainer().x - SETTINGSBACKGROUNDX, linkBtn.getContainer().y - SETTINGSBACKGROUNDY, linkBtn.getContainer().w, linkBtn.getContainer().h});
 
             linkBtn.setImage(&linktreeIMG);
-    
-            
-            linkBtn.drawToRender();
+
 
             if(linktrr.clicked){
-                std::cout << "Hi" << std::endl;
+                linkBtn.setColor(LIGHT_BLUE);
+                linkBtn.drawToRender();
+            } else{
+                linkBtn.drawToRender();
             }
-        
+        }
+
+        {
+            Image githubIMG(github.getContainer().x - SETTINGSBACKGROUNDX, github.getContainer().y - SETTINGSBACKGROUNDY, github.getContainer().w, github.getContainer().h, "SetScene-github", "png");
+
+            Button linkBtn = github;
+
+            linkBtn.setContainer({linkBtn.getContainer().x - SETTINGSBACKGROUNDX, linkBtn.getContainer().y - SETTINGSBACKGROUNDY, linkBtn.getContainer().w, linkBtn.getContainer().h});
+
+            linkBtn.setImage(&githubIMG);
+
+
+            if(git.clicked){
+                linkBtn.setColor(LIGHT_BLUE);
+                linkBtn.drawToRender();
+            } else{
+                linkBtn.drawToRender();
+            }
+        }
+
+        {
+            Image instaIMG(instagram.getContainer().x - SETTINGSBACKGROUNDX, instagram.getContainer().y - SETTINGSBACKGROUNDY, instagram.getContainer().w, instagram.getContainer().h, "SetScene-instagram", "png");
+
+            Button linkBtn = instagram;
+
+            linkBtn.setContainer({linkBtn.getContainer().x - SETTINGSBACKGROUNDX, linkBtn.getContainer().y - SETTINGSBACKGROUNDY, linkBtn.getContainer().w, linkBtn.getContainer().h});
+
+            linkBtn.setImage(&instaIMG);
+
+
+            if(insta.clicked){
+                linkBtn.setColor(LIGHT_BLUE);
+                linkBtn.drawToRender();
+            } else{
+                linkBtn.drawToRender();
+            }
+        }
         
     //Set the render target back to the mainScreen
         
@@ -405,6 +457,16 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
             system("xdg-open https://linktr.ee/NicolasSerrano");
         }
 
+        if((event.type == SDL_MOUSEBUTTONDOWN) && githubLogic.isClicked(&event)){
+            git.clicked = true;
+            system("xdg-open https://github.com/NicolasSerranoGarcia");
+        }
+
+        if((event.type == SDL_MOUSEBUTTONDOWN) && instagramLogic.isClicked(&event)){
+            insta.clicked = true;
+            system("xdg-open https://www.instagram.com/nicolasserranogarcia/");
+        }
+
     //If the user, on the other hand, lets go the click, change the slider state consequently
 
         if((event.type == SDL_MOUSEBUTTONUP) && settingsSlider.getClickedNow()){
@@ -423,6 +485,14 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
 
         if((event.type == SDL_MOUSEBUTTONUP) && linktrr.clicked){
             linktrr.clicked = false;
+        }
+
+        if((event.type == SDL_MOUSEBUTTONUP) && git.clicked){
+            git.clicked = false;
+        }
+
+        if((event.type == SDL_MOUSEBUTTONUP) && insta.clicked){
+            insta.clicked = false;
         }
 
     //If the user is currently clicking the slider and moves the mouse, update the settings
@@ -514,6 +584,25 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                     linktreeLogic.setVisibility(false);
                 } else {
                     linktreeLogic.setVisibility(true);
+                }
+
+                //github
+                githubLogic.setContainer({github.getContainer().x, github.getContainer().y - newSrc.y, github.getContainer().w, github.getContainer().h});
+
+                if(githubLogic.getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
+                    githubLogic.setVisibility(false);
+                } else {
+                    githubLogic.setVisibility(true);
+                }
+
+
+                //instagram
+                instagramLogic.setContainer({instagram.getContainer().x, instagram.getContainer().y - newSrc.y, instagram.getContainer().w, instagram.getContainer().h});
+
+                if(instagramLogic.getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
+                    instagramLogic.setVisibility(false);
+                } else {
+                    instagramLogic.setVisibility(true);
                 }
 
 
@@ -681,6 +770,23 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                     linktreeLogic.setVisibility(false);
                 } else {
                     linktreeLogic.setVisibility(true);
+                }
+
+                githubLogic.setContainer({githubLogic.getContainer().x, github.getContainer().y - newSrc.y, github.getContainer().w, github.getContainer().h}); 
+
+                if(githubLogic.getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
+                    githubLogic.setVisibility(false);
+                } else {
+                    githubLogic.setVisibility(true);
+                }
+
+
+                instagramLogic.setContainer({instagramLogic.getContainer().x, instagram.getContainer().y - newSrc.y, instagram.getContainer().w, instagram.getContainer().h}); 
+
+                if(instagramLogic.getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
+                    instagramLogic.setVisibility(false);
+                } else {
+                    instagramLogic.setVisibility(true);
                 }
 
             return;
