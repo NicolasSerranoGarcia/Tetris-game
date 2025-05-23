@@ -87,7 +87,7 @@ SetScene::SetScene(){
 
     //Setup the buttons of the socials and so
 
-        github = {SETTINGSBACKGROUNDW/6 + 10 + SETTINGSBACKGROUNDX, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.2), (int) (BLOCKLENGTH*1.2), LIGHT_GREY, &mainScreen};
+        github = {SETTINGSBACKGROUNDW/6 + 10 + SETTINGSBACKGROUNDX, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 72, (int) (BLOCKLENGTH*1.1), (int) (BLOCKLENGTH*1.1), LIGHT_GREY, &mainScreen};
         githubLogic = github;
         git.button= githubLogic;
         git.clicked = false;
