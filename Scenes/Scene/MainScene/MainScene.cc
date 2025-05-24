@@ -1244,3 +1244,4 @@ void changeSwappedFigurePosition(Figure *& holdedFigure){
                 break;
         }
 }
+

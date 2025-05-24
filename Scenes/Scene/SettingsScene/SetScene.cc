@@ -400,9 +400,28 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
 
         if(((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE) && !anyButtonPressed) ||
            ((event.type == SDL_MOUSEBUTTONDOWN) && exitButton.isClicked(&event))){
+
+               Uint32 current = SDL_GetTicks();
+               
+               Uint32 last = SDL_GetTicks();
+
+            while ((current - last) < 3000){
+                
+                int timer = ceil((current - last)/1000.0);
+                
+                mScene->renderWithoutFigures();
+
+                Font time(&mainScreen, "Ubuntu-Regular", 100, std::to_string(timer).c_str(), WHITE);
+                time.setCoords(AbsPosition::POS_CENTER);
+                
+                time.drawTextToRender();
+                
+                SDL_RenderPresent(mainScreen.getRender());
+                current = SDL_GetTicks();
+            }
+
             delete curScene;
             curScene = mScene;
-            /* add a countdown */
             return;
         }
 

@@ -146,6 +146,8 @@ class MainScene: public Scene{
         //void
         void handleDeath(Scene *& curScene);
 
+        
+
 };
 
 

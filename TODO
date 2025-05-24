@@ -155,3 +155,5 @@ You check if there is a button pressed and if so you make it not possible to cli
 [X] create a global sound var 
 
 [] if the user wants to add a keybind that is already being used, do something
+
+[]add social icons
