@@ -401,24 +401,26 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         if(((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE) && !anyButtonPressed) ||
            ((event.type == SDL_MOUSEBUTTONDOWN) && exitButton.isClicked(&event))){
 
+            //Show a counter first 
+
                Uint32 current = SDL_GetTicks();
                
                Uint32 last = SDL_GetTicks();
 
-            while ((current - last) < 3000){
-                
-                int timer = ceil((current - last)/1000.0);
-                
-                mScene->renderWithoutFigures();
+                while ((current - last) < 3000){
+                    
+                    int timer = ceil((current - last)/1000.0);
+                    
+                    mScene->renderWithoutFigures();
 
-                Font time(&mainScreen, "Ubuntu-Regular", 100, std::to_string(timer).c_str(), WHITE);
-                time.setCoords(AbsPosition::POS_CENTER);
-                
-                time.drawTextToRender();
-                
-                SDL_RenderPresent(mainScreen.getRender());
-                current = SDL_GetTicks();
-            }
+                    Font time(&mainScreen, "Ubuntu-Regular", 100, std::to_string(timer).c_str(), WHITE);
+                    time.setCoords(AbsPosition::POS_CENTER);
+                    
+                    time.drawTextToRender();
+                    
+                    SDL_RenderPresent(mainScreen.getRender());
+                    current = SDL_GetTicks();
+                }
 
             delete curScene;
             curScene = mScene;
@@ -473,17 +475,14 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
 
         if((event.type == SDL_MOUSEBUTTONDOWN) && linktreeLogic.isClicked(&event)){
             linktrr.clicked = true;
-            system("xdg-open https://linktr.ee/NicolasSerrano");
         }
 
         if((event.type == SDL_MOUSEBUTTONDOWN) && githubLogic.isClicked(&event)){
             git.clicked = true;
-            system("xdg-open https://github.com/NicolasSerranoGarcia");
         }
 
         if((event.type == SDL_MOUSEBUTTONDOWN) && instagramLogic.isClicked(&event)){
             insta.clicked = true;
-            system("xdg-open https://www.instagram.com/nicolasserranogarcia/");
         }
 
     //If the user, on the other hand, lets go the click, change the slider state consequently
@@ -503,15 +502,18 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         }
 
         if((event.type == SDL_MOUSEBUTTONUP) && linktrr.clicked){
+            system("xdg-open https://linktr.ee/NicolasSerrano");
             linktrr.clicked = false;
         }
 
         if((event.type == SDL_MOUSEBUTTONUP) && git.clicked){
+            system("xdg-open https://github.com/NicolasSerranoGarcia");
             git.clicked = false;
         }
 
         if((event.type == SDL_MOUSEBUTTONUP) && insta.clicked){
             insta.clicked = false;
+            system("xdg-open https://www.instagram.com/nicolasserranogarcia/");
         }
 
     //If the user is currently clicking the slider and moves the mouse, update the settings

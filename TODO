@@ -144,7 +144,7 @@ You check if there is a button pressed and if so you make it not possible to cli
 
 [X] add a manual slider to the settings
 
-[] clicking on another button keybind should change the the button tht is currently asking for a key
+[X] clicking on another button keybind should change the the button tht is currently asking for a key
 
 [X] change the amount of scrolling of the settings  when moving it by clicking the slider to be the same as the other one
 
@@ -154,6 +154,6 @@ You check if there is a button pressed and if so you make it not possible to cli
 
 [X] create a global sound var 
 
-[] if the user wants to add a keybind that is already being used, do something
+[X] if the user wants to add a keybind that is already being used, do something
 
-[]add social icons
+[X]add social icons
