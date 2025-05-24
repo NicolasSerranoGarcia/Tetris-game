@@ -405,11 +405,11 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
 
                Uint32 current = SDL_GetTicks();
                
-               Uint32 last = SDL_GetTicks();
+               Uint32 next = SDL_GetTicks() + 3000;
 
-                while ((current - last) < 3000){
+                while ((int) ((int) current - (int) next) < 0){
                     
-                    int timer = ceil((current - last)/1000.0);
+                    int timer = ceil(abs((int) (next - current))/1000.0);
                     
                     mScene->renderWithoutFigures();
 

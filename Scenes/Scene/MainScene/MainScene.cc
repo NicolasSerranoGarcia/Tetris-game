@@ -455,6 +455,17 @@ void MainScene::renderWithoutFigures(){
 
         SDL_RenderFillRect(mainScreen.getRender(), &holdBackground);
         SDL_RenderDrawRect(mainScreen.getRender(), &holdBackground);
+
+
+    //draw a white blur
+    
+        SDL_Rect blendRect = {0,0, SCREENWIDTH, SCREENHEIGHT};
+
+        SDL_SetRenderDrawColor(mainScreen.getRender(), WHITE.r, WHITE.g, WHITE.b, 50);
+
+        SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
+        SDL_RenderFillRect(mainScreen.getRender(), &blendRect);
+        SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_NONE);
 }
 
 void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){

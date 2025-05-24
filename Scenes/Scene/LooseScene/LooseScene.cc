@@ -15,7 +15,6 @@ void LooseScene::render(){
         mainScene->renderWithoutFigures();
     }
 
-
 }
 
 void LooseScene::handleEvents(SDL_Event, Scene *&, Scene *& mScene){

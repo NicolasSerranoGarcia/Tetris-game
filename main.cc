@@ -54,21 +54,18 @@ Scene *mainScene = nullptr;
 
 int main(){
 
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS) != 0)
-    {
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS) != 0){
         std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
         return 1;
     }
 
-    if (TTF_Init() != 0)
-    {
+    if (TTF_Init() != 0){
         std::cerr << "TTF_Init Error: " << TTF_GetError() << std::endl;
         SDL_Quit();
         return 1;
     }
 
-    if (IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG) == 0)
-    {
+    if (IMG_Init(IMG_INIT_PNG | IMG_INIT_JPG) == 0){
         std::cerr << "SDL_Image Error: " << IMG_GetError() << std::endl;
         SDL_Quit();
         return -1;
@@ -79,18 +76,18 @@ int main(){
     // without being destroyed
     {
         bool running = true;
-        SDL_Event e;
+        SDL_Event event;
 
         Uint32 lastTick = SDL_GetTicks();
-        while (running)
-        {
-            while (SDL_PollEvent(&e))
-            {
-                if (e.type == SDL_QUIT)
-                {
+
+        while (running){
+            while (SDL_PollEvent(&event)){
+
+                if (event.type == SDL_QUIT){
                     running = false;
                 }
-                currentScene->handleEvents(e, currentScene, mainScene);
+
+                currentScene->handleEvents(event, currentScene, mainScene);
             }
 
             currentScene->handleLogic(&lastTick, currentScene, mainScene);
@@ -106,5 +103,6 @@ int main(){
     IMG_Quit();
     TTF_Quit();
     SDL_Quit();
+
     return 0;
 }
