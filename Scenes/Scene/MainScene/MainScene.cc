@@ -502,7 +502,7 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
         //reset
         numberSwaps = 0;
 
-        dead = isDead(gameBoard) ? true : false;
+        dead = isDead(gameBoard, currentFigure) ? true : false;
     }
 
     handleDeath(curScene, mScene);
@@ -524,6 +524,7 @@ void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScen
             gameBoard.push_back(currentFigure);
             fetchNextFigure(currentFigure, nextFigures);  
 
+            dead = isDead(gameBoard, currentFigure) ? true : false;
             //reset
             numberSwaps = 0;
         }
@@ -553,14 +554,23 @@ void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScen
                 gameBoard.push_back(currentFigure);
                 fetchNextFigure(currentFigure, nextFigures);
 
+                dead = isDead(gameBoard, currentFigure) ? true : false;
+
                 //reset
                 numberSwaps = 0;
 
-                dead = isDead(gameBoard) ? true : false;
             }
             
             *lastTick = SDL_GetTicks();
         } 
+       
+        dead = isDead(gameBoard, currentFigure) ? true : false;
+
+        handleDeath(curScene, mScene);
+
+        if(dead){
+            return;
+        }
         
         
     //At this point, all the events will have been handled (the handleEvents() loop is already called).
@@ -656,9 +666,7 @@ void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScen
                 POINTS += calculatePoints(linesCleared);
                 LEVEL = getLevel();
                 FALLSPEED = getFallSpeed();
-            } 
-
-    handleDeath(curScene, mScene);   
+            }   
 }
 
 void MainScene::handleDeath(Scene *& curScene, Scene *& mScene){
@@ -1067,11 +1075,12 @@ void renderNextFigures(Figure * nextFigs[], int nextBgH){
     
 }
 
-bool isDead(std::vector <Figure*> gameBoard){
+bool isDead(std::vector <Figure*> gameBoard, Figure *& currentFigure){
 
     //calculate the highest point. Note that the y-axis is inverted, and 0 > 19 in our system
 
     int maxHeight = 19;
+    int figMinHeight = 0;
     for(int i = 0; i < (int) gameBoard.size(); i++){
         for(int j = 0; j < (int) gameBoard[i]->getBlocks().size(); j++){
 
@@ -1081,7 +1090,16 @@ bool isDead(std::vector <Figure*> gameBoard){
             }
         }
     }
-    if(maxHeight == 0){
+
+    for(int i = 0; i < (int) currentFigure->getBlocks().size(); i++){
+        
+        if(currentFigure->getBlocks()[i].getBlockY() > figMinHeight){
+            
+            figMinHeight = currentFigure->getBlocks()[i].getBlockY();
+        }
+    }
+
+    if((maxHeight == 0) || colidesStatic(gameBoard, currentFigure)){
         return true;
     }
     return false;

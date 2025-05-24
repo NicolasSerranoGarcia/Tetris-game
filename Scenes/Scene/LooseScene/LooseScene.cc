@@ -19,13 +19,15 @@ void LooseScene::render(){
 }
 
 void LooseScene::handleEvents(SDL_Event, Scene *&, Scene *& mScene){
-   if(mainScene == nullptr){   
+   if(mainScene == nullptr){ 
        mainScene = mScene;
     }
 }
 
-void LooseScene::handleLogic(Uint32 *, Scene *&, Scene *&){
-
+void LooseScene::handleLogic(Uint32 *, Scene *&, Scene *& mScene){
+    if(mainScene == nullptr){
+        mainScene = mScene;
+    }
 }
 
 #endif

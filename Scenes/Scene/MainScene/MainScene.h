@@ -219,7 +219,7 @@ void renderNextFigures(Figure * nextFigs[], int nextBgH);
 //RETURNS:
 //-false if the user is not dead
 //-true otherwise
-bool isDead(std::vector <Figure*> gameBoard);
+bool isDead(std::vector <Figure*> gameBoard, Figure *& currentFigure);
 
 //This function takes all the info necesary to swap a figure when the swap key is pressed. Notice that the function does not check if the key pressed
 //is the swap key. Therefore this function should be called when we WANT to swap a figure. There's also no check for the number of times a figure is swapped.
