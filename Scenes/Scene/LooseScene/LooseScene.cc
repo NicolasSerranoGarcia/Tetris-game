@@ -15,6 +15,15 @@ void LooseScene::render(){
         mainScene->renderWithoutFigures();
     }
 
+    Font Title(&mainScreen, "BungeeTint-Regular", 120, "YOU LOST", BLACK);
+
+    Title.setCoords(AbsPosition::POS_CENTER_UP);
+
+    //set the Y position a little lower
+    Title.setCoords(Title.getX(), Title.getY() + 50);
+
+    Title.drawTextToRender();
+
 }
 
 void LooseScene::handleEvents(SDL_Event, Scene *&, Scene *& mScene){

@@ -23,4 +23,4 @@ void Scene::clear(){
     SDL_RenderClear(mainScreen.getRender()); 
 }
 
-void Scene::handleLogic(Uint32 *, Scene *&){}
+void Scene::handleLogic(Uint32 *, Scene *&, Scene *&){}

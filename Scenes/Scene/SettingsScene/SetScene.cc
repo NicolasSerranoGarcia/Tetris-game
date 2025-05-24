@@ -899,6 +899,7 @@ void SetScene::renderButton(Button button){
     SDL_RenderDrawRect(mainScreen.getRender(), &rect);
 }
 
+
 //FUNCTIONS
 
 void renderKeyBindChange(Button button, SetScene & s){

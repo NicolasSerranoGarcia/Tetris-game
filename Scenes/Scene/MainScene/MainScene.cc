@@ -210,6 +210,18 @@ void MainScene::render(){
         SDL_RenderFillRect(mainScreen.getRender(), &holdBackground);
         SDL_RenderDrawRect(mainScreen.getRender(), &holdBackground);
 
+        if(holdedFigure == nullptr){
+
+            Font holdText(&mainScreen, "Ubuntu-Bold", 50, "HOLD", {LIGHT_GREY.r, LIGHT_GREY.g, LIGHT_GREY.b, 100});
+            
+            holdText.setCoords(HFX + HFW/2 - holdText.getTextSurface()->w/2, HFY + HFH/2 - holdText.getTextSurface()->h/2);
+            
+            SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
+            holdText.drawTextToRender();
+            SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_NONE);
+        }
+
+
         if(holdedFigure != nullptr){
             Figure * fig = holdedFigure;
 
