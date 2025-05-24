@@ -91,7 +91,7 @@ class Scene{
         //
         //RETURNS:
         //void
-        virtual void handleLogic(Uint32 * lastTick, Scene *& curScene);
+        virtual void handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScene);
 
 };
 

@@ -95,7 +95,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] make it so that the rotation key is discrete
 
-[] trigger a screen to ak for the input. It is more visual for the user
+[X] trigger a screen to ak for the input. It is more visual for the user
 
 [] make some type of user save info. Save binds, best games...
 
@@ -103,7 +103,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] add the space bar the same way as rotate key (event.key.pressed)
 
-[] add visuals like a timer when starting or the points won from a line clear
+[/] add visuals like a timer when starting or the points won from a line clear
 
 [/] The outline of the squares in the mainscene is not taken into account and it visually seems like the figure is not correctly positioned when you are on the extremes:
 I think I will fix it when I add textures, doing it now is a temporal solution bc I will end up deleting it anyways
@@ -116,13 +116,13 @@ I think I will fix it when I add textures, doing it now is a temporal solution b
 
 [/] implement scrolling in the settings
 
-[] implement an X button to close the settings manually
+[X] implement an X button to close the settings manually
 
 [] implement a button to return to the opening scene
 
-[] implement a button to go to your socials
+[X] implement a button to go to your socials
 
-[] implement the sound slidebar for the future
+[X] implement the sound slidebar for the future
 
 [X] put a reference for what the keybind stands for on the left
 
@@ -157,3 +157,5 @@ You check if there is a button pressed and if so you make it not possible to cli
 [X] if the user wants to add a keybind that is already being used, do something
 
 [X]add social icons
+
+[] reverse the counter (3,2,1)

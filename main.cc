@@ -93,7 +93,7 @@ int main(){
                 currentScene->handleEvents(e, currentScene, mainScene);
             }
 
-            currentScene->handleLogic(&lastTick, currentScene);
+            currentScene->handleLogic(&lastTick, currentScene, mainScene);
             
             currentScene->render();
 

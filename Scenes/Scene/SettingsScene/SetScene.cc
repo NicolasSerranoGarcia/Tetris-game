@@ -99,7 +99,7 @@ SetScene::SetScene(){
         instagramLogic = instagram;
         insta.button= instagramLogic;
         insta.clicked = false;
-    }
+}
 
 SDL_Rect SetScene::getSourceRect(){
     return sourceRect;
@@ -869,7 +869,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
     }
 }
 
-void SetScene::handleLogic(Uint32 *, Scene *&){
+void SetScene::handleLogic(Uint32 *, Scene *&, Scene *&){
     
 }
 

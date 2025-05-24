@@ -10,11 +10,9 @@ class LooseScene: public Scene{
         Scene * mainScene = nullptr;
     public:
         LooseScene();
-        void update(SDL_Renderer * render) override;
         void render() override;
-        void clear() override;
         void handleEvents(SDL_Event, Scene *&, Scene *& mScene) override;
-        void handleLogic(Uint32 *, Scene *&) override;
+        void handleLogic(Uint32 *, Scene *&, Scene *&) override;
 };
 
 #endif

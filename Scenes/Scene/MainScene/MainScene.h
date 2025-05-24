@@ -136,7 +136,7 @@ class MainScene: public Scene{
         //
         //RETURNS:
         //void
-        void handleLogic(Uint32 * lastTick, Scene *& curScene) override;
+        void handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScene) override;
 
         //This method handles the death of the user. It is called at the end of methods
         //that can trigger a death case. It switches the scene to a new one in case the
@@ -144,10 +144,9 @@ class MainScene: public Scene{
         //
         //RETURNS:
         //void
-        void handleDeath(Scene *& curScene);
+        void handleDeath(Scene *& curScene, Scene *& mScene);
 
         
-
 };
 
 

@@ -10,19 +10,12 @@ LooseScene::LooseScene(){
 
 }
 
-void LooseScene::update(SDL_Renderer * render){
-    Scene::update(render);
-}
-
 void LooseScene::render(){
     if(mainScene != nullptr){
-        mainScene->render();
+        mainScene->renderWithoutFigures();
     }
-    std::cout << "Hello world" << std::endl;
-}
 
-void LooseScene::clear(){
-    Scene::clear();
+
 }
 
 void LooseScene::handleEvents(SDL_Event, Scene *&, Scene *& mScene){
@@ -31,7 +24,7 @@ void LooseScene::handleEvents(SDL_Event, Scene *&, Scene *& mScene){
     }
 }
 
-void LooseScene::handleLogic(Uint32 *, Scene *&){
+void LooseScene::handleLogic(Uint32 *, Scene *&, Scene *&){
 
 }
 

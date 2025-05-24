@@ -61,7 +61,7 @@ class SetScene: public Scene{
         void setSourceRect(SDL_Rect rect);
         
         
-        void handleLogic(Uint32 *, Scene *&) override;
+        void handleLogic(Uint32 *, Scene *&, Scene *&) override;
 
         void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene) override;
 

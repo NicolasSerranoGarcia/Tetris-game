@@ -505,10 +505,10 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
         dead = isDead(gameBoard) ? true : false;
     }
 
-    handleDeath(curScene);
+    handleDeath(curScene, mScene);
 }
 
-void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene){
+void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScene){
 
     //We calculate the current figure's highest y value. It will be reused
 
@@ -658,13 +658,14 @@ void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene){
                 FALLSPEED = getFallSpeed();
             } 
 
-    handleDeath(curScene);   
+    handleDeath(curScene, mScene);   
 }
 
-void MainScene::handleDeath(Scene *& curScene){
+void MainScene::handleDeath(Scene *& curScene, Scene *& mScene){
     if(dead){
-        curScene = nullptr;
+        mScene = curScene;
         curScene = new LooseScene;
+        renderWithoutFigures();
     }
 }
 
