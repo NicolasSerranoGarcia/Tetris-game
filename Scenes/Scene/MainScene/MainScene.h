@@ -144,7 +144,7 @@ class MainScene: public Scene{
         //
         //RETURNS:
         //void
-        void handleDeath(Scene *& curScene, Scene *& mScene);
+        void handleDeath(Scene *&& curScene, Scene *&& mScene);
 
         
 };

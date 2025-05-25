@@ -490,6 +490,7 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
     //If the settings button is clicked or the user hit ESC open the settings
     if(getButtonMap()["settings"].isClicked(&event) || ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE))){
         //mainScene now saves the progres made on the game even if the settings is opened
+
         mScene = curScene;
         curScene = nullptr;
         curScene = new SetScene;
@@ -516,6 +517,7 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
         currentFigure->update(event);
         handleFastDrop(event, currentFigure, *this);
     } 
+
     //If there will be a colision and the user wants to move the figure down, place the figure.
     //Also check if the user is dead after placing
     else if(event.key.keysym.sym == CONTROLDOWN){
@@ -528,7 +530,12 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
         dead = isDead(gameBoard, currentFigure) ? true : false;
     }
 
-    handleDeath(curScene, mScene);
+    if(dead){
+        renderWithoutFigures();
+        mScene = curScene;
+        curScene = nullptr;
+        curScene = new LooseScene;
+    }
 }
 
 void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScene){
@@ -589,9 +596,13 @@ void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScen
        
         dead = isDead(gameBoard, currentFigure) ? true : false;
 
-        handleDeath(curScene, mScene);
+        if(dead){ 
 
-        if(dead){
+            renderWithoutFigures();
+            mScene = curScene;
+            curScene = nullptr;
+            curScene = new LooseScene;
+
             return;
         }
         
@@ -690,14 +701,6 @@ void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScen
                 LEVEL = getLevel();
                 FALLSPEED = getFallSpeed();
             }   
-}
-
-void MainScene::handleDeath(Scene *& curScene, Scene *& mScene){
-    if(dead){
-        mScene = curScene;
-        curScene = new LooseScene;
-        renderWithoutFigures();
-    }
 }
 
 

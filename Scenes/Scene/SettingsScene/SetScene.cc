@@ -423,7 +423,9 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                 }
 
             delete curScene;
+            curScene = nullptr;
             curScene = mScene;
+            mScene = nullptr;
             return;
         }
 

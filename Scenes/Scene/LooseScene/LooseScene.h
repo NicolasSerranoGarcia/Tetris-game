@@ -2,6 +2,7 @@
 #define LOOSESCENE_H
 
 #include "Scenes/SceneF/Scene.h"
+#include "Scenes/Scenes.h"
 #include "constants/constants.h"
 #include <SDL2/SDL.h>
 
@@ -11,7 +12,7 @@ class LooseScene: public Scene{
     public:
         LooseScene();
         void render() override;
-        void handleEvents(SDL_Event, Scene *&, Scene *& mScene) override;
+        void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene) override;
         void handleLogic(Uint32 *, Scene *&, Scene *&) override;
 };
 
