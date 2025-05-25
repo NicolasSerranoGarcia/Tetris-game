@@ -1,0 +1,34 @@
+name: Update Lines of Code Badge
+
+on:
+  push:
+  schedule:
+    - cron: '0 3 * * *'
+
+jobs:
+  update-badge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Install cloc
+        run: sudo apt-get install -y cloc
+
+      - name: Count lines of code
+        run: |
+          cloc . --json --quiet | jq '.header.n_files as $f | .SUM.code as $c | {
+            schemaVersion: 1,
+            label: "Lines of Code",
+            message: ($c|tostring),
+            color: "7aa2f7"
+          }' > lines.json
+
+      - name: Update Gist
+        uses: exuanbo/actions-update-gist@v1
+        with:
+          token: ${{ secrets.GIST_TOKEN }}
+          gist_id: 45c1e5550e4be08e21d0ccf20d27ef39
+          file_name: lines.json
+          file_path: lines.json
