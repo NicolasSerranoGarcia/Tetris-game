@@ -591,6 +591,7 @@ void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScen
 
             }
             
+            
             *lastTick = SDL_GetTicks();
         } 
        
