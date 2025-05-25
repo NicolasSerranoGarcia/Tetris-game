@@ -58,8 +58,8 @@ class MainScene: public Scene{
         //a figure is placed
         int numberSwaps = 0;
         
-        //Player looses ? => dead = true
-        bool dead = false;
+        // //Player looses ? => dead = true
+        // bool dead = false;
         
     public:   
     
@@ -138,13 +138,13 @@ class MainScene: public Scene{
         //void
         void handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScene) override;
 
-        //This method handles the death of the user. It is called at the end of methods
-        //that can trigger a death case. It switches the scene to a new one in case the
-        //user dies
-        //
-        //RETURNS:
-        //void
-        void handleDeath(Scene *&& curScene, Scene *&& mScene);
+        // //This method handles the death of the user. It is called at the end of methods
+        // //that can trigger a death case. It switches the scene to a new one in case the
+        // //user dies
+        // //
+        // //RETURNS:
+        // //void
+        // void handleDeath(Scene *&& curScene, Scene *&& mScene);
 
         
 };

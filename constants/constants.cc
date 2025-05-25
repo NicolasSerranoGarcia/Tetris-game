@@ -110,6 +110,9 @@ int GENERALSOUNDLVL = 100;
 int EFFECTSSOUNDLVL = 100;
 
 
+bool dead = false;
+
+
 int calculatePoints(int linesCleared){
     switch(linesCleared){
         case 1: 

@@ -173,6 +173,10 @@ extern int GENERALSOUNDLVL;
 extern int EFFECTSSOUNDLVL;
 
 
+//Saves wether if the user is dead or not
+extern bool dead;
+
+
 //A function that calculates the points won from clearing a certain number of lines (max. 4)
 int calculatePoints(int linesCleared);
 

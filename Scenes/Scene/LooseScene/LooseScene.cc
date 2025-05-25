@@ -9,9 +9,16 @@
 LooseScene::LooseScene(){
     Button playAgainButton(px(AbsPosition::POS_CENTER_LEFT, SCREENWIDTH/3), py(AbsPosition::POS_CENTER_LEFT, BLOCKLENGTH*3), SCREENWIDTH/3, BLOCKLENGTH*2, LIGHT_BLUE, &mainScreen);
     getButtonMap()["playAgain"] = playAgainButton;
+
+    Button goStartButton(px(AbsPosition::POS_CENTER_LEFT, BLOCKLENGTH*2), py(AbsPosition::POS_CENTER_LEFT, BLOCKLENGTH*3), BLOCKLENGTH*2, BLOCKLENGTH*2, LIGHT_BLUE, &mainScreen);
+    getButtonMap()["goStart"] = goStartButton;
+
+    Button settingsButton(px(AbsPosition::POS_CENTER_LEFT, BLOCKLENGTH*2), py(AbsPosition::POS_CENTER_LEFT, BLOCKLENGTH*3), BLOCKLENGTH*2, BLOCKLENGTH*2, LIGHT_BLUE, &mainScreen);
+    getButtonMap()["settings"] = settingsButton;
 }
 
 void LooseScene::render(){
+
     if(mainScene != nullptr){
         mainScene->renderWithoutFigures();
     }
@@ -34,16 +41,54 @@ void LooseScene::render(){
 
     getButtonMap()["playAgain"].setContainer({LooseBg.x, 
         getButtonMap()["playAgain"].getContainer().y, 
-        getButtonMap()["playAgain"].getContainer().w, 
+        getButtonMap()["playAgain"].getContainer().w,
         getButtonMap()["playAgain"].getContainer().h});
 
     getButtonMap()["playAgain"].setFont(&playAgainText);
 
     getButtonMap()["playAgain"].drawToRender();
 
+
+        
+    Font goStartText(&mainScreen, "BungeeTint-Regular", 40, "", BLACK);
+
+    getButtonMap()["goStart"].setContainer({LooseBg.x + getButtonMap()["playAgain"].getContainer().w + 32, 
+        getButtonMap()["goStart"].getContainer().y, 
+        getButtonMap()["goStart"].getContainer().w, 
+        getButtonMap()["goStart"].getContainer().h});
+
+
+    Image arrowImage(getButtonMap()["goStart"].getContainer().x + 15, 
+                            getButtonMap()["goStart"].getContainer().y + 15, 
+                            getButtonMap()["goStart"].getContainer().w - 30,
+                            getButtonMap()["goStart"].getContainer().h - 30, "LooseScene-arrow", "png");
+    
+    getButtonMap()["goStart"].setImage(&arrowImage);
+
+    getButtonMap()["goStart"].drawToRender();
+    
+
+    getButtonMap()["settings"].setContainer({LooseBg.x + LooseBg.w - getButtonMap()["settings"].getContainer().w, 
+        getButtonMap()["settings"].getContainer().y, 
+        getButtonMap()["settings"].getContainer().w, 
+        getButtonMap()["settings"].getContainer().h});
+
+
+    Image settingsImage(getButtonMap()["settings"].getContainer().x + 10, 
+                    getButtonMap()["settings"].getContainer().y + 10, 
+                    getButtonMap()["settings"].getContainer().w - 20,
+                    getButtonMap()["settings"].getContainer().h - 20, "OpScene-settings", "png");
+
+    getButtonMap()["settings"].setImage(&settingsImage);
+
+    getButtonMap()["settings"].drawToRender();
 }
 
 void LooseScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
+    if(mainScene == nullptr){ 
+       mainScene = mScene;
+    }  
+    
     if(getButtonMap()["playAgain"].isClicked(&event)){
 
         delete curScene;
@@ -53,13 +98,28 @@ void LooseScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScen
         return;
     }
 
-    if(mainScene == nullptr){ 
-       mainScene = mScene;
+    if(getButtonMap()["goStart"].isClicked(&event)){
+
+        delete curScene;
+        curScene = nullptr;
+        curScene = new OpScene;
+
+        return;
     }
-    
+
+    if(getButtonMap()["settings"].isClicked(&event)){
+
+        delete curScene;
+        curScene = nullptr;
+        curScene = new SetScene;
+
+        return;
+    }
+
 }
 
 void LooseScene::handleLogic(Uint32 *, Scene *&, Scene *& mScene){
+    
     if(mainScene == nullptr){
         mainScene = mScene;
     }
