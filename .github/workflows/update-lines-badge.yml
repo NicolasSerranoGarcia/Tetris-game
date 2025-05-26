@@ -26,7 +26,7 @@ jobs:
           }' > lines.json
 
       - name: Update Gist
-        uses: exuanbo/actions-update-gist@v1
+        uses: exuanbo/actions-update-gist@v1.0.3
         with:
           token: ${{ secrets.GIST_TOKEN }}
           gist_id: 45c1e5550e4be08e21d0ccf20d27ef39
