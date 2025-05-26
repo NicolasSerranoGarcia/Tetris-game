@@ -12,7 +12,7 @@
 // MADE BY NICOLAS SERRANO GARCÍA - FIRST YEAR COMPUTER ENGINEER AT UNIVERSITY OF ALICANTE (AT DATE OF CREATION)
 //
 //
-// THANKS TO: 
+// THANKS TO/ ATRIBUTIONS: 
 //  - The Builder (https://www.youtube.com/@TheBuilder) for teaching me the basics of SDL
 //  - Tetris (https://tetris.com/play-tetris) for letting me visualize and play arround with the mechanics of the game
 //  - Google Fonts (https://fonts.google.com/) for the fonts I used in the project
@@ -20,6 +20,7 @@
 //  - Gumichan01 (https://gist.github.com/Gumichan01/332c26f6197a432db91cc4327fcabb1c) for creating functions to render a circle (magic)
 //  - The logo of linktre https://iconscout.com/icons/linktree by "https://iconscout.com/contributors/ihdizein" on https://iconscout.com/
 //  - Programing 2 class from my University, for teaching me the basics of C++
+//  - Explosion Sound retro explosion 4 sfx by stumpbutt -- https://freesound.org/s/630060/ -- License: Creative Commons 0
 //  
 //
 // ABOUT: This project was made from scratch by me. To be honest, I first thought of doing this project right before finishing two C based projects (Pacman and Snake)
@@ -72,6 +73,14 @@ int main(){
         return -1;
     }
 
+    if(Mix_Init(MIX_INIT_MP3 | MIX_INIT_WAVPACK) == 0){
+        std::cerr << "SDL_Mix Error: " << Mix_GetError() << std::endl;
+        Mix_Quit();
+        return -1; 
+    }
+
+    Mix_AllocateChannels(16);
+
     // Implement the main program inside a scope to ensure
     // no remainder of classes or objects are left behind
     // without being destroyed
@@ -101,6 +110,8 @@ int main(){
         }
     }
 
+    Mix_CloseAudio();
+    Mix_Quit();
     IMG_Quit();
     TTF_Quit();
     SDL_Quit();

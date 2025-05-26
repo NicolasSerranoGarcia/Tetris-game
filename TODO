@@ -71,7 +71,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] add a figure visualizer for the following 3 figures
 
-[/] add the settings scene
+[X] add the settings scene
 
 [X] add the death case
 
@@ -156,10 +156,24 @@ You check if there is a button pressed and if so you make it not possible to cli
 
 [X] if the user wants to add a keybind that is already being used, do something
 
-[X]add social icons
+[X] add social icons
 
 [X] reverse the counter (3,2,1)
 
 [X] check in advance if fetching a figure makes the player loose and act consequently: No, changed aproach
 
-[] create loose scene
+[X] create loose scene
+
+# CHECKPOINT:
+
+- Chores left:
+
+[] Add sound: when clearing a line (explosion from the escapists), when opening the settings and on the counter (sound from jumping on retro games)
+
+[] Do mantainance on all the code
+
+[] End Readme and add an ERaser diaggram on project structure
+
+[] Maybe: Implement account sign in. If it is possible, add a top 5 games on the opScene. Explore SDL_net
+
+[] Add 

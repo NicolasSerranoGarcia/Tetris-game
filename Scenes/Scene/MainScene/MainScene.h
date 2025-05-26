@@ -60,6 +60,8 @@ class MainScene: public Scene{
         
         // //Player looses ? => dead = true
         // bool dead = false;
+
+        Sound explosionEffect;
         
     public:   
     

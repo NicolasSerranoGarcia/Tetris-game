@@ -1,10 +1,10 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -g -std=c++17 -I. -IScreen -IScene $(shell sdl2-config --cflags)
-LDFLAGS = $(shell sdl2-config --libs) -lSDL2_ttf -lSDL2_image
+LDFLAGS = $(shell sdl2-config --libs) -lSDL2_ttf -lSDL2_image -lSDL2_mixer
 TARGET = tetris
 
 # Source detection
-SRC = $(shell find Screen Font Button Scenes Figures constants Image Slider -name '*.cc') main.cc
+SRC = $(shell find Screen Font Button Scenes Figures constants Image Slider Sound -name '*.cc') main.cc
 
 #Object generation
 OBJ = $(SRC:.cc=.o)

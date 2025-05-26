@@ -4,6 +4,9 @@
 
 MainScene::MainScene(){
 
+    explosionEffect.load("Sounds/Effects/explosion.wav");
+
+
     Button settingsButton({mainScreen.getWidth() - 65, mainScreen.getHeight() - 65, 50, 50}, WHITE, &mainScreen);
     getButtonMap()["settings"] = settingsButton;
 
@@ -683,6 +686,8 @@ void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScen
         //In the case there are lines cleared, update the general info
 
             if(linesCleared){
+                explosionEffect.play();
+
                 POINTS += calculatePoints(linesCleared);
                 LEVEL = getLevel();
                 FALLSPEED = getFallSpeed();

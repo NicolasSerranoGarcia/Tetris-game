@@ -5,6 +5,7 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
+#include "Sound/Sound.h"
 
 
 //The width in pixels of the screen. Currently static
