@@ -52,14 +52,14 @@ Before building and running the game, make sure you have:
 
 - **OS:** Ubuntu 20.04+ (or similar Linux distro)
 - **Compiler:** g++ (GCC) 9.3.0 or later
-- **Libraries:** SDL2, SDL2_ttf, SDL_Image
+- **Libraries:** SDL2, SDL2_ttf, SDL_Image, SDL_Mixer
 
 ### Installation
 To install required libraries on Ubuntu:
 
 ```bash
 sudo apt update
-sudo apt install build-essential libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev
+sudo apt install build-essential libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev
 ```
 
 To clone the repo locally:
