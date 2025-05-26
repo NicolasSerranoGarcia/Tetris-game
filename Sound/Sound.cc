@@ -76,7 +76,7 @@ bool Sound::isPlaying() const {
 
 void Sound::setVolume(int volume) {
     if (channel != -1) {
-        Mix_Volume(channel, volume);
+        Mix_Volume(channel, (int) (128*volume/100));
     }
 }
 

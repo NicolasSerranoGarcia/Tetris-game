@@ -6,6 +6,7 @@
 #include "constants/constants.h"
 #include "Scenes/Scenes.h"
 #include "Slider/Slider.h"
+#include "Sound/Sound.h"
 
 struct ButClick{
     Button button;
@@ -47,6 +48,12 @@ class SetScene: public Scene{
         Button instagram;
         Button instagramLogic;
         ButClick insta;
+
+        Sound open;
+
+        Sound ButtonClick;
+
+        Sound countdown;
 
     public:
 

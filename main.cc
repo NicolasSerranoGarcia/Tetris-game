@@ -21,6 +21,8 @@
 //  - The logo of linktre https://iconscout.com/icons/linktree by "https://iconscout.com/contributors/ihdizein" on https://iconscout.com/
 //  - Programing 2 class from my University, for teaching me the basics of C++
 //  - Explosion Sound retro explosion 4 sfx by stumpbutt -- https://freesound.org/s/630060/ -- License: Creative Commons 0
+//  - menu hover 3 by EtherAudio -- https://freesound.org/s/750190/ -- License: Attribution 4.0
+//  - countdown-click.wav by Troube -- https://freesound.org/s/631547/ -- License: Creative Commons 0
 //  
 //
 // ABOUT: This project was made from scratch by me. To be honest, I first thought of doing this project right before finishing two C based projects (Pacman and Snake)

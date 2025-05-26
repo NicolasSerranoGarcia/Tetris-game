@@ -6,6 +6,7 @@ MainScene::MainScene(){
 
     explosionEffect.load("Sounds/Effects/explosion.wav");
 
+    explosionEffect.setVolume(EFFECTSSOUNDLVL);
 
     Button settingsButton({mainScreen.getWidth() - 65, mainScreen.getHeight() - 65, 50, 50}, WHITE, &mainScreen);
     getButtonMap()["settings"] = settingsButton;

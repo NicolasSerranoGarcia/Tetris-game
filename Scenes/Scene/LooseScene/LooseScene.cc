@@ -197,7 +197,7 @@ void LooseScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScen
         return;
     }
 
-    if(getButtonMap()["settings"].isClicked(&event)){
+    if(getButtonMap()["settings"].isClicked(&event) || ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE))){
 
         delete curScene;
         curScene = nullptr;

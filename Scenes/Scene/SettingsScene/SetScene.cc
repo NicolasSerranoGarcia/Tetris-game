@@ -8,6 +8,17 @@ SetScene::~SetScene(){
 
 SetScene::SetScene(){
 
+    open.load("Sounds/Effects/openSettings.wav");
+
+    open.play();
+
+    ButtonClick.load("Sounds/Effects/clickButton.wav");
+
+    countdown.load("Sounds/Effects/countdown.wav");
+    ButtonClick.setVolume(EFFECTSSOUNDLVL);
+    open.setVolume(EFFECTSSOUNDLVL);
+    countdown.setVolume(EFFECTSSOUNDLVL);
+
     //Setup the keys for an easier loading
 
         keys = {"rotateRight", "rotateLeft", "left", "right", "down", "fastDown", "swap"};
@@ -408,6 +419,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                 
                 Uint32 next = SDL_GetTicks() + 3000;
                 
+                countdown.play();
                 while ((int) ((int) current - (int) next) < 0){
                     
                     int timer = ceil(abs((int) (next - current))/1000.0);
@@ -671,6 +683,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                 int newSoundLevel =(int) (100 * ((double) (newX - soundSlider.getMinY())/ (soundSlider.getMaxY() - soundSlider.getMinY())));
 
                 GENERALSOUNDLVL = newSoundLevel;
+
             }
 
         if((event.type == SDL_MOUSEMOTION) && LogicEffectsSlider.getClickedNow() && effectsSlider.getVisibility()){
@@ -708,9 +721,13 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
 
             //Calculate the % of the sound
 
-                int newSoundLevel =(int) (100 * ((double) (newX - effectsSlider.getMinY())/ (effectsSlider.getMaxY() - effectsSlider.getMinY())));
+                int newSoundLevel = (int) (100 * ((double) (newX - effectsSlider.getMinY())/ (effectsSlider.getMaxY() - effectsSlider.getMinY())));
 
                 EFFECTSSOUNDLVL = newSoundLevel;
+
+                ButtonClick.setVolume(EFFECTSSOUNDLVL);
+                open.setVolume(EFFECTSSOUNDLVL);
+                countdown.setVolume(EFFECTSSOUNDLVL);
             }
 
     //If the user is currently scrolling, update the settings
@@ -866,6 +883,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                     }
                 }
 
+                ButtonClick.play();
                 i->second.clicked = true;
                 anyButtonPressed = true;
             }
