@@ -20,7 +20,7 @@
 //  - Gumichan01 (https://gist.github.com/Gumichan01/332c26f6197a432db91cc4327fcabb1c) for creating functions to render a circle (magic)
 //  - The logo of linktre https://iconscout.com/icons/linktree by "https://iconscout.com/contributors/ihdizein" on https://iconscout.com/
 //  - Programing 2 class from my University, for teaching me the basics of C++
-// 
+//  
 //
 // ABOUT: This project was made from scratch by me. To be honest, I first thought of doing this project right before finishing two C based projects (Pacman and Snake)
 //  which by the way you can also find on my github profile. My first idea was to use the linux command line as a visual engine, also using SDL but on a lower level.
