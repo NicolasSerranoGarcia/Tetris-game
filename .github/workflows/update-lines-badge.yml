@@ -26,7 +26,7 @@ jobs:
           }' > lines.json
 
       - name: Update Gist
-        uses: JasonEtco/update-gist@v1
+        uses: JasonEtco/update-gist@32d11bdee2a821498024d2f353b3fba6cd42e9c1
         env:
           GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
         with:
