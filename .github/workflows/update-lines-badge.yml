@@ -26,9 +26,11 @@ jobs:
           }' > lines.json
 
       - name: Update Gist
-        uses: exuanbo/actions-update-gist@v1.0.3
+        uses: JasonEtco/update-gist@v1
+        env:
+          GIST_TOKEN: ${{ secrets.GIST_TOKEN }}
         with:
-          token: ${{ secrets.GIST_TOKEN }}
           gist_id: 45c1e5550e4be08e21d0ccf20d27ef39
-          file_name: lines.json
-          file_path: lines.json
+          filename: lines.json
+          content: |
+            {{ file("lines.json") }}
