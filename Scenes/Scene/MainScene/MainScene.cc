@@ -389,13 +389,10 @@ void MainScene::renderWithoutFigures(){
     //We will need a font for each title and number we need to show. The %Num shows the numeric value
 
         Font level(&mainScreen, "Ubuntu-Bold", whiteBar.h, "LEVEL", TEAL);
-        Font levelNum(&mainScreen, "Ubuntu-Bold", whiteBar.h*2, std::to_string(LEVEL).c_str(), WHITE);
 
         Font points(&mainScreen, "Ubuntu-Bold", whiteBar.h, "POINTS", TEAL);
-        Font pointsNum(&mainScreen, "Ubuntu-Bold", whiteBar.h*2, std::to_string(POINTS).c_str(), WHITE);
 
         Font lines(&mainScreen, "Ubuntu-Bold", whiteBar.h, "LINES", TEAL); 
-        Font linesNum(&mainScreen, "Ubuntu-Bold", whiteBar.h*2, std::to_string(LINES).c_str(), WHITE);
     
     //This loop renders all three information boxes
 
@@ -429,10 +426,6 @@ void MainScene::renderWithoutFigures(){
             points.setCoords(whiteBar.x + whiteBar.w/2 - points.getTextSurface()->w/2, whiteBar.y);
             points.drawTextToRender();
         
-            pointsNum.setCoords(whiteBar.x + whiteBar.w/2 - pointsNum.getTextSurface()->w/2,
-                                whiteBar.y + whiteBar.h + (infoBackground.h - whiteBar.h)/2 - pointsNum.getTextSurface()->h/2);
-            pointsNum.drawTextToRender();
-
             break;
         case 1:
             //Lines box
@@ -440,10 +433,6 @@ void MainScene::renderWithoutFigures(){
             lines.setCoords(whiteBar.x + whiteBar.w/2 - lines.getTextSurface()->w/2, whiteBar.y);
             lines.drawTextToRender();
         
-            linesNum.setCoords(whiteBar.x + whiteBar.w/2 - linesNum.getTextSurface()->w/2,
-                               whiteBar.y + whiteBar.h + (infoBackground.h - whiteBar.h)/2 - linesNum.getTextSurface()->h/2);
-            linesNum.drawTextToRender();
-
             break;
         case 2:
             //Level box
@@ -451,10 +440,6 @@ void MainScene::renderWithoutFigures(){
             level.setCoords(whiteBar.x + whiteBar.w/2 - level.getTextSurface()->w/2, whiteBar.y);
             level.drawTextToRender();
         
-            levelNum.setCoords(whiteBar.x + whiteBar.w/2 - levelNum.getTextSurface()->w/2,
-                               whiteBar.y + whiteBar.h + (infoBackground.h - whiteBar.h)/2 - levelNum.getTextSurface()->h/2);
-            levelNum.drawTextToRender();
-
             break;
         }
     }   
