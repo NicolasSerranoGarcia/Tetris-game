@@ -4,7 +4,7 @@ LDFLAGS = $(shell sdl2-config --libs) -lSDL2_ttf -lSDL2_image -lSDL2_mixer
 TARGET = tetris
 
 # Source detection
-SRC = $(shell find Screen Font Button Scenes Figures constants Image Slider Sound -name '*.cc') main.cc
+SRC = $(shell find Screen Font Button Scenes Figures constants Image Slider Sound Music -name '*.cc') main.cc
 
 #Object generation
 OBJ = $(SRC:.cc=.o)

@@ -3,7 +3,7 @@
 #include <iostream>
 
 SetScene::~SetScene(){
-
+    Scene::~Scene();
 }
 
 SetScene::SetScene(){
@@ -15,9 +15,11 @@ SetScene::SetScene(){
     ButtonClick.load("Sounds/Effects/clickButton.wav");
 
     countdown.load("Sounds/Effects/countdown.wav");
+
     ButtonClick.setVolume(EFFECTSSOUNDLVL);
     open.setVolume(EFFECTSSOUNDLVL);
     countdown.setVolume(EFFECTSSOUNDLVL);
+
 
     //Setup the keys for an easier loading
 

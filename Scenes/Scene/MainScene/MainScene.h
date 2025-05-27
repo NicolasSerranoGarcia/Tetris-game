@@ -7,6 +7,7 @@
 #include "Image/Image.h"
 #include "Button/Button.h"
 #include "Font/Font.h"
+#include "Sound/Sound.h"
 
 //Files for the scenes
 #include "Scenes/SceneF/Scene.h"

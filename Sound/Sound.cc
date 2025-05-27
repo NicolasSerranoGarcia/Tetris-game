@@ -14,7 +14,9 @@ Sound::Sound() : chunk(nullptr), channel(-1) {
 
 Sound::~Sound() {
     if (chunk) {
-        Mix_HaltChannel(channel);
+        if (channel >= 0) {
+            Mix_HaltChannel(channel);
+        }   
         Mix_FreeChunk(chunk);
     }
 }

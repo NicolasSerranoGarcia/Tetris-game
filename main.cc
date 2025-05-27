@@ -83,10 +83,19 @@ int main(){
 
     Mix_AllocateChannels(16);
 
+    
     // Implement the main program inside a scope to ensure
     // no remainder of classes or objects are left behind
     // without being destroyed
     {
+
+        //play some music ;)
+        Sound backgroundMusic;
+        backgroundMusic.load("Sounds/Music/backgroundMusic.wav");
+        backgroundMusic.setVolume(GENERALSOUNDLVL);
+        backgroundMusic.play();
+
+
         bool running = true;
         SDL_Event event;
 
@@ -109,6 +118,12 @@ int main(){
             currentScene->update(mainScreen.getRender());
 
             // currentScene->clear();
+
+            if(!backgroundMusic.isPlaying()){
+                backgroundMusic.play();
+            }
+            
+            backgroundMusic.setVolume(GENERALSOUNDLVL);
         }
     }
 
