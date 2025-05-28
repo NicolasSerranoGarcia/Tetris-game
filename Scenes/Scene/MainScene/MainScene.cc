@@ -1097,27 +1097,27 @@ bool isDead(std::vector <Figure*> gameBoard, Figure *& currentFigure){
 
     //calculate the highest point. Note that the y-axis is inverted, and 0 > 19 in our system
 
-    int maxHeight = 19;
-    int figMinHeight = 0;
-    for(int i = 0; i < (int) gameBoard.size(); i++){
-        for(int j = 0; j < (int) gameBoard[i]->getBlocks().size(); j++){
+    // int maxHeight = 19;
+    // int figMinHeight = 0;
+    // for(int i = 0; i < (int) gameBoard.size(); i++){
+    //     for(int j = 0; j < (int) gameBoard[i]->getBlocks().size(); j++){
 
-            if(gameBoard[i]->getBlocks()[j].getBlockY() < maxHeight){
+    //         if(gameBoard[i]->getBlocks()[j].getBlockY() < maxHeight){
 
-                maxHeight = gameBoard[i]->getBlocks()[j].getBlockY();
-            }
-        }
-    }
+    //             maxHeight = gameBoard[i]->getBlocks()[j].getBlockY();
+    //         }
+    //     }
+    // }
 
-    for(int i = 0; i < (int) currentFigure->getBlocks().size(); i++){
+    // for(int i = 0; i < (int) currentFigure->getBlocks().size(); i++){
         
-        if(currentFigure->getBlocks()[i].getBlockY() > figMinHeight){
+    //     if(currentFigure->getBlocks()[i].getBlockY() > figMinHeight){
             
-            figMinHeight = currentFigure->getBlocks()[i].getBlockY();
-        }
-    }
+    //         figMinHeight = currentFigure->getBlocks()[i].getBlockY();
+    //     }
+    // }
 
-    if((maxHeight == 0) || colidesStatic(gameBoard, currentFigure)){
+    if(colidesStatic(gameBoard, currentFigure)){
         return true;
     }
     return false;

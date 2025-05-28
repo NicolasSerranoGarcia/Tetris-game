@@ -174,7 +174,7 @@ void LooseScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScen
        mainScene = mScene;
     }  
     
-    if(getButtonMap()["playAgain"].isClicked(&event)){
+    if(getButtonMap()["playAgain"].isClicked(&event) || ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_RETURN))){
 
         LINES = 0;
         LEVEL = 0;

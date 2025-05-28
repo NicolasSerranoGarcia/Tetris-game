@@ -105,7 +105,7 @@ unsigned int LEVEL = 0;
 unsigned int LINES = 0;
 
 
-int GENERALSOUNDLVL = 50;
+int GENERALSOUNDLVL = 25;
 
 int EFFECTSSOUNDLVL = 50;
 

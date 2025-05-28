@@ -168,16 +168,16 @@ You check if there is a button pressed and if so you make it not possible to cli
 
 - Chores left:
 
-[/] Add sound: when clearing a line (explosion from the escapists), when opening the settings and on the counter (sound from jumping on retro games)
+[X] Add sound: when clearing a line (explosion from the escapists), when opening the settings and on the counter (sound from jumping on retro games)
 [X] Update: Music needs to be added still
 [] Update: Choose better sound effects. You can also implement a "radio" for music
 
+[X] Maybe: Implement account sign in. If it is possible, add a top 5 games on the opScene. Explore SDL_net: That's overkill. Start by learning basics of internet, protocols and user/server
+
 [] Do mantainance on all the code. FInish documentation
 
-[] End Readme and add an ERaser diaggram on project structure. On readme: Explain what is SDL, what offers, how is your program stablish
-
-[] Maybe: Implement account sign in. If it is possible, add a top 5 games on the opScene. Explore SDL_net
+[] End Readme and add an ERaser diaggram on project structure. On readme: Explain what is SDL, what offers, how is your program stablished
 
 [] Add style with textures and pixel art
 
-[] fix the death case: Sometimes it triggers when it shouldnt. 
+[X] fix the death case: Sometimes it triggers when it shouldnt. 
