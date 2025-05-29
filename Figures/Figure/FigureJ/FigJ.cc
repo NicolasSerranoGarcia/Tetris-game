@@ -7,6 +7,10 @@ FigJ::FigJ(){
 
     //Constructor
     loadInitialBlocks(true); 
+
+    for(int i = 0; i < (int) getBlocks().size(); i++){
+        getBlocks()[i].setBlockTexture(IMG_LoadTexture(mainScreen.getRender(), "IMG/Textures/J-block.png"));
+    }
 }
 
 
@@ -56,6 +60,12 @@ bool FigJ::loadInitialBlocks(bool constructor){
     block.setBlockX(LeadingBlockX - 1);
     block.setBlockY(LeadingBlockY + 1);
     getBlocks().push_back(block);
+
+    if(getHasTexture()){
+        for(int i = 0; i < (int) getBlocks().size(); i++){
+            getBlocks()[i].setBlockTexture(IMG_LoadTexture(mainScreen.getRender(), "IMG/Textures/J-block.png"));
+        }
+    }
 
     return constructor;
 }

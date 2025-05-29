@@ -13,8 +13,6 @@ class FigI: public Figure{
 
         FigI();
 
-        FigI(bool texture);
-
 
         //MISCELANEOUS
 

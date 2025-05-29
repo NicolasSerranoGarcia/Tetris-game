@@ -13,24 +13,6 @@ FigI::FigI(){
     }
 }
 
-FigI::FigI(bool texture){
-
-    setId(3);
-    setFigureColor(LIGHT_CYAN);
-
-    //Constructor
-    loadInitialBlocks(true);
-
-    if(texture){
-
-        for(int i = 0; i < (int) getBlocks().size(); i++){
-            getBlocks()[i].setBlockTexture(IMG_LoadTexture(mainScreen.getRender(), "IMG/Textures/I-block.png"));
-        }
-
-        setHasTexture(texture);
-    }
-}
-
 
 int FigI::updateBlocks(){
 
