@@ -36,6 +36,11 @@ int Figure::getLeadingBlockPos() {
     return leadingBlockPos;
 }
 
+bool Figure::getHasTexture(){
+    return hasTexture;
+}
+
+
 
 void Figure::setId(int id){
     this->id = id;
@@ -54,6 +59,10 @@ void Figure::setFigureColor(SDL_Color color){
 
 void Figure::setLeadingBlockPos(int pos){
     leadingBlockPos = pos;
+}
+
+void Figure::setHasTexture(bool texture){
+    hasTexture = texture;
 }
 
 

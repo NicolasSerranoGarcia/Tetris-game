@@ -50,6 +50,9 @@ class Block{
         //An SDL_Color instance representing the outline color of the figure
         SDL_Color outlineColor;
 
+
+        SDL_Texture * blockTexture = nullptr;
+
     public:
 
         //CONSTRUCTORS/DESTRUCTOR
@@ -110,7 +113,13 @@ class Block{
         //The SDL_Color instance that references
         //the outside color of the block
         SDL_Color getOutlineColor() const;
-        
+
+        //Getter
+        //
+        //RETURNS:
+        //A pointer to the SDL_Texture associated with the block
+        SDL_Texture * getBlockTexture();
+
 
         //SETTERS
  
@@ -171,6 +180,9 @@ class Block{
         //Returns:
         //Void
         void setPixelYDereferenced(int pixelY);
+
+
+        void setBlockTexture(SDL_Texture * texture);
 
 
         //MISCELANEOUS

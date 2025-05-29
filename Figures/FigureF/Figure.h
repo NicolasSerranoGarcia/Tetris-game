@@ -5,6 +5,7 @@
 #include "constants/constants.h"
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <vector>
 #include <string>
 
@@ -38,6 +39,8 @@ class Figure{
         //The position of the leading block inside the vector
         //of blocks. DO NOT CHANGE
         int leadingBlockPos;
+
+        bool hasTexture = false;
 
     public:
 
@@ -84,6 +87,11 @@ class Figure{
         //vector of blocks
         virtual int getLeadingBlockPos();
         
+        //Getter
+        //
+        //RETURNS:
+        //a boolean representing if the figure should be rendered with a texture
+        virtual bool getHasTexture();
 
         //SETTERS
 
@@ -114,6 +122,11 @@ class Figure{
         //void
         virtual void setLeadingBlockPos(int pos);
         
+        //Setter
+        //
+        //RETURNS:
+        //void
+        virtual void setHasTexture(bool texture);
 
         //MISCELANEOUS
 

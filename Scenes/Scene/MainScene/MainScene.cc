@@ -245,7 +245,10 @@ void MainScene::render(){
 
         //reference to the copied figure
         Figure * sh = &shadow;
-
+        for(int i = 0; i < (int) shadow.getBlocks().size(); i++){
+            SDL_SetTextureAlphaMod(shadow.getBlocks()[i].getBlockTexture(), 30);
+        }
+        
         SDL_Color colorInline = shadow.getBlocks()[0].getInlineColor();
         SDL_Color colorOutline = shadow.getBlocks()[0].getOutlineColor();
 
@@ -299,6 +302,10 @@ void MainScene::render(){
         SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
         shadow.renderFigure();
         SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_NONE);
+
+        for(int i = 0; i < (int) shadow.getBlocks().size(); i++){
+            SDL_SetTextureAlphaMod(shadow.getBlocks()[i].getBlockTexture(), 255);
+        }
 
     //Render the figure that is falling
 
@@ -748,6 +755,8 @@ void getRandomFigure(Figure *& Figure){
         break;
     }
 
+    Figure->setHasTexture(true);
+
 }
 
 void getRandomFigure(Figure *& curFigure, Figure * lastFigs[]) {
@@ -787,6 +796,8 @@ void getRandomFigure(Figure *& curFigure, Figure * lastFigs[]) {
 
         if (valid) {
             curFigure = newFig;
+            curFigure->setHasTexture(true);
+
         } else{
             delete newFig;
         }

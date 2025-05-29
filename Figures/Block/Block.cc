@@ -56,6 +56,11 @@ SDL_Color Block::getOutlineColor() const{
     return outlineColor;
 }
 
+SDL_Texture * Block::getBlockTexture(){
+    return blockTexture;
+}
+
+
 
 void Block::setPixelX(int pixelX){
     this->pixelX = pixelX; 
@@ -97,6 +102,10 @@ void Block::setPixelYDereferenced(int pixelY){
     this->pixelY = pixelY; block.y = this->pixelY;
 }
 
+void Block::setBlockTexture(SDL_Texture * texture){
+    blockTexture = texture;
+}
+
 
 int Block::convertBlocktoPixelX(){
     return blockX*BLOCKLENGTH + BSX;
@@ -115,10 +124,15 @@ int Block::convertPixelToBlockY(){
 }
 
 void Block::renderBlock(){
+
     SDL_SetRenderDrawColor(mainScreen.getRender(), inlineColor.r, inlineColor.g, inlineColor.b, inlineColor.a);
     SDL_RenderFillRect(mainScreen.getRender(), &block);
     
     SDL_SetRenderDrawColor(mainScreen.getRender(), outlineColor.r, outlineColor.g, outlineColor.b, outlineColor.a);
     SDL_RenderDrawRect(mainScreen.getRender(), &block);
+
+    if(blockTexture != nullptr){
+        SDL_RenderCopy(mainScreen.getRender(), blockTexture, NULL, &block);
+    }
 }
 

@@ -7,6 +7,28 @@ FigI::FigI(){
 
     //Constructor
     loadInitialBlocks(true);
+
+    for(int i = 0; i < (int) getBlocks().size(); i++){
+        getBlocks()[i].setBlockTexture(IMG_LoadTexture(mainScreen.getRender(), "IMG/Textures/I-block.png"));
+    }
+}
+
+FigI::FigI(bool texture){
+
+    setId(3);
+    setFigureColor(LIGHT_CYAN);
+
+    //Constructor
+    loadInitialBlocks(true);
+
+    if(texture){
+
+        for(int i = 0; i < (int) getBlocks().size(); i++){
+            getBlocks()[i].setBlockTexture(IMG_LoadTexture(mainScreen.getRender(), "IMG/Textures/I-block.png"));
+        }
+
+        setHasTexture(texture);
+    }
 }
 
 
@@ -57,5 +79,12 @@ bool FigI::loadInitialBlocks(bool constructor){
     block.setBlockY(LeadingBlockY + 1);
     getBlocks().push_back(block);
 
+
+    if(getHasTexture()){
+        for(int i = 0; i < (int) getBlocks().size(); i++){
+            getBlocks()[i].setBlockTexture(IMG_LoadTexture(mainScreen.getRender(), "IMG/Textures/I-block.png"));
+        }
+    }
+    
     return constructor;
 }
