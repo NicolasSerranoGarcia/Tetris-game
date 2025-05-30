@@ -412,7 +412,7 @@ bool updateBestPlays(Score newScore){
     std::vector <Score> scores = getBestPlays();
 
     if(scores.size() < 5){
-        /*first order the existing plays and then write the new file*/
+        
         bestPlaysFile.open(BESTPLAYSFILEPATH, std::ios::out | std::ios::app);
 
         if(bestPlaysFile.is_open()){
@@ -420,6 +420,8 @@ bool updateBestPlays(Score newScore){
             bestPlaysFile << newScore.level << "/" <<  newScore.points << "/" << newScore.lines << "\n";
             
             bestPlaysFile.close();
+            
+            sortBestPlays();
             return true;
         }
 
@@ -436,6 +438,7 @@ bool updateBestPlays(Score newScore){
             ((scores[i].level == newScore.level) && (scores[i].points < newScore.points)) ||
             ((scores[i].level == newScore.level) && (scores[i].points == newScore.points) && (scores[i].lines < newScore.lines))){
                 scores[i] = newScore;
+                break;
             }
         }
 
@@ -447,6 +450,42 @@ bool updateBestPlays(Score newScore){
         return true;
     }
         
+    return false;
+}
+
+bool sortBestPlays(){
+    if(getBestPlays().empty() || (getBestPlays().size() == 1)){
+        return false;
+    }
+
+    std::vector <Score> scores = getBestPlays();
+    for(int i = 0; i < (int) scores.size() - 1; i++){
+        for(int j = i + 1; j < (int) scores.size(); j++){
+            if((scores[i].level < scores[j].level) || 
+            ((scores[i].level == scores[j].level) && (scores[i].points < scores[j].points)) ||
+            ((scores[i].level == scores[j].level) && (scores[i].points == scores[j].points) && (scores[i].lines < scores[j].lines))){
+                Score temp = scores[i];
+                scores[i] = scores[j];
+                scores[j] = temp;
+            }
+        }
+    }
+
+    std::ofstream bestPlaysFile;
+
+    bestPlaysFile.open(BESTPLAYSFILEPATH, std::ios::out);
+    
+    if(bestPlaysFile.is_open()){
+
+        for(int i = 0; i < (int) scores.size(); i++){
+            bestPlaysFile << scores[i].level << "/" <<  scores[i].points << "/" << scores[i].lines << "\n";
+        }
+
+        bestPlaysFile.close();
+        return true;
+    }
+
+
     return false;
 }
 

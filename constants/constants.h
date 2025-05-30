@@ -299,6 +299,8 @@ std::vector <Score> getBestPlays();
 
 bool updateBestPlays(Score newScore);
 
+bool sortBestPlays();
+
 
 int SDL_RenderDrawCircle(SDL_Renderer * renderer, int x, int y, int radius);
 
