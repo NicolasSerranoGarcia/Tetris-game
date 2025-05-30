@@ -3,3 +3,4 @@ SDL_functions
 /obj/
 /.vscode
 tetris
+logs/bestPlays.txt

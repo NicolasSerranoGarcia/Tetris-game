@@ -390,7 +390,6 @@ std::vector <Score> getBestPlays(){
     if(bestPlaysFile.is_open()){
         std::string s;
 
-        int i = 0;
         while(std::getline(bestPlaysFile, s)){
             Score score;
 
@@ -409,18 +408,40 @@ std::vector <Score> getBestPlays(){
 
 bool updateBestPlays(Score newScore){
 
-    std::vector <Score> scores = getBestPlays();
     std::ofstream bestPlaysFile;
+    std::vector <Score> scores = getBestPlays();
 
     if(scores.size() < 5){
+        /*first order the existing plays and then write the new file*/
         bestPlaysFile.open(BESTPLAYSFILEPATH, std::ios::out | std::ios::app);
-        
+
+        if(bestPlaysFile.is_open()){
+
+            bestPlaysFile << newScore.level << "/" <<  newScore.points << "/" << newScore.lines << "\n";
+            
+            bestPlaysFile.close();
+            return true;
+        }
+
+        return false;
     }
 
 
-    bestPlaysFile.open(BESTPLAYSFILEPATH);
+    bestPlaysFile.open(BESTPLAYSFILEPATH, std::ios::out);
     
     if(bestPlaysFile.is_open()){
+
+        for(int i = 0; i < (int) scores.size(); i++){
+            if((scores[i].level < newScore.level) || 
+            ((scores[i].level == newScore.level) && (scores[i].points < newScore.points)) ||
+            ((scores[i].level == newScore.level) && (scores[i].points == newScore.points) && (scores[i].lines < newScore.lines))){
+                scores[i] = newScore;
+            }
+        }
+
+        for(int i = 0; i < (int) scores.size(); i++){
+            bestPlaysFile << scores[i].level << "/" <<  scores[i].points << "/" << scores[i].lines << "\n";
+        }
 
         bestPlaysFile.close();
         return true;

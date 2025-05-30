@@ -41,11 +41,6 @@ void OpScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
 
     //The user can either press the button or press ENTER
     if(getButtonMap()["play"].isClicked(&event) || ((event.type == SDL_KEYDOWN) && event.key.keysym.sym == SDLK_RETURN)){
-        
-        LINES = 0;
-        LEVEL = 0;
-        POINTS = 0;
-        dead = false;
 
         delete curScene;
         curScene = new MainScene;
