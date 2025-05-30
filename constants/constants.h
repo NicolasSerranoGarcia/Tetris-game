@@ -6,6 +6,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
 #include "Sound/Sound.h"
+#include <fstream>
+#include <sstream>
+#include <vector>
 
 
 //The width in pixels of the screen. Currently static
@@ -13,6 +16,8 @@ extern const int SCREENWIDTH;
 
 //The height in pixels of the screen. Curently static
 extern const int SCREENHEIGHT;
+
+extern const char * BESTPLAYSFILEPATH;
 
 
 //The side length of 1 block in the game board. The blocks are squares, so this the
@@ -257,6 +262,13 @@ enum class RPosition{
 };
 
 
+struct Score{
+    int points;
+    int level;
+    int lines;
+};
+
+
 //Global function that calculates the Y pixels of each constant in the enum AbsPosition. 
 //It recieves ONE constant of type AbsPosition (see the enum AbsPosition to see all the
 //posible positions in the screen) and the Height of the object that you want to position,
@@ -281,6 +293,11 @@ int px(AbsPosition position, int objW);
 std::string convertKeyToLetter(SDL_Keycode key);
 
 SDL_Keycode convertLetterToKeycode(char c);
+
+
+std::vector <Score> getBestPlays();
+
+bool updateBestPlays(Score newScore);
 
 
 int SDL_RenderDrawCircle(SDL_Renderer * renderer, int x, int y, int radius);

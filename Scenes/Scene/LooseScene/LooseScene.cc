@@ -175,11 +175,29 @@ void LooseScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScen
     }  
     
     if(getButtonMap()["playAgain"].isClicked(&event) || ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_RETURN))){
+        
+        //handle the logs for the points before deleting everything
+
+        std::vector <Score> scores = getBestPlays();
+
+        Score curScore = {POINTS, LEVEL, LINES};
+
+        for(int i = 0; i < scores.size(); i++){
+            if((scores[i].level < curScore.level) || 
+            ((scores[i].level == curScore.level) && (scores[i].points < curScore.points)) ||
+            ((scores[i].level == curScore.level) && (scores[i].points == curScore.points) && (scores[i].lines < curScore.lines))){
+                scores[i] = curScore;
+            }
+        }
+
+        
 
         LINES = 0;
         LEVEL = 0;
         POINTS = 0;
         dead = false;
+
+
 
         delete curScene;
         curScene = nullptr;

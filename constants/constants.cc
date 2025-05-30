@@ -5,6 +5,8 @@ const int SCREENWIDTH = 960;
 
 const int SCREENHEIGHT = 1000;
 
+const char * BESTPLAYSFILEPATH ="logs/bestPlays.txt";
+
 
 const int BLOCKLENGTH = 46;
 
@@ -105,7 +107,7 @@ unsigned int LEVEL = 0;
 unsigned int LINES = 0;
 
 
-int GENERALSOUNDLVL = 25;
+int GENERALSOUNDLVL = 0;
 
 int EFFECTSSOUNDLVL = 50;
 
@@ -375,6 +377,56 @@ SDL_Keycode convertLetterToKeycode(char c) {
         default:
             return SDLK_UNKNOWN;
     }
+}
+
+
+std::vector <Score> getBestPlays(){
+    std::ifstream bestPlaysFile;
+
+    bestPlaysFile.open(BESTPLAYSFILEPATH);
+
+    std::vector <Score> scores;
+    
+    if(bestPlaysFile.is_open()){
+        std::string s;
+
+        int i = 0;
+        while(std::getline(bestPlaysFile, s)){
+            Score score;
+
+            std::stringstream game(s);
+
+            char bar;
+
+            game >> score.level >> bar >> score.points >> bar >> score.lines;
+
+            scores.push_back(score);
+        }
+    }
+
+    return scores;
+}
+
+bool updateBestPlays(Score newScore){
+
+    std::vector <Score> scores = getBestPlays();
+    std::ofstream bestPlaysFile;
+
+    if(scores.size() < 5){
+        bestPlaysFile.open(BESTPLAYSFILEPATH, std::ios::out | std::ios::app);
+        
+    }
+
+
+    bestPlaysFile.open(BESTPLAYSFILEPATH);
+    
+    if(bestPlaysFile.is_open()){
+
+        bestPlaysFile.close();
+        return true;
+    }
+        
+    return false;
 }
 
 
