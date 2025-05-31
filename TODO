@@ -181,3 +181,7 @@ You check if there is a button pressed and if so you make it not possible to cli
 [] Add style with textures and pixel art
 
 [X] fix the death case: Sometimes it triggers when it shouldnt. 
+
+[] add the best play in the op scene
+
+[] add a button to return to the op scene in the settings

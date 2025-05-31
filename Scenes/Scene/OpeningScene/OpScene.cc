@@ -35,6 +35,29 @@ void OpScene::render(){
         getButtonMap()["play"].setFont(&Play);
 
         getButtonMap()["play"].drawToRender();
+
+
+    //Render the best play, if there is
+
+    std::vector <Score> bestScores = getBestPlays();
+
+    if(!bestScores.empty()){
+
+        Score best = bestScores[0];
+
+        SDL_Rect bestPlays = {getButtonMap()["play"].getContainer().x + getButtonMap()["play"].getContainer().w/3, getButtonMap()["play"].getContainer().y + getButtonMap()["play"].getContainer().h + 20, 
+            getButtonMap()["play"].getContainer().w/3, BLOCKLENGTH};
+
+        SDL_SetRenderDrawColor(mainScreen.getRender(), WHITE.r, WHITE.g, WHITE.b, WHITE.a);
+        SDL_RenderFillRect(mainScreen.getRender(), &bestPlays);
+
+        Font bestText(&mainScreen, "Ubuntu-Regular", bestPlays.h - 10, "BEST", BLACK);
+
+        bestText.setCoords(bestPlays.x + bestPlays.w/2 - bestText.getTextSurface()->w/2, bestPlays.y + bestPlays.h/2 - bestText.getTextSurface()->h/2);
+
+        bestText.drawTextToRender();
+    }
+
 }
 
 void OpScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
