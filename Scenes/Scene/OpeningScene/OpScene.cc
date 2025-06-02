@@ -56,6 +56,22 @@ void OpScene::render(){
         bestText.setCoords(bestPlays.x + bestPlays.w/2 - bestText.getTextSurface()->w/2, bestPlays.y + bestPlays.h/2 - bestText.getTextSurface()->h/2);
 
         bestText.drawTextToRender();
+
+        SDL_Rect bestPointsRect = {getButtonMap()["play"].getContainer().x, bestPlays.y + bestPlays.h + 20, 
+            getButtonMap()["play"].getContainer().w, getButtonMap()["play"].getContainer().h/2};
+
+        SDL_RenderFillRect(mainScreen.getRender(), &bestPointsRect);
+
+        Font bestPoints(&mainScreen, "Ubuntu-Regular", bestPlays.h - 10, std::to_string(POINTS).c_str(), BLACK);
+
+        bestPoints.setCoords(bestPlays.x + bestPlays.w/2 - bestText.getTextSurface()->w/2, bestPlays.y + bestPlays.h + 40);
+
+
+        Font bestLevel(&mainScreen, "Ubuntu-Regular", bestPlays.h - 10, std::to_string(LEVEL).c_str(), BLACK);
+
+        bestLevel.setCoords(bestPlays.x + bestPlays.w/2 - bestText.getTextSurface()->w/2, bestPlays.y);
+
+        Font bestLines(&mainScreen, "Ubuntu-Regular", bestPlays.h - 10, std::to_string(LINES).c_str(), BLACK);
     }
 
 }
