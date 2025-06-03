@@ -57,6 +57,15 @@ void OpScene::render(){
 
         bestText.drawTextToRender();
 
+
+        SDL_Rect pointsTitleRect = {getButtonMap()["play"].getContainer().x + getButtonMap()["play"].getContainer().w/3, getButtonMap()["play"].getContainer().y + getButtonMap()["play"].getContainer().h + bestText.getTextSurface()->h, 
+            getButtonMap()["play"].getContainer().w/3, BLOCKLENGTH};
+
+
+        SDL_RenderFillRect(mainScreen.getRender(), &pointsTitleRect);
+    
+        
+
         SDL_Rect bestPointsRect = {getButtonMap()["play"].getContainer().x, bestPlays.y + bestPlays.h + 20, 
             getButtonMap()["play"].getContainer().w, getButtonMap()["play"].getContainer().h/2};
 
