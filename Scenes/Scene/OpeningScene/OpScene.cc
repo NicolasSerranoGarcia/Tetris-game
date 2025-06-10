@@ -58,29 +58,89 @@ void OpScene::render(){
         bestText.drawTextToRender();
 
 
-        SDL_Rect pointsTitleRect = {getButtonMap()["play"].getContainer().x + getButtonMap()["play"].getContainer().w/3, getButtonMap()["play"].getContainer().y + getButtonMap()["play"].getContainer().h + bestText.getTextSurface()->h, 
-            getButtonMap()["play"].getContainer().w/3, BLOCKLENGTH};
+        //Draw everything related to the points
 
+        SDL_Rect pointsTitleRect = {getButtonMap()["play"].getContainer().x, bestText.getY() + bestText.getTextSurface()->h + 40, 
+            getButtonMap()["play"].getContainer().w/3, BLOCKLENGTH/1.5};
 
         SDL_RenderFillRect(mainScreen.getRender(), &pointsTitleRect);
-    
+
+
+        Font pointsTitleText(&mainScreen, "Ubuntu-Regular", pointsTitleRect.h - 3, "POINTS", BLACK);
+
+        pointsTitleText.setCoords(pointsTitleRect.x + pointsTitleRect.w/2 - pointsTitleText.getTextSurface()->w/2, pointsTitleRect.y + pointsTitleRect.h/2 - pointsTitleText.getTextSurface()->h/2);
+
+        pointsTitleText.drawTextToRender();
         
+        
+        SDL_Rect pointsTitleNum = {getButtonMap()["play"].getContainer().x + pointsTitleRect.w + 20, bestText.getY() + bestText.getTextSurface()->h + 40, 
+            getButtonMap()["play"].getContainer().w / 2 + 32, BLOCKLENGTH/1.5};
 
-        SDL_Rect bestPointsRect = {getButtonMap()["play"].getContainer().x, bestPlays.y + bestPlays.h + 20, 
-            getButtonMap()["play"].getContainer().w, getButtonMap()["play"].getContainer().h/2};
+        SDL_RenderFillRect(mainScreen.getRender(), &pointsTitleNum);
+    
+        Font pointsNum(&mainScreen, "Ubuntu-Regular", pointsTitleNum.h - 3, std::to_string(getBestPlays()[0].points).c_str(), BLACK);
 
-        SDL_RenderFillRect(mainScreen.getRender(), &bestPointsRect);
+        pointsNum.setCoords(pointsTitleNum.x + pointsTitleNum.w/2 - pointsNum.getTextSurface()->w/2, 
+        pointsTitleNum.y + pointsTitleNum.h/2 - pointsNum.getTextSurface()->h/2);
+        
+        pointsNum.drawTextToRender();
 
-        Font bestPoints(&mainScreen, "Ubuntu-Regular", bestPlays.h - 10, std::to_string(POINTS).c_str(), BLACK);
 
-        bestPoints.setCoords(bestPlays.x + bestPlays.w/2 - bestText.getTextSurface()->w/2, bestPlays.y + bestPlays.h + 40);
+        // draw everything related to the lines
+
+        SDL_Rect linesTitleRect = {getButtonMap()["play"].getContainer().x, bestText.getY() + bestText.getTextSurface()->h + 40 + 120, 
+            getButtonMap()["play"].getContainer().w/3, BLOCKLENGTH/1.5};
+
+        SDL_RenderFillRect(mainScreen.getRender(), &linesTitleRect);
 
 
-        Font bestLevel(&mainScreen, "Ubuntu-Regular", bestPlays.h - 10, std::to_string(LEVEL).c_str(), BLACK);
+        Font linesTitleText(&mainScreen, "Ubuntu-Regular", linesTitleRect.h - 3, "LINES", BLACK);
 
-        bestLevel.setCoords(bestPlays.x + bestPlays.w/2 - bestText.getTextSurface()->w/2, bestPlays.y);
+        linesTitleText.setCoords(linesTitleRect.x + linesTitleRect.w/2 - linesTitleText.getTextSurface()->w/2, linesTitleRect.y + linesTitleRect.h/2 - linesTitleText.getTextSurface()->h/2);
 
-        Font bestLines(&mainScreen, "Ubuntu-Regular", bestPlays.h - 10, std::to_string(LINES).c_str(), BLACK);
+        linesTitleText.drawTextToRender();
+        
+        
+        SDL_Rect linesTitleNum = {getButtonMap()["play"].getContainer().x + linesTitleRect.w + 20, bestText.getY() + bestText.getTextSurface()->h + 40 + 120, 
+            getButtonMap()["play"].getContainer().w / 2 + 32, BLOCKLENGTH/1.5};
+
+        SDL_RenderFillRect(mainScreen.getRender(), &linesTitleNum);
+
+
+        Font linesNum(&mainScreen, "Ubuntu-Regular", linesTitleNum.h - 3, std::to_string(getBestPlays()[0].lines).c_str(), BLACK);
+
+        linesNum.setCoords(linesTitleNum.x + linesTitleNum.w/2 - linesNum.getTextSurface()->w/2, 
+        linesTitleNum.y + linesTitleNum.h/2 - linesNum.getTextSurface()->h/2);
+        
+        linesNum.drawTextToRender();
+
+        // draw everything related to the level
+
+        SDL_Rect levelTitleRect = {getButtonMap()["play"].getContainer().x, bestText.getY() + bestText.getTextSurface()->h + 40 + 60, 
+            getButtonMap()["play"].getContainer().w/3, BLOCKLENGTH/1.5};
+
+        SDL_RenderFillRect(mainScreen.getRender(), &levelTitleRect);
+
+
+        Font levelTitleText(&mainScreen, "Ubuntu-Regular", levelTitleRect.h - 3, "LEVEL", BLACK);
+
+        levelTitleText.setCoords(levelTitleRect.x + levelTitleRect.w/2 - levelTitleText.getTextSurface()->w/2, levelTitleRect.y + levelTitleRect.h/2 - levelTitleText.getTextSurface()->h/2);
+
+        levelTitleText.drawTextToRender();
+        
+        
+        SDL_Rect levelTitleNum = {getButtonMap()["play"].getContainer().x + levelTitleRect.w + 20, bestText.getY() + bestText.getTextSurface()->h + 40 + 60, 
+            getButtonMap()["play"].getContainer().w / 2 + 32, BLOCKLENGTH/1.5};
+
+        SDL_RenderFillRect(mainScreen.getRender(), &levelTitleNum);
+
+
+        Font levelNum(&mainScreen, "Ubuntu-Regular", levelTitleNum.h - 3, std::to_string(getBestPlays()[0].level).c_str(), BLACK);
+
+        levelNum.setCoords(levelTitleNum.x + levelTitleNum.w/2 - levelNum.getTextSurface()->w/2, 
+        levelTitleNum.y + levelTitleNum.h/2 - levelNum.getTextSurface()->h/2);
+        
+        levelNum.drawTextToRender();
     }
 
 }

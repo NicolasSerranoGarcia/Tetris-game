@@ -402,7 +402,7 @@ std::vector <Score> getBestPlays(){
             scores.push_back(score);
         }
     }
-
+    
     return scores;
 }
 
