@@ -182,6 +182,6 @@ You check if there is a button pressed and if so you make it not possible to cli
 
 [X] fix the death case: Sometimes it triggers when it shouldnt. 
 
-[] add the best play in the op scene
+[X] add the best play in the op scene
 
 [] add a button to return to the op scene in the settings
