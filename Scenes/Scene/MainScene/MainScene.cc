@@ -539,6 +539,7 @@ void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScen
     //We calculate the current figure's highest y value. It will be reused
 
         int largestY = 0;
+
         for(unsigned int i = 0; i < currentFigure->getBlocks().size(); i++){
             if(currentFigure->getBlocks()[i].getBlockY() > largestY){
                 largestY = currentFigure->getBlocks()[i].getBlockY();
