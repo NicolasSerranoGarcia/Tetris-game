@@ -4,8 +4,6 @@
 #include "LooseScene.h"
 #include <iostream>
 
-//this function is inherited and the normal case is that it doesn't need any further coding. Still, at the moment I'm gonna call the father method from the child one in case 
-//I need to make extra implementations
 LooseScene::LooseScene(){
     Button playAgainButton(px(AbsPosition::POS_CENTER_LEFT, SCREENWIDTH/3), py(AbsPosition::POS_CENTER_LEFT, BLOCKLENGTH*3), SCREENWIDTH/3, BLOCKLENGTH*2, LIGHT_BLUE, &mainScreen);
     getButtonMap()["playAgain"] = playAgainButton;
