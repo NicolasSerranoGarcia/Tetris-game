@@ -176,7 +176,7 @@ void LooseScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScen
         
         //handle the logs for the points before deleting everything
 
-        updateBestPlays({(int) POINTS, (int) LEVEL, (int) LINES});
+            updateBestPlays({(int) POINTS, (int) LEVEL, (int) LINES});
 
         LINES = 0;
         LEVEL = 0;
