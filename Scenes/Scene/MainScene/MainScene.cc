@@ -54,8 +54,8 @@ void MainScene::render(){
     //draw the background square where the figures fall and the game is played
 
         SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
-        SDL_Rect boardBackogrund = {BSX, BSY, BSW, BSH};
-        SDL_RenderFillRect(mainScreen.getRender(), &boardBackogrund);
+        SDL_Rect boardBackground = {BSX, BSY, BSW, BSH};
+        SDL_RenderFillRect(mainScreen.getRender(), &boardBackground);
 
     //draw the vertical and hor. lines that separate each tile 
 
@@ -120,7 +120,7 @@ void MainScene::render(){
     //we made 
 
         next.drawTextToRender();
-   
+
     //Render the next figures in order, inside the nextFiguresBackground
     
         renderNextFigures(nextFigures, next.getTextSurface()->h);
@@ -477,7 +477,7 @@ void MainScene::renderWithoutFigures(){
 }
 
 void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
-   
+
     //Events that are not pressing keys or mousebuttons are not handled
     if((event.type != SDL_KEYDOWN) && (event.type != SDL_KEYUP) && (event.type != SDL_MOUSEBUTTONDOWN)){
         return;
