@@ -53,7 +53,7 @@ class MainScene: public Scene{
         //There's a max of 2 swaps, meaning the saw key can be pressed two times per falling figure.
         //Another important thing to mention is that the figure that is swapped will appear 2 blocks above
         //the previous one
-        Figure * holdedFigure = nullptr;
+        Figure * heldFigure = nullptr;
 
         //This variable saves the number of times a figure has been swapped. It resets each time
         //a figure is placed
@@ -230,13 +230,13 @@ bool isDead(std::vector <Figure*> gameBoard, Figure *& currentFigure);
 //
 //RETURNS:
 //void
-void handleSwap(Figure *& fallingFigure, Figure *& holdedFigure, Figure * nextFigs[], int * numSwaps, std::vector <Figure*> gameBoard);
+void handleSwap(Figure *& fallingFigure, Figure *& heldFigure, Figure * nextFigs[], int * numSwaps, std::vector <Figure*> gameBoard);
 
 //This function places the holded figure in it's corresponding sqaure in the screen. This is just a function to change the position of the holded figure
 //so that it is rendered on the correct position
 //
 //RETURNS:
 //void
-void changeSwappedFigurePosition(Figure *& holdedFigure);
+void changeSwappedFigurePosition(Figure *& heldFigure);
 
 #endif

@@ -214,7 +214,7 @@ void MainScene::render(){
         SDL_RenderFillRect(mainScreen.getRender(), &holdBackground);
         SDL_RenderDrawRect(mainScreen.getRender(), &holdBackground);
 
-        if(holdedFigure == nullptr){
+        if(heldFigure == nullptr){
 
             Font holdText(&mainScreen, "Ubuntu-Bold", 50, "HOLD", {LIGHT_GREY.r, LIGHT_GREY.g, LIGHT_GREY.b, 100});
             
@@ -226,8 +226,8 @@ void MainScene::render(){
         }
 
 
-        if(holdedFigure != nullptr){
-            Figure * fig = holdedFigure;
+        if(heldFigure != nullptr){
+            Figure * fig = heldFigure;
 
             changeSwappedFigurePosition(fig);
             fig->renderFigure();
@@ -501,7 +501,7 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
 
     //Handle the swapping of the figure. The function does everyting
     if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == CONTROLSWAP) && !event.key.repeat){
-        handleSwap(currentFigure, holdedFigure, nextFigures, &numberSwaps, gameBoard);
+        handleSwap(currentFigure, heldFigure, nextFigures, &numberSwaps, gameBoard);
         return;
     }
 
@@ -1135,15 +1135,15 @@ bool isDead(std::vector <Figure*> gameBoard, Figure *& currentFigure){
     return false;
 }
 
-void handleSwap(Figure *& fallingFigure, Figure *& holdedFigure, Figure * nextFigs[], int * numSwaps, std::vector <Figure*> gameBoard){
-    if(holdedFigure == nullptr){
-        holdedFigure = fallingFigure;
+void handleSwap(Figure *& fallingFigure, Figure *& heldFigure, Figure * nextFigs[], int * numSwaps, std::vector <Figure*> gameBoard){
+    if(heldFigure == nullptr){
+        heldFigure = fallingFigure;
         fetchNextFigure(fallingFigure, nextFigs);
 
         *numSwaps = 0;
         return;
     }
-    Figure * temp = holdedFigure;
+    Figure * temp = heldFigure;
     temp->getBlocks()[temp->getLeadingBlockPos()].setBlockX(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockX());
     temp->getBlocks()[temp->getLeadingBlockPos()].setBlockY(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockY());
     temp->updateBlocks();
@@ -1151,17 +1151,17 @@ void handleSwap(Figure *& fallingFigure, Figure *& holdedFigure, Figure * nextFi
     if((*numSwaps != 2) && !colidesStatic(gameBoard, temp)){
         temp = fallingFigure;
         //check if the swap makes the figure colide. If it does, swap is not enabled
-        holdedFigure->getBlocks()[holdedFigure->getLeadingBlockPos()].setBlockX(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockX());
-        holdedFigure->getBlocks()[holdedFigure->getLeadingBlockPos()].setBlockY(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockY());
-        holdedFigure->updateBlocks();
-        fallingFigure = holdedFigure;
-        holdedFigure = temp;
+        heldFigure->getBlocks()[heldFigure->getLeadingBlockPos()].setBlockX(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockX());
+        heldFigure->getBlocks()[heldFigure->getLeadingBlockPos()].setBlockY(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockY());
+        heldFigure->updateBlocks();
+        fallingFigure = heldFigure;
+        heldFigure = temp;
 
         *numSwaps += 1;
     }
 }
 
-void changeSwappedFigurePosition(Figure *& holdedFigure){
+void changeSwappedFigurePosition(Figure *& heldFigure){
 
     int x = HFX;
     int y = HFY;
@@ -1171,124 +1171,124 @@ void changeSwappedFigurePosition(Figure *& holdedFigure){
     int spacing = (int) ((h - BLOCKLENGTH*6)/10);    
 
     //Choose which figure we are dealing to
-        switch(holdedFigure->getId()){
+        switch(heldFigure->getId()){
             case 0:
 
                 //FigL
 
-                holdedFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
-                holdedFigure->getBlocks()[0].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
+                heldFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
+                heldFigure->getBlocks()[0].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
-                holdedFigure->getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
+                heldFigure->getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
+                heldFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
-                holdedFigure->getBlocks()[2].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[2].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
+                heldFigure->getBlocks()[2].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
+                heldFigure->getBlocks()[2].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
-                holdedFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[3].setPixelYDereferenced(y - spacing);
+                heldFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
+                heldFigure->getBlocks()[3].setPixelYDereferenced(y - spacing);
 
                 break;
             case 1:
 
                 //FigLRight
 
-                holdedFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
-                holdedFigure->getBlocks()[0].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
+                heldFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
+                heldFigure->getBlocks()[0].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
-                holdedFigure->getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
+                heldFigure->getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
+                heldFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
-                holdedFigure->getBlocks()[2].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[2].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
+                heldFigure->getBlocks()[2].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
+                heldFigure->getBlocks()[2].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
-                holdedFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
-                holdedFigure->getBlocks()[3].setPixelYDereferenced(y - spacing);
+                heldFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
+                heldFigure->getBlocks()[3].setPixelYDereferenced(y - spacing);
 
                 break;
              case 2:
 
                 //FigO
 
-                holdedFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - BLOCKLENGTH);
-                holdedFigure->getBlocks()[0].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
+                heldFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - BLOCKLENGTH);
+                heldFigure->getBlocks()[0].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
-                holdedFigure->getBlocks()[1].setPixelXDereferenced(x + w/2);
-                holdedFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
+                heldFigure->getBlocks()[1].setPixelXDereferenced(x + w/2);
+                heldFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
-                holdedFigure->getBlocks()[2].setPixelXDereferenced(x + w/2);
-                holdedFigure->getBlocks()[2].setPixelYDereferenced(y - spacing);
+                heldFigure->getBlocks()[2].setPixelXDereferenced(x + w/2);
+                heldFigure->getBlocks()[2].setPixelYDereferenced(y - spacing);
 
-                holdedFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 - BLOCKLENGTH);
-                holdedFigure->getBlocks()[3].setPixelYDereferenced(y - spacing);
+                heldFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 - BLOCKLENGTH);
+                heldFigure->getBlocks()[3].setPixelYDereferenced(y - spacing);
 
                 break;
             case 3:
 
                 //FigI
 
-                holdedFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - BLOCKLENGTH*2);
-                holdedFigure->getBlocks()[0].setPixelYDereferenced(y - spacing + BLOCKLENGTH/2);
+                heldFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - BLOCKLENGTH*2);
+                heldFigure->getBlocks()[0].setPixelYDereferenced(y - spacing + BLOCKLENGTH/2);
 
-                holdedFigure->getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH);
-                holdedFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH/2);
+                heldFigure->getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH);
+                heldFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH/2);
 
-                holdedFigure->getBlocks()[2].setPixelXDereferenced(x + w/2);
-                holdedFigure->getBlocks()[2].setPixelYDereferenced(y - spacing + BLOCKLENGTH/2);
+                heldFigure->getBlocks()[2].setPixelXDereferenced(x + w/2);
+                heldFigure->getBlocks()[2].setPixelYDereferenced(y - spacing + BLOCKLENGTH/2);
 
-                holdedFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 + BLOCKLENGTH);
-                holdedFigure->getBlocks()[3].setPixelYDereferenced(y - spacing + BLOCKLENGTH/2);
+                heldFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 + BLOCKLENGTH);
+                heldFigure->getBlocks()[3].setPixelYDereferenced(y - spacing + BLOCKLENGTH/2);
 
                 break;
             case 4:
 
                 //FigT
 
-                holdedFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
-                holdedFigure->getBlocks()[0].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
+                heldFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
+                heldFigure->getBlocks()[0].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
-                holdedFigure->getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
+                heldFigure->getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
+                heldFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
-                holdedFigure->getBlocks()[2].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[2].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
+                heldFigure->getBlocks()[2].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
+                heldFigure->getBlocks()[2].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
-                holdedFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[3].setPixelYDereferenced(y - spacing);
+                heldFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
+                heldFigure->getBlocks()[3].setPixelYDereferenced(y - spacing);
 
                 break;
             case 5:
 
                 //FigS
 
-                holdedFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[0].setPixelYDereferenced(y - spacing);
+                heldFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
+                heldFigure->getBlocks()[0].setPixelYDereferenced(y - spacing);
 
-                holdedFigure->getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
+                heldFigure->getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
+                heldFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
-                holdedFigure->getBlocks()[2].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[2].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
+                heldFigure->getBlocks()[2].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
+                heldFigure->getBlocks()[2].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
-                holdedFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
-                holdedFigure->getBlocks()[3].setPixelYDereferenced(y - spacing);
+                heldFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
+                heldFigure->getBlocks()[3].setPixelYDereferenced(y - spacing);
 
                 break;
             case 6:
 
                 //FigZ
 
-                holdedFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[0].setPixelYDereferenced(y - spacing);
+                heldFigure->getBlocks()[0].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
+                heldFigure->getBlocks()[0].setPixelYDereferenced(y - spacing);
 
-                holdedFigure->getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
+                heldFigure->getBlocks()[1].setPixelXDereferenced(x + w/2 - BLOCKLENGTH/2);
+                heldFigure->getBlocks()[1].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
-                holdedFigure->getBlocks()[2].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
-                holdedFigure->getBlocks()[2].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
+                heldFigure->getBlocks()[2].setPixelXDereferenced(x + w/2 - (BLOCKLENGTH + BLOCKLENGTH/2));
+                heldFigure->getBlocks()[2].setPixelYDereferenced(y - spacing + BLOCKLENGTH);
 
-                holdedFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
-                holdedFigure->getBlocks()[3].setPixelYDereferenced(y - spacing);
+                heldFigure->getBlocks()[3].setPixelXDereferenced(x + w/2 + BLOCKLENGTH/2);
+                heldFigure->getBlocks()[3].setPixelYDereferenced(y - spacing);
 
                 break;
         }
