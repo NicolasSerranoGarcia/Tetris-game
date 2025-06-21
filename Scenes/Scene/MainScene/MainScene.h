@@ -40,7 +40,7 @@ class MainScene: public Scene{
         //figure is NOT deleted (but this pointer no longer references it)
         Figure* currentFigure = nullptr;
         
-        //This array saves the next 3 figures that will be fetched to the gameboard. Whenever
+        //This array saves the next 3 figures that will be fetched to the game board. Whenever
         //a figure is placed, the pointer to the current figure will be replaced with nextFigures[0]
         //and this array will loose the reference to that figure. A reference to a newly created figure
         //will be placed in nextFigures[2]. Of course nextFigures[0] will now be the previous nextFigures[1]
@@ -49,7 +49,7 @@ class MainScene: public Scene{
 
         //This pointer points to the figure that the player is holding (the saved one)
         //Whenever the player presses the correct key (check the settings), the current figure
-        //will be swapped with the holded one, and the player now will be able to save it.
+        //will be swapped with the held one, and the player now will be able to save it.
         //There's a max of 2 swaps, meaning the saw key can be pressed two times per falling figure.
         //Another important thing to mention is that the figure that is swapped will appear 2 blocks above
         //the previous one
@@ -68,7 +68,7 @@ class MainScene: public Scene{
     
         //CONSTRUCTORS/DESTRUCTOR
         
-        //Cnstructor
+        //Constructor
         MainScene();
         
         //Destructor. Also calls the father destructor Scene::~Scene()
@@ -92,7 +92,7 @@ class MainScene: public Scene{
         //Getter
         //
         //RETURNS:
-        //a reference to the vector of figures (gameboard)
+        //a reference to the vector of figures (game board)
         std::vector <Figure*>& getGameBoard();
 
 
@@ -116,7 +116,7 @@ class MainScene: public Scene{
 
         //This method is an override, but it is unique to the class
         //MainScene. It does the same as render() but without the figures.
-        //By figures I mean the gameboard, the current figure and the next figures
+        //By figures I mean the game board, the current figure and the next figures
         //
         //RETURNS:
         //void
@@ -177,21 +177,21 @@ void getRandomFigure(Figure *& curFigure, Figure * lastFigs[]);
 //void
 void fetchNextFigure(Figure *& curFigure, Figure * nextFigs[]);
 
-//This function returns true if the figure passed as a parameter colides with any of the figures
+//This function returns true if the figure passed as a parameter collides with any of the figures
 //of the gameboard. 
 //NOTE: Keep in mind that the figure will be checked with a movement. That is,
 //the function checks if the figure colides IN THE CASE the figure is moved in the way that
 //the "key" parameter dictates. 
 //
 //RETURNS:
-//-true if the function colides
+//-true if the function collides
 //-false in any other case. It will also return false if the parameter passed as "key" is not
 //one of the game keys. The current game keys that need collision checking are rotate, 
 //move left, move right and move down.
 bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure * const & curFigure);
 
-//This function returns true if the figure passed as a parameter colides with any of the figures
-//of the gameboard. 
+//This function returns true if the figure passed as a parameter collides with any of the figures
+//of the game board. 
 //NOTE: This function, unlike colides(), checks if the figure colides in it's current position (no 
 //movement in advance). This function also checks collision with the borders
 //

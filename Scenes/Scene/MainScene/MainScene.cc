@@ -499,22 +499,22 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
         return;
     }
 
-    //Handle the swapping of the figure. The function does everyting
+    //Handle the swapping of the figure. The function does everything
     if((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == CONTROLSWAP) && !event.key.repeat){
         handleSwap(currentFigure, heldFigure, nextFigures, &numberSwaps, gameBoard);
         return;
     }
 
     
-    bool colision = colides(gameBoard, event.key.keysym.sym, currentFigure);
+    bool collision = colides(gameBoard, event.key.keysym.sym, currentFigure);
     
     //If there is no colision then it is safe to update
-    if(!colision){
+    if(!collision){
         currentFigure->update(event);
         handleFastDrop(event, currentFigure, *this);
     } 
 
-    //If there will be a colision and the user wants to move the figure down, place the figure.
+    //If there will be a collision and the user wants to move the figure down, place the figure.
     //Also check if the user is dead after placing
     else if(event.key.keysym.sym == CONTROLDOWN){
         gameBoard.push_back(currentFigure);
