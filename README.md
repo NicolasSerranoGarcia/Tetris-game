@@ -30,7 +30,7 @@
 
 ## Overview
 
-**Tetris-game** is a modern take on the classic Tetris game, developed in C++ using the SDL2 library as a rendering engine. This project was designed completely by me, and offers a solid foundation for understanding game mechanics and scene management.
+**Tetris-game** is a modern take on the classic Tetris game, developed in C++ using the SDL2 library as a rendering engine. This project was designed by me, and offers a solid foundation for understanding game mechanics and scene management.
 
 ### Key Features
 
