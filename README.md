@@ -25,7 +25,6 @@
   - [Testing](#testing)
 - [Project Structure](#project-structure)
 - [Contributing](#contributing)
-- [License](#license)
 
 ---
 
@@ -146,4 +145,4 @@ Feel free to open a discussion or issue if you have an idea or question!
 
 ---
 
-## License
+Thanks for reading and enjoy this project!
