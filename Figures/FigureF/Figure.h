@@ -13,7 +13,7 @@
 //This class serves as an abstract father class of the figures. Almost any aspect of a figure
 //can be generalized in this class. This class holds methods for rotating, deleting blocks, rendering...
 //IMPORTANT: There are several things that each child must implement in it's own way, like the actual
-//position of the blocks (which is diferent for every figure). It is worth to mention that anything related
+//position of the blocks (which is different for every figure). It is worth to mention that anything related
 //with the building or rotating of the figure is based on the leading block. Keep it in mind when looking
 //at the build process of every figure, as you may see something like leadingBlock - 1. It is important that
 //the leading block is correctly updated.
@@ -22,7 +22,7 @@ class Figure{
     private:
 
         //The identifier of the figure. Used to distinguish
-        //from diferent types of figures
+        //from different types of figures
         int id;
 
         //The container for all the blocks of the figure
@@ -128,7 +128,7 @@ class Figure{
         //void
         virtual void setHasTexture(bool texture);
 
-        //MISCELANEOUS
+        //MISCElLANEOUS
 
         //This method takes an event (the event can only be a key press)
         //and it updates the LEADING BLOCK according to the key pressed.
@@ -139,7 +139,7 @@ class Figure{
         //by changing the leading block
         //RETURNS:
         //-1 if there were no updates in the figure
-        //0 if the update was done succesfully
+        //0 if the update was done successfully
         virtual int update(SDL_Event event);
 
         //This method updates the blocks after a figure event (like moving to the left).

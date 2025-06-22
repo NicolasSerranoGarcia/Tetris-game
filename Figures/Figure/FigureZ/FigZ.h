@@ -14,7 +14,7 @@ class FigZ: public Figure{
         FigZ();
 
 
-        //MISCELANEOUS
+        //MISCELLANEOUS
 
         int updateBlocks() override;
 

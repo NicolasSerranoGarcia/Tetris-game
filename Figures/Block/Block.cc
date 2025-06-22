@@ -95,11 +95,13 @@ void Block::setOutlineColor(SDL_Color color){
 }
 
 void Block::setPixelXDereferenced(int pixelX){
-    this->pixelX = pixelX; block.x = this->pixelX;
+    this->pixelX = pixelX;
+    block.x = this->pixelX;
 }
 
 void Block::setPixelYDereferenced(int pixelY){
-    this->pixelY = pixelY; block.y = this->pixelY;
+    this->pixelY = pixelY; 
+    block.y = this->pixelY;
 }
 
 void Block::setBlockTexture(SDL_Texture * texture){

@@ -25,11 +25,11 @@ std::vector <Block>& Figure::getBlocks(){
 }
 
 int Figure::getAngle(){
-     return angle;
+    return angle;
 }
 
 SDL_Color Figure::getFigureColor(){
-     return figureColor;
+    return figureColor;
 }
 
 int Figure::getLeadingBlockPos() {
@@ -41,7 +41,6 @@ bool Figure::getHasTexture(){
 }
 
 
-
 void Figure::setId(int id){
     this->id = id;
 }
@@ -51,10 +50,11 @@ void Figure::setAngle(int angle){
 }
 
 void Figure::setFigureColor(SDL_Color color){
-     figureColor = color;
-     for(int i = 0; i < (int) blocks.size(); i++){
+    figureColor = color;
+
+    for(int i = 0; i < (int) blocks.size(); i++){
         blocks[i].setInlineColor(figureColor);
-     }
+    }
 }
 
 void Figure::setLeadingBlockPos(int pos){
@@ -116,7 +116,7 @@ int Figure::update(SDL_Event event){
     }
 
     else if(event.key.keysym.sym == CONTROLROTATERIGHT && !event.key.repeat){
-        //ensure the angle is betweeen 0º and 360º
+        //ensure the angle is between 0º and 360º
         angle -= 90;
         if(angle < 0){
             angle = 360 + angle;
@@ -192,7 +192,7 @@ void Figure::rotate(){
     /*  x' = x*cos(theta) - y*sin(theta)
     *   y' = x*sin(theta) + y*cos(theta)
     *
-    *   As in my case, the "origin" of the coordinates is the leading block, I will "reallocate"
+    *   As in this case, the "origin" of the coordinates is the leading block, I will "reallocate"
     *   the origin by summing the position of the leading block
     */
 

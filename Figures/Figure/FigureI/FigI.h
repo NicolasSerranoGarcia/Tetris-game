@@ -14,7 +14,7 @@ class FigI: public Figure{
         FigI();
 
 
-        //MISCELANEOUS
+        //MISCELLANEOUS
 
         int updateBlocks() override;
         
