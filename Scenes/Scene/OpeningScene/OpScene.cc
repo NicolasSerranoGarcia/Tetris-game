@@ -41,7 +41,7 @@ void OpScene::render(){
 
         std::vector <Score> bestScores = getBestPlays();
 
-        if(!bestScores.empty() && (bestScores[0].points & bestScores[1].level & bestScores[2].lines)){
+        if(!bestScores.empty()){
 
             SDL_Rect bestPlays = {getButtonMap()["play"].getContainer().x + getButtonMap()["play"].getContainer().w/3, getButtonMap()["play"].getContainer().y + getButtonMap()["play"].getContainer().h + 20, 
                 getButtonMap()["play"].getContainer().w/3, BLOCKLENGTH};

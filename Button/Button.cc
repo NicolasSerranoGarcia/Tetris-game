@@ -1,12 +1,12 @@
 #include "Button.h"
 
 Button::Button(){
-    this->color = {0,0,0,0};
-    this->container = {0,0,0,0};
+    color = {0,0,0,0};
+    container = {0,0,0,0};
 
-    this->screen = &mainScreen;
-    this->font =  nullptr;
-    this->image = nullptr;
+    screen = &mainScreen;
+    font =  nullptr;
+    image = nullptr;
 }
 
 Button::Button(SDL_Rect container, SDL_Color color, Screen * screen){
@@ -19,8 +19,8 @@ Button::Button(SDL_Rect container, SDL_Color color, Screen * screen){
 Button::Button(Coord xy, int w, int h, SDL_Color color, Screen * screen){
     this->container.h = h;
     this->container.w = w;
-    this->container.x = xy.x;
-    this->container.y = xy.y;
+    container.x = xy.x;
+    container.y = xy.y;
 
     this->screen = screen;
     this->color = color;
@@ -37,12 +37,12 @@ Button::Button(const int x, const int y, const int w, const int h, SDL_Color col
 }
 
 Button::~Button(){
-    this->container = {0,0,0,0};
-    this->color = {0,0,0,0};
+    container = {0,0,0,0};
+    color = {0,0,0,0};
 
-    this->screen = nullptr;
-    this->font =  nullptr;
-    this->image = nullptr;
+    screen = nullptr;
+    font =  nullptr;
+    image = nullptr;
 
 }
 
