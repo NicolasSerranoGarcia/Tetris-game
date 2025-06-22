@@ -92,8 +92,8 @@ void Font::setCoords(int x, int y){
 
 void Font::setCoords(AbsPosition position){
 
-    int relativeCenterX = this->textSurface->w/2;
-    int relativeCenterY = this->textSurface->h/2;
+    int relativeCenterX = textSurface->w/2;
+    int relativeCenterY = textSurface->h/2;
 
     switch(position){
         case AbsPosition::POS_CENTER:
@@ -163,7 +163,7 @@ void Font::setFont(TTF_Font * font){
 }
 
 void Font::setText(const char * newText){
-   
+
     //Free the previous parameters
     SDL_FreeSurface(getTextSurface());
     SDL_DestroyTexture(getTextTexture());

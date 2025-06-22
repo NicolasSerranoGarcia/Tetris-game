@@ -15,7 +15,7 @@
 //are determined by the font size (the same as in Microsoft Word). Fonts are,
 //essentially, files that carry all the information of a specific type (f.e. Arial).
 //This information can be loaded up in execution time to "draw" text given these instructions.
-//These instructons are .ttf files
+//These instructions are .ttf files
 class Font{
 
     private:
@@ -46,7 +46,7 @@ class Font{
         //defaults to mainScreen
         Screen * screen = &mainScreen;
 
-        //The surface associaated with the bitmap of the text
+        //The surface associated with the bitmap of the text
         SDL_Surface* textSurface = nullptr;
 
         //The texture of the text. THe same as in the image class
@@ -59,7 +59,7 @@ class Font{
         //Constructor
         Font();
 
-        //Cnstructor
+        //Constructor
         Font(Screen * screen, const char * name, int size, const char * text, SDL_Color color);
 
         //Destructor
@@ -113,7 +113,7 @@ class Font{
         //Getter
         //
         //RETURNS:
-        //The screen asociated to the font. By default is mainScreen
+        //The screen associated to the font. By default is mainScreen
         Screen * getScreen() const;
 
         //Getter
@@ -172,7 +172,7 @@ class Font{
         void setText(const char * newText);
 
 
-        //MISCELANEOUS
+        //MISCELLANEOUS
 
         //This method renders text with the dimensions of the surface
         //NOte that it doesn't show it directly, you'lll have to call Screen::Update()
