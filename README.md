@@ -103,7 +103,7 @@ Thank you for considering contributing to this project!
 
 Here’s a simple guide to help you get started:
 
-### 🧭 1. Fork the repository
+### 1. Fork the repository
 
 Click the **Fork** button at the top right of the page, then clone your fork locally:
 
@@ -112,21 +112,21 @@ git clone https://github.com/your-username/your-repo.git
 cd your-repo
 ```
 
-### 🌱 2. Create a new branch for your changes
+### 2. Create a new branch for your changes
 
 ```bash
 git checkout -b my-feature-branch
 ```
 
-### 🔨 3. Make your changes
+### 3. Make your changes
 
 Implement your changes. Please keep the code clean and follow the existing style if possible.
 
-### 🧪 4. Test your changes
+### 4. Test your changes
 
 Make sure everything works as expected.  
 
-### ✅ 5. Commit and push
+### 5. Commit and push
 
 ```bash
 git add .
@@ -134,7 +134,7 @@ git commit -m "Add feature: [your short description here]"
 git push origin my-feature-branch
 ```
 
-### 🚀 6. Open a Pull Request
+### 6. Open a Pull Request
 
 Go to your fork on GitHub and click **"Compare & Pull Request"**.  
 Provide a clear title and description of your changes.
