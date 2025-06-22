@@ -1,6 +1,5 @@
 <div id="top"></div>
 
-<!-- HEADER STYLE: CLASSIC -->
 <div align="center">
 
 # TETRIS-GAME
@@ -40,7 +39,8 @@
 - ⏱️ **Real-Time Interaction:** Smooth response to user input for seamless gameplay.
 - 🛠️ **Modular Architecture:** Easy to maintain and expand with new features.
 - 🌌 **Scene Management:** Efficient handling of scene transitions and updates.
-- ✍️ **Custom Font Integration:** Visuals enhanced with stylized typography.
+- ✍️ **Keybind mapping:** Keybinds can be changed for a better experience.
+- ↩️ **Many more:** Play to try all the features!
 
 ---
 
@@ -55,7 +55,7 @@ Before building and running the game, make sure you have:
 - **Libraries:** SDL2, SDL2_ttf, SDL_Image, SDL_Mixer
 
 ### Installation
-To install required libraries on Ubuntu:
+To install the required libraries on Ubuntu:
 
 ```bash
 sudo apt update
@@ -86,13 +86,63 @@ This project is open source, and by no means it is aimed to benefit me in a fina
 
 ### Testing
 
+This project has no QA testing. Every aspect has been designed and implemented correctly, but things go off very easily. If you encounter any unexpected behavior during your gameplay, you can report it via any of the socials listed [here](linktr.ee/NicolasSerrano). You can also open a pull request if your goal is to fix it yourself. Please note that problems may arise if you try to execute this program outside of the requirements listed at the beginning. 
+
 ---
 
 ## Project Structure
 
+The project follows a simple structure, consisting of an opening screen, settings screen, gameplay screen and death screen. Each of them is triggered by the user when interacting with the program. 
+<!-- Insert images of the scenes when they are finished-->
+
 ---
 
 ## Contributing
+
+Thank you for considering contributing to this project!
+
+Here’s a simple guide to help you get started:
+
+### 🧭 1. Fork the repository
+
+Click the **Fork** button at the top right of the page, then clone your fork locally:
+
+```bash
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+```
+
+### 🌱 2. Create a new branch for your changes
+
+```bash
+git checkout -b my-feature-branch
+```
+
+### 🔨 3. Make your changes
+
+Implement your changes. Please keep the code clean and follow the existing style if possible.
+
+### 🧪 4. Test your changes
+
+Make sure everything works as expected.  
+
+### ✅ 5. Commit and push
+
+```bash
+git add .
+git commit -m "Add feature: [your short description here]"
+git push origin my-feature-branch
+```
+
+### 🚀 6. Open a Pull Request
+
+Go to your fork on GitHub and click **"Compare & Pull Request"**.  
+Provide a clear title and description of your changes.
+
+### 💡 Not sure where to start?
+
+Check the [issues page](#) and look for labels like `good first issue`.  
+Feel free to open a discussion or issue if you have an idea or question!
 
 ---
 
