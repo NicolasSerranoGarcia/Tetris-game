@@ -61,15 +61,6 @@ const int TEXTURESOUNDW = SETTINGSBACKGROUNDW;
 int TEXTURESOUNDH;
 
 
-// const int SLIDERSOUNDX = TEXTURESOUNDX + TEXTURESOUNDW/5;
-
-// const int SLIDERSOUNDY = TEXTURESOUNDY + TEXTURESOUNDH/3;
-
-// const int SLIDERSOUNDW = 2*TEXTURESOUNDX/5;
-
-// const int SLIDERSOUNDH = 20;
-
-
 const int HFX = ISX;
 
 const int HFY = BSY + BSH - BLOCKLENGTH*3;
@@ -501,19 +492,19 @@ int SDL_RenderDrawCircle(SDL_Renderer * renderer, int x, int y, int radius){
 
     while (offsety >= offsetx) {
 
-        //lower right cuadrant
+        //lower right quadrant
         status += SDL_RenderDrawPoint(renderer, x + offsetx, y + offsety);
         status += SDL_RenderDrawPoint(renderer, x + offsety, y + offsetx);
 
-        //lower left cuadrant
+        //lower left quadrant
         status += SDL_RenderDrawPoint(renderer, x - offsetx, y + offsety);
         status += SDL_RenderDrawPoint(renderer, x - offsety, y + offsetx);
 
-        //upper right cuadrant
+        //upper right quadrant
         status += SDL_RenderDrawPoint(renderer, x + offsetx, y - offsety);
         status += SDL_RenderDrawPoint(renderer, x + offsety, y - offsetx);
 
-        //upper left cuadrant
+        //upper left quadrant
         status += SDL_RenderDrawPoint(renderer, x - offsetx, y - offsety);
         status += SDL_RenderDrawPoint(renderer, x - offsety, y - offsetx);
 
