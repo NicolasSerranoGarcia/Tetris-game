@@ -156,14 +156,14 @@ class Button{
         void setImage(Image * newImage);
 
         
-        //MISCELANEOUS
+        //MISCELLANEOUS
 
         //This method checks if the user clicked the button.
         //Clicking means the cursor is ON the surface AND
         //the user presses the right or left mouse button
         //
         //RETURNS:
-        //-true if the user clikced the button
+        //-true if the user clicked the button
         //-false otherwise
         bool isClicked(SDL_Event * event);
 
@@ -184,7 +184,7 @@ class Button{
         //pass {Button.w/2, 0, Button.w - Button.w/2, Button.h}.
         //
         //RETURNS:
-        //-true if the user clikced the button
+        //-true if the user clicked the button
         //-false otherwise
         bool isClickedSubdivision(SDL_Event * event, SDL_Rect rect);
         
