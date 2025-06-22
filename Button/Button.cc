@@ -51,19 +51,19 @@ bool Button::getVisibility() const{
 }
 
 Screen * Button::getScreen() const{
-    return this->screen;
+    return screen;
 }
 
 SDL_Rect Button::getContainer() const{
-    return this->container;
+    return container;
 }
 
 SDL_Color Button::getColor() const{
-    return this->color;
+    return color;
 }
 
 Font * Button::getFont() const{
-    return this->font;
+    return font;
 }
 
 
@@ -72,31 +72,31 @@ void Button::setVisibility(bool newVisibility){
 }
 
 void Button::setFont(Font * newFont){
-    this->font = newFont;
+    font = newFont;
 }
 
 void Button::setImage(Image * newImage){
-    this->image = newImage;
+    image = newImage;
 }
 
 void Button::setScreen(Screen * newScreen){
-    this->screen = newScreen;
+    screen = newScreen;
 }
 
 void Button::setContainer(SDL_Rect newContainer){
-    this->container = newContainer;
+    container = newContainer;
 }
 
 void Button::setColor(SDL_Color newColor){
-    this->color = newColor;
+    color = newColor;
 }
 
 
 bool Button::isClicked(SDL_Event * event){
-  
+
     Coord mouse;
 
-    //loads the two intgers with the position in pixels of the mouse
+    //loads the two integers with the position in pixels of the mouse
     SDL_GetMouseState(&mouse.x, &mouse.y);
 
     //check if the cursor is inside
@@ -116,16 +116,17 @@ bool Button::isClicked(SDL_Event * event){
 }
 
 bool Button::isClickedSubdivision(SDL_Event * event, SDL_Rect rect){
+
     if((rect.x == 0) && (rect.y == 0) && (rect.w == 0) && (rect.h == 0)){    
         return isClicked(event);
     }
 
     Coord mouse;
 
-    //loads the two intgers with the position in pixels of the mouse
+    //loads the two integers with the position in pixels of the mouse
     SDL_GetMouseState(&mouse.x, &mouse.y);
 
-    //Normalise the coords of the rectangle to have (0,0) at the upper left point of our button
+    //Normalize the coords of the rectangle to have (0,0) at the upper left point of our button
     int x = rect.x + container.x;
     int y = rect.y + container.y;
     int w = rect.w;
@@ -152,8 +153,8 @@ bool Button::isClickedSubdivision(SDL_Event * event, SDL_Rect rect){
 
 void Button::setRelativeTo(Button refButton, RPosition position){
 
-    int selfHeight = this->container.h;
-    int selfWidth = this->container.w;
+    int selfHeight = container.h;
+    int selfWidth = container.w;
 
     //refers to the object we want to place in reference to. So if we want to place a rectangle to the left of a button, the button is the ref in this case.
     int refX = refButton.container.x;
@@ -166,56 +167,56 @@ void Button::setRelativeTo(Button refButton, RPosition position){
     
     switch(position){
         case RPosition::POS_REL_DOWN:
-            this->container.x = refX + refW/2 - selfWidth/2;
-            this->container.y = refY + refH + margin;
+            container.x = refX + refW/2 - selfWidth/2;
+            container.y = refY + refH + margin;
             break;
         
         case RPosition::POS_REL_DOWN_LEFT:
-            this->container.x = refX;
-            this->container.y = refY + refH + margin;
+            container.x = refX;
+            container.y = refY + refH + margin;
             break;
         
         case RPosition::POS_REL_DOWN_RIGHT:
-            this->container.x = refX + refW - selfWidth;
-            this->container.y = refY + refH + margin;
+            container.x = refX + refW - selfWidth;
+            container.y = refY + refH + margin;
             break;
             
         case RPosition::POS_REL_UP:
-            this->container.x = refX + refW/2 - selfWidth/2;
-            this->container.y = refY - selfHeight - margin;
+            container.x = refX + refW/2 - selfWidth/2;
+            container.y = refY - selfHeight - margin;
             break;
             
         case RPosition::POS_REL_UP_LEFT:
-            this->container.x = refX;
-            this->container.y = refY - selfHeight - margin;
+            container.x = refX;
+            container.y = refY - selfHeight - margin;
             break;
             
         case RPosition::POS_REL_UP_RIGHT:
-            this->container.x = refX + refW - selfWidth;
-            this->container.y = refY - selfHeight - margin;
+            container.x = refX + refW - selfWidth;
+            container.y = refY - selfHeight - margin;
             break;
 
         case RPosition::POS_REL_RIGHT:
-            this->container.x = refX + refW + margin;
-            this->container.y = refY + refH/2 - selfHeight/2;
+            container.x = refX + refW + margin;
+            container.y = refY + refH/2 - selfHeight/2;
             break;
             
         case RPosition::POS_REL_LEFT:
-            this->container.x = refX - selfWidth - margin;
-            this->container.y = refY + refH/2 - selfHeight/2;
+            container.x = refX - selfWidth - margin;
+            container.y = refY + refH/2 - selfHeight/2;
             break;
 
         default:
-            this->container.x = 0;
-            this->container.y = 0;
+            container.x = 0;
+            container.y = 0;
             break;
     }
 }
 
 void Button::setRelativeTo(Font * refFont, RPosition position){
 
-    int selfHeight = this->container.h;
-    int selfWidth = this->container.w;
+    int selfHeight = container.h;
+    int selfWidth = container.w;
 
     
     //refers to the object we want to place in reference to. So if we want to place a rectangle to the left of a button, the button is the ref in this case.
@@ -229,48 +230,48 @@ void Button::setRelativeTo(Font * refFont, RPosition position){
 
     switch(position){
         case RPosition::POS_REL_DOWN:
-            this->container.x = refX + refW/2 - selfWidth/2;
-            this->container.y = refY + refH + margin;
+            container.x = refX + refW/2 - selfWidth/2;
+            container.y = refY + refH + margin;
             break;
 
         case RPosition::POS_REL_DOWN_LEFT:
-            this->container.x = refX;
-            this->container.y = refY + refH + margin;
+            container.x = refX;
+            container.y = refY + refH + margin;
             break;
             
         case RPosition::POS_REL_DOWN_RIGHT:
-            this->container.x = refX + refW - selfWidth;
-            this->container.y = refY + refH + margin;
+            container.x = refX + refW - selfWidth;
+            container.y = refY + refH + margin;
             break;
 
         case RPosition::POS_REL_UP:
-            this->container.x = refX + refW/2 - selfWidth/2;
-            this->container.y = refY - selfHeight - margin;
+            container.x = refX + refW/2 - selfWidth/2;
+            container.y = refY - selfHeight - margin;
             break;
 
         case RPosition::POS_REL_UP_LEFT:
-            this->container.x = refX;
-            this->container.y = refY - selfHeight - margin;
+            container.x = refX;
+            container.y = refY - selfHeight - margin;
             break;
             
         case RPosition::POS_REL_UP_RIGHT:
-            this->container.x = refX + refW - selfWidth;
-            this->container.y = refY - selfHeight - margin;
+            container.x = refX + refW - selfWidth;
+            container.y = refY - selfHeight - margin;
             break;
             
         case RPosition::POS_REL_RIGHT:
-            this->container.x = refX + refW + margin;
-            this->container.y = refY + refH/2 - selfHeight/2;
+            container.x = refX + refW + margin;
+            container.y = refY + refH/2 - selfHeight/2;
             break;
 
         case RPosition::POS_REL_LEFT:
-            this->container.x = refX - selfWidth - margin;
-            this->container.y = refY + refH/2 - selfHeight/2;
+            container.x = refX - selfWidth - margin;
+            container.y = refY + refH/2 - selfHeight/2;
             break;
 
         default:
-            this->container.x = 0;
-            this->container.y = 0;
+            container.x = 0;
+            container.y = 0;
             break;
     }
 }
@@ -281,12 +282,12 @@ void Button::drawToRender(){
     
     //If there is an image, load it first so that if there is text, it is shown above it
     if(image != nullptr){
-        this->image->CopyToRender();
+        image->CopyToRender();
     }
 
     //also add the text if there is one
     if(font != nullptr){
-        this->font->setCoords(this->container.x + container.w/2 - font->getTextSurface()->w/2, this->container.y + container.h/2 - font->getTextSurface()->h/2);
-        this->font->drawTextToRender();
+        font->setCoords(container.x + container.w/2 - font->getTextSurface()->w/2, container.y + container.h/2 - font->getTextSurface()->h/2);
+        font->drawTextToRender();
     }
 }
