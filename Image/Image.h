@@ -129,10 +129,10 @@ class Image{
         void setY(int y);
 
         
-        //MISCELANEOUS
+        //MISCELLANEOUS
 
         //This method renders the image to the screen. Keep
-        //in mind this deosn't show the image, you will need
+        //in mind this doesn't show the image, you will need
         //to do Screen::update() or directly call mainScreen.update()
         //
         //RETURNS:
@@ -141,7 +141,7 @@ class Image{
 
         //This method does the same as CopyToRender() but sets the width
         //and the height of the image to the ones of the mainScreen. Keep
-        //in mind this deosn't show the image, you will need
+        //in mind this doesn't show the image, you will need
         //to do Screen::update() or directly call mainScreen.update()
         //
         //RETURNS:

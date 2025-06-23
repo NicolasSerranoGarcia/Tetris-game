@@ -18,7 +18,7 @@ LooseScene::LooseScene(){
 void LooseScene::render(){
 
     if(mainScene != nullptr){
-        mainScene->renderWithoutFigures();
+        mainScene->render();
     }
 
     Font LooseText(&mainScreen, "BungeeTint-Regular", 110, "YOU LOST", BLACK);

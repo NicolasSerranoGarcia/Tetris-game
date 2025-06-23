@@ -508,26 +508,30 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
     
     bool collision = colides(gameBoard, event.key.keysym.sym, currentFigure);
     
-    //If there is no colision then it is safe to update
-    if(!collision){
+    //If there is no collision then it is safe to update
+    if(!collision && !isDead(gameBoard, currentFigure)){
         currentFigure->update(event);
         handleFastDrop(event, currentFigure, *this);
+
+        dead = isDead(gameBoard, currentFigure);
     } 
 
     //If there will be a collision and the user wants to move the figure down, place the figure.
     //Also check if the user is dead after placing
-    else if(event.key.keysym.sym == CONTROLDOWN){
+    
+    else if(event.key.keysym.sym == CONTROLDOWN && !isDead(gameBoard, currentFigure)){
         gameBoard.push_back(currentFigure);
         fetchNextFigure(currentFigure, nextFigures);
 
         //reset
         numberSwaps = 0;
 
-        dead = isDead(gameBoard, currentFigure) ? true : false;
+        dead = isDead(gameBoard, currentFigure);
     }
 
+    dead = isDead(gameBoard, currentFigure);
     if(dead){
-        renderWithoutFigures();
+        render();
         mScene = curScene;
         curScene = nullptr;
         curScene = new LooseScene;
@@ -555,7 +559,7 @@ void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScen
             //reset
             numberSwaps = 0;
         }
-   
+
     //This piece of code updates the figure one position down depending on the interval of time (FALLSPEED).
     //Keep in mind the fallspeed changes depending on the level. Consecuently, this block will not execute every time 
     //handleLogic() is called, only when enough time has passed.
@@ -591,7 +595,7 @@ void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScen
             
             *lastTick = SDL_GetTicks();
         } 
-       
+
         dead = isDead(gameBoard, currentFigure) ? true : false;
 
         if(dead){ 

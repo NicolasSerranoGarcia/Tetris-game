@@ -9,7 +9,7 @@ Image::Image(int x, int y, int w, int h, std::string imgName, std::string imgTyp
     imageType = imgType;
     imageName = imgName;
 
-    std::string path = "IMG/" + imageName + "." + imageType;
+    std::string path = "Media/" + imageName + "." + imageType;
     imageTexture = IMG_LoadTexture(mainScreen.getRender(), path.c_str());
 }
 
@@ -66,7 +66,7 @@ void Image::setNewPhoto(std::string newName, std::string newType){
     width = 50;
     height = 50;
 
-    std::string path = "IMG/" + imageName + "." + imageType;
+    std::string path = "Media/" + imageName + "." + imageType;
     imageTexture = IMG_LoadTexture(mainScreen.getRender(), path.c_str());
 }
 

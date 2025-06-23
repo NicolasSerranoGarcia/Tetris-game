@@ -9,7 +9,7 @@ FigO::FigO(){
     loadInitialBlocks(true);
 
     for(int i = 0; i < (int) getBlocks().size(); i++){
-        getBlocks()[i].setBlockTexture(IMG_LoadTexture(mainScreen.getRender(), "IMG/Textures/O-block.png"));
+        getBlocks()[i].setBlockTexture(IMG_LoadTexture(mainScreen.getRender(), "Media/Textures/O-block.png"));
     }
 }
 
@@ -61,7 +61,7 @@ bool FigO::loadInitialBlocks(bool constructor){
 
     if(getHasTexture()){
         for(int i = 0; i < (int) getBlocks().size(); i++){
-            getBlocks()[i].setBlockTexture(IMG_LoadTexture(mainScreen.getRender(), "IMG/Textures/O-block.png"));
+            getBlocks()[i].setBlockTexture(IMG_LoadTexture(mainScreen.getRender(), "Media/Textures/O-block.png"));
         }
     }
 

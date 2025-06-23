@@ -9,7 +9,7 @@ FigZ::FigZ(){
     loadInitialBlocks(true);
 
     for(int i = 0; i < (int) getBlocks().size(); i++){
-        getBlocks()[i].setBlockTexture(IMG_LoadTexture(mainScreen.getRender(), "IMG/Textures/Z-block.png"));
+        getBlocks()[i].setBlockTexture(IMG_LoadTexture(mainScreen.getRender(), "Media/Textures/Z-block.png"));
     }
 }
 
@@ -62,7 +62,7 @@ bool FigZ::loadInitialBlocks(bool constructor){
 
     if(getHasTexture()){
         for(int i = 0; i < (int) getBlocks().size(); i++){
-            getBlocks()[i].setBlockTexture(IMG_LoadTexture(mainScreen.getRender(), "IMG/Textures/Z-block.png"));
+            getBlocks()[i].setBlockTexture(IMG_LoadTexture(mainScreen.getRender(), "Media/Textures/Z-block.png"));
         }
     }
 

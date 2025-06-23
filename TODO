@@ -3,29 +3,29 @@
 
 # TODO 
 
-[X] Implement a way to render distinct scenes. To be able to call all the methods of the child classes with the same pointer, all the child clases (opScene, mainScene...)
-are handled by the same three methods (or more if there are common paterns), render, update and clear. Render will handle all the logic inside it with the help of C style
+[X] Implement a way to render distinct scenes. To be able to call all the methods of the child classes with the same pointer, all the child classes (opScene, mainScene...)
+are handled by the same three methods (or more if there are common patterns), render, update and clear. Render will handle all the logic inside it with the help of C style
 functions and other classes like Font or Button (or Figure for tetris blocks in the future maybe). This way, the main file (this) will just consist of a finite state machine/where I update the global pointer by checking certain key points like a pressed button or an edge case like the player lost. 
 
-[X] Create a new class to handle Images with the image library. Use it for easy loading like Font. Make it posible to load an image inside a button (like font). 
+[X] Create a new class to handle Images with the image library. Use it for easy loading like Font. Make it possible to load an image inside a button (like font). 
 
-[X] Create a new  RPosition constant that enables you to place something relative to a specific object (It recieves the x, y, w, h and enables a REL_LEFT for example)
+[X] Create a new  RPosition constant that enables you to place something relative to a specific object (It receives the x, y, w, h and enables a REL_LEFT for example)
 
-[] add sound maybe?
+[X] add sound maybe?
 
-[] handle initialization errors of classes
+[X] handle initialization errors of classes
 
 [X] Maybe change the structure of the OpScreen render and handle event so as to only declare 1 time the buttons and the objects that need the events
 
-[X] change the constructor of Font so that it allows entering x and y to fill the atributes
+[X] change the constructor of Font so that it allows entering x and y to fill the attributes
 
 [/] add to all objects the possibility of setting them relative to an object
 
-[] Add a method to the class Font called Fit or smth like that to change the font size to fit the dimensions of a given container. 
+[X] Add a method to the class Font called Fit or smth like that to change the font size to fit the dimensions of a given container.: No
 
-[] also add a way to center the font in the center of the container
+[X] also add a way to center the font in the center of the container: no
 
-[X] Find a way to open the settings scene as a popup (the mainscene still shows on the back) and when the user returns, there is no chnge (the game froze)
+[X] Find a way to open the settings scene as a popup (the mainscene still shows on the back) and when the user returns, there is no change (the game froze)
 
 [X] find a pause image that is transparent
 
@@ -37,25 +37,25 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] implement an algorithm (method update) in Figure that changes the position of the figure given an event and the previous state
 
-[X] implement an algorythm to check if a figure can move to the left or to the right
+[X] implement an algorithm to check if a figure can move to the left or to the right
 
-[X] implement the logic for the figure moveing downwards
+[X] implement the logic for the figure moving downwards
 
 [X] change the deleteBlocks() method from FIgure:: so that it has a better syntax (not i--) - changed: not necessary
 
 [X] When a figure is rotated and then moved, it updates as if the figure angle is 0. Just create a template to update the blocks depending on the angle for all the blocks.
 
-[X] the stick rotation is somewhat strange in the screen. Something happens when udpating the pixels
+[X] the stick rotation is somewhat strange in the screen. Something happens when updating the pixels
 
 [X] when the figures are rotated, the can faze through the walls. Fix that
 
 [X] The class names of the figures are not well placed. FigZ, FigL... 
 
-[X] implement colision details of the figures when getting to the bottom
+[X] implement collision details of the figures when getting to the bottom
 
-[X] Add collision when figures move horizontally while mantaining freedom of movement
+[X] Add collision when figures move horizontally while maintaining freedom of movement
 
-[X] MANTAINANCE: add comments, clear code, present the classes...
+[X] MAINTAINANCE: add comments, clear code, present the classes...
 
 [X] Make widths and heights relative to the ones in the screen
 
@@ -63,9 +63,9 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] method in Image to set one instance as a background
 
-[X] add the curScene as a paraemeter on Scene::render() - changed: not necessary
+[X] add the curScene as a parameter on Scene::render() - changed: not necessary
 
-[X] add the pointer mainScene as a global parameter, to save the progress when the settings is running - changed: added as a settingsScene atribute
+[X] add the pointer mainScene as a global parameter, to save the progress when the settings is running - changed: added as a settingsScene attribute
 
 [X] create the pointing system of the cleared blocks
 
@@ -81,15 +81,15 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] add shadow to the figures
 
-[X] add hard drop to the figures with default spacebar key
+[X] add hard drop to the figures with default space bar key
 
-[X] add points, lines and level count that afects speed
+[X] add points, lines and level count that alters speed
 
 [X] add the mechanic of saving a figure
 
-[X] add a last event variable to prevent multiple ke y pressing (when the user keeps the space bar pressed, succesive figures get fast dropped) - changed: by checking if the user lifted the finger from te fast drop key I was able to force it
+[X] add a last event variable to prevent multiple ke y pressing (when the user keeps the space bar pressed, successive figures get fast dropped) - changed: by checking if the user lifted the finger from te fast drop key I was able to force it
 
-[] make sure that auziliary classes call things like freeSurface() and that scenes and stuff call the destructors of the aux classes they use
+[X] make sure that auxiliary classes call things like freeSurface() and that scenes and stuff call the destructors of the aux classes they use
 
 [X] Handle the death case in a separate method
 
@@ -97,7 +97,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] trigger a screen to ak for the input. It is more visual for the user
 
-[] make some type of user save info. Save binds, best games...
+[X] make some type of user save info. Save binds, best games...
 
 [X] the shadow is not "pushed" when the figure gets out of bounds
 
@@ -112,55 +112,55 @@ I think I will fix it when I add textures, doing it now is a temporal solution b
 
 [X] implement a slight color inside the shadow figure to better distinguish it
 
-[X] Put a title in the settings for the keybind part
+[X] Put a title in the settings for the key bind part
 
 [/] implement scrolling in the settings
 
 [X] implement an X button to close the settings manually
 
-[] implement a button to return to the opening scene
+[X] implement a button to return to the opening scene: No
 
 [X] implement a button to go to your socials
 
-[X] implement the sound slidebar for the future
+[X] implement the sound slide bar for the future
 
-[X] put a reference for what the keybind stands for on the left
+[X] put a reference for what the key bind stands for on the left
 
-[] Put some button to let the user log in
+[X] Put some button to let the user log in: No
 
-[] put a settings button on the opening scene
+[X] put a settings button on the opening scene: No
 
 [X] blur the background on the settings: Impossible
 
 [X] Make settings a texture instead of a rectangle
 
-[X] The keybind buttons actual position does not move with the texture when scrolling
+[X] The key bind buttons actual position does not move with the texture when scrolling
 
-[X] put the change keybind message in the actual button
+[X] put the change key bind message in the actual button
 
 [X] maybe add a event listener but that when a button is pressed, it activates a flag for that button so that in the render you can put all the
-things that now live in the landleEvents. This way you have all the render in the mainScene, like the renderKeyBindChange. This way maybe you can also remove the pollevent from handleEvents.
+things that now live in the handleEvents. This way you have all the render in the mainScene, like the renderKeyBindChange. This way maybe you can also remove the poll event from handleEvents.
 You check if there is a button pressed and if so you make it not possible to click on another one. If a key event is gotten, you put that as the key of the button. 
 
 [X] add a manual slider to the settings
 
-[X] clicking on another button keybind should change the the button tht is currently asking for a key
+[X] clicking on another button key bind should change the the button tht is currently asking for a key
 
 [X] change the amount of scrolling of the settings  when moving it by clicking the slider to be the same as the other one
 
-[] maybe put an image on the slider of the sound
+[X] maybe put an image on the slider of the sound
 
-[X] create a temporary sound slider that is used only for the logic. The atribute should not be touched
+[X] create a temporary sound slider that is used only for the logic. The attribute should not be touched
 
 [X] create a global sound var 
 
-[X] if the user wants to add a keybind that is already being used, do something
+[X] if the user wants to add a key bind that is already being used, do something
 
 [X] add social icons
 
 [X] reverse the counter (3,2,1)
 
-[X] check in advance if fetching a figure makes the player loose and act consequently: No, changed aproach
+[X] check in advance if fetching a figure makes the player loose and act consequently: No, changed approach
 
 [X] create loose scene
 
@@ -170,18 +170,22 @@ You check if there is a button pressed and if so you make it not possible to cli
 
 [X] Add sound: when clearing a line (explosion from the escapists), when opening the settings and on the counter (sound from jumping on retro games)
 [X] Update: Music needs to be added still
-[] Update: Choose better sound effects. You can also implement a "radio" for music
 
 [X] Maybe: Implement account sign in. If it is possible, add a top 5 games on the opScene. Explore SDL_net: That's overkill. Start by learning basics of internet, protocols and user/server
 
-[] Do mantainance on all the code. FInish documentation
+[X] maintain on all the code. FInish documentation
 
-[] End Readme and add an ERaser diaggram on project structure. On readme: Explain what is SDL, what offers, how is your program stablished
+[X] End Readme and add an ERaser diagram on project structure. On readme: Explain what is SDL, what offers, how is your program stablished
 
-[] Add style with textures and pixel art
-
-[X] fix the death case: Sometimes it triggers when it shouldnt. 
+[X] fix the death case: Sometimes it triggers when it shouldn't. 
 
 [X] add the best play in the op scene
 
-[] add a button to return to the op scene in the settings
+[X] add a button to return to the op scene in the settings. NO
+
+
+# FINAL
+
+[] Add style with textures and pixel art AND fonts
+
+[] Choose better sound effects. You can also implement a "radio" for music
