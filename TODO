@@ -55,7 +55,7 @@ functions and other classes like Font or Button (or Figure for tetris blocks in 
 
 [X] Add collision when figures move horizontally while maintaining freedom of movement
 
-[X] MAINTAINANCE: add comments, clear code, present the classes...
+[X] MAINTENANCE: add comments, clear code, present the classes...
 
 [X] Make widths and heights relative to the ones in the screen
 

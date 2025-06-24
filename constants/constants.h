@@ -2,10 +2,10 @@
 #define CONSTANTS_H
 
 #include "Screen/Screen.h"
+#include "Sound/Sound.h"
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_render.h>
-#include "Sound/Sound.h"
 #include <fstream>
 #include <sstream>
 #include <vector>
@@ -244,7 +244,9 @@ enum class RPosition{
     POS_REL_DOWN_RIGHT
 };
 
-
+//This struct saves three integers corresponding to the level, the points and the lines
+//cleared in a game. It is used to extract and handle the best plays from the user from
+//a local file and write plays to it
 struct Score{
     int points;
     int level;

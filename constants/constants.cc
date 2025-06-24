@@ -237,7 +237,7 @@ int px(AbsPosition position, int objW){
 
 std::string convertKeyToLetter(SDL_Keycode key) {
     switch (key) {
-        // Letras
+
         case SDLK_a: return "A";
         case SDLK_b: return "B";
         case SDLK_c: return "C";
@@ -265,7 +265,6 @@ std::string convertKeyToLetter(SDL_Keycode key) {
         case SDLK_y: return "Y";
         case SDLK_z: return "Z";
 
-        // Números
         case SDLK_0: return "0";
         case SDLK_1: return "1";
         case SDLK_2: return "2";
@@ -277,7 +276,6 @@ std::string convertKeyToLetter(SDL_Keycode key) {
         case SDLK_8: return "8";
         case SDLK_9: return "9";
 
-        // Teclas especiales
         case SDLK_RETURN: return "ENTER";
         case SDLK_ESCAPE: return "ESCAPE";
         case SDLK_BACKSPACE: return "BACKSPACE";
@@ -296,7 +294,6 @@ std::string convertKeyToLetter(SDL_Keycode key) {
         case SDLK_RALT: return "RALT";
         case SDLK_CAPSLOCK: return "CAPSLOCK";
 
-        // Símbolos (teclado US)
         case SDLK_MINUS: return "-";
         case SDLK_EQUALS: return "=";
         case SDLK_LEFTBRACKET: return "[";
@@ -309,7 +306,6 @@ std::string convertKeyToLetter(SDL_Keycode key) {
         case SDLK_PERIOD: return ".";
         case SDLK_SLASH: return "/";
 
-        // Teclado numérico
         case SDLK_KP_0: return "KP_0";
         case SDLK_KP_1: return "KP_1";
         case SDLK_KP_2: return "KP_2";
@@ -348,7 +344,6 @@ SDL_Keycode convertLetterToKeycode(char c) {
         case '\t': return SDLK_TAB;
         case 27:   return SDLK_ESCAPE; // char ESC
 
-        // Símbolos comunes (layout US)
         case '-': return SDLK_MINUS;
         case '=': return SDLK_EQUALS;
         case '[': return SDLK_LEFTBRACKET;
@@ -361,7 +356,6 @@ SDL_Keycode convertLetterToKeycode(char c) {
         case '.': return SDLK_PERIOD;
         case '/': return SDLK_SLASH;
 
-        // Numpad equiv. opcional
         case '*': return SDLK_KP_MULTIPLY;
         case '+': return SDLK_KP_PLUS;
 
@@ -544,20 +538,20 @@ int SDL_RenderDrawCircle(SDL_Renderer * renderer, int x, int y, int radius, bool
 
         if(onlyRightQuadrant){
 
-            //upper right cuadrant
+            //upper right quadrant
             status += SDL_RenderDrawPoint(renderer, x + offsetx, y - offsety);
             status += SDL_RenderDrawPoint(renderer, x + offsety, y - offsetx);
     
-            //lower right cuadrant
+            //lower right quadrant
             status += SDL_RenderDrawPoint(renderer, x + offsetx, y + offsety);
             status += SDL_RenderDrawPoint(renderer, x + offsety, y + offsetx);
         } else{
 
-            //upper left cuadrant
+            //upper left quadrant
             status += SDL_RenderDrawPoint(renderer, x - offsetx, y - offsety);
             status += SDL_RenderDrawPoint(renderer, x - offsety, y - offsetx);
     
-            //lower left cuadrant
+            //lower left quadrant
             status += SDL_RenderDrawPoint(renderer, x - offsetx, y + offsety);
             status += SDL_RenderDrawPoint(renderer, x - offsety, y + offsetx);
         }   
