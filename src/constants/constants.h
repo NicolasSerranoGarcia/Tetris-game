@@ -313,6 +313,10 @@ bool updateBestPlays(Score newScore);
 bool sortBestPlays();
 
 
+std::vector <SDL_Keycode> getFileKeybinds();
+
+bool updateKeybindsFile();
+
 //This method returns the path of a random music track in the Sounds/Music directory
 std::string getRandomMusic();
 

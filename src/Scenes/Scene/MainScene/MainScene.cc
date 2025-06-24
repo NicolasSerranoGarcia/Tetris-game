@@ -3,6 +3,7 @@
 #include <iostream>
 
 MainScene::MainScene(){
+    updateKeybindsFile();
 
     explosionEffect.load("src/Sounds/Effects/explosion.wav");
 

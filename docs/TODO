@@ -192,4 +192,10 @@ You check if there is a button pressed and if so you make it not possible to cli
 
 [X] implement a "radio" for music
 
-[] put everything into a src directory
+[X] put everything into a src directory
+
+[] add buttons to pass or go back to previous songs
+
+[] save keybinds locally
+
+[] add buttons to stop, pass and go back to songs. Create a log file for the history of songs

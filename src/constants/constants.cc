@@ -5,7 +5,10 @@ const int SCREENWIDTH = 960;
 
 const int SCREENHEIGHT = 1000;
 
+
 const char * BESTPLAYSFILEPATH ="src/logs/bestPlays.txt";
+
+const char * KEYBINDSFILEPATH ="src/logs/keybinds.txt";
 
 
 const int BLOCKLENGTH = 46;
@@ -70,19 +73,19 @@ const int HFW = ISW;
 const int HFH = BLOCKLENGTH*2 + (int) (BLOCKLENGTH*(2.0/3));
 
 
-SDL_Keycode CONTROLLEFT = SDLK_LEFT;
+SDL_Keycode CONTROLLEFT = getFileKeybinds()[0];
 
-SDL_Keycode CONTROLRIGHT = SDLK_RIGHT;
+SDL_Keycode CONTROLRIGHT = getFileKeybinds()[1];
 
-SDL_Keycode CONTROLDOWN = SDLK_DOWN;
+SDL_Keycode CONTROLDOWN = getFileKeybinds()[2];
 
-SDL_Keycode CONTROLROTATERIGHT = SDLK_UP;
+SDL_Keycode CONTROLROTATERIGHT = getFileKeybinds()[3];
 
-SDL_Keycode CONTROLFASTDOWN = SDLK_SPACE;
+SDL_Keycode CONTROLROTATELEFT = getFileKeybinds()[4];
 
-SDL_Keycode CONTROLSWAP = SDLK_c;
+SDL_Keycode CONTROLFASTDOWN = getFileKeybinds()[5];
 
-SDL_Keycode CONTROLROTATELEFT = SDLK_v;
+SDL_Keycode CONTROLSWAP = getFileKeybinds()[6];
 
 
 Uint32 FALLSPEED = 1250;
@@ -471,6 +474,72 @@ bool sortBestPlays(){
     }
 
 
+    return false;
+}
+
+
+std::vector <SDL_Keycode> getFileKeybinds(){
+    std::ifstream bestPlaysFile;
+
+    bestPlaysFile.open(KEYBINDSFILEPATH);
+
+    //binds are saved in the following order
+    //LEFT, RIGHT, DOWN, ROT RIGHT, ROT LEFT, FAST DOWN, SWAP
+    std::vector <SDL_Keycode> keybinds;
+    
+    if(bestPlaysFile.is_open()){
+        std::string s;
+
+        while(std::getline(bestPlaysFile, s)){
+
+            keybinds.push_back((SDL_Keycode) std::stoi(s));
+        }
+    }
+    
+    return keybinds;
+}
+
+bool updateKeybindsFile(){
+
+    std::ofstream keybindsFile;
+
+    keybindsFile.open(KEYBINDSFILEPATH, std::ios::out);
+    
+    if(keybindsFile.is_open()){
+
+        for(int i = 0; i < 7; i++){
+            switch(i){
+                case 0:
+                    keybindsFile << CONTROLLEFT;
+                    break;
+                case 1:
+                    keybindsFile << CONTROLRIGHT;
+                    break;
+                case 2:
+                    keybindsFile << CONTROLDOWN;
+                    break;
+                case 3:
+                    keybindsFile << CONTROLROTATERIGHT;
+                    break;
+                case 4:
+                    keybindsFile << CONTROLROTATELEFT;
+                    break;
+                case 5:
+                    keybindsFile << CONTROLFASTDOWN;
+                    break;
+                case 6:
+                    keybindsFile << CONTROLSWAP;
+                    break;
+                default:
+                    break;
+            }
+            keybindsFile << "\n";
+        }
+
+        keybindsFile.close();
+        return true;
+    }
+        
     return false;
 }
 

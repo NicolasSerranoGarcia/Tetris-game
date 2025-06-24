@@ -836,7 +836,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
             return;
         }
 
-     for(auto i = mapButtonPressed.begin(); i != mapButtonPressed.end(); i++){
+    for(auto i = mapButtonPressed.begin(); i != mapButtonPressed.end(); i++){
 
         //easier access
 
@@ -859,6 +859,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
 
                     //returns a reference
                     getKeyBindByKey(i->first) = event.key.keysym.sym;
+                    updateKeybindsFile();
 
                     anyButtonPressed = false;
                     i->second.clicked = false;
