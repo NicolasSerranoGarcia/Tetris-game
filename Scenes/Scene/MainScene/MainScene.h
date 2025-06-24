@@ -3,7 +3,7 @@
 
 #include "constants/constants.h"
 
-//FIles for auxilary clases
+//Files for auxilary classes
 #include "Image/Image.h"
 #include "Button/Button.h"
 #include "Font/Font.h"
@@ -178,9 +178,9 @@ void getRandomFigure(Figure *& curFigure, Figure * lastFigs[]);
 void fetchNextFigure(Figure *& curFigure, Figure * nextFigs[]);
 
 //This function returns true if the figure passed as a parameter collides with any of the figures
-//of the gameboard. 
+//of the game board. 
 //NOTE: Keep in mind that the figure will be checked with a movement. That is,
-//the function checks if the figure colides IN THE CASE the figure is moved in the way that
+//the function checks if the figure collides IN THE CASE the figure is moved in the way that
 //the "key" parameter dictates. 
 //
 //RETURNS:
@@ -188,17 +188,17 @@ void fetchNextFigure(Figure *& curFigure, Figure * nextFigs[]);
 //-false in any other case. It will also return false if the parameter passed as "key" is not
 //one of the game keys. The current game keys that need collision checking are rotate, 
 //move left, move right and move down.
-bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure * const & curFigure);
+bool collides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure * const & curFigure);
 
 //This function returns true if the figure passed as a parameter collides with any of the figures
 //of the game board. 
-//NOTE: This function, unlike colides(), checks if the figure colides in it's current position (no 
+//NOTE: This function, unlike collides(), checks if the figure collides in it's current position (no 
 //movement in advance). This function also checks collision with the borders
 //
 //RETURNS:
-//-true if the function colides
+//-true if the function collides
 //-false in any other case
-bool colidesStatic(std::vector <Figure*> gameBoard, Figure * const &figure);
+bool collidesStatic(std::vector <Figure*> gameBoard, Figure * const &figure);
 
 //This function handles the mechanic of the fast drop. The figure passed as a parameter will be
 //updated as if it was "dropped" until the lowest possible point without coliding with another
@@ -217,22 +217,22 @@ void handleFastDrop(SDL_Event event, Figure*& figure, MainScene& m);
 void renderNextFigures(Figure * nextFigs[], int nextBgH);
 
 //This function checks wether if the current state of the game is a death point. This function will not
-//interfere with any atribute of the class. It will normally be called as a condition for something else.
+//interfere with any attribute of the class. It will normally be called as a condition for something else.
 //
 //RETURNS:
 //-false if the user is not dead
 //-true otherwise
 bool isDead(std::vector <Figure*> gameBoard, Figure *& currentFigure);
 
-//This function takes all the info necesary to swap a figure when the swap key is pressed. Notice that the function does not check if the key pressed
+//This function takes all the info necessary to swap a figure when the swap key is pressed. Notice that the function does not check if the key pressed
 //is the swap key. Therefore this function should be called when we WANT to swap a figure. There's also no check for the number of times a figure is swapped.
-//All of this is left asside of the function.
+//All of this is left aside of the function.
 //
 //RETURNS:
 //void
 void handleSwap(Figure *& fallingFigure, Figure *& heldFigure, Figure * nextFigs[], int * numSwaps, std::vector <Figure*> gameBoard);
 
-//This function places the holded figure in it's corresponding sqaure in the screen. This is just a function to change the position of the holded figure
+//This function places the held figure in it's corresponding square in the screen. This is just a function to change the position of the held figure
 //so that it is rendered on the correct position
 //
 //RETURNS:

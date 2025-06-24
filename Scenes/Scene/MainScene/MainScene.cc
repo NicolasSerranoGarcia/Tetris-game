@@ -270,7 +270,7 @@ void MainScene::render(){
 
         //In each iteration we will check if it is "safe" to move the shadow one position down. 
         //When we get to the point where moving the shadow 1 pos. down will cause it to overlap, stop
-        while(!colides(gameBoard, CONTROLDOWN, sh) && (smallestY != 19)){
+        while(!collides(gameBoard, CONTROLDOWN, sh) && (smallestY != 19)){
             for(int i = 0; i < (int) shadow.getBlocks().size(); i++){
                 shadow.getBlocks()[i].setBlockY(shadow.getBlocks()[i].getBlockY() + 1);
 
@@ -506,7 +506,7 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
     }
 
     
-    bool collision = colides(gameBoard, event.key.keysym.sym, currentFigure);
+    bool collision = collides(gameBoard, event.key.keysym.sym, currentFigure);
     
     //If there is no collision then it is safe to update
     if(!collision && !isDead(gameBoard, currentFigure)){
@@ -535,6 +535,7 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
         mScene = curScene;
         curScene = nullptr;
         curScene = new LooseScene;
+        curScene->render();
     }
 }
 
@@ -575,7 +576,7 @@ void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScen
             event.type = SDL_KEYDOWN;
             event.key.keysym.sym = CONTROLDOWN;
 
-            bool colision = colides(gameBoard, event.key.keysym.sym, currentFigure);
+            bool colision = collides(gameBoard, event.key.keysym.sym, currentFigure);
 
             //If there is no colision then it is safe to update
             if(!colision){
@@ -611,7 +612,7 @@ void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScen
         
     //At this point, all the events will have been handled (the handleEvents() loop is already called).
     //We also have taken care of automatic falling. This means that at this point the figure cannot
-    //move in any way. Also, if it needed to be placed (and conscuently belonging to the gameBoard at that moment),
+    //move in any way. Also, if it needed to be placed (and consequently belonging to the gameBoard at that moment),
     //it was before this point. Now we have a static gameBoard and a static figure. We need to take care of the lines
     //that need to be cleared
     
@@ -671,7 +672,7 @@ void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScen
                 
                 //Deleting a line by deleting the blocks of the figure can lead to having a figure whose
                 //vector of blocks is empty (we delete blocks, but not figures). Here we check if
-                //there is a figure with no blocks and delete it from the gameboard
+                //there is a figure with no blocks and delete it from the game board
 
                     for(int k = 0; k < (int) gameBoard.size(); k++){
                         if(gameBoard[k]->getBlocks().size() == 0){
@@ -822,7 +823,7 @@ void fetchNextFigure(Figure *& curFigure, Figure * nextFigs[]){
     getRandomFigure(nextFigs[2], arr);
 }
 
-bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure * const &figure){
+bool collides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure * const &figure){
 
     if(CONTROLDOWN == key){
 
@@ -893,7 +894,7 @@ bool colides(std::vector <Figure*> gameBoard, SDL_Keycode key, Figure * const &f
     return false;
 }
 
-bool colidesStatic(std::vector <Figure*> gameBoard, Figure *&figure){
+bool collidesStatic(std::vector <Figure*> gameBoard, Figure *&figure){
     for(int i = 0; i < (int) gameBoard.size(); i++){
         for(int j = 0; j < (int) gameBoard[i]->getBlocks().size(); j++){
             for(int k = 0; k < (int) figure->getBlocks().size(); k++){
@@ -946,8 +947,8 @@ void handleFastDrop(SDL_Event event, Figure*& figure, MainScene& m){
             }
         }
 
-        //Move the figure down until it colides
-        while(!colides(m.getGameBoard(), CONTROLDOWN, figure) && (largestY != 19)){
+        //Move the figure down until it collides
+        while(!collides(m.getGameBoard(), CONTROLDOWN, figure) && (largestY != 19)){
             figure->getBlocks()[figure->getLeadingBlockPos()].setBlockY(figure->getBlocks()[figure->getLeadingBlockPos()].getBlockY() + 1);
             figure->updateBlocks();
             largestY += 1;
@@ -966,7 +967,7 @@ void renderNextFigures(Figure * nextFigs[], int nextBgH){
     int w = FSW;
     int h = FSH - nextBgH;
 
-    //Make a copy of the figures that will be comming next. Note that we
+    //Make a copy of the figures that will be coming next. Note that we
     //are not saving pointers to figures, but figures directly
 
         Figure figs[3];
@@ -976,7 +977,7 @@ void renderNextFigures(Figure * nextFigs[], int nextBgH){
     
     int spacing = (int) ((h - BLOCKLENGTH*6)/4);
 
-    //This loop renders the three figures from highest to lowest (the figure that is higher is the closest to being fetched to the gameboard
+    //This loop renders the three figures from highest to lowest (the figure that is higher is the closest to being fetched to the game board
     //and so on). Note that we need to position the figures in the correct place; this is what the loop is doing. At the end it will also render
     //the figure
     for(int i = 0; i < 3; i++){
@@ -1110,30 +1111,7 @@ void renderNextFigures(Figure * nextFigs[], int nextBgH){
 }
 
 bool isDead(std::vector <Figure*> gameBoard, Figure *& currentFigure){
-
-    //calculate the highest point. Note that the y-axis is inverted, and 0 > 19 in our system
-
-    // int maxHeight = 19;
-    // int figMinHeight = 0;
-    // for(int i = 0; i < (int) gameBoard.size(); i++){
-    //     for(int j = 0; j < (int) gameBoard[i]->getBlocks().size(); j++){
-
-    //         if(gameBoard[i]->getBlocks()[j].getBlockY() < maxHeight){
-
-    //             maxHeight = gameBoard[i]->getBlocks()[j].getBlockY();
-    //         }
-    //     }
-    // }
-
-    // for(int i = 0; i < (int) currentFigure->getBlocks().size(); i++){
-        
-    //     if(currentFigure->getBlocks()[i].getBlockY() > figMinHeight){
-            
-    //         figMinHeight = currentFigure->getBlocks()[i].getBlockY();
-    //     }
-    // }
-
-    if(colidesStatic(gameBoard, currentFigure)){
+    if(collidesStatic(gameBoard, currentFigure)){
         return true;
     }
     return false;
@@ -1152,9 +1130,9 @@ void handleSwap(Figure *& fallingFigure, Figure *& heldFigure, Figure * nextFigs
     temp->getBlocks()[temp->getLeadingBlockPos()].setBlockY(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockY());
     temp->updateBlocks();
 
-    if((*numSwaps != 2) && !colidesStatic(gameBoard, temp)){
+    if((*numSwaps != 2) && !collidesStatic(gameBoard, temp)){
         temp = fallingFigure;
-        //check if the swap makes the figure colide. If it does, swap is not enabled
+        //check if the swap makes the figure collide. If it does, swap is not enabled
         heldFigure->getBlocks()[heldFigure->getLeadingBlockPos()].setBlockX(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockX());
         heldFigure->getBlocks()[heldFigure->getLeadingBlockPos()].setBlockY(fallingFigure->getBlocks()[fallingFigure->getLeadingBlockPos()].getBlockY());
         heldFigure->updateBlocks();

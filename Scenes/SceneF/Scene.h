@@ -14,15 +14,15 @@
 //it's own methods for rendering the scene, handling the events that come from the user and, depending
 //on the complexity of the scene, other methods like handling the logic. Except special cases, whenever
 //a scene is switched, the scene that was showing will be deleted. This means that the instance of the 
-//child scene will be deleted. If the user invoques the scene again, a new instance will be created. 
+//child scene will be deleted. If the user invokes the scene again, a new instance will be created. 
 //For more info see the documentation
 class Scene{
 
     private:
 
-        //This map saves the buttons with an asociated string key.
+        //This map saves the buttons with an associated string key.
         //A conventional vector would have implicit conventions to locate
-        //the buttons if there are a lot, so this way we can eficiently
+        //the buttons if there are a lot, so this way we can efficiently
         //use the string keys to get the desired button
         std::map <std::string, Button> name_buttons;
 
@@ -46,7 +46,7 @@ class Scene{
         virtual std::map <std::string, Button>& getButtonMap();
 
 
-        //MISCELANEOUS
+        //MISCELLANEOUS
 
         //This method shows the scene by calling SDL_RenderPresent()
         //

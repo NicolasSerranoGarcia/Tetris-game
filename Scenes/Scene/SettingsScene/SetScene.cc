@@ -546,8 +546,8 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                 int sliderW = sliderBtn.getContainer().w;
                 int sliderH = sliderBtn.getContainer().h;
 
-                int sliderMin = settingsSlider.getMinY();
-                int sliderMax = settingsSlider.getMaxY();
+                int sliderMin = settingsSlider.getMin();
+                int sliderMax = settingsSlider.getMax();
 
                 int newY = sliderY + event.motion.yrel;
 
@@ -657,8 +657,8 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                 int sliderW = sliderBtn.getContainer().w;
                 int sliderH = sliderBtn.getContainer().h;
 
-                int sliderMin = soundSlider.getMinY();
-                int sliderMax = soundSlider.getMaxY();
+                int sliderMin = soundSlider.getMin();
+                int sliderMax = soundSlider.getMax();
 
                 int newX = sliderX + event.motion.xrel;
 
@@ -682,7 +682,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
 
             //Calculate the % of the sound
 
-                int newSoundLevel =(int) (100 * ((double) (newX - soundSlider.getMinY())/ (soundSlider.getMaxY() - soundSlider.getMinY())));
+                int newSoundLevel =(int) (100 * ((double) (newX - soundSlider.getMin())/ (soundSlider.getMax() - soundSlider.getMin())));
 
                 GENERALSOUNDLVL = newSoundLevel;
 
@@ -698,8 +698,8 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                 int sliderW = sliderBtn.getContainer().w;
                 int sliderH = sliderBtn.getContainer().h;
 
-                int sliderMin = effectsSlider.getMinY();
-                int sliderMax = effectsSlider.getMaxY();
+                int sliderMin = effectsSlider.getMin();
+                int sliderMax = effectsSlider.getMax();
 
                 int newX = sliderX + event.motion.xrel;
 
@@ -723,7 +723,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
 
             //Calculate the % of the sound
 
-                int newSoundLevel = (int) (100 * ((double) (newX - effectsSlider.getMinY())/ (effectsSlider.getMaxY() - effectsSlider.getMinY())));
+                int newSoundLevel = (int) (100 * ((double) (newX - effectsSlider.getMin())/ (effectsSlider.getMax() - effectsSlider.getMin())));
 
                 EFFECTSSOUNDLVL = newSoundLevel;
 
@@ -740,8 +740,8 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
 
             int scrollRange = SETTINGSTEXTUREH - SETTINGSBACKGROUNDH;
 
-            int sliderMin = settingsSlider.getMinY();
-            int sliderMax = settingsSlider.getMaxY();
+            int sliderMin = settingsSlider.getMin();
+            int sliderMax = settingsSlider.getMax();
 
             Button sliderBtn = settingsSlider.getSliderButton();
 
@@ -893,9 +893,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
     }
 }
 
-void SetScene::handleLogic(Uint32 *, Scene *&, Scene *&){
-    
-}
+void SetScene::handleLogic(Uint32 *, Scene *&, Scene *&){}
 
 void SetScene::renderAllButtons(std::map <std::string, Button> map){
     for (auto i = map.begin(); i != map.end(); i++){

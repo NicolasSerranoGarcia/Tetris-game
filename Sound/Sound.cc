@@ -1,4 +1,5 @@
 #include "Sound.h"
+
 #include <iostream>
 
 bool Sound::mixerInitialized = false;

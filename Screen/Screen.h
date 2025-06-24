@@ -7,8 +7,8 @@
 
 //This class holds the necessary objects to start a window and draw things to it.
 //There's currently one global instance of this class, called mainScreen. The
-//normal functioning of the class is to use the render atribute, which is static,
-//to render whatever must be render at the moment. You will normaly see this
+//normal functioning of the class is to use the render attribute, which is static,
+//to render whatever must be render at the moment. You will normally see this
 //put to practice when I do something like SDL_RenderPresent(mainScreen.getRender());
 //which will show all the rendering process made before
 class Screen {
@@ -34,13 +34,13 @@ class Screen {
         static SDL_Renderer* render;
 
         //Textures used on the scenes. Currently empty
-        static std::vector<SDL_Texture*> *textures;
+        static std::vector<SDL_Texture*> textures;
 
     public:
 
         //CONSTRUCTORS/DESTRUCTOR
 
-        //Constructor. The start of the program should be the only place where a screen is opened. All the operations will be perfomred on this screen.
+        //Constructor. The start of the program should be the only place where a screen is opened. All the operations will be performed on this screen.
         Screen(int w, int h, const char * title);
     
         //Destructor
@@ -85,7 +85,7 @@ class Screen {
         //A pointer to the vector of textures of the screen. The elements 
         //of the vector are also pointers to SDL_Texture instances.
         //Currently no use of it
-        static std::vector<SDL_Texture*>* getTextures();
+        static std::vector<SDL_Texture*> getTextures();
 
 
         //SETTERS
@@ -109,18 +109,18 @@ class Screen {
         void setTitle(int title);
 
 
-        //MISCELANEOUS
+        //MISCELLANEOUS
 
-        //Methd that recieves a rectangle and a color; renders the rectangle (the interior too) and shows it.
+        //Method that receives a rectangle and a color; renders the rectangle (the interior too) and shows it.
         //This method calls SDL_RenderPresent
         //
         //RETURNS:
         //void 
         void showSquare(SDL_Rect rect, SDL_Color color) const;
 
-        //Method that recieves a color and clears the screen. Clear means that
+        //Method that receives a color and clears the screen. Clear means that
         //the next frame will just be an empty frame with the background color
-        //that was chosen, ready to be filled with ojbects again.
+        //that was chosen, ready to be filled with objects again.
         //
         //RETURNS: 
         //void

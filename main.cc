@@ -3,26 +3,28 @@
 //
 //  GITHUB: https://github.com/NicolasSerranoGarcia
 //
-// ^^Some support would be apreciated^^
+// ^^Some support would be appreciated^^
 //
 //
 // START DATE OF THE PROJECT: 02/04/2025
 //
 //
-// MADE BY NICOLAS SERRANO GARCÍA - FIRST YEAR COMPUTER ENGINEER AT UNIVERSITY OF ALICANTE (AT DATE OF CREATION)
+// MADE BY NICOLAS SERRANO GARCIA - FIRST YEAR COMPUTER ENGINEER AT UNIVERSITY OF ALICANTE (AT DATE OF CREATION)
 //
 //
-// THANKS TO/ ATRIBUTIONS: 
+// THANKS TO/ ATTRIBUTIONS: 
 //  - The Builder (https://www.youtube.com/@TheBuilder) for teaching me the basics of SDL
-//  - Tetris (https://tetris.com/play-tetris) for letting me visualize and play arround with the mechanics of the game
+//  - Tetris (https://tetris.com/play-tetris) for letting me visualize and play around with the mechanics of the game
 //  - Google Fonts (https://fonts.google.com/) for the fonts I used in the project
 //  - CodeCogs (https://editor.codecogs.com/) for letting me create visual formulas in LaTex
 //  - Gumichan01 (https://gist.github.com/Gumichan01/332c26f6197a432db91cc4327fcabb1c) for creating functions to render a circle (magic)
-//  - The logo of linktre https://iconscout.com/icons/linktree by "https://iconscout.com/contributors/ihdizein" on https://iconscout.com/
-//  - Programing 2 class from my University, for teaching me the basics of C++
+//  - The logo of linktree https://iconscout.com/icons/linktree by "https://iconscout.com/contributors/ihdizein" on https://iconscout.com/
+//  - Programming 2 class from my University, for teaching me the basics of C++
 //  - Explosion Sound retro explosion 4 sfx by stumpbutt -- https://freesound.org/s/630060/ -- License: Creative Commons 0
 //  - menu hover 3 by EtherAudio -- https://freesound.org/s/750190/ -- License: Attribution 4.0
 //  - countdown-click.wav by Troube -- https://freesound.org/s/631547/ -- License: Creative Commons 0
+//  - Pix on youtube for it's playlist on 8 bit ambient music https://www.youtube.com/playlist?list=PLdsGes2mFh92eHpOZVJQgoubb6rF0CcvU
+//    His channel https://www.youtube.com/@Pixverses
 //  
 //
 // ABOUT: This project was made from scratch by me. To be honest, I first thought of doing this project right before finishing two C based projects (Pacman and Snake)
@@ -30,13 +32,13 @@
 //  Turns out on second semester of first year I'm learning OOP by using C++. I knew SDL was commonly used with C++ so I thought of this.
 //
 //  When I started coding, I literally knew how to create a class with a .h and .cc, declaring methods on public and atributes on private. Little to nothing. This project has also
-//  been a way to learn some more advanced things like object polimorfhism using abstract classes and virtual methods, dynamic pointers... I've had to deal with a lot of header
+//  been a way to learn some more advanced things like object polymorphism using abstract classes and virtual methods, dynamic pointers... I've had to deal with a lot of header
 //  handling so I have also learnt a bit of make. Other things like .gitignore have been really usefull with a project of this size. I've never made something bigger than 2 files.
 //  This is also the first time I've used git and Github in the correct way (I think). I really like this tool. Overall, I have learnt a LOT of things. Rn developing games
 //  is the most direct way for me to learn. Follow my github to check out on some other projects I'll be developing in the future.
 //
 //
-//  LICENSE: This project has absolutely no license nor it is aimed to profit me in any financial way. If anything, it is a way for me to show my apreciation for retro
+//  LICENSE: This project has absolutely no license nor it is aimed to profit me in any financial way. If anything, it is a way for me to show my appreciation for retro
 //  games and an attempt to recreate one
 //
 //  Thanks for reading and enjoy my implementation of tetris ;)
@@ -90,10 +92,11 @@ int main(){
     {
 
         //play some music ;)
-        Sound backgroundMusic;
-        backgroundMusic.load("Sounds/Music/backgroundMusic.wav");
-        backgroundMusic.setVolume(GENERALSOUNDLVL);
-        backgroundMusic.play();
+
+            Sound backgroundMusic;
+            backgroundMusic.load("Sounds/Music/backgroundMusic.wav");
+            backgroundMusic.setVolume(GENERALSOUNDLVL);
+            backgroundMusic.play();
 
 
         bool running = true;
@@ -119,11 +122,15 @@ int main(){
 
             // currentScene->clear();
 
-            if(!backgroundMusic.isPlaying()){
-                backgroundMusic.play();
-            }
-            
-            backgroundMusic.setVolume(GENERALSOUNDLVL);
+
+            //Make sure the music always plays and that the 
+            //volume is correctly set
+
+                if(!backgroundMusic.isPlaying()){
+                    backgroundMusic.play();
+                }
+                
+                backgroundMusic.setVolume(GENERALSOUNDLVL);
         }
     }
 

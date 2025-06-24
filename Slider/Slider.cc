@@ -5,10 +5,10 @@
 Slider::Slider(){
 }
 
-Slider::Slider(Button button, int minY, int maxY, SDL_Color pressedColor){
+Slider::Slider(Button button, int minPos, int maxPos, SDL_Color pressedColor){
     slider = button;
-    this->minY = minY;
-    this->maxY = maxY;
+    this->minPos = minPos;
+    this->maxPos = maxPos;
     this->pressedColor = pressedColor;
 }
 
@@ -18,12 +18,12 @@ Button Slider::getSliderButton() {
     return slider;
 }
 
-int Slider::getMinY() {
-    return minY;
+int Slider::getMin() {
+    return minPos;
 }
 
-int Slider::getMaxY() {
-    return maxY;
+int Slider::getMax() {
+    return maxPos;
 }
 
 bool Slider::getClickedNow(){
@@ -54,12 +54,12 @@ void Slider::setSliderY(int y){
     slider.setContainer(rect);
 }
 
-void Slider::setMinY(int y) {
-    minY = y;
+void Slider::setMin(int y) {
+    minPos = y;
 }
 
-void Slider::setMaxY(int y) {
-    maxY = y;
+void Slider::setMax(int y) {
+    maxPos = y;
 }
 
 void Slider::setPressedColor(SDL_Color color) {
@@ -76,6 +76,7 @@ void Slider::render(){
         slider.setColor(pressedColor);
         slider.drawToRender();
     } else{
+        
         SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
         SDL_Color color = slider.getColor();
         color.a = 50;
@@ -83,10 +84,6 @@ void Slider::render(){
         slider.drawToRender();
         SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
     }
-}
-
-bool Slider::isClicked(SDL_Event *event){
-    return slider.isClicked(&*event);
 }
 
 void Slider::RenderAsCircle(){
@@ -115,4 +112,8 @@ void Slider::RenderAsCircle(){
 
         SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
     }
+}
+
+bool Slider::isClicked(SDL_Event *event){
+    return slider.isClicked(&*event);
 }

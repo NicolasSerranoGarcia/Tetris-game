@@ -5,11 +5,11 @@
 
 //set static variables
 
-SDL_Window* Screen::window = nullptr;
-SDL_Renderer* Screen::render = nullptr;
-std::vector<SDL_Texture*> *Screen::textures = nullptr;
+SDL_Window * Screen::window = nullptr;
+SDL_Renderer * Screen::render = nullptr;
+std::vector<SDL_Texture*> Screen::textures;
 
- 
+
 Screen::Screen(int w, int h, const char * title) {
     width = w;
     height = h;
@@ -27,24 +27,27 @@ Screen::~Screen(){
     //SDL destructors
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(render);
+
+    for(int i = 0; i < (int) textures.size(); i++){
+        SDL_DestroyTexture(textures[i]);
+    }
     
-    //Make sure the pointers are correctly reseted
+    //Make sure the pointers are correctly reset
     window = nullptr;
     render = nullptr;
-    textures = nullptr;
 
-    this->height = 0;
-    this->width = 0;
-    this->title = "";
+    height = 0;
+    width = 0;
+    title = "";
 }
 
 
 int Screen::getWidth() const{
-    return this->width;
+    return width;
 }
 
 int Screen::getHeight() const{
-    return this->height;
+    return height;
 }
 
 std::string Screen::getTitle() const{
@@ -59,7 +62,7 @@ SDL_Renderer* Screen::getRender(){
     return render;
 }
 
-std::vector<SDL_Texture*>* Screen::getTextures(){
+std::vector<SDL_Texture*> Screen::getTextures(){
     return textures;
 }
 
