@@ -188,4 +188,8 @@ You check if there is a button pressed and if so you make it not possible to cli
 
 [] Add style with textures and pixel art AND fonts
 
-[] Choose better sound effects. You can also implement a "radio" for music
+[] Choose better sound effects
+
+[X] implement a "radio" for music
+
+[] put everything into a src directory

@@ -1,28 +1,22 @@
 CXX = g++
-CXXFLAGS = -Wall -Wextra -g -std=c++17 -I. -IScreen -IScene $(shell sdl2-config --cflags)
+CXXFLAGS = -Wall -Wextra -g -std=c++17 -I. -Isrc/Screen -Isrc/Scene $(shell sdl2-config --cflags)
 LDFLAGS = $(shell sdl2-config --libs) -lSDL2_ttf -lSDL2_image -lSDL2_mixer
 TARGET = tetris
 
-# Source detection
-SRC = $(shell find Screen Font Button Scenes Figures constants Image Slider Sound Music -name '*.cc') main.cc
+SRC = $(shell find src -name '*.cc')
+OBJ = $(patsubst src/%.cc, build/%.o, $(SRC))
 
-#Object generation
-OBJ = $(SRC:.cc=.o)
-
-# Main rule
 all: $(TARGET)
 
-#tetris is dependent of all the binary files
 $(TARGET): $(OBJ)
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
-# Implicit rule to compile independent files
-%.o: %.cc
+build/%.o: src/%.cc
 	@mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(TARGET)
-	find . -name "*.o" -delete
+	rm -rf build
 
 .PHONY: all clean
