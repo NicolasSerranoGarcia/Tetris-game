@@ -13,7 +13,7 @@ class LooseScene: public Scene{
     public:
         LooseScene();
         void render() override;
-        void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene) override;
+        void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene, Sound *) override;
         void handleLogic(Uint32 *, Scene *&, Scene *&) override;
 };
 

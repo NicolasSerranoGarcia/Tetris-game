@@ -167,7 +167,7 @@ void LooseScene::render(){
     LinesNum.drawTextToRender();
 }
 
-void LooseScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
+void LooseScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene, Sound *){
     if(mainScene == nullptr){ 
        mainScene = mScene;
     }  

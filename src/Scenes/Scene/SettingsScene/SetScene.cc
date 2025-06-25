@@ -112,6 +112,27 @@ SetScene::SetScene(){
         instagramLogic = instagram;
         insta.button= instagramLogic;
         insta.clicked = false;
+
+    //Setup the buttons of the radio
+
+        goBackMusic = {23 + SETTINGSBACKGROUNDX + 400, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.3), (int) (BLOCKLENGTH*1.3), LIGHT_GREY, &mainScreen};
+        goBackMusicLogic = goBackMusic;
+        goBck.button = goBackMusicLogic;
+        goBck.clicked = false;
+
+        //go forward
+
+        goForwardMusic = {23 + SETTINGSBACKGROUNDX + 400 + goBackMusic.getContainer().w*2 + 20, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.3), (int) (BLOCKLENGTH*1.3), LIGHT_GREY, &mainScreen};
+        goForwardMusicLogic = goForwardMusic;
+        goFor.button = goForwardMusicLogic;
+        goFor.clicked = false;
+
+        //stop 
+
+        stopMusic = {23 + SETTINGSBACKGROUNDX + 400 + goBackMusic.getContainer().w + 10, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.3), (int) (BLOCKLENGTH*1.3), LIGHT_GREY, &mainScreen};
+        stopMusicLogic = stopMusic;
+        stp.button = stopMusicLogic;
+        stp.clicked = false;
 }
 
 SDL_Rect SetScene::getSourceRect(){
@@ -364,6 +385,65 @@ void SetScene::render(){
                 linkBtn.drawToRender();
             }
         }
+
+
+        {
+            Image goBackMusicIMG(goBackMusic.getContainer().x - SETTINGSBACKGROUNDX, goBackMusic.getContainer().y - SETTINGSBACKGROUNDY, goBackMusic.getContainer().w, goBackMusic.getContainer().h, "SetScene-rewind", "png");
+
+            Button goBackBtn = goBackMusic;
+
+            goBackBtn.setContainer({goBackBtn.getContainer().x - SETTINGSBACKGROUNDX, goBackBtn.getContainer().y - SETTINGSBACKGROUNDY, goBackBtn.getContainer().w, goBackBtn.getContainer().h});
+
+            goBackBtn.setImage(&goBackMusicIMG);
+
+
+            if(goBck.clicked){
+                goBackBtn.setColor(LIGHT_BLUE);
+                goBackBtn.drawToRender();
+            } else{
+                goBackBtn.drawToRender();
+            }
+        }
+
+
+
+        {
+            Image goForwardMusicIMG(goForwardMusic.getContainer().x - SETTINGSBACKGROUNDX, goForwardMusic.getContainer().y - SETTINGSBACKGROUNDY, goForwardMusic.getContainer().w, goForwardMusic.getContainer().h, "SetScene-skip", "png");
+
+            Button goForwardBtn = goForwardMusic;
+
+            goForwardBtn.setContainer({goForwardBtn.getContainer().x - SETTINGSBACKGROUNDX, goForwardBtn.getContainer().y - SETTINGSBACKGROUNDY, goForwardBtn.getContainer().w, goForwardBtn.getContainer().h});
+
+            goForwardBtn.setImage(&goForwardMusicIMG);
+
+
+            if(goFor.clicked){
+                goForwardBtn.setColor(LIGHT_BLUE);
+                goForwardBtn.drawToRender();
+            } else{
+                goForwardBtn.drawToRender();
+            }
+        }
+
+
+        {
+            Image stopMusicIMG(stopMusic.getContainer().x - SETTINGSBACKGROUNDX, stopMusic.getContainer().y - SETTINGSBACKGROUNDY, stopMusic.getContainer().w, stopMusic.getContainer().h, isStoped ? "SetScene-resume" : "SetScene-stop", "png");
+
+            Button stopBtn = stopMusic;
+
+            stopBtn.setContainer({stopBtn.getContainer().x - SETTINGSBACKGROUNDX, stopBtn.getContainer().y - SETTINGSBACKGROUNDY, stopBtn.getContainer().w, stopBtn.getContainer().h});
+
+            stopBtn.setImage(&stopMusicIMG);
+
+
+            if(stp.clicked){
+                stopBtn.setColor(LIGHT_BLUE);
+                stopBtn.drawToRender();
+            } else{
+                stopBtn.drawToRender();
+            }
+        }
+
         
     //Set the render target back to the mainScreen
         
@@ -394,9 +474,9 @@ void SetScene::render(){
     SDL_DestroyTexture(settingsTexture);
 }
 
-void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
+void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene, Sound * music){
 
-    //Set the mainScene that comes from the main as an atribute (for rendering the background)
+    //Set the mainScene that comes from the main as an attribute (for rendering the background)
 
         if(mainScene == nullptr){
             mainScene = mScene;
@@ -448,7 +528,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
     //All the "exceptions" are handled at this point
 
 
-    //If the user clicks on the slider (any of them), change the state of the slidebar to clicked
+    //If the user clicks on the slider (any of them), change the state of the slide bar to clicked
 
         if((event.type == SDL_MOUSEBUTTONDOWN) && settingsSlider.isClicked(&event)){
             settingsSlider.setClickedNow(true);
@@ -503,6 +583,19 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
             insta.clicked = true;
         }
 
+        if((event.type == SDL_MOUSEBUTTONDOWN) && goBackMusicLogic.isClicked(&event)){
+            goBck.clicked = true;
+        }
+
+        if((event.type == SDL_MOUSEBUTTONDOWN) && goForwardMusicLogic.isClicked(&event)){
+            goFor.clicked = true;
+        }
+
+        if((event.type == SDL_MOUSEBUTTONDOWN) && stopMusicLogic.isClicked(&event)){
+            stp.clicked = true;
+            isStoped = !isStoped;
+        }
+
     //If the user, on the other hand, lets go the click, change the slider state consequently
 
         if((event.type == SDL_MOUSEBUTTONUP) && settingsSlider.getClickedNow()){
@@ -532,6 +625,21 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
         if((event.type == SDL_MOUSEBUTTONUP) && insta.clicked){
             insta.clicked = false;
             system("xdg-open https://www.instagram.com/nicolasserranogarcia/");
+        }
+
+        if((event.type == SDL_MOUSEBUTTONUP) && goBck.clicked){
+            goBck.clicked = false;
+            /* logic for sound*/
+        }
+
+        if((event.type == SDL_MOUSEBUTTONUP) && goFor.clicked){
+            goFor.clicked = false;
+            /* logic for sound*/
+        }
+
+        if((event.type == SDL_MOUSEBUTTONUP) && stp.clicked){
+            stp.clicked = false;
+            /* logic for sound*/
         }
 
     //If the user is currently clicking the slider and moves the mouse, update the settings
@@ -644,6 +752,34 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                     instagramLogic.setVisibility(true);
                 }
 
+                //go back
+                goBackMusicLogic.setContainer({goBackMusic.getContainer().x, goBackMusic.getContainer().y - newSrc.y, goBackMusic.getContainer().w, goBackMusic.getContainer().h});
+
+                if(goBackMusicLogic.getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
+                    goBackMusicLogic.setVisibility(false);
+                } else {
+                    goBackMusicLogic.setVisibility(true);
+                }
+
+                //go forward
+
+                goForwardMusicLogic.setContainer({goForwardMusic.getContainer().x, goForwardMusic.getContainer().y - newSrc.y, goForwardMusic.getContainer().w, goForwardMusic.getContainer().h});
+
+                if(goForwardMusicLogic.getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
+                    goForwardMusicLogic.setVisibility(false);
+                } else {
+                    goForwardMusicLogic.setVisibility(true);
+                }
+
+                //stop 
+
+                stopMusicLogic.setContainer({stopMusic.getContainer().x, stopMusic.getContainer().y - newSrc.y, stopMusic.getContainer().w, stopMusic.getContainer().h});
+
+                if(stopMusicLogic.getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
+                    stopMusicLogic.setVisibility(false);
+                } else {
+                    stopMusicLogic.setVisibility(true);
+                }
 
         }
 
@@ -754,14 +890,14 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
 
             int delta = SCROLLFACTOR * scrollDir;
 
-            //Recalculate the new limits ofthe source rect
+            //Recalculate the new limits of the source rect
 
                 int newY = newSrc.y + delta;
                 newY = std::max(0, std::min(newY, scrollRange));
                 newSrc.y = newY;
                 setSourceRect(newSrc);
 
-            // Having the new source rect, recaulclate the slider position
+            // Having the new source rect, recalculate the slider position
                 
                 float ratio = (float)newSrc.y / scrollRange;
                 int sliderY = sliderMin + (int)(ratio * sliderTrackH);
@@ -831,6 +967,33 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene)
                     instagramLogic.setVisibility(false);
                 } else {
                     instagramLogic.setVisibility(true);
+                }
+
+                //go back
+                goBackMusicLogic.setContainer({goBackMusicLogic.getContainer().x, goBackMusic.getContainer().y - newSrc.y, goBackMusic.getContainer().w, goBackMusic.getContainer().h});
+
+                if(goBackMusicLogic.getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
+                    goBackMusicLogic.setVisibility(false);
+                } else {
+                    goBackMusicLogic.setVisibility(true);
+                }
+
+                goForwardMusicLogic.setContainer({goForwardMusicLogic.getContainer().x, goForwardMusic.getContainer().y - newSrc.y, goForwardMusic.getContainer().w, goForwardMusic.getContainer().h});
+
+                if(goForwardMusicLogic.getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
+                    goForwardMusicLogic.setVisibility(false);
+                } else {
+                    goForwardMusicLogic.setVisibility(true);
+                }
+
+                //stop 
+
+                stopMusicLogic.setContainer({stopMusicLogic.getContainer().x, stopMusic.getContainer().y - newSrc.y, stopMusic.getContainer().w, stopMusic.getContainer().h});
+
+                if(stopMusicLogic.getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
+                    stopMusicLogic.setVisibility(false);
+                } else {
+                    stopMusicLogic.setVisibility(true);
                 }
 
             return;

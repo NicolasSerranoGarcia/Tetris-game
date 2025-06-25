@@ -186,7 +186,7 @@ You check if there is a button pressed and if so you make it not possible to cli
 
 # FINAL
 
-[] Add style with textures and pixel art AND fonts
+[] Add style with textures and pixel art AND fonts. Add textures for buttons like rewind, pass, stop song, settings wheel...
 
 [] Choose better sound effects
 
@@ -196,6 +196,8 @@ You check if there is a button pressed and if so you make it not possible to cli
 
 [] add buttons to pass or go back to previous songs
 
-[] save keybinds locally
+[] save key binds locally
 
 [] add buttons to stop, pass and go back to songs. Create a log file for the history of songs
+
+[] comment setScene and LooseScene

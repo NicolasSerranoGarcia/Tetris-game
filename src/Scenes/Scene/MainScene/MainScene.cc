@@ -477,7 +477,7 @@ void MainScene::renderWithoutFigures(){
         SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_NONE);
 }
 
-void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
+void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene, Sound *){
 
     //Events that are not pressing keys or mousebuttons are not handled
     if((event.type != SDL_KEYDOWN) && (event.type != SDL_KEYUP) && (event.type != SDL_MOUSEBUTTONDOWN)){
@@ -493,7 +493,7 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
         curScene = new SetScene;
         
         //To make sure there is no delay between opening the settings and the figures 
-        //disappearing on the background, the scene without figures is inmediately rendered
+        //disappearing on the background, the scene without figures is immediately rendered
 
             mScene->renderWithoutFigures();
 

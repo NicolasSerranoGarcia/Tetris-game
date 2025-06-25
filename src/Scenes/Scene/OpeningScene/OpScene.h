@@ -39,7 +39,7 @@ class OpScene: public Scene{
         //
         //RETURNS:
         //void
-        void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene) override;
+        void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene, Sound *) override;
 
 };
 

@@ -130,7 +130,7 @@ class MainScene: public Scene{
         //
         //RETURNS:
         //void
-        void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene) override;
+        void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene, Sound *) override;
 
         //This method is an override. To see more info on what
         //it does see the father method. This one handles the automatic figure drop

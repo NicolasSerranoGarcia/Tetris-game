@@ -82,7 +82,7 @@ class Scene{
         //
         //RETURNS:
         //void
-        virtual void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene) = 0;
+        virtual void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene, Sound * music) = 0;
 
         //This method is specially created for the mainScene child,
         //which has a lot of gameplay load. In this method you will 

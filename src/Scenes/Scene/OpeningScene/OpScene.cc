@@ -143,7 +143,7 @@ void OpScene::render(){
 
 }
 
-void OpScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene){
+void OpScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene, Sound *){
 
     //The user can either press the button or press ENTER
     if(getButtonMap()["play"].isClicked(&event) || ((event.type == SDL_KEYDOWN) && event.key.keysym.sym == SDLK_RETURN)){

@@ -113,7 +113,7 @@ int main(){
                     running = false;
                 }
 
-                currentScene->handleEvents(event, currentScene, mainScene);
+                currentScene->handleEvents(event, currentScene, mainScene, &backgroundMusic);
             }
 
             currentScene->handleLogic(&lastTick, currentScene, mainScene);

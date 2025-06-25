@@ -50,6 +50,20 @@ class SetScene: public Scene{
         Button instagramLogic;
         ButClick insta;
 
+        Button stopMusic;
+        Button stopMusicLogic;
+        ButClick stp;
+
+        Button goBackMusic;
+        Button goBackMusicLogic;
+        ButClick goBck;
+
+        Button goForwardMusic;
+        Button goForwardMusicLogic;
+        ButClick goFor;
+
+        bool isStoped = false;
+
         Sound open;
 
         Sound ButtonClick;
@@ -71,7 +85,7 @@ class SetScene: public Scene{
         
         void handleLogic(Uint32 *, Scene *&, Scene *&) override;
 
-        void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene) override;
+        void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene, Sound * music) override;
 
         void renderAllButtons(std::map <std::string, Button> map);
 
