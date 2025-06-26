@@ -187,6 +187,9 @@ class SetScene: public Scene{
         void renderButton(Button button);
 
     };
+
+
+    //FUNCTIONS
     
     //This function render an overlay to the keybind button that is clicked right now
     //This overlay is shown until the user presses a key or clicks another key bind 

@@ -200,6 +200,6 @@ You check if there is a button pressed and if so you make it not possible to cli
 
 [X] add buttons to stop, pass and go back to songs. Create a log file for the history of songs
 
-[] comment setScene and LooseScene
+[X] comment setScene and LooseScene
 
-[] add documentation on newly added setScene
+[X] add documentation on newly added setScene
