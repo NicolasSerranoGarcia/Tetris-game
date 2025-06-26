@@ -4,3 +4,4 @@ SDL_functions
 /.vscode
 tetris
 logs/bestPlays.txt
+temp.txt

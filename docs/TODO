@@ -194,10 +194,12 @@ You check if there is a button pressed and if so you make it not possible to cli
 
 [X] put everything into a src directory
 
-[] add buttons to pass or go back to previous songs
+[X] add buttons to pass or go back to previous songs
 
-[] save key binds locally
+[X] save key binds locally
 
-[] add buttons to stop, pass and go back to songs. Create a log file for the history of songs
+[X] add buttons to stop, pass and go back to songs. Create a log file for the history of songs
 
 [] comment setScene and LooseScene
+
+[] add documentation on newly added setScene

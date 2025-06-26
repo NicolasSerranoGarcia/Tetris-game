@@ -58,7 +58,9 @@
 Scene *currentScene = new OpScene;
 Scene *mainScene = nullptr;
 
-std::string getRandomMusic();
+void handleMusic(Sound * music);
+void setupMusic(Sound * music);
+
 
 int main(){
 
@@ -94,13 +96,9 @@ int main(){
     {
 
         //play some music ;)
-            clearSongsFile();
-
             Sound backgroundMusic;
-            backgroundMusic.load(getSong(""));
-            backgroundMusic.setVolume(GENERALSOUNDLVL);
-            backgroundMusic.play();
 
+            setupMusic(&backgroundMusic);
 
         bool running = true;
         SDL_Event event;
@@ -129,12 +127,7 @@ int main(){
             //Make sure the music always plays and that the 
             //volume is correctly set
 
-                if(!backgroundMusic.isPlaying()){
-                    backgroundMusic.load(getSong("next"));
-                    backgroundMusic.play();
-                }
-                
-                backgroundMusic.setVolume(GENERALSOUNDLVL);
+                handleMusic(&backgroundMusic);
         }
     }
 
@@ -145,4 +138,23 @@ int main(){
     SDL_Quit();
 
     return 0;
+}
+
+//FUNCTIONS
+
+void setupMusic(Sound * music){
+    clearSongsFile();
+
+    music->load(getSong(""));
+    music->setVolume(GENERALSOUNDLVL);
+    music->play();
+}
+
+void handleMusic(Sound * music){
+    if(!music->isPlaying()){
+        music->load(getSong("next"));
+        music->play();
+    }
+    
+    music->setVolume(GENERALSOUNDLVL);
 }

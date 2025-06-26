@@ -332,6 +332,8 @@ void SetScene::render(){
     
     //Render the social buttons
     
+        //linktree
+
         {
             Image linktreeIMG(linktree.getContainer().x - SETTINGSBACKGROUNDX, linktree.getContainer().y - SETTINGSBACKGROUNDY, linktree.getContainer().w, linktree.getContainer().h, "SetScene-linktree", "png");
 
@@ -350,6 +352,8 @@ void SetScene::render(){
             }
         }
 
+        //github
+
         {
             Image githubIMG(github.getContainer().x - SETTINGSBACKGROUNDX, github.getContainer().y - SETTINGSBACKGROUNDY, github.getContainer().w, github.getContainer().h, "SetScene-github", "png");
 
@@ -367,6 +371,8 @@ void SetScene::render(){
                 linkBtn.drawToRender();
             }
         }
+
+        //instagram
 
         {
             Image instaIMG(instagram.getContainer().x - SETTINGSBACKGROUNDX, instagram.getContainer().y - SETTINGSBACKGROUNDY, instagram.getContainer().w, instagram.getContainer().h, "SetScene-instagram", "png");
@@ -387,6 +393,10 @@ void SetScene::render(){
         }
 
 
+    //render the buttons of the song radio
+
+        //rewind
+
         {
             Image goBackMusicIMG(goBackMusic.getContainer().x - SETTINGSBACKGROUNDX, goBackMusic.getContainer().y - SETTINGSBACKGROUNDY, goBackMusic.getContainer().w, goBackMusic.getContainer().h, "SetScene-rewind", "png");
 
@@ -395,7 +405,6 @@ void SetScene::render(){
             goBackBtn.setContainer({goBackBtn.getContainer().x - SETTINGSBACKGROUNDX, goBackBtn.getContainer().y - SETTINGSBACKGROUNDY, goBackBtn.getContainer().w, goBackBtn.getContainer().h});
 
             goBackBtn.setImage(&goBackMusicIMG);
-
 
             if(goBck.clicked){
                 goBackBtn.setColor(LIGHT_BLUE);
@@ -406,6 +415,7 @@ void SetScene::render(){
         }
 
 
+        //skip song
 
         {
             Image goForwardMusicIMG(goForwardMusic.getContainer().x - SETTINGSBACKGROUNDX, goForwardMusic.getContainer().y - SETTINGSBACKGROUNDY, goForwardMusic.getContainer().w, goForwardMusic.getContainer().h, "SetScene-skip", "png");
@@ -416,7 +426,6 @@ void SetScene::render(){
 
             goForwardBtn.setImage(&goForwardMusicIMG);
 
-
             if(goFor.clicked){
                 goForwardBtn.setColor(LIGHT_BLUE);
                 goForwardBtn.drawToRender();
@@ -426,6 +435,8 @@ void SetScene::render(){
         }
 
 
+        //stop song
+
         {
             Image stopMusicIMG(stopMusic.getContainer().x - SETTINGSBACKGROUNDX, stopMusic.getContainer().y - SETTINGSBACKGROUNDY, stopMusic.getContainer().w, stopMusic.getContainer().h, isStoped ? "SetScene-resume" : "SetScene-stop", "png");
 
@@ -434,7 +445,6 @@ void SetScene::render(){
             stopBtn.setContainer({stopBtn.getContainer().x - SETTINGSBACKGROUNDX, stopBtn.getContainer().y - SETTINGSBACKGROUNDY, stopBtn.getContainer().w, stopBtn.getContainer().h});
 
             stopBtn.setImage(&stopMusicIMG);
-
 
             if(stp.clicked){
                 stopBtn.setColor(LIGHT_BLUE);
@@ -528,7 +538,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
     //All the "exceptions" are handled at this point
 
 
-    //If the user clicks on the slider (any of them), change the state of the slide bar to clicked
+    //If the user clicks on the slider (any of them) or a button, change it's corresponding state
 
         if((event.type == SDL_MOUSEBUTTONDOWN) && settingsSlider.isClicked(&event)){
             settingsSlider.setClickedNow(true);
@@ -737,7 +747,8 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                     linktreeLogic.setVisibility(true);
                 }
 
-                //github
+            //update the github button
+
                 githubLogic.setContainer({github.getContainer().x, github.getContainer().y - newSrc.y, github.getContainer().w, github.getContainer().h});
 
                 if(githubLogic.getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
@@ -747,7 +758,8 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                 }
 
 
-                //instagram
+            //update the instagram button
+
                 instagramLogic.setContainer({instagram.getContainer().x, instagram.getContainer().y - newSrc.y, instagram.getContainer().w, instagram.getContainer().h});
 
                 if(instagramLogic.getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
@@ -756,7 +768,9 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                     instagramLogic.setVisibility(true);
                 }
 
-                //go back
+
+            // update the rewind button
+
                 goBackMusicLogic.setContainer({goBackMusic.getContainer().x, goBackMusic.getContainer().y - newSrc.y, goBackMusic.getContainer().w, goBackMusic.getContainer().h});
 
                 if(goBackMusicLogic.getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
@@ -765,7 +779,8 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                     goBackMusicLogic.setVisibility(true);
                 }
 
-                //go forward
+
+            //update the skip button
 
                 goForwardMusicLogic.setContainer({goForwardMusic.getContainer().x, goForwardMusic.getContainer().y - newSrc.y, goForwardMusic.getContainer().w, goForwardMusic.getContainer().h});
 
@@ -775,7 +790,8 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                     goForwardMusicLogic.setVisibility(true);
                 }
 
-                //stop 
+
+            // update the stop button
 
                 stopMusicLogic.setContainer({stopMusic.getContainer().x, stopMusic.getContainer().y - newSrc.y, stopMusic.getContainer().w, stopMusic.getContainer().h});
 
@@ -784,7 +800,6 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                 } else {
                     stopMusicLogic.setVisibility(true);
                 }
-
         }
 
         if((event.type == SDL_MOUSEMOTION) && LogicSoundSlider.getClickedNow() && LogicSoundSlider.getVisibility()){
@@ -946,6 +961,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                     LogicEffectsSlider.setVisibility(true);
                 }
 
+
             //update the linktree button
 
                 linktreeLogic.setContainer({linktreeLogic.getContainer().x, linktree.getContainer().y - newSrc.y, linktree.getContainer().w, linktree.getContainer().h}); 
@@ -956,6 +972,9 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                     linktreeLogic.setVisibility(true);
                 }
 
+
+            //update the github button
+
                 githubLogic.setContainer({githubLogic.getContainer().x, github.getContainer().y - newSrc.y, github.getContainer().w, github.getContainer().h}); 
 
                 if(githubLogic.getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
@@ -965,6 +984,8 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                 }
 
 
+            //update the instagram button
+
                 instagramLogic.setContainer({instagramLogic.getContainer().x, instagram.getContainer().y - newSrc.y, instagram.getContainer().w, instagram.getContainer().h}); 
 
                 if(instagramLogic.getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
@@ -973,7 +994,9 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                     instagramLogic.setVisibility(true);
                 }
 
-                //go back
+            
+            //update the rewind button
+
                 goBackMusicLogic.setContainer({goBackMusicLogic.getContainer().x, goBackMusic.getContainer().y - newSrc.y, goBackMusic.getContainer().w, goBackMusic.getContainer().h});
 
                 if(goBackMusicLogic.getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
@@ -981,6 +1004,9 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                 } else {
                     goBackMusicLogic.setVisibility(true);
                 }
+
+
+            //update the skip button
 
                 goForwardMusicLogic.setContainer({goForwardMusicLogic.getContainer().x, goForwardMusic.getContainer().y - newSrc.y, goForwardMusic.getContainer().w, goForwardMusic.getContainer().h});
 
@@ -990,7 +1016,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                     goForwardMusicLogic.setVisibility(true);
                 }
 
-                //stop 
+            //update the stop button
 
                 stopMusicLogic.setContainer({stopMusicLogic.getContainer().x, stopMusic.getContainer().y - newSrc.y, stopMusic.getContainer().w, stopMusic.getContainer().h});
 
