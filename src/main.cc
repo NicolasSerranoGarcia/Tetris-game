@@ -97,7 +97,6 @@ int main(){
 
         //play some music ;)
             Sound backgroundMusic;
-
             setupMusic(&backgroundMusic);
 
         bool running = true;
@@ -110,6 +109,7 @@ int main(){
 
                 if (event.type == SDL_QUIT){
                     running = false;
+                    clearSongsFile();
                 }
 
                 currentScene->handleEvents(event, currentScene, mainScene, &backgroundMusic);

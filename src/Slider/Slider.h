@@ -34,7 +34,7 @@ class Slider{
         
         //This variable saves the state of the slider. Whenever the slider goes 
         //invisible because the user is sliding another slider or the button 
-        //is behind something this variable will be set to false. In the other 
+        //is behind something, this variable will be set to false. In the other 
         //case the variable will be set to true. 
         //Note: In the case the slider is partially visible (e.g. half of it is
         //visible and the other half is not) this variable will be true.

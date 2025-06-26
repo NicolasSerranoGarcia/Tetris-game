@@ -65,32 +65,53 @@ class SetScene: public Scene{
         //It can be found scrolling through the settings. It has an associated logic slider
         //(see documentation for explanation)
         Slider effectsSlider;
+
+        //The associated logic slider of effectsSlider
         Slider LogicEffectsSlider;
 
+        //This is the button that leads to my linktree in the settings
         Button linktree;
         Button linktreeLogic;
         ButClick linktrr;
 
+        //This is the button that leads to my github in the settings
         Button github;
+
+        //The associated logic button of github button
         Button githubLogic;
         ButClick git;
 
+        //This is the button that leads to my instagram in the settings
         Button instagram;
+
+        //The associated logic button of instagram button
         Button instagramLogic;
         ButClick insta;
 
+
+        //This is the button that stops the music in the settings
         Button stopMusic;
+
+        //The associated logic button of stopMusic button
         Button stopMusicLogic;
         ButClick stp;
 
+        //This is the button that rewinds the music in the settings
         Button goBackMusic;
+
+        //The associated logic button of goBackMusic button
         Button goBackMusicLogic;
         ButClick goBck;
 
+        //This is the button that skips the music in the settings
         Button goForwardMusic;
+
+        //The associated logic button of goForwardMusic button
         Button goForwardMusicLogic;
         ButClick goFor;
 
+        //is the music stopped right now? It is used to switch
+        //the texture of the stop/continue button
         bool isStoped = false;
 
         //This is the sound associated with opening the settings
@@ -105,38 +126,101 @@ class SetScene: public Scene{
 
     public:
 
+        //CONSTRUCTORS/DESTRUCTOR
+
+        //Constructor
         SetScene();
 
+        //Destructor
         ~SetScene() override;
 
-        
+
+        //GETTERS
+
+        //Getter
+        //
+        //RETURNS:
+        //an SDL_Rect instance representing the source
+        //rectangle (see documentation)
         SDL_Rect getSourceRect();
 
-        
+
+        //SETTERS
+
+        //Setter
+        //
+        //RETURNS:
+        //void
         void setSourceRect(SDL_Rect rect);
         
-        
-        void handleLogic(Uint32 *, Scene *&, Scene *&) override;
 
-        void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene, Sound * music) override;
+        //MISCELLANEOUS
 
-        void renderAllButtons(std::map <std::string, Button> map);
-
+        //This method is an override. To see more info on what
+        //it does see the father method. This one renders the
+        //buttons, sliders, the settings texture...
+        //
+        //RETURNS:
+        //void
         void render() override;
 
-        void renderButton(Button button);
+        //This method is an override. To see more info on what
+        //it does see the father method. This one handles the clicking
+        //of the buttons, sliders, the linking of the socials of the buttons
+        //the scrolling...
+        //
+        //
+        //RETURNS:
+        //void
+        void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene, Sound * music) override;
 
+        //This method renders all the key bind buttons in it's correct place
+        //
+        //RETURNS:
+        //void
+        void renderAllButtons(std::map <std::string, Button> map);
+
+        //This method renders a single key bind button in it's correct place
+        //
+        //RETURNS:
+        //void
+        void renderButton(Button button);
 
     };
     
+    //This function render an overlay to the keybind button that is clicked right now
+    //This overlay is shown until the user presses a key or clicks another key bind 
+    //button
+    //
+    //RETURNS:
+    //void
     void renderKeyBindChange(Button button, SetScene & s);
     
+    //This method returns a reference to the associated SDL_Keycode variable action.
+    //The parameter key represents the key used in the maps of the class to identify
+    //the button. 
+    //
+    //RETURNS:
+    //A reference to an SDL:Keycode instance
     SDL_Keycode& getKeyBindByKey(std::string key);
 
+    //This method returns a dialog text that is used to show a text so that the user
+    //what does the key bind button do
+    //
+    //RETURNS:
+    //A const char pointer 
     const char * getMessageByKey(std::string key);
     
+    //This method converts the current sound level into the X position of the slider
+    //
+    //RETURNS:
+    //An integer representing the X position of the sound slider
     int getXposFromSoundLvl(int minX);
 
+    //This method converts the current effects level into the X position of the slider
+    //
+    //RETURNS:
+    //An integer representing the X position of the effects slider
     int getXposFromEffectsLvl(int minX);
 
 #endif

@@ -342,11 +342,22 @@ std::vector <SDL_Keycode> getFileKeybinds();
 bool updateKeybindsFile();
 
 //This method returns the path of a random music track in the Sounds/Music directory
+//
+//RETURNS:
+//The relative path to the random song selected
 std::string getRandomMusic();
 
+//This function handles the change in the songs when the user clicks the radio buttons in the settings
 //Can take two distinct param. values: "next", "previous"
+//
+//RETURNS:
+//The relative path to the song according to the action
 std::string getSong(std::string action);
 
+//This method clears the songs file 
+//
+//RETURNS:
+//void
 void clearSongsFile();
 
 

@@ -135,9 +135,11 @@ SetScene::SetScene(){
         stp.clicked = false;
 }
 
+
 SDL_Rect SetScene::getSourceRect(){
     return sourceRect;
 }
+
 
 void SetScene::setSourceRect(SDL_Rect rect){
     sourceRect = rect;
@@ -1086,8 +1088,6 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
         }
     }
 }
-
-void SetScene::handleLogic(Uint32 *, Scene *&, Scene *&){}
 
 void SetScene::renderAllButtons(std::map <std::string, Button> map){
     for (auto i = map.begin(); i != map.end(); i++){

@@ -15,6 +15,11 @@ LooseScene::LooseScene(){
     getButtonMap()["settings"] = settingsButton;
 }
 
+LooseScene::~LooseScene(){
+    Scene::~Scene();
+}
+
+
 void LooseScene::render(){
 
     if(mainScene != nullptr){
@@ -220,7 +225,6 @@ void LooseScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScen
 }
 
 void LooseScene::handleLogic(Uint32 *, Scene *&, Scene *& mScene){
-    
     if(mainScene == nullptr){
         mainScene = mScene;
     }
