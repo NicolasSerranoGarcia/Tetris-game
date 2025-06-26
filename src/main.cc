@@ -94,9 +94,10 @@ int main(){
     {
 
         //play some music ;)
+            clearSongsFile();
 
             Sound backgroundMusic;
-            backgroundMusic.load(getRandomMusic());
+            backgroundMusic.load(getSong(""));
             backgroundMusic.setVolume(GENERALSOUNDLVL);
             backgroundMusic.play();
 
@@ -129,7 +130,7 @@ int main(){
             //volume is correctly set
 
                 if(!backgroundMusic.isPlaying()){
-                    backgroundMusic.load(getRandomMusic());
+                    backgroundMusic.load(getSong("next"));
                     backgroundMusic.play();
                 }
                 

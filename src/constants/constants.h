@@ -10,6 +10,7 @@
 #include <sstream>
 #include <vector>
 #include <random>
+#include <iostream>
 
 
 //The width in pixels of the screen. Currently static
@@ -18,7 +19,30 @@ extern const int SCREENWIDTH;
 //The height in pixels of the screen. Currently static
 extern const int SCREENHEIGHT;
 
+
+//
 extern const char * BESTPLAYSFILEPATH;
+
+//
+extern const char * KEYBINDSFILEPATH;
+
+//
+extern const char * SONGSFILEPATH;
+
+
+//This variable saves the current line of the song that is playing 
+//inside the file "songs.txt". It is indexed at 1, so when 
+//there is one song played this variable will save 1. If there are
+//no songs this will be 0
+extern int CURSONG;
+
+//This variable saves the latest song that has been played. It doesn't
+//change if the user rewinds songs. Only when the song ends and a new is
+//played or the user skips the song this variable is changed. If the 
+//user goes back to previous songs, this variable will be fixed. It is 
+//indexed at 1, so when there is one song played this variable will save 1.
+//If there are no songs this will be 0
+extern int MAXSONG;
 
 
 //The side length of 1 block in the game board. The blocks are squares, so this the
@@ -319,6 +343,11 @@ bool updateKeybindsFile();
 
 //This method returns the path of a random music track in the Sounds/Music directory
 std::string getRandomMusic();
+
+//Can take two distinct param. values: "next", "previous"
+std::string getSong(std::string action);
+
+void clearSongsFile();
 
 
 //This function attempts to render the perimeter of a circle. This is not implemented by me, see main.cc for acknowledgements

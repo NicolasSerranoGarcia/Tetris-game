@@ -8,7 +8,14 @@ const int SCREENHEIGHT = 1000;
 
 const char * BESTPLAYSFILEPATH ="src/logs/bestPlays.txt";
 
-const char * KEYBINDSFILEPATH ="src/logs/keybinds.txt";
+const char * KEYBINDSFILEPATH = "src/logs/keybinds.txt";
+
+const char * SONGSFILEPATH = "src/logs/songs.txt";
+
+
+int CURSONG = 0;
+
+int MAXSONG = 0;
 
 
 const int BLOCKLENGTH = 46;
@@ -479,23 +486,26 @@ bool sortBestPlays(){
 
 
 std::vector <SDL_Keycode> getFileKeybinds(){
-    std::ifstream bestPlaysFile;
+    std::ifstream keybindsFile;
 
-    bestPlaysFile.open(KEYBINDSFILEPATH);
+    keybindsFile.open(KEYBINDSFILEPATH);
 
     //binds are saved in the following order
     //LEFT, RIGHT, DOWN, ROT RIGHT, ROT LEFT, FAST DOWN, SWAP
     std::vector <SDL_Keycode> keybinds;
     
-    if(bestPlaysFile.is_open()){
+    if(keybindsFile.is_open()){
         std::string s;
 
-        while(std::getline(bestPlaysFile, s)){
+        while(std::getline(keybindsFile, s)){
 
             keybinds.push_back((SDL_Keycode) std::stoi(s));
         }
+
+        keybindsFile.close();
     }
     
+
     return keybinds;
 }
 
@@ -553,10 +563,153 @@ std::string getRandomMusic(){
     std::mt19937 rng(dev());
     std::uniform_int_distribution<std::mt19937::result_type> rnd45(1,45);
 
-    path += "/" + std::to_string(rnd45(dev)) + ".mp3";
+    int song = rnd45(dev);
+
+    std::string s = song < 10 ? "0" + std::to_string(song) : std::to_string(song); 
+
+    path += "/" + s + ".mp3";
 
     return path;
 
+}
+
+std::string getSong(std::string action){
+
+    std::string nextSong;
+
+    if(action == ""){
+
+        nextSong = getRandomMusic();
+        //write it to the file
+
+        std::ofstream file;
+
+        file.open(SONGSFILEPATH, std::ios::out | std::ios::app);
+
+        if(file.is_open()){
+            file << nextSong << "\n";
+            
+            file.close();
+        }
+
+        CURSONG++;
+        MAXSONG++;
+
+    } else if(action == "next" && CURSONG == MAXSONG){
+        nextSong = getRandomMusic();
+
+        std::ofstream file;
+
+        file.open(SONGSFILEPATH, std::ios::out | std::ios::app);
+
+        if(file.is_open()){
+            file << nextSong << "\n";
+            
+            file.close();
+        }
+        
+        
+        CURSONG++;
+        MAXSONG++;
+
+    } else if (action == "next" && CURSONG != MAXSONG){
+        
+        std::ifstream file;
+
+        file.open(SONGSFILEPATH, std::ios::in);
+
+        if(file.is_open()){
+
+            file.seekg(0);
+
+            std::string s;
+
+            //get to the line of the current song
+            for(int i = 0; (i < CURSONG) && std::getline(file, s); i++);
+
+            getline(file, s);
+
+            nextSong = s;
+
+        }
+        
+        /*open the file and return the current song + 1 and return it*/
+        CURSONG++;
+
+    } else if (action == "previous" && (CURSONG != 1)){
+        //open the file, get the current song - 1 and return it
+        
+        std::ifstream file;
+
+        file.open(SONGSFILEPATH, std::ios::in);
+
+        if(file.is_open()){
+
+            file.seekg(0);
+
+            std::string s;
+
+            //get to the line of the current song
+            for(int i = 0; (i < CURSONG - 2) && std::getline(file, s); i++);
+
+            getline(file, s);
+
+            nextSong = s;
+        }
+
+
+        CURSONG--;
+
+    } else if (action == "previous" && CURSONG == 1){
+
+        //open the file, get the current song (first one) and return it
+
+        std::ifstream file;
+
+        file.open(SONGSFILEPATH, std::ios::in);
+
+        if(file.is_open()){
+
+            std::string s;
+
+            std::getline(file, s);
+
+            nextSong = s;
+
+            file.close();
+        }
+
+    } else {
+        //return the same song
+
+        std::ifstream file;
+
+        file.open(SONGSFILEPATH, std::ios::in);
+
+        if(file.is_open()){
+
+            file.seekg(0);
+
+            std::string s;
+
+            //get to the line of the current song
+            for(int i = 0; (i < CURSONG - 1) && std::getline(file, s); i++);
+
+            getline(file, s);
+
+            nextSong = s;
+        }
+    }
+
+    return nextSong;
+}
+
+void clearSongsFile(){
+    std::ofstream file;
+
+    file.open(SONGSFILEPATH, std::ios::out);
+
+    file.close();
 }
 
 

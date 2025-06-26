@@ -593,7 +593,6 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
 
         if((event.type == SDL_MOUSEBUTTONDOWN) && stopMusicLogic.isClicked(&event)){
             stp.clicked = true;
-            isStoped = !isStoped;
         }
 
     //If the user, on the other hand, lets go the click, change the slider state consequently
@@ -629,17 +628,22 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
 
         if((event.type == SDL_MOUSEBUTTONUP) && goBck.clicked){
             goBck.clicked = false;
-            /* logic for sound*/
+            music->load(getSong("previous"));
+            music->play();
+            isStoped = false;
         }
 
         if((event.type == SDL_MOUSEBUTTONUP) && goFor.clicked){
             goFor.clicked = false;
-            /* logic for sound*/
+            music->load(getSong("next"));
+            music->play();
+            isStoped = false;
         }
 
         if((event.type == SDL_MOUSEBUTTONUP) && stp.clicked){
             stp.clicked = false;
-            /* logic for sound*/
+            isStoped ? music->resume() : music->pause();
+            isStoped = !isStoped;
         }
 
     //If the user is currently clicking the slider and moves the mouse, update the settings
