@@ -36,7 +36,7 @@
 
 - 🎮 **Gameplay Mechanics:** Core Tetris rules implemented for a faithful experience.
 - ⏱️ **Real-Time Interaction:** Smooth response to user input for seamless gameplay.
-- 🛠️ **Modular Architecture:** Easy to maintain and expand with new features.
+- 🛠️ **Sounds and Music:** With volume control and a radio to choose songs.
 - 🌌 **Scene Management:** Efficient handling of scene transitions and updates.
 - ✍️ **Keybind mapping:** Keybinds can be changed for a better experience.
 - ↩️ **Many more:** Play to try all the features!
