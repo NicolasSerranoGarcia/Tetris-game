@@ -186,6 +186,7 @@ void LooseScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScen
         LINES = 0;
         LEVEL = 0;
         POINTS = 0;
+        FALLSPEED = 1250;
         dead = false;
 
 
@@ -204,6 +205,7 @@ void LooseScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScen
         LINES = 0;
         LEVEL = 0;
         POINTS = 0;
+        FALLSPEED = 1250;
         dead = false;
 
         delete curScene;
