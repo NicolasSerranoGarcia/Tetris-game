@@ -203,3 +203,5 @@ You check if there is a button pressed and if so you make it not possible to cli
 [X] comment setScene and LooseScene
 
 [X] add documentation on newly added setScene
+
+[] add a small gameplay walkthrough to README when everything is finished
