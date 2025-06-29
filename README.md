@@ -98,10 +98,10 @@ The project follows a simple structure. A loop will run indefinitely until the p
 <!-- Insert the excalidraw schema and maybe a UML diagram-->
 ![Program schema](docs/flow-diagram.png)
 
-There are 4 different scenes. The user can change between scenes by pressing certain buttons, keys or loosing the game. The structure holds for each of the scenes, but each method will execute different code depending on which scene the program is on. There are auxiliary classes that use functionalities from SDL such as Image, Font or Button. Next is a UML diagram of the classes inside the program
+There are 4 different scenes. The user can change between scenes by pressing certain buttons, keys or loosing the game. The structure holds for each of the scenes, but each method will execute different code depending on which scene the program is on. There are auxiliary classes that use functionalities from SDL such as Image, Font or Button. Next is a UML diagram of the classes inside the program. As of today it is not finished, but it will get updated automatically. 
 <!-- Show a photo of each scene -->
 
-![UML Diagram](https://app.eraser.io/workspace/2igz1dmaEs6voAcQUhTD?origin=share)
+![UML Diagram](/.eraser/15qsY1hWxzqtPKWUTR7b___zlFodloyGvYkLSaI6qhO7M2eCWc2___---diagram----31f5db51b9d4e3c16482f823f3d2dfb6-Tetris-Game-Data-Model.png)
 
 ---
 
