@@ -82,7 +82,7 @@ To run the game:
 
 ### Usage
 
-This project is open source, and by no means it is aimed to benefit me in a financial way. The motivation behind this project is solely a desire to learn and overcome new obstacles. Feel free to fork the project and make any changes you find useful. You can also contact me via any of my socials if you need any information related to the project. I'm open to talk!
+This project is open source, and by no means it is aimed to benefit me in any financial way. The motivation behind this project is solely a desire to learn and overcome new obstacles. Feel free to fork the project and make any changes you find useful. You can also contact me via any of my socials if you need any information related to the project. I'm open to talk!
 
 ### Testing
 
@@ -92,8 +92,14 @@ This project has no QA testing. Every aspect has been designed and implemented c
 
 ## Project Structure
 
-The project follows a simple structure, consisting of an opening screen, settings screen, gameplay screen and death screen. Each of them is triggered by the user when interacting with the program. 
+The project follows a simple structure. A loop will run indefinitely until the program (window) is closed. Inside the loop, there are two main functions: 
+- First, the program checks all the events that have been triggered since the last loop run. Each event is taken care individually until there are no events left. 
+- Then, the program takes care of the rendering and the logic.
 <!-- Insert the excalidraw schema and maybe a UML diagram-->
+![Program schema](docs/flow-diagram.png)
+
+There are 4 different scenes. The user can change between scenes by pressing certain buttons, keys or loosing the game. The structure holds for each of the scenes, but each method will execute different code depending on which scene the program is on.
+<!-- Show a photo of each scene -->
 
 ---
 
@@ -106,32 +112,83 @@ Here is a list of features and functionalities that enhance the user experience:
 - Distinct scenes that add ambient to the program: an opening scene, a settings scene, a gameplay scene and a death scene. The death scene lets you go to the opening scene, play again or open the settings.
 
 <!--Inert photo of each scene -->
+<p align = "center" >
+<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
+</p>
 
-- You can visualize the next three figures, swap a figure that you have saved previously, drop a figure directly (fast drop), rotate figures clockwise and anticlockwise...
+Gameplay features: 
+
+- The next three figures to be played can be visualized while playing.
+- 
+<!-- Insert a gif of using all the functionalities -->
+<p align = "center" >
+<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
+</p>
+  
+- A figure can be swapped with another saved previously
 
 <!-- Insert a gif of using all the functionalities -->
+<p align = "center" >
+<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
+</p>
 
-- You can change the key binds associated to each action, inside the settings. They are saved locally, so if you have personalized key binds they will be saved the next time you play
+- A figure can be dropped to the bottom of the game board instantly (fast drop)
+  
+<!-- Insert a gif of using all the functionalities -->
+<p align = "center" >
+<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
+</p>
+
+- The figures can be rotated clockwise and anticlockwise
+
+<!-- Insert a gif of using all the functionalities -->
+<p align = "center" >
+<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
+</p>
+
+Miscellaneous features:
+
+- The key binds associated with each action can be changed inside the settings. They are saved locally, so the next time the program is opened they are automatically loaded.
 
 <!-- Insert a gif of changing the key binds, and maybe closing the program and opening it again to show -->
+<p align = "center" >
+<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
+</p>
 
 - There are sound effects and background music. The volume of both of them can be controlled inside the settings, using two sliders. There is also a radio used to skip, rewind and stop the music. There are 44 songs chosen randomly and automatically if the radio is ignored
 <!-- Insert a video with audio of using the radio -->
+<p align = "center" >
+<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
+</p>
 
-- There is a slider in the settings scene to scroll through all the configuration. The mouse wheel can also be used for this purpose
+- There is a slider to scroll through the settings. The mouse wheel can also be used for this purpose
+  
 <!-- Insert gif of using the mouse wheel and the slider -->
+<p align = "center" >
+<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
+</p>
 
 - There is a countdown that triggers when the settings is closed to let the user prepare to resume the game
+  
 <!-- show the countdown -->
+<p align = "center" >
+<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
+</p>
   
 
-- The stats of the best game are shown in the opening scene. They are saved locally, so the program can be closed without loosing the progress
+- The stats of the best game are shown in the opening scene. The top 5 is saved locally, so the program can be closed without loosing the progress
 
 <!-- Show an example of this -->
+<p align = "center" >
+<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
+</p>
 
 - The textures set an atmosphere for the gameplay
 
 <!-- Show the textures -->
+<p align = "center" >
+<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
+</p>
 
 Here is a list of other (micro) features that further enhance the gameplay experience:
 
@@ -139,13 +196,23 @@ Here is a list of other (micro) features that further enhance the gameplay exper
 - Inside the settings, the buttons that are partially shown cannot be triggered on the zones that are not visible
 
 <!-- show an example of pressing a button-->
+<p align = "center" >
+<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
+</p>
 
 - When a key bind button is pressed, other buttons and sliders can still be triggered. The pressed button will still be waiting for a key to be pressed.
 
 <!-- Show a gif of this -->
+<p align = "center" >
+<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
+</p>
 
-- When in the settings, the figures of the game are not shown to prevent cheating
+- When in the settings, the figures of the current gameplay are not shown to prevent cheating
+  
 <!-- Show an example of closing and opening the settings -->
+<p align = "center" >
+<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
+</p>
 
 
 ---
