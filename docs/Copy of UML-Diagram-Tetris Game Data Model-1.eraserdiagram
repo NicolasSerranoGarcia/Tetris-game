@@ -1,0 +1,205 @@
+entity-relationship-diagram
+
+// title
+title Tetris Game Data Model
+
+// define tables
+Screen [icon: monitor, color: lightgrey]{
+  id int pk
+  width int
+  height int
+  title string
+}
+
+Font [icon: type, color: green]{
+  id int pk
+  x int
+  y int
+  color_r int
+  color_g int
+  color_b int
+  color_a int
+  fontSize int
+  fontName string
+  text string
+  screen_id int fk
+  textSurfacePtr string
+  textTexturePtr string
+  color string
+}
+
+Image [icon: image, color: lightgreen]{
+  id int pk
+  x int
+  y int
+  width int
+  height int
+  imageName string
+  imageType string
+  texturePtr string
+}
+
+Sound [icon: volume-2, color: teal]{
+  id int pk
+  channel int
+  chunkPtr string
+}
+
+Music [icon: music, color: cyan]{
+  id int pk
+  musicPtr string
+}
+
+Button [icon: mouse-pointer, color: lightblue]{
+  id int pk
+  isVisible bool
+  container_x int
+  container_y int
+  container_w int
+  container_h int
+  color_r int
+  color_g int
+  color_b int
+  color_a int
+  screen_id int fk
+  font_id int fk
+  image_id int fk
+  scene_id int fk
+  color string
+}
+
+Slider [icon: sliders, color: blue]{
+  id int pk
+  rect_x int
+  rect_y int
+  rect_w int
+  rect_h int
+  slider_button_id int fk
+  minPos int
+  maxPos int
+  isClickedNow bool
+  isVisible bool
+  pressed_color string
+  default_color string
+}
+
+Block [icon: square, color: orange]{
+  id int pk
+  block_x int
+  block_y int
+  block_w int
+  block_h int
+  pixelX int
+  pixelY int
+  tileX int
+  tileY int
+  texturePtr string
+  figure_id int fk
+  inline_color string
+  outline_color string
+}
+
+Figure [icon: grid, color: yellow]{
+  id int pk
+  angle int
+  color_r int
+  color_g int
+  color_b int
+  color_a int
+  leadingBlockPos int
+  hasTexture bool
+  color string
+}
+
+FigureL [icon: grid, color: lightyellow]{
+  id int pk
+}
+
+FigureJ [icon: grid, color: lightyellow]{
+  id int pk
+}
+
+FigureO [icon: grid, color: lightyellow]{
+  id int pk
+}
+
+FigureI [icon: grid, color: lightyellow]{
+  id int pk
+}
+
+FigureT [icon: grid, color: lightyellow]{
+  id int pk
+}
+
+FigureS [icon: grid, color: lightyellow]{
+  id int pk
+}
+
+FigureZ [icon: grid, color: lightyellow]{
+  id int pk
+}
+
+Scene [icon: film, color: purple]{
+  name_butttons map
+  title string
+  width int
+  height int
+}
+
+OpScene [icon: film, color: purple]{
+  id int pk
+  map string
+  title string
+  width int
+  height int
+}
+
+SetScene [icon: film, color: purple]{
+  id int pk
+  map string
+  title string
+  width int
+  height int
+}
+
+MainScene [icon: film, color: purple]{
+  id int pk
+  map string
+  title string
+  width int
+  height int
+}
+
+LooseScene [icon: film, color: purple]{
+  id int pk
+  map string
+  title string
+  width int
+  height int
+}
+
+// define relationships
+Button.screen_id > Screen.id
+Button.font_id > Font.id
+Button.image_id > Image.id
+Button.scene_id > Scene.id
+
+Font.screen_id > Screen.id
+
+Slider.slider_button_id - Button.id
+
+Block.figure_id > Figure.id
+
+FigureL.id - Figure.id
+FigureJ.id - Figure.id
+FigureO.id - Figure.id
+FigureI.id - Figure.id
+FigureT.id - Figure.id
+FigureS.id - Figure.id
+FigureZ.id - Figure.id
+
+OpScene.id - Scene.id
+SetScene.id - Scene.id
+MainScene.id - Scene.id
+LooseScene.id - Scene.id
+
