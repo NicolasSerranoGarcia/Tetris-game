@@ -119,7 +119,7 @@ Here is a list of features and functionalities that enhance the user experience:
 Gameplay features: 
 
 - The next three figures to be played can be visualized while playing.
-- 
+  
 <!-- Insert a gif of using all the functionalities -->
 <p align = "center" >
 <img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
