@@ -24,6 +24,7 @@
   - [Usage](#usage)
   - [Testing](#testing)
 - [Project Structure](#project-structure)
+- [Features](#features)
 - [Contributing](#contributing)
 
 ---
@@ -92,7 +93,60 @@ This project has no QA testing. Every aspect has been designed and implemented c
 ## Project Structure
 
 The project follows a simple structure, consisting of an opening screen, settings screen, gameplay screen and death screen. Each of them is triggered by the user when interacting with the program. 
-<!-- Insert images of the scenes when they are finished-->
+<!-- Insert the excalidraw schema and maybe a UML diagram-->
+
+---
+
+## Features
+
+Here is a list of features and functionalities that enhance the user experience:
+
+<!-- Do every gif or video as if you were a bot inside a tutorial of an official game (imagine fortnite or an installation guide gif) -->
+
+- Distinct scenes that add ambient to the program: an opening scene, a settings scene, a gameplay scene and a death scene. The death scene lets you go to the opening scene, play again or open the settings.
+
+<!--Inert photo of each scene -->
+
+- You can visualize the next three figures, swap a figure that you have saved previously, drop a figure directly (fast drop), rotate figures clockwise and anticlockwise...
+
+<!-- Insert a gif of using all the functionalities -->
+
+- You can change the key binds associated to each action, inside the settings. They are saved locally, so if you have personalized key binds they will be saved the next time you play
+
+<!-- Insert a gif of changing the key binds, and maybe closing the program and opening it again to show -->
+
+- There are sound effects and background music. The volume of both of them can be controlled inside the settings, using two sliders. There is also a radio used to skip, rewind and stop the music. There are 44 songs chosen randomly and automatically if the radio is ignored
+<!-- Insert a video with audio of using the radio -->
+
+- There is a slider in the settings scene to scroll through all the configuration. The mouse wheel can also be used for this purpose
+<!-- Insert gif of using the mouse wheel and the slider -->
+
+- There is a countdown that triggers when the settings is closed to let the user prepare to resume the game
+<!-- show the countdown -->
+  
+
+- The stats of the best game are shown in the opening scene. They are saved locally, so the program can be closed without loosing the progress
+
+<!-- Show an example of this -->
+
+- The textures set an atmosphere for the gameplay
+
+<!-- Show the textures -->
+
+Here is a list of other (micro) features that further enhance the gameplay experience:
+
+
+- Inside the settings, the buttons that are partially shown cannot be triggered on the zones that are not visible
+
+<!-- show an example of pressing a button-->
+
+- When a key bind button is pressed, other buttons and sliders can still be triggered. The pressed button will still be waiting for a key to be pressed.
+
+<!-- Show a gif of this -->
+
+- When in the settings, the figures of the game are not shown to prevent cheating
+<!-- Show an example of closing and opening the settings -->
+
 
 ---
 
