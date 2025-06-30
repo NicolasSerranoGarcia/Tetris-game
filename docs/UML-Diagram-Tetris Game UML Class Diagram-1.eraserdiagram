@@ -1,0 +1,171 @@
+entity-relationship-diagram
+
+// title
+title Tetris Game UML Class Diagram
+
+// define tables
+Screen [icon: monitor, color: lightgrey]{
+  width int
+  height int
+  title string
+  windowPtr SDl_Window
+  renderPtr SDL_Render
+}
+
+Font [icon: type, color: green]{
+  x int
+  y int
+  textColor SDL_Color
+  fontSize int
+  font TTF_Font
+  fontName string
+  text string
+  screen Screen
+  textSurfacePtr SDL_Surface
+  textTexturePtr SDL_Texture 
+}
+
+Image [icon: image, color: lightgreen]{
+  x int
+  y int
+  width int
+  height int
+  imageName string
+  imageType string
+  imageTexturePtr SDL_Texture
+}
+
+Sound [icon: volume-2, color: teal]{
+  channel int
+  chunkPtr MixChunk
+  mixerInitialized bool
+}
+
+Button [icon: mouse-pointer, color: lightblue]{
+  isVisible bool
+  container SDL_Rect
+  color SDL_Color
+  screenPtr Screen
+  fontPtr Font
+  image Image
+}
+
+Slider [icon: sliders, color: blue]{
+  slider Button
+  minPos int
+  maxPos int
+  isClickedNow bool
+  isVisible bool
+  pressedColor SDL_Color
+  defaultColor SDL_Color
+}
+
+Block [icon: square, color: orange]{
+  block SDL_Rect
+  pixelX int
+  pixelY int
+  blockX int
+  blockY int
+  blockTexturePtr SDL_Texture
+  inline_color string
+  outline_color string
+}
+
+Figure [icon: grid, color: yellow]{
+  id int pk
+  angle int
+  figureColor SDL_Color
+  leadingBlockPos int
+  hasTexture bool
+  blocks vector
+}
+
+FigureL [icon: grid, color: lightyellow]{
+  id int pk
+}
+
+FigureJ [icon: grid, color: lightyellow]{
+  id int pk
+}
+
+FigureO [icon: grid, color: lightyellow]{
+  id int pk
+}
+
+FigureI [icon: grid, color: lightyellow]{
+  id int pk
+}
+
+FigureT [icon: grid, color: lightyellow]{
+  id int pk
+}
+
+FigureS [icon: grid, color: lightyellow]{
+  id int pk
+}
+
+FigureZ [icon: grid, color: lightyellow]{
+  id int pk
+}
+
+Scene [icon: film, color: purple]{
+  map Button
+  getButtonMap virtual
+  update virtual
+  render virtual
+  renderWithoutFigures virtual
+  clear virtual
+  handleEvents virtual
+  handleLogic virtual
+}
+
+OpScene [icon: film, color: purple]{
+}
+
+SetScene [icon: film, color: purple]{
+  open Sound
+  ButtonClick Sound 
+  countdown Sound
+}
+
+MainScene [icon: film, color: purple]{
+  gameBoard vector
+
+  numSwaps int
+  explosionEffect Sound
+}
+
+LooseScene [icon: film, color: purple]{
+}
+
+// define relationships
+Button.screenPtr - Screen
+Button.fontPtr - Font
+Button.image - Image
+
+Font.screen - Screen
+
+Slider.slider - Button
+
+Block > Figure.blocks
+
+FigureL.id - Figure.id
+FigureJ.id - Figure.id
+FigureO.id - Figure.id
+FigureI.id - Figure.id
+FigureT.id - Figure.id
+FigureS.id - Figure.id
+FigureZ.id - Figure.id
+
+OpScene - Scene
+SetScene - Scene
+MainScene - Scene
+MainScene.gameBoard < Figure
+LooseScene - Scene
+Scene.map < Button
+Scene < Font
+MainScene.explosionEffect - Sound
+SetScene.open - Sound
+SetScene.ButtonClick - Sound
+SetScene.countdown - Sound
+Slider - Scene
