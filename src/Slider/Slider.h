@@ -8,9 +8,6 @@
 class Slider{
 
     private:
-        //The rect that corresponds to the rectangle that the 
-        //slider is inside of
-        SDL_Rect rectContainer;
 
         //The actual visual object
         Button slider;
