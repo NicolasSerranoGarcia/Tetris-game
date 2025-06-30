@@ -165,7 +165,5 @@ LooseScene - Scene
 Scene.map < Button
 Scene < Font
 MainScene.explosionEffect - Sound
-SetScene.open - Sound
-SetScene.ButtonClick - Sound
-SetScene.countdown - Sound
-Slider - Scene
+SetScene - Sound
+

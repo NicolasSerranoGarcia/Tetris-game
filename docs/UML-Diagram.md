@@ -6,7 +6,7 @@
 <!-- eraser-additional-content -->
 ## Diagrams
 <!-- eraser-additional-files -->
-<a href="/docs/UML-Diagram-Tetris Game UML Class Diagram-1.eraserdiagram" data-element-id="ZwZxmR7E13kgwsfYJvJdS"><img src="/.eraser/15qsY1hWxzqtPKWUTR7b___zlFodloyGvYkLSaI6qhO7M2eCWc2___---diagram----db7c14400ddad002661fcc494462107e-Tetris-Game-UML-Class-Diagram.png" alt="" data-element-id="ZwZxmR7E13kgwsfYJvJdS" /></a>
+<a href="/docs/UML-Diagram-Tetris Game UML Class Diagram-1.eraserdiagram" data-element-id="ZwZxmR7E13kgwsfYJvJdS"><img src="/.eraser/15qsY1hWxzqtPKWUTR7b___zlFodloyGvYkLSaI6qhO7M2eCWc2___---diagram----7f8744a512c7f200fa601867312d7f62-Tetris-Game-UML-Class-Diagram.png" alt="" data-element-id="ZwZxmR7E13kgwsfYJvJdS" /></a>
 <!-- end-eraser-additional-files -->
 <!-- end-eraser-additional-content -->
 <!--- Eraser file: https://app.eraser.io/workspace/15qsY1hWxzqtPKWUTR7b --->
