@@ -98,7 +98,7 @@ The project follows a simple structure. A loop will run indefinitely until the p
 <!-- Insert the excalidraw schema and maybe a UML diagram-->
 ![Program schema](docs/flow-diagram.png)
 
-There are 4 different scenes. The user can change between scenes by pressing certain buttons, keys or loosing the game. The structure holds for each of the scenes, but each method will execute different code depending on which scene the program is on. There are auxiliary classes that use functionalities from SDL such as Image, Font or Button. Next is a UML diagram of the classes inside the program. As of today it is not finished, but it will get updated automatically. 
+There are 4 different scenes. The user can change between scenes by pressing certain buttons, keys or loosing the game. The structure holds for each of the scenes, but each method will execute different code depending on which scene the program is on. There are auxiliary classes that use functionalities from SDL such as Image, Font or Button. Next is a UML diagram of the classes inside the program. As of today it is not finished, but it will get updated automatically. The diagram does'nt show all the methods and atributtes, only the essential ones for understanding the relationships
 <!-- Show a photo of each scene -->
 
 ![UML Diagram](docs/UML-excalidraw.png)
