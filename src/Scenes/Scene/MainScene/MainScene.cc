@@ -9,7 +9,7 @@ MainScene::MainScene(){
 
     explosionEffect.setVolume(EFFECTSSOUNDLVL);
 
-    Button settingsButton({mainScreen.getWidth() - 65, mainScreen.getHeight() - 65, 50, 50}, WHITE, &mainScreen);
+    Button settingsButton({mainScreen.getWidth() - 70, mainScreen.getHeight() - 70, 60, 60}, WHITE, &mainScreen);
     getButtonMap()["settings"] = settingsButton;
 
     //Load the next 3 random figures 
@@ -52,11 +52,34 @@ void MainScene::render(){
         SDL_SetRenderDrawColor(mainScreen.getRender(), WHITE.r, WHITE.g, WHITE.b, WHITE.a);
         SDL_RenderClear(mainScreen.getRender());
 
-    //draw the background square where the figures fall and the game is played
+        Image background(0,0,SCREENWIDTH, SCREENHEIGHT, "MainScene-background/blocks", "png");
 
-        SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
-        SDL_Rect boardBackground = {BSX, BSY, BSW, BSH};
-        SDL_RenderFillRect(mainScreen.getRender(), &boardBackground);
+        background.setAsBackground();
+
+        background.CopyToRender();
+
+
+    //load an image for the settings button. Use the dimensions of the button
+
+        Image settingsImage(getButtonMap()["settings"].getContainer().x, 
+                            getButtonMap()["settings"].getContainer().y, 
+                            getButtonMap()["settings"].getContainer().w,
+                            getButtonMap()["settings"].getContainer().h, "MainScene-setButtonDef", "png");
+
+        settingsImage.CopyToRender();
+
+    //Draw the next figures background
+
+        SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, 230);
+
+        Image nextFigsBg(0, 0, SCREENWIDTH, SCREENHEIGHT, "MainScene-background/blue-bg", "png");
+
+        nextFigsBg.CopyToRender();
+
+        Image skyBg(0, 0, SCREENWIDTH, SCREENHEIGHT, "MainScene-background/sky", "png");
+
+        skyBg.CopyToRender();
+
 
     //draw the vertical and hor. lines that separate each tile 
 
@@ -73,58 +96,14 @@ void MainScene::render(){
         }
 
 
-    //load an image for the settings button. Use the dimensions of the button
-
-        Image settingsImage(getButtonMap()["settings"].getContainer().x, 
-                            getButtonMap()["settings"].getContainer().y, 
-                            getButtonMap()["settings"].getContainer().w + 10,
-                            getButtonMap()["settings"].getContainer().h + 10, "OpScene-settings", "png");
-    
-        getButtonMap()["settings"].setImage(&settingsImage);
-
-        getButtonMap()["settings"].drawToRender();
-
-
-
-    //Draw the next figures background
-    
-        SDL_Rect nextFiguresBackground = {FSX, FSY, FSW, FSH};
-
-        SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, 230);
-
-        SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
-        SDL_RenderFillRect(mainScreen.getRender(), &nextFiguresBackground);
-        SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_NONE);
-
-    //Draw an outline to the background rectangle
-
-        SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
-        SDL_RenderDrawRect(mainScreen.getRender(), &nextFiguresBackground);
 
     //Set the text of the next figures, the title of the rectangle
 
-        Font next(&mainScreen, "Ubuntu-Bold", 30, "NEXT", TEAL);
-        next.setCoords(FSX + FSW/2 - next.getTextSurface()->w/2, FSY);
-
-    //Draw a small rectangle as a background for the title
-        
-        SDL_Rect nextBg = {FSX, FSY, FSW, next.getTextSurface()->h};
-        
-        SDL_SetRenderDrawColor(mainScreen.getRender(), WHITE.r, WHITE.g, WHITE.b, WHITE.a);
-        SDL_RenderFillRect(mainScreen.getRender(), &nextBg);
-        
-        //Draw a slight outline
-        SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
-        SDL_RenderDrawRect(mainScreen.getRender(), &nextBg);
-        
-    //I'm delaying the rendering of the text, as I want to render it ABOVE the small background
-    //we made 
-
-        next.drawTextToRender();
+        Font next(&mainScreen, "04B_30__", 30, "NEXT", TEAL);      
 
     //Render the next figures in order, inside the nextFiguresBackground
     
-        renderNextFigures(nextFigures, next.getTextSurface()->h);
+        renderNextFigures(nextFigures, next.getTextSurface()->h - 25);
 
     //render the points, the level and the lines info
 
@@ -135,14 +114,11 @@ void MainScene::render(){
 
     //We will need a font for each title and number we need to show. The %Num shows the numeric value
 
-        Font level(&mainScreen, "Ubuntu-Bold", whiteBar.h, "LEVEL", TEAL);
-        Font levelNum(&mainScreen, "Ubuntu-Bold", whiteBar.h*2, std::to_string(LEVEL).c_str(), WHITE);
+        Font levelNum(&mainScreen, "04B_30__", whiteBar.h*2, std::to_string(LEVEL).c_str(), CIANSH);
 
-        Font points(&mainScreen, "Ubuntu-Bold", whiteBar.h, "POINTS", TEAL);
-        Font pointsNum(&mainScreen, "Ubuntu-Bold", whiteBar.h*2, std::to_string(POINTS).c_str(), WHITE);
+        Font pointsNum(&mainScreen, "04B_30__", whiteBar.h*2, std::to_string(POINTS).c_str(), CIANSH);
 
-        Font lines(&mainScreen, "Ubuntu-Bold", whiteBar.h, "LINES", TEAL); 
-        Font linesNum(&mainScreen, "Ubuntu-Bold", whiteBar.h*2, std::to_string(LINES).c_str(), WHITE);
+        Font linesNum(&mainScreen, "04B_30__", whiteBar.h*2, std::to_string(LINES).c_str(), CIANSH);
     
     //This loop renders all three information boxes
 
@@ -156,50 +132,32 @@ void MainScene::render(){
             SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, 230);
             SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
             
-            SDL_RenderFillRect(mainScreen.getRender(), &infoBackground);
-            SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_NONE);
-            
         //Draw the background of the titles. It changes it's position depending on the box
 
             whiteBar = {ISX, ISY + (ISH + BLOCKLENGTH/3)*i, ISW, ISH/4};
-            
-            SDL_SetRenderDrawColor(mainScreen.getRender(), WHITE.r, WHITE.g, WHITE.b, WHITE.a);
-            SDL_RenderFillRect(mainScreen.getRender(), &whiteBar);
-
-            SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
-            SDL_RenderDrawRect(mainScreen.getRender(), &whiteBar);
         
         switch (i){
         case 0:
             //Points box
 
-            points.setCoords(whiteBar.x + whiteBar.w/2 - points.getTextSurface()->w/2, whiteBar.y);
-            points.drawTextToRender();
-        
             pointsNum.setCoords(whiteBar.x + whiteBar.w/2 - pointsNum.getTextSurface()->w/2,
-                                whiteBar.y + whiteBar.h + (infoBackground.h - whiteBar.h)/2 - pointsNum.getTextSurface()->h/2);
+                                whiteBar.y + whiteBar.h + (infoBackground.h - whiteBar.h)/2 - pointsNum.getTextSurface()->h/2 - 10);
             pointsNum.drawTextToRender();
 
             break;
         case 1:
             //Lines box
-
-            lines.setCoords(whiteBar.x + whiteBar.w/2 - lines.getTextSurface()->w/2, whiteBar.y);
-            lines.drawTextToRender();
         
             linesNum.setCoords(whiteBar.x + whiteBar.w/2 - linesNum.getTextSurface()->w/2,
-                               whiteBar.y + whiteBar.h + (infoBackground.h - whiteBar.h)/2 - linesNum.getTextSurface()->h/2);
+                               whiteBar.y + whiteBar.h + (infoBackground.h - whiteBar.h)/2 - linesNum.getTextSurface()->h/2 - 3);
             linesNum.drawTextToRender();
 
             break;
         case 2:
             //Level box
-
-            level.setCoords(whiteBar.x + whiteBar.w/2 - level.getTextSurface()->w/2, whiteBar.y);
-            level.drawTextToRender();
         
             levelNum.setCoords(whiteBar.x + whiteBar.w/2 - levelNum.getTextSurface()->w/2,
-                               whiteBar.y + whiteBar.h + (infoBackground.h - whiteBar.h)/2 - levelNum.getTextSurface()->h/2);
+                               whiteBar.y + whiteBar.h + (infoBackground.h - whiteBar.h)/2 - levelNum.getTextSurface()->h/2 - 5);
             levelNum.drawTextToRender();
 
             break;
@@ -208,16 +166,11 @@ void MainScene::render(){
 
     //Render the background for the hold figure
 
-        SDL_Rect holdBackground = {HFX,HFY,HFW,HFH};
-
         SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
-
-        SDL_RenderFillRect(mainScreen.getRender(), &holdBackground);
-        SDL_RenderDrawRect(mainScreen.getRender(), &holdBackground);
 
         if(heldFigure == nullptr){
 
-            Font holdText(&mainScreen, "Ubuntu-Bold", 50, "HOLD", {LIGHT_GREY.r, LIGHT_GREY.g, LIGHT_GREY.b, 100});
+            Font holdText(&mainScreen, "04B_30__", 50, "HOLD", {LIGHT_GREY.r, LIGHT_GREY.g, LIGHT_GREY.b, 100});
             
             holdText.setCoords(HFX + HFW/2 - holdText.getTextSurface()->w/2, HFY + HFH/2 - holdText.getTextSurface()->h/2);
             
@@ -311,6 +264,10 @@ void MainScene::render(){
     //Render the figure that is falling
 
         currentFigure->renderFigure();
+
+    Image borders(0,0, SCREENWIDTH, SCREENHEIGHT, "MainScene-background/border", "png");
+
+    borders.CopyToRender();
     
 }
 
@@ -321,11 +278,34 @@ void MainScene::renderWithoutFigures(){
         SDL_SetRenderDrawColor(mainScreen.getRender(), WHITE.r, WHITE.g, WHITE.b, WHITE.a);
         SDL_RenderClear(mainScreen.getRender());
 
-    //draw the background square where the figures fall and the game is played
+        Image background(0,0,SCREENWIDTH, SCREENHEIGHT, "MainScene-background/blocks", "png");
 
-        SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
-        SDL_Rect boardBackogrund = {BSX, BSY, BSW, BSH};
-        SDL_RenderFillRect(mainScreen.getRender(), &boardBackogrund);
+        background.setAsBackground();
+
+        background.CopyToRender();
+
+
+    //load an image for the settings button. Use the dimensions of the button
+
+        Image settingsImage(getButtonMap()["settings"].getContainer().x, 
+                            getButtonMap()["settings"].getContainer().y, 
+                            getButtonMap()["settings"].getContainer().w,
+                            getButtonMap()["settings"].getContainer().h, "MainScene-setButtonDef", "png");
+
+        settingsImage.CopyToRender();
+
+    //Draw the next figures background
+
+        SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, 230);
+
+        Image nextFigsBg(0, 0, SCREENWIDTH, SCREENHEIGHT, "MainScene-background/blue-bg", "png");
+
+        nextFigsBg.CopyToRender();
+
+        Image skyBg(0, 0, SCREENWIDTH, SCREENHEIGHT, "MainScene-background/sky", "png");
+
+        skyBg.CopyToRender();
+
 
     //draw the vertical and hor. lines that separate each tile 
 
@@ -342,54 +322,11 @@ void MainScene::renderWithoutFigures(){
         }
 
 
-    //load an image for the settings button. Use the dimensions of the button
-
-        Image settingsImage(getButtonMap()["settings"].getContainer().x, 
-                            getButtonMap()["settings"].getContainer().y, 
-                            getButtonMap()["settings"].getContainer().w + 10,
-                            getButtonMap()["settings"].getContainer().h + 10, "OpScene-settings", "png");
-    
-        getButtonMap()["settings"].setImage(&settingsImage);
-
-        getButtonMap()["settings"].drawToRender();
-
-
-
-    //Draw the next figures background
-    
-        SDL_Rect nextFiguresBackground = {FSX, FSY, FSW, FSH};
-
-        SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, 230);
-
-        SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
-        SDL_RenderFillRect(mainScreen.getRender(), &nextFiguresBackground);
-        SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_NONE);
-
     //Draw an outline to the background rectangle
-
-        SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
-        SDL_RenderDrawRect(mainScreen.getRender(), &nextFiguresBackground);
 
     //Set the text of the next figures, the title of the rectangle
 
-        Font next(&mainScreen, "Ubuntu-Bold", 30, "NEXT", TEAL);
-        next.setCoords(FSX + FSW/2 - next.getTextSurface()->w/2, FSY);
-
-    //Draw a small rectangle as a background for the title
-        
-        SDL_Rect nextBg = {FSX, FSY, FSW, next.getTextSurface()->h};
-        
-        SDL_SetRenderDrawColor(mainScreen.getRender(), WHITE.r, WHITE.g, WHITE.b, WHITE.a);
-        SDL_RenderFillRect(mainScreen.getRender(), &nextBg);
-        
-        //Draw a slight outline
-        SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
-        SDL_RenderDrawRect(mainScreen.getRender(), &nextBg);
-        
-    //I'm delaying the rendering of the text, as I want to render it ABOVE the small background
-    //we made 
-
-        next.drawTextToRender();
+        Font next(&mainScreen, "04B_30__", 30, "NEXT", TEAL);
 
     //render the points, the level and the lines info
 
@@ -400,11 +337,11 @@ void MainScene::renderWithoutFigures(){
 
     //We will need a font for each title and number we need to show. The %Num shows the numeric value
 
-        Font level(&mainScreen, "Ubuntu-Bold", whiteBar.h, "LEVEL", TEAL);
+        Font levelNum(&mainScreen, "04B_30__", whiteBar.h*2, std::to_string(LEVEL).c_str(), CIANSH);
 
-        Font points(&mainScreen, "Ubuntu-Bold", whiteBar.h, "POINTS", TEAL);
+        Font pointsNum(&mainScreen, "04B_30__", whiteBar.h*2, std::to_string(POINTS).c_str(), CIANSH);
 
-        Font lines(&mainScreen, "Ubuntu-Bold", whiteBar.h, "LINES", TEAL); 
+        Font linesNum(&mainScreen, "04B_30__", whiteBar.h*2, std::to_string(LINES).c_str(), CIANSH);
     
     //This loop renders all three information boxes
 
@@ -418,63 +355,59 @@ void MainScene::renderWithoutFigures(){
             SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, 230);
             SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
             
-            SDL_RenderFillRect(mainScreen.getRender(), &infoBackground);
-            SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_NONE);
-            
         //Draw the background of the titles. It changes it's position depending on the box
 
             whiteBar = {ISX, ISY + (ISH + BLOCKLENGTH/3)*i, ISW, ISH/4};
-            
-            SDL_SetRenderDrawColor(mainScreen.getRender(), WHITE.r, WHITE.g, WHITE.b, WHITE.a);
-            SDL_RenderFillRect(mainScreen.getRender(), &whiteBar);
-
-            SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
-            SDL_RenderDrawRect(mainScreen.getRender(), &whiteBar);
         
         switch (i){
         case 0:
             //Points box
 
-            points.setCoords(whiteBar.x + whiteBar.w/2 - points.getTextSurface()->w/2, whiteBar.y);
-            points.drawTextToRender();
         
+            pointsNum.setCoords(whiteBar.x + whiteBar.w/2 - pointsNum.getTextSurface()->w/2,
+                                whiteBar.y + whiteBar.h + (infoBackground.h - whiteBar.h)/2 - pointsNum.getTextSurface()->h/2 - 10);
+            pointsNum.drawTextToRender();
+
             break;
         case 1:
             //Lines box
-
-            lines.setCoords(whiteBar.x + whiteBar.w/2 - lines.getTextSurface()->w/2, whiteBar.y);
-            lines.drawTextToRender();
         
+            linesNum.setCoords(whiteBar.x + whiteBar.w/2 - linesNum.getTextSurface()->w/2,
+                               whiteBar.y + whiteBar.h + (infoBackground.h - whiteBar.h)/2 - linesNum.getTextSurface()->h/2 - 3);
+            linesNum.drawTextToRender();
+
             break;
         case 2:
             //Level box
-
-            level.setCoords(whiteBar.x + whiteBar.w/2 - level.getTextSurface()->w/2, whiteBar.y);
-            level.drawTextToRender();
         
+            levelNum.setCoords(whiteBar.x + whiteBar.w/2 - levelNum.getTextSurface()->w/2,
+                               whiteBar.y + whiteBar.h + (infoBackground.h - whiteBar.h)/2 - levelNum.getTextSurface()->h/2 - 5);
+            levelNum.drawTextToRender();
+
             break;
         }
-    }   
-    
-    //Render the background for the hold figure
+    }
 
-        SDL_Rect holdBackground = {HFX,HFY,HFW,HFH};
+    //Render the background for the hold figure
 
         SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
 
-        SDL_RenderFillRect(mainScreen.getRender(), &holdBackground);
-        SDL_RenderDrawRect(mainScreen.getRender(), &holdBackground);
+        if(heldFigure == nullptr){
+
+            Font holdText(&mainScreen, "04B_30__", 50, "HOLD", {LIGHT_GREY.r, LIGHT_GREY.g, LIGHT_GREY.b, 100});
+            
+            holdText.setCoords(HFX + HFW/2 - holdText.getTextSurface()->w/2, HFY + HFH/2 - holdText.getTextSurface()->h/2);
+            
+            SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
+            holdText.drawTextToRender();
+            SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_NONE);
+        }
 
 
-    //draw a white blur
+    Image borders(0,0, SCREENWIDTH, SCREENHEIGHT, "MainScene-background/border", "png");
+
+    borders.CopyToRender();
     
-        SDL_Rect blendRect = {0,0, SCREENWIDTH, SCREENHEIGHT};
-
-        SDL_SetRenderDrawColor(mainScreen.getRender(), WHITE.r, WHITE.g, WHITE.b, 50);
-
-        SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
-        SDL_RenderFillRect(mainScreen.getRender(), &blendRect);
-        SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_NONE);
 }
 
 void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene, Sound *){
@@ -487,6 +420,15 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
     //If the settings button is clicked or the user hit ESC open the settings
     if(getButtonMap()["settings"].isClicked(&event) || ((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE))){
         //mainScene now saves the progres made on the game even if the settings is opened
+
+        Image settingsImage(getButtonMap()["settings"].getContainer().x, 
+                            getButtonMap()["settings"].getContainer().y, 
+                            getButtonMap()["settings"].getContainer().w,
+                            getButtonMap()["settings"].getContainer().h, "MainScene-setButtonClick", "png");
+
+        settingsImage.CopyToRender();
+
+        curScene->update(mainScreen.getRender());
 
         mScene = curScene;
         curScene = nullptr;
@@ -701,12 +643,12 @@ void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScen
         //In the case there are lines cleared, update the general info
 
             if(linesCleared){
-                explosionEffect.play();
+                EFFECTSSOUNDLVL != 0 ? explosionEffect.play() : 0;
 
                 POINTS += calculatePoints(linesCleared);
                 LEVEL = getLevel();
                 FALLSPEED = getFallSpeed();
-            }   
+            }
 }
 
 

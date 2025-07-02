@@ -203,6 +203,7 @@ Uint32 getFallSpeed();
 //Color palette used in the rest of the project
 //                                   R    G    B    A
 
+constexpr SDL_Color CIANSH       = {155, 177, 222, 255};
 constexpr SDL_Color RED          = {255,   0,   0, 255};
 constexpr SDL_Color GREEN        = {  0, 255,   0, 255};
 constexpr SDL_Color BLUE         = {  0,   0, 255, 255};

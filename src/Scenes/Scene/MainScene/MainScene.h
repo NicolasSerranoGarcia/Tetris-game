@@ -63,6 +63,8 @@ class MainScene: public Scene{
         // bool dead = false;
 
         Sound explosionEffect;
+
+        bool isSettingsClicked = false;
         
     public:   
     

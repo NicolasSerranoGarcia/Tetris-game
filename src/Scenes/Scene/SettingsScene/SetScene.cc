@@ -172,7 +172,7 @@ void SetScene::render(){
 
     //Render a title for the keybinds
 
-        Font keyBindTitle(&mainScreen, "Ubuntu-Regular", 50, "KEYBINDS", BLACK);
+        Font keyBindTitle(&mainScreen, "VCR_OSD_MONO_1.001", 50, "KEYBINDS", BLACK);
         keyBindTitle.setCoords(SETTINGSBACKGROUNDW/2 - keyBindTitle.getTextSurface()->w/2, 5);
 
         keyBindTitle.drawTextToRender();
@@ -183,7 +183,7 @@ void SetScene::render(){
 
             //render the button associated with the keybind
             
-                Font keybind(&mainScreen, "Ubuntu-Regular", SETTINGSBACKGROUNDX - 13, convertKeyToLetter(getKeyBindByKey(keys[i])).c_str(), BLACK);
+                Font keybind(&mainScreen, "VCR_OSD_MONO_1.001", SETTINGSBACKGROUNDX - 13, convertKeyToLetter(getKeyBindByKey(keys[i])).c_str(), BLACK);
 
                 getButtonMap()[keys[i]].setFont(&keybind);
 
@@ -192,7 +192,7 @@ void SetScene::render(){
             //Render the text info that comes with the keybind
 
                 //refers to the text that comes with the keybind that says which action is it
-                Font infoText(&mainScreen, "Ubuntu-Regular", SETTINGSBACKGROUNDX - 15, getMessageByKey(keys[i]), BLACK);
+                Font infoText(&mainScreen, "VCR_OSD_MONO_1.001", SETTINGSBACKGROUNDX - 15, getMessageByKey(keys[i]), BLACK);
                 infoText.setCoords(SETTINGSBACKGROUNDW/4 - infoText.getTextSurface()->w/2, getButtonMap()[keys[i].c_str()].getContainer().y - SETTINGSBACKGROUNDY);
             
                 infoText.drawTextToRender();
@@ -217,7 +217,7 @@ void SetScene::render(){
 
     //Render a title for the sound
 
-        Font soundTitle(&mainScreen, "Ubuntu-Regular", 50, "SOUND", BLACK);
+        Font soundTitle(&mainScreen, "VCR_OSD_MONO_1.001", 50, "SOUND", BLACK);
 
         soundTitle.setCoords(TEXTURESOUNDX + TEXTURESOUNDW/2 - soundTitle.getTextSurface()->w/2, TEXTURESOUNDY + 7);
 
@@ -244,16 +244,18 @@ void SetScene::render(){
             SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
             SDL_RenderFillCircle(mainScreen.getRender(), x, TEXTURESOUNDY + TEXTURESOUNDH/3 + 15, 10);
             
+            
             SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
             SDL_RenderDrawCircle(mainScreen.getRender(), x, TEXTURESOUNDY + TEXTURESOUNDH/3 + 15, 10, 0);
-
-        //right circle
-
+            
+            //right circle
+            
             SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
             SDL_RenderFillCircle(mainScreen.getRender(), x + 3*TEXTURESOUNDW/5, TEXTURESOUNDY + TEXTURESOUNDH/3 + 15, 10);
             
             SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
             SDL_RenderDrawCircle(mainScreen.getRender(), x + 3*TEXTURESOUNDW/5, TEXTURESOUNDY + TEXTURESOUNDH/3 + 15, 10, 1);
+
 
         //render the slider
 
@@ -271,7 +273,7 @@ void SetScene::render(){
 
     //Render a text for the info of the slider
 
-        Font GeneralSoundText(&mainScreen, "Ubuntu-Regular", 25, "General", BLACK);
+        Font GeneralSoundText(&mainScreen, "VCR_OSD_MONO_1.001", 25, "General", BLACK);
 
         GeneralSoundText.setCoords(TEXTURESOUNDW/2 - GeneralSoundText.getTextSurface()->w/2, TEXTURESOUNDY + TEXTURESOUNDH/3 - 42);
 
@@ -280,7 +282,7 @@ void SetScene::render(){
     }
 
 
-    //Render a slider bar for the sound
+    //Render a slider bar for the effects
 
         int x = TEXTURESOUNDX + TEXTURESOUNDW/5;
 
@@ -326,7 +328,7 @@ void SetScene::render(){
 
     //Render a text for the info of the slider
 
-        Font GeneralSoundText(&mainScreen, "Ubuntu-Regular", 25, "Effects", BLACK);
+        Font GeneralSoundText(&mainScreen, "VCR_OSD_MONO_1.001", 25, "Effects", BLACK);
 
         GeneralSoundText.setCoords(TEXTURESOUNDW/2 - GeneralSoundText.getTextSurface()->w/2, TEXTURESOUNDY + TEXTURESOUNDH/3 - 42 + 100);
 
@@ -520,7 +522,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                     
                     mScene->renderWithoutFigures();
                     
-                    Font time(&mainScreen, "Ubuntu-Regular", 100, std::to_string(timer).c_str(), WHITE);
+                    Font time(&mainScreen, "VCR_OSD_MONO_1.001", 100, std::to_string(timer).c_str(), WHITE);
                     time.setCoords(AbsPosition::POS_CENTER);
                     
                     time.drawTextToRender();
