@@ -103,6 +103,10 @@ There are 4 different scenes. The user can change between scenes by pressing cer
 
 ![UML Diagram](docs/UML-Diagram.png)
 
+Additionally, 'auxiliary' classes like Button, Image or Font can be loaded temporarily (not as an atributte) on any point of the code. These are not reflected in the diagram.
+
+Every class is built to sustain the class Scene and it's childs. These classes can be used as a template for other SDL projects, so feel free to use them as you wish :). 
+
 ---
 
 ## Features
