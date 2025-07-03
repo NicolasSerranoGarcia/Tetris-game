@@ -26,6 +26,7 @@
 - [Project Structure](#project-structure)
 - [Features](#features)
 - [Contributing](#contributing)
+- [About](#about)
 
 ---
 
@@ -196,6 +197,10 @@ Miscellaneous features:
 <img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
 </p>
 
+- My main socials are shown as buttons inside the settings. Clicking them will open a browser pop up redirecting to them
+
+<!-- Show a gif clicking the buttons -->
+
 Here is a list of other (micro) features that further enhance the gameplay experience:
 
 
@@ -220,6 +225,8 @@ Here is a list of other (micro) features that further enhance the gameplay exper
 <img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
 </p>
 
+
+Note that SDL is a low-level multimedia library, so everything has been thought and implemented by me from 0. Even something as simple as a button or a texture take lots of lines of code to create. 
 
 ---
 
@@ -269,6 +276,24 @@ Provide a clear title and description of your changes.
 
 Check the [issues page](#) and look for labels like `good first issue`.  
 Feel free to open a discussion or issue if you have an idea or question!
+
+---
+
+## 🧭 About
+
+I've always been fascinated by game creation, specially retro games like Mario Bros on the NES or Mario 64. I find incredible that a game brings so much features given the limitations of the console it is built for. As a first-year Computer Engineer, I'm glad I've taken assembly classes and computer-related architecture as I can, at least, peak at their source code and not freak out.  
+
+SDL (Simple Direct media Layer) is a low-level multimedia library, that gives you control over basic things like events, window creation and canvas. 
+
+It is normally used as a windowing software (create windows and handle them) for other applications like OpenGL, but can be used as a functional module itself. SDL is *NOT* a *Game Engine*. It offers you the basic tools to build anything you want (with patience), but that's it. 
+
+Of course, using assembly to code a project is not comparable to using SDL (SDL abstracts the process of accesing hardware directly to capture events or drawing to the screen) but comes closer than other software. Coding this project has been a challenging process of thinking through the core functionalities of a game like tetris, and implementing them to come close to what a normal person would find normal when using it. 
+
+My code is not perfect. It lacks lots of things (specially design pattern), but I'm proud I came through lots of obstacles and I was able to think them through and overcome them. I've put a good amount of hours into this project, and I've implemented lots of things into it. 
+
+I could've created just a screen where you play tetris, but wanting to create something personal, where I can add features that I find useful or interesting, was the way to go for me. 
+
+This project is recreational, and I love the learning process I've been through with it. I hope you find the things I've created entertaining in your gameplay :)
 
 ---
 
