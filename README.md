@@ -31,7 +31,7 @@
 
 ## Overview
 
-**Tetris-game** is a modern take on the classic Tetris game, developed in C++ using the SDL2 library as a multimedia API. This project was designed by [me](https://linktr.ee/NicolasSerrano), and offers an open source code with a lot of fun [features](#features)
+**Tetris-game** is a modern take on the classic Tetris game, developed in C++ using the SDL2 library as a multimedia API. This project was designed by [me](https://linktr.ee/NicolasSerrano) solely to learn, and offers an open source code with a lot of fun [features](#features)!
 
 ### Key Features
 
