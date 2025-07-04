@@ -56,7 +56,7 @@ Before building and running the game, make sure you have:
 - **Libraries:** SDL2, SDL2_ttf, SDL_Image, SDL_Mixer
 
 ### Installation
-To install the required libraries on Ubuntu:
+To install the required libraries and programs on Ubuntu:
 
 ```bash
 sudo apt update
@@ -70,7 +70,6 @@ cd Tetris-game
 ```
 
 To compile the game into an executable:
-
 ```bash
 make
 ```
