@@ -105,7 +105,6 @@ SetScene::SetScene(){
         git.button= githubLogic;
         git.clicked = false;
 
-
     //Setup the buttons of the socials and so
 
         instagram = {23 + SETTINGSBACKGROUNDX, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.3), (int) (BLOCKLENGTH*1.3), LIGHT_GREY, &mainScreen};
@@ -458,6 +457,10 @@ void SetScene::render(){
             }
         }
 
+    Image img(0,0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "temp", "png");
+
+    img.CopyToRender();
+
         
     //Set the render target back to the mainScreen
         
@@ -515,9 +518,25 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                 
                 Uint32 next = SDL_GetTicks() + 3000;
                 
-                countdown.play();
+                if(EFFECTSSOUNDLVL != 0){
+                    countdown.play();
+                }
+
                 while ((int) ((int) current - (int) next) < 0){
-                    
+                    SDL_Event e;
+                    while(SDL_PollEvent(&e)){
+                        if(e.type == SDL_QUIT){
+                            SDL_PushEvent(&e);
+                            delete curScene;
+                            curScene = nullptr;
+                            curScene = mScene;
+                            mScene = nullptr;
+                            curScene->renderWithoutFigures();
+                            return;
+                        } else if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE){
+                            return;
+                        }
+                    }
                     int timer = ceil(abs((int) (next - current))/1000.0);
                     
                     mScene->renderWithoutFigures();
@@ -1104,7 +1123,7 @@ void SetScene::renderAllButtons(std::map <std::string, Button> map){
         i->second.setContainer({i->second.getContainer().x + SETTINGSBACKGROUNDX, i->second.getContainer().y + SETTINGSBACKGROUNDY, i->second.getContainer().w, i->second.getContainer().h});
 
     }
-} 
+}
 
 void SetScene::renderButton(Button button){
 

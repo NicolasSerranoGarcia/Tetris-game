@@ -505,7 +505,7 @@ void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScen
         }
 
     //This piece of code updates the figure one position down depending on the interval of time (FALLSPEED).
-    //Keep in mind the fallspeed changes depending on the level. Consecuently, this block will not execute every time 
+    //Keep in mind the fallspeed changes depending on the level. Consequently, this block will not execute every time 
     //handleLogic() is called, only when enough time has passed.
 
         Uint32 elapsed = SDL_GetTicks() - *lastTick;
@@ -514,15 +514,15 @@ void MainScene::handleLogic(Uint32 * lastTick, Scene *& curScene, Scene *& mScen
             //We know for sure the figure's highest y value is at most 18 (if it was 19 it would have been updated).
             //We are guaranteed to have at least one more down movement, so we can execute this code without checking
 
-            //We create an artifical event of moving down. We "simulate" the down key being pressed
+            //We create an artificial event of moving down. We "simulate" the down key being pressed
             SDL_Event event;
             event.type = SDL_KEYDOWN;
             event.key.keysym.sym = CONTROLDOWN;
 
-            bool colision = collides(gameBoard, event.key.keysym.sym, currentFigure);
+            bool collision = collides(gameBoard, event.key.keysym.sym, currentFigure);
 
-            //If there is no colision then it is safe to update
-            if(!colision){
+            //If there is no collision then it is safe to update
+            if(!collision){
                 currentFigure->update(event);
             }
             else{

@@ -25,6 +25,8 @@ void OpScene::render(){
         //set the Y position a little lower
         Title.setCoords(Title.getX(), Title.getY() + 50);
 
+        std::cout << Title.getX() << "  " << Title.getY() << "   " << Title.getTextSurface()->w << "    " <<   Title.getTextSurface()->h << std::endl;
+
         Title.drawTextToRender();
 
 
