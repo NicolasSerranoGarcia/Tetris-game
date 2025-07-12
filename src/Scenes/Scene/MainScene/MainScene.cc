@@ -83,7 +83,9 @@ void MainScene::render(){
 
     //draw the vertical and hor. lines that separate each tile 
 
-        SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r - 30, GREY.g - 30, GREY.b - 30, GREY.a);
+        SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
+        SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r - 30, GREY.g - 30, GREY.b - 30, 100);
+        SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_NONE);
         
         //vertical
         for(int i = 1; i <= 10; i++){
@@ -275,10 +277,10 @@ void MainScene::renderWithoutFigures(){
 
     //draw a white background
 
-        SDL_SetRenderDrawColor(mainScreen.getRender(), WHITE.r, WHITE.g, WHITE.b, WHITE.a);
+        SDL_SetRenderDrawColor(mainScreen.getRender(), WHITE.r, WHITE.g, WHITE.b, 100);
         SDL_RenderClear(mainScreen.getRender());
 
-        Image background(0,0,SCREENWIDTH, SCREENHEIGHT, "MainScene-background/blocks", "png");
+        Image background(0, 0, SCREENWIDTH, SCREENHEIGHT, "MainScene-background/blocks", "png");
 
         background.setAsBackground();
 
@@ -296,7 +298,7 @@ void MainScene::renderWithoutFigures(){
 
     //Draw the next figures background
 
-        SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, 230);
+        SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, 100);
 
         Image nextFigsBg(0, 0, SCREENWIDTH, SCREENHEIGHT, "MainScene-background/blue-bg", "png");
 
@@ -309,7 +311,9 @@ void MainScene::renderWithoutFigures(){
 
     //draw the vertical and hor. lines that separate each tile 
 
-        SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r - 30, GREY.g - 30, GREY.b - 30, GREY.a);
+        SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
+        SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r - 30, GREY.g - 30, GREY.b - 30, 100);
+        SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_NONE);
         
         //vertical
         for(int i = 1; i <= 10; i++){
@@ -352,7 +356,7 @@ void MainScene::renderWithoutFigures(){
             infoBackground = {ISX, ISY + (ISH + BLOCKLENGTH/3)*i, ISW, ISH};
             
             
-            SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, 230);
+            SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, 100);
             SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
             
         //Draw the background of the titles. It changes it's position depending on the box
@@ -390,7 +394,7 @@ void MainScene::renderWithoutFigures(){
 
     //Render the background for the hold figure
 
-        SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
+        SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, 100);
 
         if(heldFigure == nullptr){
 
@@ -398,7 +402,6 @@ void MainScene::renderWithoutFigures(){
             
             holdText.setCoords(HFX + HFW/2 - holdText.getTextSurface()->w/2, HFY + HFH/2 - holdText.getTextSurface()->h/2);
             
-            SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
             holdText.drawTextToRender();
             SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_NONE);
         }

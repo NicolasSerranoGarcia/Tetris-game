@@ -158,16 +158,14 @@ void SetScene::render(){
         SDL_Texture* settingsTexture = SDL_CreateTexture(mainScreen.getRender(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, SETTINGSBACKGROUNDW, SETTINGSTEXTUREH);
 
         SDL_SetRenderTarget(mainScreen.getRender(), settingsTexture);
+        
+        
+        //IMPORTANT: From now on, all the rendering is being made on the settingsTexture
+        
+                Image background(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "temp", "png");
+        
+                background.CopyToRender();
 
-
-    //IMPORTANT: From now on, all the rendering is being made on the settingsTexture
-
-
-    //Set a grey background
-
-        SDL_SetRenderDrawColor(mainScreen.getRender(), LIGHT_GREY.r, LIGHT_GREY.g, LIGHT_GREY.b, LIGHT_GREY.a);
-
-        SDL_RenderClear(mainScreen.getRender());
 
     //Render a title for the keybinds
 
@@ -457,10 +455,6 @@ void SetScene::render(){
             }
         }
 
-    Image img(0,0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "temp", "png");
-
-    img.CopyToRender();
-
         
     //Set the render target back to the mainScreen
         
@@ -542,7 +536,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                     mScene->renderWithoutFigures();
                     
                     Font time(&mainScreen, "VCR_OSD_MONO_1.001", 100, std::to_string(timer).c_str(), WHITE);
-                    time.setCoords(AbsPosition::POS_CENTER);
+                    time.setCoords(BSX + BSW/2 - time.getTextSurface()->w/2, BSY + BSH/2 - time.getTextSurface()->h/2);
                     
                     time.drawTextToRender();
                     

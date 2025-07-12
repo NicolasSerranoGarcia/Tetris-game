@@ -181,8 +181,10 @@ void LooseScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScen
         
         //handle the logs for the points before deleting everything
 
+        if(POINTS + LEVEL + LINES != 0){
             updateBestPlays({(int) POINTS, (int) LEVEL, (int) LINES});
-
+        }
+        
         LINES = 0;
         LEVEL = 0;
         POINTS = 0;
@@ -200,7 +202,9 @@ void LooseScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScen
 
     if(getButtonMap()["goStart"].isClicked(&event)){
 
-        updateBestPlays({(int) POINTS, (int) LEVEL, (int) LINES});
+        if(POINTS + LEVEL + LINES != 0){
+            updateBestPlays({(int) POINTS, (int) LEVEL, (int) LINES});
+        }
 
         LINES = 0;
         LEVEL = 0;

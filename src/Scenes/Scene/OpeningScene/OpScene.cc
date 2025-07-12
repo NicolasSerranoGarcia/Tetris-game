@@ -2,7 +2,7 @@
 
 OpScene::OpScene(){
 
-    Button playButton({px(AbsPosition::POS_CENTER_DOWN, 320), py(AbsPosition::POS_CENTER_LEFT, 140), 320, 140}, GREEN, &mainScreen);
+    Button playButton({225, 510, 515, 160}, GREEN, &mainScreen);
     getButtonMap()["play"] = playButton;
 }
 
@@ -14,30 +14,6 @@ void OpScene::render(){
         Image background(0, 0, mainScreen.getWidth(), mainScreen.getHeight(), "OpScene-background", "png");
 
         background.setAsBackground();
-
-
-    //Load the title
-
-        Font Title(&mainScreen, "BungeeTint-Regular", 150, "TETRIS", RED);
-
-        Title.setCoords(AbsPosition::POS_UP);
-
-        //set the Y position a little lower
-        Title.setCoords(Title.getX(), Title.getY() + 50);
-
-        std::cout << Title.getX() << "  " << Title.getY() << "   " << Title.getTextSurface()->w << "    " <<   Title.getTextSurface()->h << std::endl;
-
-        Title.drawTextToRender();
-
-
-    //Finish setting up the play button by loading a font
-
-        Font Play(&mainScreen, "Ubuntu-Bold", 125, "PLAY", BLACK);
-
-        getButtonMap()["play"].setFont(&Play);
-
-        getButtonMap()["play"].drawToRender();
-
 
     //Render the best play, if there is
 
