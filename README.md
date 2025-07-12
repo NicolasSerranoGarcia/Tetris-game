@@ -36,10 +36,10 @@
 
 ### Key Features
 
-- 🎮 **Gameplay Mechanics:** Core Tetris rules implemented for a faithful experience.
-- ⏱️ **Real-Time Interaction:** Smooth response to user input for seamless gameplay.
-- 🛠️ **Sounds and Music:** With volume control and a radio to choose songs.
-- 🌌 **Scene Management:** Efficient handling of scene transitions and updates.
+- 🎮 **Gameplay Mechanics:** Swap figures, fast drop, visualize next figures and more!
+- ⏱️ **Scene management:** Multiple scenes: Settings, opening scene, loose scene...
+- 🛠️ **Sounds and Music:** With volume control, media player UI and a log to choose songs.
+- 🌌 **Retro styling:** Self-made pixel art textures, fonts and others.
 - ✍️ **Keybind mapping:** Keybinds can be changed for a better experience.
 - ↩️ **Many more:** Play to try all the features!
 
@@ -56,7 +56,7 @@ Before building and running the game, make sure you have:
 - **Libraries:** SDL2, SDL2_ttf, SDL_Image, SDL_Mixer
 
 ### Installation
-To install the required libraries on Ubuntu:
+To install the required libraries and programs on Ubuntu:
 
 ```bash
 sudo apt update
@@ -70,7 +70,6 @@ cd Tetris-game
 ```
 
 To compile the game into an executable:
-
 ```bash
 make
 ```
@@ -183,7 +182,7 @@ Miscellaneous features:
 </p>
   
 
-- The **stats** of the best game are shown in the opening scene. The top 5 is saved locally, so the program can be closed without loosing the progress
+- The **stats** of the best game are shown in the opening scene. The top 5 is <ins>saved locally</ins>, so the program can be closed without loosing the progress
 
 <!-- Show an example of this -->
 <p align = "center" >
