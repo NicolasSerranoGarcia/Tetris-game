@@ -32,7 +32,7 @@
 
 ## Overview
 
-**Tetris-game** is a modern take on the classic Tetris game, developed in the *C++* language using *SDL2*, a low level multimedia library. This project offers an open source code with a lot of fun, fancy [features](#features)!
+**Tetris-game** is a modern take on the classic Tetris game, developed in the *C++* language using *SDL2*, a low-level multimedia library. This project offers an open source code with a lot of fun, fancy [features](#features)!
 
 ### Key Features
 
