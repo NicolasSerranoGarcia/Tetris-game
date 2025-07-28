@@ -28,10 +28,6 @@ class SetScene: public Scene{
         //method from inside the render() method, nothing else
         Scene * mainScene = nullptr;
 
-        //This is the button that shows on the upper left edge of the
-        //settings and that goes back to the mainScene.
-        Button exitButton;
-
         //This map is used to store a combination of key button pairs.
         //This map only saves the buttons of the keybinds. 
         std::map <std::string, ButClick> mapButtonPressed;
@@ -110,9 +106,17 @@ class SetScene: public Scene{
         Button goForwardMusicLogic;
         ButClick goFor;
 
+        //This is the button that exits the settings
+        Button exit;
+
+        //The associated logic button of exit button
+        Button exitLogic;
+        ButClick ext;
+
         //is the music stopped right now? It is used to switch
         //the texture of the stop/continue button
         bool isStoped = false;
+
 
         //This is the sound associated with opening the settings
         Sound open;

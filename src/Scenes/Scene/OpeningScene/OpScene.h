@@ -41,6 +41,14 @@ class OpScene: public Scene{
         //void
         void handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene, Sound *) override;
 
+        //Wether if the play button is pressed
+        bool isClicked = false;
+
+        //current time since SDL library initialization in ms. Used to preserve across methods
+        Uint32 ticks = SDL_GetTicks();
+
+        //if false, the first background sprite will show. Otherwise the second will show
+        bool sprite = false;
 };
 
 #endif

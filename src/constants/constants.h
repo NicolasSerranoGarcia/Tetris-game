@@ -231,6 +231,7 @@ constexpr SDL_Color LIGHT_YELLOW = {255, 255, 153, 255};
 constexpr SDL_Color LIGHT_RED    = {255, 102, 102, 255};
 constexpr SDL_Color LIGHT_PURPLE = {216, 191, 216, 255};
 constexpr SDL_Color LIGHT_CYAN   = {224, 255, 255, 255};
+constexpr SDL_Color LIGHT_CREAM  = {245, 229, 192, 255};
 
 
 //Enum class that holds all the absolute positions. It is an easy, fast-access way to 

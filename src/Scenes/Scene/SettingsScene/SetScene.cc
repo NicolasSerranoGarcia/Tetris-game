@@ -89,8 +89,6 @@ SetScene::SetScene(){
 
     //Setup the exit button
 
-        exitButton = {SETTINGSBACKGROUNDX, SETTINGSBACKGROUNDY, (int) (BLOCKLENGTH*1.3), (int) (BLOCKLENGTH*1.3), LIGHT_GREY, &mainScreen};
-
     //Setup the buttons of the socials and so
 
         linktree = {SETTINGSBACKGROUNDW/10 + SETTINGSBACKGROUNDX, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.2), (int) (BLOCKLENGTH*1.2), LIGHT_GREY, &mainScreen};
@@ -132,6 +130,11 @@ SetScene::SetScene(){
         stopMusicLogic = stopMusic;
         stp.button = stopMusicLogic;
         stp.clicked = false;
+
+        exit = {SETTINGSBACKGROUNDX, SETTINGSBACKGROUNDY, (int) (BLOCKLENGTH*1.3), (int) (BLOCKLENGTH*1.3), LIGHT_GREY, &mainScreen};
+        exitLogic = exit;
+        ext.button = exitLogic;
+        ext.clicked = false;
 }
 
 
@@ -153,23 +156,33 @@ void SetScene::render(){
             mainScene->renderWithoutFigures();
         }
 
+        Image chains(0, 0, SCREENWIDTH, SCREENHEIGHT, "SetScene-chains", "png");
+
+        chains.CopyToRender();
+
     //Create a settingsTexture so that we can "slide" trough the settings. It will be set as the render target and all the elements will be render on it
 
+    
         SDL_Texture* settingsTexture = SDL_CreateTexture(mainScreen.getRender(), SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, SETTINGSBACKGROUNDW, SETTINGSTEXTUREH);
+
+        SDL_SetTextureBlendMode(settingsTexture, SDL_BLENDMODE_BLEND);
 
         SDL_SetRenderTarget(mainScreen.getRender(), settingsTexture);
         
         
         //IMPORTANT: From now on, all the rendering is being made on the settingsTexture
-        
-                Image background(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "temp", "png");
-        
-                background.CopyToRender();
 
+
+        SDL_SetRenderDrawColor(mainScreen.getRender(), 0, 0, 0, 0);
+        SDL_RenderClear(mainScreen.getRender()); 
+
+        Image bg(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-background", "png");
+
+        bg.CopyToRender();
 
     //Render a title for the keybinds
 
-        Font keyBindTitle(&mainScreen, "VCR_OSD_MONO_1.001", 50, "KEYBINDS", BLACK);
+        Font keyBindTitle(&mainScreen, "04B_30__", 50, "KEYBINDS", LIGHT_CREAM);
         keyBindTitle.setCoords(SETTINGSBACKGROUNDW/2 - keyBindTitle.getTextSurface()->w/2, 5);
 
         keyBindTitle.drawTextToRender();
@@ -180,7 +193,7 @@ void SetScene::render(){
 
             //render the button associated with the keybind
             
-                Font keybind(&mainScreen, "VCR_OSD_MONO_1.001", SETTINGSBACKGROUNDX - 13, convertKeyToLetter(getKeyBindByKey(keys[i])).c_str(), BLACK);
+                Font keybind(&mainScreen, "04B_30__", SETTINGSBACKGROUNDX - 13, convertKeyToLetter(getKeyBindByKey(keys[i])).c_str(), LIGHT_CREAM);
 
                 getButtonMap()[keys[i]].setFont(&keybind);
 
@@ -189,7 +202,7 @@ void SetScene::render(){
             //Render the text info that comes with the keybind
 
                 //refers to the text that comes with the keybind that says which action is it
-                Font infoText(&mainScreen, "VCR_OSD_MONO_1.001", SETTINGSBACKGROUNDX - 15, getMessageByKey(keys[i]), BLACK);
+                Font infoText(&mainScreen, "04B_30__", SETTINGSBACKGROUNDX - 15, getMessageByKey(keys[i]), BLACK);
                 infoText.setCoords(SETTINGSBACKGROUNDW/4 - infoText.getTextSurface()->w/2, getButtonMap()[keys[i].c_str()].getContainer().y - SETTINGSBACKGROUNDY);
             
                 infoText.drawTextToRender();
@@ -214,7 +227,7 @@ void SetScene::render(){
 
     //Render a title for the sound
 
-        Font soundTitle(&mainScreen, "VCR_OSD_MONO_1.001", 50, "SOUND", BLACK);
+        Font soundTitle(&mainScreen, "04B_30__", 50, "SOUND", BLACK);
 
         soundTitle.setCoords(TEXTURESOUNDX + TEXTURESOUNDW/2 - soundTitle.getTextSurface()->w/2, TEXTURESOUNDY + 7);
 
@@ -270,7 +283,7 @@ void SetScene::render(){
 
     //Render a text for the info of the slider
 
-        Font GeneralSoundText(&mainScreen, "VCR_OSD_MONO_1.001", 25, "General", BLACK);
+        Font GeneralSoundText(&mainScreen, "04B_30__", 25, "General", BLACK);
 
         GeneralSoundText.setCoords(TEXTURESOUNDW/2 - GeneralSoundText.getTextSurface()->w/2, TEXTURESOUNDY + TEXTURESOUNDH/3 - 42);
 
@@ -325,12 +338,29 @@ void SetScene::render(){
 
     //Render a text for the info of the slider
 
-        Font GeneralSoundText(&mainScreen, "VCR_OSD_MONO_1.001", 25, "Effects", BLACK);
+        Font GeneralSoundText(&mainScreen, "04B_30__", 25, "Effects", BLACK);
 
         GeneralSoundText.setCoords(TEXTURESOUNDW/2 - GeneralSoundText.getTextSurface()->w/2, TEXTURESOUNDY + TEXTURESOUNDH/3 - 42 + 100);
 
         GeneralSoundText.drawTextToRender();
     
+
+        {
+            Image exitIMG(exit.getContainer().x - SETTINGSBACKGROUNDX, exit.getContainer().y - SETTINGSBACKGROUNDY, exit.getContainer().w, exit.getContainer().h, "SetScene-exit", "png");
+
+            Button exitBtn = exit;
+
+            exitBtn.setContainer({exitBtn.getContainer().x - SETTINGSBACKGROUNDX, exitBtn.getContainer().y - SETTINGSBACKGROUNDY, exitBtn.getContainer().w, exitBtn.getContainer().h});
+
+            std::string path = "SetScene_X";
+            path += ext.clicked ? "_Clicked" : "";
+
+            Image image(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, path, "png");
+
+            image.CopyToRender();
+
+        }
+
     //Render the social buttons
     
         //linktree
@@ -462,12 +492,12 @@ void SetScene::render(){
         
     //IMPORTANT: From now on all the rendering is being done on the mainScreen
 
-
     //Render the settingsTexture to the screen
 
         SDL_Rect sourceRect = getSourceRect();
 
         SDL_Rect destRect = {SETTINGSBACKGROUNDX, SETTINGSBACKGROUNDY, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH};
+
 
         SDL_RenderCopy(mainScreen.getRender(), settingsTexture, &sourceRect, &destRect);
 
@@ -476,11 +506,6 @@ void SetScene::render(){
         settingsSlider.render();
 
     //render the exit button
-
-        Image image(exitButton.getContainer().x, exitButton.getContainer().y, exitButton.getContainer().w, exitButton.getContainer().h, "SetScene_X", "png");
-        exitButton.setImage(&image);
-
-        exitButton.drawToRender();
 
     SDL_DestroyTexture(settingsTexture);
 }
@@ -503,8 +528,9 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
     //If there is no pressed button and the user presses ESC, return to the game
 
         if(((event.type == SDL_KEYDOWN) && (event.key.keysym.sym == SDLK_ESCAPE) && !anyButtonPressed) ||
-           ((event.type == SDL_MOUSEBUTTONDOWN) && exitButton.isClicked(&event))){
+           (ext.clicked)){
 
+            ext.clicked = false;
                 //Show a counter first 
 
             if(!dead){
@@ -528,6 +554,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                             curScene->renderWithoutFigures();
                             return;
                         } else if(e.type == SDL_KEYDOWN && e.key.keysym.sym == SDLK_ESCAPE){
+                            countdown.stop();
                             return;
                         }
                     }
@@ -535,7 +562,7 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                     
                     mScene->renderWithoutFigures();
                     
-                    Font time(&mainScreen, "VCR_OSD_MONO_1.001", 100, std::to_string(timer).c_str(), WHITE);
+                    Font time(&mainScreen, "04B_30__", 100, std::to_string(timer).c_str(), WHITE);
                     time.setCoords(BSX + BSW/2 - time.getTextSurface()->w/2, BSY + BSH/2 - time.getTextSurface()->h/2);
                     
                     time.drawTextToRender();
@@ -622,6 +649,10 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
             stp.clicked = true;
         }
 
+         if((event.type == SDL_MOUSEBUTTONDOWN) && exitLogic.isClicked(&event)){
+            ext.clicked = true;
+        }
+
     //If the user, on the other hand, lets go the click, change the slider state consequently
 
         if((event.type == SDL_MOUSEBUTTONUP) && settingsSlider.getClickedNow()){
@@ -671,6 +702,10 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
             stp.clicked = false;
             isStoped ? music->resume() : music->pause();
             isStoped = !isStoped;
+        }
+
+        if((event.type == SDL_MOUSEBUTTONUP) && ext.clicked){
+            ext.clicked = false;
         }
 
     //If the user is currently clicking the slider and moves the mouse, update the settings
@@ -816,6 +851,15 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                     stopMusicLogic.setVisibility(false);
                 } else {
                     stopMusicLogic.setVisibility(true);
+                }
+
+
+                exitLogic.setContainer({exit.getContainer().x, exit.getContainer().y - newSrc.y, exit.getContainer().w, exit.getContainer().h});
+
+                if(exitLogic.getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
+                    exitLogic.setVisibility(false);
+                } else {
+                    exitLogic.setVisibility(true);
                 }
         }
 
@@ -1041,6 +1085,15 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                     stopMusicLogic.setVisibility(false);
                 } else {
                     stopMusicLogic.setVisibility(true);
+                }
+
+
+                exitLogic.setContainer({exitLogic.getContainer().x, exit.getContainer().y - newSrc.y, exit.getContainer().w, exit.getContainer().h});
+
+                if(exitLogic.getContainer().y > SETTINGSBACKGROUNDY + SETTINGSBACKGROUNDH){
+                    exitLogic.setVisibility(false);
+                } else {
+                    exitLogic.setVisibility(true);
                 }
 
             return;
