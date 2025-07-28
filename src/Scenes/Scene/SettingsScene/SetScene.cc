@@ -81,7 +81,7 @@ SetScene::SetScene(){
 
     //Create the effects slider
 
-        Button effectsSliderButton(getXposFromEffectsLvl(SETTINGSBACKGROUNDX + TEXTURESOUNDW/5 - 20), SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100, 40, 40, WHITE, &mainScreen);
+        Button effectsSliderButton(getXposFromEffectsLvl(SETTINGSBACKGROUNDX + TEXTURESOUNDW/5 - 20), SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 12, 40, 40, WHITE, &mainScreen);
 
         effectsSlider = {effectsSliderButton, SETTINGSBACKGROUNDX + TEXTURESOUNDW/5 - 20, SETTINGSBACKGROUNDX + 4*TEXTURESOUNDW/5 - 20, WHITE};
 
@@ -182,10 +182,20 @@ void SetScene::render(){
 
     //Render a title for the keybinds
 
-        Font keyBindTitle(&mainScreen, "04B_30__", 50, "KEYBINDS", LIGHT_CREAM);
-        keyBindTitle.setCoords(SETTINGSBACKGROUNDW/2 - keyBindTitle.getTextSurface()->w/2, 5);
+        Image textBg(0,0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-textBg", "png");
+        Image textBgDecor(0,0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-textBg-decor", "png");
 
-        keyBindTitle.drawTextToRender();
+        textBgDecor.CopyToRender();
+        textBg.CopyToRender();
+
+        Image buttonsDec(0,0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-buttons-dec", "png");
+
+        buttonsDec.CopyToRender();
+
+        Image buttonsT(0,0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-buttons", "png");
+
+        buttonsT.CopyToRender();
+
 
     //Render all the buttons
 
@@ -193,17 +203,18 @@ void SetScene::render(){
 
             //render the button associated with the keybind
             
-                Font keybind(&mainScreen, "04B_30__", SETTINGSBACKGROUNDX - 13, convertKeyToLetter(getKeyBindByKey(keys[i])).c_str(), LIGHT_CREAM);
+                Font keybind(&mainScreen, "04B_30__", SETTINGSBACKGROUNDX - 13, convertKeyToLetter(getKeyBindByKey(keys[i])).c_str(), CLEAR_GREY);
 
-                getButtonMap()[keys[i]].setFont(&keybind);
+                keybind.setCoords(getButtonMap()[keys[i]].getContainer().x + getButtonMap()[keys[i]].getContainer().w/2 - keybind.getTextSurface()->w/2 - SETTINGSBACKGROUNDX, 
+                getButtonMap()[keys[i]].getContainer().y + getButtonMap()[keys[i]].getContainer().h/2 - keybind.getTextSurface()->h/2 - SETTINGSBACKGROUNDY);
 
-                renderButton(getButtonMap()[keys[i]]);
+                keybind.drawTextToRender();
 
             //Render the text info that comes with the keybind
 
                 //refers to the text that comes with the keybind that says which action is it
-                Font infoText(&mainScreen, "04B_30__", SETTINGSBACKGROUNDX - 15, getMessageByKey(keys[i]), BLACK);
-                infoText.setCoords(SETTINGSBACKGROUNDW/4 - infoText.getTextSurface()->w/2, getButtonMap()[keys[i].c_str()].getContainer().y - SETTINGSBACKGROUNDY);
+                Font infoText(&mainScreen, "04B_30__", SETTINGSBACKGROUNDX - 15, getMessageByKey(keys[i]), CLEAR_BROWN);
+                infoText.setCoords(SETTINGSBACKGROUNDW/4 - infoText.getTextSurface()->w/2, getButtonMap()[keys[i].c_str()].getContainer().y - SETTINGSBACKGROUNDY + 5);
             
                 infoText.drawTextToRender();
 
@@ -227,11 +238,7 @@ void SetScene::render(){
 
     //Render a title for the sound
 
-        Font soundTitle(&mainScreen, "04B_30__", 50, "SOUND", BLACK);
 
-        soundTitle.setCoords(TEXTURESOUNDX + TEXTURESOUNDW/2 - soundTitle.getTextSurface()->w/2, TEXTURESOUNDY + 7);
-
-        soundTitle.drawTextToRender();
     
     {
     
@@ -239,35 +246,11 @@ void SetScene::render(){
 
         int x = TEXTURESOUNDX + TEXTURESOUNDW/5;
 
-        //rectangle
-
-            SDL_Rect rect = {x, TEXTURESOUNDY + TEXTURESOUNDH/3 - 10 + 15, 3*TEXTURESOUNDW/5, 20 + 1};
-
-            SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
-            SDL_RenderFillRect(mainScreen.getRender(), &rect);
-
-            SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
-            SDL_RenderDrawRect(mainScreen.getRender(), &rect);
-
-        //left circle
-
-            SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
-            SDL_RenderFillCircle(mainScreen.getRender(), x, TEXTURESOUNDY + TEXTURESOUNDH/3 + 15, 10);
-            
-            
-            SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
-            SDL_RenderDrawCircle(mainScreen.getRender(), x, TEXTURESOUNDY + TEXTURESOUNDH/3 + 15, 10, 0);
-            
-            //right circle
-            
-            SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
-            SDL_RenderFillCircle(mainScreen.getRender(), x + 3*TEXTURESOUNDW/5, TEXTURESOUNDY + TEXTURESOUNDH/3 + 15, 10);
-            
-            SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
-            SDL_RenderDrawCircle(mainScreen.getRender(), x + 3*TEXTURESOUNDW/5, TEXTURESOUNDY + TEXTURESOUNDH/3 + 15, 10, 1);
-
-
         //render the slider
+
+            Image SfxSliderTexture(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-sliders", "png");
+
+            SfxSliderTexture.CopyToRender();
 
             Slider slider = soundSlider;
 
@@ -275,15 +258,17 @@ void SetScene::render(){
 
             button.setContainer({button.getContainer().x - SETTINGSBACKGROUNDX, button.getContainer().y - SETTINGSBACKGROUNDY, button.getContainer().w, button.getContainer().h});
 
-            slider.setSliderButton(button);
+            std::string path = "SetScene-slider-button";
 
-            slider.setPressedColor(LIGHT_BLUE);
+            path += isMusicClicked ? "-clicked" : ""; 
 
-            slider.RenderAsCircle();
+            Image ball(button.getContainer().x, button.getContainer().y, button.getContainer().w, button.getContainer().h, path, "png");
+
+            ball.CopyToRender();
 
     //Render a text for the info of the slider
 
-        Font GeneralSoundText(&mainScreen, "04B_30__", 25, "General", BLACK);
+        Font GeneralSoundText(&mainScreen, "04B_30__", 25, "BGM", BLACK);
 
         GeneralSoundText.setCoords(TEXTURESOUNDW/2 - GeneralSoundText.getTextSurface()->w/2, TEXTURESOUNDY + TEXTURESOUNDH/3 - 42);
 
@@ -291,36 +276,13 @@ void SetScene::render(){
 
     }
 
+        Image soundBg(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-sound", "png");
+
+        soundBg.CopyToRender();
 
     //Render a slider bar for the effects
 
         int x = TEXTURESOUNDX + TEXTURESOUNDW/5;
-
-        //rectangle
-
-            SDL_Rect rect = {x, TEXTURESOUNDY + TEXTURESOUNDH/3 - 10 + 15 + 100, 3*TEXTURESOUNDW/5, 20 + 1};
-
-            SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
-            SDL_RenderFillRect(mainScreen.getRender(), &rect);
-
-            SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
-            SDL_RenderDrawRect(mainScreen.getRender(), &rect);
-
-        //left circle
-
-            SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
-            SDL_RenderFillCircle(mainScreen.getRender(), x, TEXTURESOUNDY + TEXTURESOUNDH/3 + 15 + 100, 10);
-            
-            SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
-            SDL_RenderDrawCircle(mainScreen.getRender(), x, TEXTURESOUNDY + TEXTURESOUNDH/3 + 15 + 100, 10, 0);
-
-        //right circle
-
-            SDL_SetRenderDrawColor(mainScreen.getRender(), GREY.r, GREY.g, GREY.b, GREY.a);
-            SDL_RenderFillCircle(mainScreen.getRender(), x + 3*TEXTURESOUNDW/5, TEXTURESOUNDY + TEXTURESOUNDH/3 + 15 + 100, 10);
-            
-            SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
-            SDL_RenderDrawCircle(mainScreen.getRender(), x + 3*TEXTURESOUNDW/5, TEXTURESOUNDY + TEXTURESOUNDH/3 + 15 + 100, 10, 1);
 
         //render the slider
 
@@ -329,21 +291,24 @@ void SetScene::render(){
             Button button = slider.getSliderButton();
 
             button.setContainer({button.getContainer().x - SETTINGSBACKGROUNDX, button.getContainer().y - SETTINGSBACKGROUNDY, button.getContainer().w, button.getContainer().h});
+            
+            std::string path = "SetScene-slider-button";
 
-            slider.setSliderButton(button);
+            path += isEffectsClicked ? "-clicked" : ""; 
 
-            slider.setPressedColor(LIGHT_BLUE);
+            Image ball(button.getContainer().x, button.getContainer().y, button.getContainer().w, button.getContainer().h, path, "png");
 
-            slider.RenderAsCircle();
+            ball.CopyToRender();
 
     //Render a text for the info of the slider
 
-        Font GeneralSoundText(&mainScreen, "04B_30__", 25, "Effects", BLACK);
+        Font GeneralSoundText(&mainScreen, "04B_30__", 25, "SFX", BLACK);
 
         GeneralSoundText.setCoords(TEXTURESOUNDW/2 - GeneralSoundText.getTextSurface()->w/2, TEXTURESOUNDY + TEXTURESOUNDH/3 - 42 + 100);
 
         GeneralSoundText.drawTextToRender();
     
+        //exit
 
         {
             Image exitIMG(exit.getContainer().x - SETTINGSBACKGROUNDX, exit.getContainer().y - SETTINGSBACKGROUNDY, exit.getContainer().w, exit.getContainer().h, "SetScene-exit", "png");
@@ -485,6 +450,16 @@ void SetScene::render(){
             }
         }
 
+        Image headers(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-headers", "png");
+
+        headers.CopyToRender();
+
+        Image title(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-title", "png");
+
+        title.CopyToRender();
+
+
+
         
     //Set the render target back to the mainScreen
         
@@ -497,7 +472,6 @@ void SetScene::render(){
         SDL_Rect sourceRect = getSourceRect();
 
         SDL_Rect destRect = {SETTINGSBACKGROUNDX, SETTINGSBACKGROUNDY, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH};
-
 
         SDL_RenderCopy(mainScreen.getRender(), settingsTexture, &sourceRect, &destRect);
 
@@ -589,6 +563,9 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
         }
         
         if((event.type == SDL_MOUSEBUTTONDOWN) && LogicSoundSlider.isClicked(&event) && LogicSoundSlider.getVisibility()){
+
+            isMusicClicked = true;
+
             Button button = LogicSoundSlider.getSliderButton();
 
             int y = LogicSoundSlider.getSliderButton().getContainer().y;
@@ -604,9 +581,15 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                 LogicSoundSlider.setClickedNow(true);
                 soundSlider.setClickedNow(true);   
             }
+        } 
+
+        if((event.type == SDL_MOUSEBUTTONUP) && isMusicClicked){
+            isMusicClicked = false;
         }
 
         if((event.type == SDL_MOUSEBUTTONDOWN) && LogicEffectsSlider.isClicked(&event) && LogicEffectsSlider.getVisibility()){
+
+            isEffectsClicked = true;
 
             Button button = LogicEffectsSlider.getSliderButton();
 
@@ -623,6 +606,10 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
                 LogicEffectsSlider.setClickedNow(true);
                 effectsSlider.setClickedNow(true);
             }
+        }
+
+        if((event.type == SDL_MOUSEBUTTONUP) && isEffectsClicked){
+            isEffectsClicked = false;
         }
 
         if((event.type == SDL_MOUSEBUTTONDOWN) && linktreeLogic.isClicked(&event)){
@@ -1192,12 +1179,10 @@ void renderKeyBindChange(Button button, SetScene & s){
                           button.getContainer().y - SETTINGSBACKGROUNDY + s.getSourceRect().y,
                           button.getContainer().w,
                           button.getContainer().h};
-    
-    SDL_SetRenderDrawColor(mainScreen.getRender(), LIGHT_BLUE.r, LIGHT_BLUE.g, LIGHT_BLUE.b, LIGHT_BLUE.a);
-    SDL_RenderFillRect(mainScreen.getRender(), &coverRect);
 
-    SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, BLACK.a);
-    SDL_RenderDrawRect(mainScreen.getRender(), &coverRect);
+    Image cover(0, button.getContainer().y - (BLOCKLENGTH/2 + SETTINGSBACKGROUNDY + (SETTINGSBACKGROUNDX + 10)) + s.getSourceRect().y - 9, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200 + 90, "SetScene-button-cover", "png");
+
+    cover.CopyToRender();
 
     Font coverFont(&mainScreen, "Ubuntu-BoldItalic", 30, "...", BLACK);
     coverFont.setCoords(coverRect.x + coverRect.w/2 - coverFont.getTextSurface()->w/2, coverRect.y + coverRect.h/2 - coverFont.getTextSurface()->h/2);
@@ -1234,25 +1219,25 @@ SDL_Keycode& getKeyBindByKey(std::string key){
 const char * getMessageByKey(std::string key){
 
     if(key == "rotateRight"){
-        return "Rotate right";
+        return "rotate right";
     } 
     else if(key == "rotateLeft"){
-        return "Rotate left";
+        return "rotate left";
     } 
     else if(key == "left"){
-        return "Move left";
+        return "move left";
     } 
     else if(key == "right"){
-        return "Move right";
+        return "move right";
     } 
     else if(key == "down"){
-        return "Move down";
+        return "move down";
     } 
     else if(key == "fastDown"){
-        return "Fast Down";
+        return "fast Down";
     } 
     else if(key == "swap"){
-        return "Swap figure";
+        return "swap figure";
     }
 
     return "Unknown";

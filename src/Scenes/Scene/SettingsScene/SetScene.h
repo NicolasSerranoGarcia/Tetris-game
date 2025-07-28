@@ -57,6 +57,8 @@ class SetScene: public Scene{
         Slider soundSlider;
         Slider LogicSoundSlider;
 
+        bool isMusicClicked = false;
+
         //This is the slider that is used to control the effects volume in the settings.
         //It can be found scrolling through the settings. It has an associated logic slider
         //(see documentation for explanation)
@@ -64,6 +66,9 @@ class SetScene: public Scene{
 
         //The associated logic slider of effectsSlider
         Slider LogicEffectsSlider;
+
+        bool isEffectsClicked = false;
+
 
         //This is the button that leads to my linktree in the settings
         Button linktree;

@@ -206,6 +206,12 @@ You check if there is a button pressed and if so you make it not possible to cli
 
 [] add a small gameplay walkthrough to README when everything is finished
 
-[] add X from SetScene to the texture, not above it
+[X] add X from SetScene to the texture, not above it
 
 [] add UI to the texture in SetScene
+
+[] add the wood from the settings to the opScene
+
+[] move the X in SetScene a little in
+
+[] add an outline to the setScene texture bg
