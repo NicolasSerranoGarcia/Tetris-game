@@ -36,6 +36,10 @@ void OpScene::render(){
 
         background.setAsBackground();
 
+        Image playTexture(0, bestScores.empty() ? 145 : 0, mainScreen.getWidth(), mainScreen.getHeight(), "OpScene-background/OpScene-play-def", "png");
+
+        playTexture.CopyToRender();
+
     //Render the best play, if there is
 
         if(isClicked){

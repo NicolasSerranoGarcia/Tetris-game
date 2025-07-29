@@ -91,42 +91,42 @@ SetScene::SetScene(){
 
     //Setup the buttons of the socials and so
 
-        linktree = {SETTINGSBACKGROUNDW/10 + SETTINGSBACKGROUNDX, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.2), (int) (BLOCKLENGTH*1.2), LIGHT_GREY, &mainScreen};
+        linktree = {SETTINGSBACKGROUNDW/10 + SETTINGSBACKGROUNDX - 25, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.2), (int) (BLOCKLENGTH*1.2), LIGHT_GREY, &mainScreen};
         linktreeLogic = linktree;
         linktrr.button= linktreeLogic;
         linktrr.clicked = false;
 
     //Setup the buttons of the socials and so
 
-        github = {SETTINGSBACKGROUNDW/6 + 10 + SETTINGSBACKGROUNDX, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 72, (int) (BLOCKLENGTH*1.1), (int) (BLOCKLENGTH*1.1), LIGHT_GREY, &mainScreen};
+        github = {SETTINGSBACKGROUNDW/6 + 10 + SETTINGSBACKGROUNDX - 25, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.2), (int) (BLOCKLENGTH*1.2), LIGHT_GREY, &mainScreen};
         githubLogic = github;
         git.button= githubLogic;
         git.clicked = false;
 
     //Setup the buttons of the socials and so
 
-        instagram = {23 + SETTINGSBACKGROUNDX, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.3), (int) (BLOCKLENGTH*1.3), LIGHT_GREY, &mainScreen};
+        instagram = {SETTINGSBACKGROUNDW/6 + 10 + (SETTINGSBACKGROUNDW/6 + 10) - 25 - SETTINGSBACKGROUNDW/10 + SETTINGSBACKGROUNDX, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.2), (int) (BLOCKLENGTH*1.2), LIGHT_GREY, &mainScreen};
         instagramLogic = instagram;
         insta.button= instagramLogic;
         insta.clicked = false;
 
     //Setup the buttons of the radio
 
-        goBackMusic = {23 + SETTINGSBACKGROUNDX + 400, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.3), (int) (BLOCKLENGTH*1.3), LIGHT_GREY, &mainScreen};
+        goBackMusic = {23 + SETTINGSBACKGROUNDX + 400 + 180, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.2), (int) (BLOCKLENGTH*1.2), LIGHT_GREY, &mainScreen};
         goBackMusicLogic = goBackMusic;
         goBck.button = goBackMusicLogic;
         goBck.clicked = false;
 
         //go forward
 
-        goForwardMusic = {23 + SETTINGSBACKGROUNDX + 400 + goBackMusic.getContainer().w*2 + 20, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.3), (int) (BLOCKLENGTH*1.3), LIGHT_GREY, &mainScreen};
+        goForwardMusic = {23 + SETTINGSBACKGROUNDX + 400 + goBackMusic.getContainer().w*2 + 20 + 180, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.2), (int) (BLOCKLENGTH*1.2), LIGHT_GREY, &mainScreen};
         goForwardMusicLogic = goForwardMusic;
         goFor.button = goForwardMusicLogic;
         goFor.clicked = false;
 
         //stop 
 
-        stopMusic = {23 + SETTINGSBACKGROUNDX + 400 + goBackMusic.getContainer().w + 10, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.3), (int) (BLOCKLENGTH*1.3), LIGHT_GREY, &mainScreen};
+        stopMusic = {23 + SETTINGSBACKGROUNDX + 400 + goBackMusic.getContainer().w + 10 + 180, SETTINGSBACKGROUNDY + TEXTURESOUNDY + TEXTURESOUNDH/3 - 20 + 15 + 100 + 70, (int) (BLOCKLENGTH*1.2), (int) (BLOCKLENGTH*1.2), LIGHT_GREY, &mainScreen};
         stopMusicLogic = stopMusic;
         stp.button = stopMusicLogic;
         stp.clicked = false;
@@ -326,66 +326,34 @@ void SetScene::render(){
 
         }
 
+        Image iconDecoration(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-icons-decoration", "png");
+
+        iconDecoration.CopyToRender();
+
     //Render the social buttons
     
         //linktree
 
         {
-            Image linktreeIMG(linktree.getContainer().x - SETTINGSBACKGROUNDX, linktree.getContainer().y - SETTINGSBACKGROUNDY, linktree.getContainer().w, linktree.getContainer().h, "SetScene-linktree", "png");
+            Image linktreeIMG(linktree.getContainer().x - SETTINGSBACKGROUNDX, linktree.getContainer().y - SETTINGSBACKGROUNDY, linktree.getContainer().w, linktree.getContainer().h, linktrr.clicked ? "SetScene-linktree-clicked" : "SetScene-linktree", "png");
 
-            Button linkBtn = linktree;
-
-            linkBtn.setContainer({linkBtn.getContainer().x - SETTINGSBACKGROUNDX, linkBtn.getContainer().y - SETTINGSBACKGROUNDY, linkBtn.getContainer().w, linkBtn.getContainer().h});
-
-            linkBtn.setImage(&linktreeIMG);
-
-
-            if(linktrr.clicked){
-                linkBtn.setColor(LIGHT_BLUE);
-                linkBtn.drawToRender();
-            } else{
-                linkBtn.drawToRender();
-            }
+            linktreeIMG.CopyToRender();
         }
 
         //github
 
         {
-            Image githubIMG(github.getContainer().x - SETTINGSBACKGROUNDX, github.getContainer().y - SETTINGSBACKGROUNDY, github.getContainer().w, github.getContainer().h, "SetScene-github", "png");
+            Image githubIMG(github.getContainer().x - SETTINGSBACKGROUNDX, github.getContainer().y - SETTINGSBACKGROUNDY, github.getContainer().w, github.getContainer().h, git.clicked ? "SetScene-github-clicked" : "SetScene-github", "png");
 
-            Button linkBtn = github;
-
-            linkBtn.setContainer({linkBtn.getContainer().x - SETTINGSBACKGROUNDX, linkBtn.getContainer().y - SETTINGSBACKGROUNDY, linkBtn.getContainer().w, linkBtn.getContainer().h});
-
-            linkBtn.setImage(&githubIMG);
-
-
-            if(git.clicked){
-                linkBtn.setColor(LIGHT_BLUE);
-                linkBtn.drawToRender();
-            } else{
-                linkBtn.drawToRender();
-            }
+            githubIMG.CopyToRender();
         }
 
         //instagram
 
         {
-            Image instaIMG(instagram.getContainer().x - SETTINGSBACKGROUNDX, instagram.getContainer().y - SETTINGSBACKGROUNDY, instagram.getContainer().w, instagram.getContainer().h, "SetScene-instagram", "png");
+            Image instaIMG(instagram.getContainer().x - SETTINGSBACKGROUNDX, instagram.getContainer().y - SETTINGSBACKGROUNDY, instagram.getContainer().w, instagram.getContainer().h, insta.clicked ? "SetScene-instagram-clicked" : "SetScene-instagram", "png");
 
-            Button linkBtn = instagram;
-
-            linkBtn.setContainer({linkBtn.getContainer().x - SETTINGSBACKGROUNDX, linkBtn.getContainer().y - SETTINGSBACKGROUNDY, linkBtn.getContainer().w, linkBtn.getContainer().h});
-
-            linkBtn.setImage(&instaIMG);
-
-
-            if(insta.clicked){
-                linkBtn.setColor(LIGHT_BLUE);
-                linkBtn.drawToRender();
-            } else{
-                linkBtn.drawToRender();
-            }
+            instaIMG.CopyToRender();
         }
 
 
@@ -394,60 +362,30 @@ void SetScene::render(){
         //rewind
 
         {
-            Image goBackMusicIMG(goBackMusic.getContainer().x - SETTINGSBACKGROUNDX, goBackMusic.getContainer().y - SETTINGSBACKGROUNDY, goBackMusic.getContainer().w, goBackMusic.getContainer().h, "SetScene-rewind", "png");
+            Image goBackMusicIMG(goBackMusic.getContainer().x - SETTINGSBACKGROUNDX, goBackMusic.getContainer().y - SETTINGSBACKGROUNDY, goBackMusic.getContainer().w, goBackMusic.getContainer().h, goBck.clicked ? "SetScene-rewind-clicked": "SetScene-rewind", "png");
 
-            Button goBackBtn = goBackMusic;
-
-            goBackBtn.setContainer({goBackBtn.getContainer().x - SETTINGSBACKGROUNDX, goBackBtn.getContainer().y - SETTINGSBACKGROUNDY, goBackBtn.getContainer().w, goBackBtn.getContainer().h});
-
-            goBackBtn.setImage(&goBackMusicIMG);
-
-            if(goBck.clicked){
-                goBackBtn.setColor(LIGHT_BLUE);
-                goBackBtn.drawToRender();
-            } else{
-                goBackBtn.drawToRender();
-            }
+            goBackMusicIMG.CopyToRender();
         }
 
 
         //skip song
 
         {
-            Image goForwardMusicIMG(goForwardMusic.getContainer().x - SETTINGSBACKGROUNDX, goForwardMusic.getContainer().y - SETTINGSBACKGROUNDY, goForwardMusic.getContainer().w, goForwardMusic.getContainer().h, "SetScene-skip", "png");
+            Image goForwardMusicIMG(goForwardMusic.getContainer().x - SETTINGSBACKGROUNDX, goForwardMusic.getContainer().y - SETTINGSBACKGROUNDY, goForwardMusic.getContainer().w, goForwardMusic.getContainer().h, goFor.clicked ? "SetScene-skip-clicked": "SetScene-skip", "png");
 
-            Button goForwardBtn = goForwardMusic;
+            goForwardMusicIMG.CopyToRender();
 
-            goForwardBtn.setContainer({goForwardBtn.getContainer().x - SETTINGSBACKGROUNDX, goForwardBtn.getContainer().y - SETTINGSBACKGROUNDY, goForwardBtn.getContainer().w, goForwardBtn.getContainer().h});
-
-            goForwardBtn.setImage(&goForwardMusicIMG);
-
-            if(goFor.clicked){
-                goForwardBtn.setColor(LIGHT_BLUE);
-                goForwardBtn.drawToRender();
-            } else{
-                goForwardBtn.drawToRender();
-            }
         }
 
 
         //stop song
 
         {
-            Image stopMusicIMG(stopMusic.getContainer().x - SETTINGSBACKGROUNDX, stopMusic.getContainer().y - SETTINGSBACKGROUNDY, stopMusic.getContainer().w, stopMusic.getContainer().h, isStoped ? "SetScene-resume" : "SetScene-stop", "png");
+            std::string path = isStoped ? stp.clicked ? "SetScene-resume-clicked" : "SetScene-resume" : stp.clicked ? "SetScene-stop-clicked" : "SetScene-stop";
 
-            Button stopBtn = stopMusic;
+            Image stopMusicIMG(stopMusic.getContainer().x - SETTINGSBACKGROUNDX, stopMusic.getContainer().y - SETTINGSBACKGROUNDY, stopMusic.getContainer().w, stopMusic.getContainer().h, path, "png");
 
-            stopBtn.setContainer({stopBtn.getContainer().x - SETTINGSBACKGROUNDX, stopBtn.getContainer().y - SETTINGSBACKGROUNDY, stopBtn.getContainer().w, stopBtn.getContainer().h});
-
-            stopBtn.setImage(&stopMusicIMG);
-
-            if(stp.clicked){
-                stopBtn.setColor(LIGHT_BLUE);
-                stopBtn.drawToRender();
-            } else{
-                stopBtn.drawToRender();
-            }
+            stopMusicIMG.CopyToRender();
         }
 
         Image headers(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-headers", "png");
