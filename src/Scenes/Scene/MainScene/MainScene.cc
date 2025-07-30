@@ -59,15 +59,6 @@ void MainScene::render(){
         background.CopyToRender();
 
 
-    //load an image for the settings button. Use the dimensions of the button
-
-        Image settingsImage(getButtonMap()["settings"].getContainer().x, 
-                            getButtonMap()["settings"].getContainer().y, 
-                            getButtonMap()["settings"].getContainer().w,
-                            getButtonMap()["settings"].getContainer().h, "MainScene-setButtonDef", "png");
-
-        settingsImage.CopyToRender();
-
     //Draw the next figures background
 
         SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, 230);
@@ -286,16 +277,6 @@ void MainScene::renderWithoutFigures(){
 
         background.CopyToRender();
 
-
-    //load an image for the settings button. Use the dimensions of the button
-
-        Image settingsImage(getButtonMap()["settings"].getContainer().x, 
-                            getButtonMap()["settings"].getContainer().y, 
-                            getButtonMap()["settings"].getContainer().w,
-                            getButtonMap()["settings"].getContainer().h, "MainScene-setButtonDef", "png");
-
-        settingsImage.CopyToRender();
-
     //Draw the next figures background
 
         SDL_SetRenderDrawColor(mainScreen.getRender(), BLACK.r, BLACK.g, BLACK.b, 100);
@@ -427,7 +408,7 @@ void MainScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene
         Image settingsImage(getButtonMap()["settings"].getContainer().x, 
                             getButtonMap()["settings"].getContainer().y, 
                             getButtonMap()["settings"].getContainer().w,
-                            getButtonMap()["settings"].getContainer().h, "MainScene-setButtonClick", "png");
+                            getButtonMap()["settings"].getContainer().h, "MainScene-background/MainScene-button-clicked", "png");
 
         settingsImage.CopyToRender();
 
