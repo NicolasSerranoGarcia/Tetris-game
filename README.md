@@ -268,10 +268,18 @@ git push origin my-feature-branch
 Go to your fork on GitHub and click **"Compare & Pull Request"**.  
 Provide a clear title and description of your changes.
 
+
 ### 💡 Not sure where to start?
 
 Check the [issues page](#) and look for labels like `good first issue`.  
 Feel free to open a discussion or issue if you have an idea or question!
+
+
+You can also pick one task from 
+```bash
+./TODO
+``` 
+The unmarked ([], [/]) features have not been implemented (yet). Feel free to choose one and fork the project!
 
 ---
 
