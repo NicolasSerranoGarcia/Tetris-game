@@ -10,6 +10,7 @@ Figure::Figure(){
 Figure::~Figure(){
     id = -1;
     blocks.clear();
+    Figure::
     angle = 0;
     figureColor = WHITE;
     leadingBlockPos = -1;

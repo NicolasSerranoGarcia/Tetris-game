@@ -79,7 +79,7 @@ void Slider::render(){
         
         SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);
         SDL_Color color = slider.getColor();
-        color.a = 50;
+        color.a = 170;
         slider.setColor(color);
         slider.drawToRender();
         SDL_SetRenderDrawBlendMode(mainScreen.getRender(), SDL_BLENDMODE_BLEND);

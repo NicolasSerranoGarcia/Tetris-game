@@ -156,7 +156,13 @@ void SetScene::render(){
             mainScene->renderWithoutFigures();
         }
 
-        Image chains(0, 0, SCREENWIDTH, SCREENHEIGHT, "SetScene-chains", "png");
+        Image shadow(0, 0, SCREENWIDTH, SCREENHEIGHT, "SetScene-background/SetScene-shadow", "png");
+
+        SDL_SetTextureAlphaMod(shadow.getTexture(), 140);
+
+        shadow.CopyToRender();
+
+        Image chains(0, 0, SCREENWIDTH, SCREENHEIGHT, "SetScene-background/SetScene-chains", "png");
 
         chains.CopyToRender();
 
@@ -172,27 +178,33 @@ void SetScene::render(){
         
         //IMPORTANT: From now on, all the rendering is being made on the settingsTexture
 
+        Image shadowInner(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-background/SetScene-shadow-inner", "png");
+
+        SDL_SetTextureAlphaMod(shadowInner.getTexture(), 255);
+
+        shadowInner.CopyToRender();
+
 
         SDL_SetRenderDrawColor(mainScreen.getRender(), 0, 0, 0, 0);
         SDL_RenderClear(mainScreen.getRender()); 
 
-        Image bg(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-background", "png");
+        Image bg(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-background/SetScene-background", "png");
 
         bg.CopyToRender();
 
     //Render a title for the keybinds
 
-        Image textBg(0,0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-textBg", "png");
-        Image textBgDecor(0,0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-textBg-decor", "png");
+        Image textBg(0,0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-background/SetScene-textBg", "png");
+        Image textBgDecor(0,0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-background/SetScene-textBg-decor", "png");
 
         textBgDecor.CopyToRender();
         textBg.CopyToRender();
 
-        Image buttonsDec(0,0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-buttons-dec", "png");
+        Image buttonsDec(0,0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-background/SetScene-buttons-dec", "png");
 
         buttonsDec.CopyToRender();
 
-        Image buttonsT(0,0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-buttons", "png");
+        Image buttonsT(0,0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-background/SetScene-buttons", "png");
 
         buttonsT.CopyToRender();
 
@@ -244,11 +256,9 @@ void SetScene::render(){
     
     //Render a slider bar for the sound
 
-        int x = TEXTURESOUNDX + TEXTURESOUNDW/5;
-
         //render the slider
 
-            Image SfxSliderTexture(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-sliders", "png");
+            Image SfxSliderTexture(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-background/SetScene-sliders", "png");
 
             SfxSliderTexture.CopyToRender();
 
@@ -258,7 +268,7 @@ void SetScene::render(){
 
             button.setContainer({button.getContainer().x - SETTINGSBACKGROUNDX, button.getContainer().y - SETTINGSBACKGROUNDY, button.getContainer().w, button.getContainer().h});
 
-            std::string path = "SetScene-slider-button";
+            std::string path = "SetScene-background/SetScene-slider-button";
 
             path += isMusicClicked ? "-clicked" : ""; 
 
@@ -276,13 +286,11 @@ void SetScene::render(){
 
     }
 
-        Image soundBg(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-sound", "png");
+        Image soundBg(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-background/SetScene-sound", "png");
 
         soundBg.CopyToRender();
 
     //Render a slider bar for the effects
-
-        int x = TEXTURESOUNDX + TEXTURESOUNDW/5;
 
         //render the slider
 
@@ -292,7 +300,7 @@ void SetScene::render(){
 
             button.setContainer({button.getContainer().x - SETTINGSBACKGROUNDX, button.getContainer().y - SETTINGSBACKGROUNDY, button.getContainer().w, button.getContainer().h});
             
-            std::string path = "SetScene-slider-button";
+            std::string path = "SetScene-background/SetScene-slider-button";
 
             path += isEffectsClicked ? "-clicked" : ""; 
 
@@ -311,13 +319,13 @@ void SetScene::render(){
         //exit
 
         {
-            Image exitIMG(exit.getContainer().x - SETTINGSBACKGROUNDX, exit.getContainer().y - SETTINGSBACKGROUNDY, exit.getContainer().w, exit.getContainer().h, "SetScene-exit", "png");
+            Image exitIMG(exit.getContainer().x - SETTINGSBACKGROUNDX, exit.getContainer().y - SETTINGSBACKGROUNDY, exit.getContainer().w, exit.getContainer().h, "SetScene-background/SetScene-exit", "png");
 
             Button exitBtn = exit;
 
             exitBtn.setContainer({exitBtn.getContainer().x - SETTINGSBACKGROUNDX, exitBtn.getContainer().y - SETTINGSBACKGROUNDY, exitBtn.getContainer().w, exitBtn.getContainer().h});
 
-            std::string path = "SetScene_X";
+            std::string path = "SetScene-background/SetScene_X";
             path += ext.clicked ? "_Clicked" : "";
 
             Image image(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, path, "png");
@@ -326,7 +334,7 @@ void SetScene::render(){
 
         }
 
-        Image iconDecoration(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-icons-decoration", "png");
+        Image iconDecoration(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-background/SetScene-icons-decoration", "png");
 
         iconDecoration.CopyToRender();
 
@@ -335,7 +343,7 @@ void SetScene::render(){
         //linktree
 
         {
-            Image linktreeIMG(linktree.getContainer().x - SETTINGSBACKGROUNDX, linktree.getContainer().y - SETTINGSBACKGROUNDY, linktree.getContainer().w, linktree.getContainer().h, linktrr.clicked ? "SetScene-linktree-clicked" : "SetScene-linktree", "png");
+            Image linktreeIMG(linktree.getContainer().x - SETTINGSBACKGROUNDX, linktree.getContainer().y - SETTINGSBACKGROUNDY, linktree.getContainer().w, linktree.getContainer().h, linktrr.clicked ? "SetScene-background/SetScene-linktree-clicked" : "SetScene-background/SetScene-linktree", "png");
 
             linktreeIMG.CopyToRender();
         }
@@ -343,7 +351,7 @@ void SetScene::render(){
         //github
 
         {
-            Image githubIMG(github.getContainer().x - SETTINGSBACKGROUNDX, github.getContainer().y - SETTINGSBACKGROUNDY, github.getContainer().w, github.getContainer().h, git.clicked ? "SetScene-github-clicked" : "SetScene-github", "png");
+            Image githubIMG(github.getContainer().x - SETTINGSBACKGROUNDX, github.getContainer().y - SETTINGSBACKGROUNDY, github.getContainer().w, github.getContainer().h, git.clicked ? "SetScene-background/SetScene-github-clicked" : "SetScene-background/SetScene-github", "png");
 
             githubIMG.CopyToRender();
         }
@@ -351,7 +359,7 @@ void SetScene::render(){
         //instagram
 
         {
-            Image instaIMG(instagram.getContainer().x - SETTINGSBACKGROUNDX, instagram.getContainer().y - SETTINGSBACKGROUNDY, instagram.getContainer().w, instagram.getContainer().h, insta.clicked ? "SetScene-instagram-clicked" : "SetScene-instagram", "png");
+            Image instaIMG(instagram.getContainer().x - SETTINGSBACKGROUNDX, instagram.getContainer().y - SETTINGSBACKGROUNDY, instagram.getContainer().w, instagram.getContainer().h, insta.clicked ? "SetScene-background/SetScene-instagram-clicked" : "SetScene-background/SetScene-instagram", "png");
 
             instaIMG.CopyToRender();
         }
@@ -362,7 +370,7 @@ void SetScene::render(){
         //rewind
 
         {
-            Image goBackMusicIMG(goBackMusic.getContainer().x - SETTINGSBACKGROUNDX, goBackMusic.getContainer().y - SETTINGSBACKGROUNDY, goBackMusic.getContainer().w, goBackMusic.getContainer().h, goBck.clicked ? "SetScene-rewind-clicked": "SetScene-rewind", "png");
+            Image goBackMusicIMG(goBackMusic.getContainer().x - SETTINGSBACKGROUNDX, goBackMusic.getContainer().y - SETTINGSBACKGROUNDY, goBackMusic.getContainer().w, goBackMusic.getContainer().h, goBck.clicked ? "SetScene-background/SetScene-rewind-clicked": "SetScene-background/SetScene-rewind", "png");
 
             goBackMusicIMG.CopyToRender();
         }
@@ -371,7 +379,7 @@ void SetScene::render(){
         //skip song
 
         {
-            Image goForwardMusicIMG(goForwardMusic.getContainer().x - SETTINGSBACKGROUNDX, goForwardMusic.getContainer().y - SETTINGSBACKGROUNDY, goForwardMusic.getContainer().w, goForwardMusic.getContainer().h, goFor.clicked ? "SetScene-skip-clicked": "SetScene-skip", "png");
+            Image goForwardMusicIMG(goForwardMusic.getContainer().x - SETTINGSBACKGROUNDX, goForwardMusic.getContainer().y - SETTINGSBACKGROUNDY, goForwardMusic.getContainer().w, goForwardMusic.getContainer().h, goFor.clicked ? "SetScene-background/SetScene-skip-clicked": "SetScene-background/SetScene-skip", "png");
 
             goForwardMusicIMG.CopyToRender();
 
@@ -381,18 +389,18 @@ void SetScene::render(){
         //stop song
 
         {
-            std::string path = isStoped ? stp.clicked ? "SetScene-resume-clicked" : "SetScene-resume" : stp.clicked ? "SetScene-stop-clicked" : "SetScene-stop";
+            std::string path = isStoped ? stp.clicked ? "SetScene-background/SetScene-resume-clicked" : "SetScene-background/SetScene-resume" : stp.clicked ? "SetScene-background/SetScene-stop-clicked" : "SetScene-background/SetScene-stop";
 
             Image stopMusicIMG(stopMusic.getContainer().x - SETTINGSBACKGROUNDX, stopMusic.getContainer().y - SETTINGSBACKGROUNDY, stopMusic.getContainer().w, stopMusic.getContainer().h, path, "png");
 
             stopMusicIMG.CopyToRender();
         }
 
-        Image headers(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-headers", "png");
+        Image headers(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-background/SetScene-headers", "png");
 
         headers.CopyToRender();
 
-        Image title(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-title", "png");
+        Image title(0, 0, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200, "SetScene-background/SetScene-title", "png");
 
         title.CopyToRender();
 
@@ -1118,7 +1126,7 @@ void renderKeyBindChange(Button button, SetScene & s){
                           button.getContainer().w,
                           button.getContainer().h};
 
-    Image cover(0, button.getContainer().y - (BLOCKLENGTH/2 + SETTINGSBACKGROUNDY + (SETTINGSBACKGROUNDX + 10)) + s.getSourceRect().y - 9, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200 + 90, "SetScene-button-cover", "png");
+    Image cover(0, button.getContainer().y - (BLOCKLENGTH/2 + SETTINGSBACKGROUNDY + (SETTINGSBACKGROUNDX + 10)) + s.getSourceRect().y - 9, SETTINGSBACKGROUNDW, SETTINGSBACKGROUNDH + 200 + 90, "SetScene-background/SetScene-button-cover", "png");
 
     cover.CopyToRender();
 

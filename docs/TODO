@@ -186,9 +186,9 @@ You check if there is a button pressed and if so you make it not possible to cli
 
 # FINAL
 
-[] Add style with textures and pixel art AND fonts. Add textures for buttons like rewind, pass, stop song, settings wheel...
+[X] Add style with textures and pixel art AND fonts. Add textures for buttons like rewind, pass, stop song, settings wheel...
 
-[] Choose better sound effects
+[X] Choose better sound effects
 
 [X] implement a "radio" for music
 
@@ -204,14 +204,18 @@ You check if there is a button pressed and if so you make it not possible to cli
 
 [X] add documentation on newly added setScene
 
-[] add a small gameplay walkthrough to README when everything is finished
-
 [X] add X from SetScene to the texture, not above it
 
-[] add UI to the texture in SetScene
+[X] add UI to the texture in SetScene
 
-[] add the wood from the settings to the opScene
+[X] add the wood from the settings to the opScene
 
-[] move the X in SetScene a little in
+[X] move the X in SetScene a little in
 
-[] add an outline to the setScene texture bg
+[X] add an outline to the setScene texture bg
+
+[X] check all code again (one last time)
+
+[] add a small gameplay walkthrough to README when everything is finished
+
+[] search how to create .exe for windows and precompile the program

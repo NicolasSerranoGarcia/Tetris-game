@@ -40,6 +40,7 @@ class Figure{
         //of blocks. DO NOT CHANGE
         int leadingBlockPos;
 
+        //The figure has an associated texture?
         bool hasTexture = false;
 
     public:

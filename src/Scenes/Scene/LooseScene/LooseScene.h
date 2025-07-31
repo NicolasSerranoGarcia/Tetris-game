@@ -13,6 +13,19 @@ class LooseScene: public Scene{
         //This pointer is used to render the mainScene as a background (like 
         //in the settings scene)
         Scene * mainScene = nullptr;
+
+        //is the play button currently clicked?
+        //Used for rendering different textures
+        bool isPlayClicked = false;
+
+        //is the return to opScene button currently clicked?
+        //Used for rendering different textures
+        bool isReturnClicked = false;
+
+        //is the settings button currently clicked?
+        //Used for rendering different textures
+        bool isSettingsClicked = false;
+
     public:
 
         //CONSTRUCTORS/DESTRUCTOR
