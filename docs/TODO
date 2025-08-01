@@ -210,7 +210,7 @@ You check if there is a button pressed and if so you make it not possible to cli
 
 [X] add the wood from the settings to the opScene
 
-[X] move the X in SetScene a little in
+[] move the X in SetScene a little in
 
 [X] add an outline to the setScene texture bg
 
