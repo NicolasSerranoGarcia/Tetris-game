@@ -603,18 +603,34 @@ void SetScene::handleEvents(SDL_Event event, Scene *& curScene, Scene *& mScene,
         }
 
         if((event.type == SDL_MOUSEBUTTONUP) && linktrr.clicked){
-            system("xdg-open https://linktr.ee/NicolasSerrano");
+            #if defined(_WIN32) || defined(_WIN64)
+                system("start https://linktr.ee/NicolasSerrano");
+            #elif defined(__linux__)
+                system("xdg-open https://linktr.ee/NicolasSerrano");
+            #endif
+            
             linktrr.clicked = false;
         }
 
         if((event.type == SDL_MOUSEBUTTONUP) && git.clicked){
-            system("xdg-open https://github.com/NicolasSerranoGarcia");
+            #if defined(_WIN32) || defined(_WIN64)
+                system("start https://github.com/NicolasSerranoGarcia");
+            #elif defined(__linux__)
+                system("xdg-open https://github.com/NicolasSerranoGarcia");
+            #endif
+
             git.clicked = false;
         }
 
         if((event.type == SDL_MOUSEBUTTONUP) && insta.clicked){
-            insta.clicked = false;
+            
+            #if defined(_WIN32) || defined(_WIN64)
+            system("start https://www.instagram.com/nicolasserranogarcia/");
+            #elif defined(__linux__)
             system("xdg-open https://www.instagram.com/nicolasserranogarcia/");
+            #endif
+
+            insta.clicked = false;
         }
 
         if((event.type == SDL_MOUSEBUTTONUP) && goBck.clicked){
