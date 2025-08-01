@@ -60,6 +60,8 @@ Before building and running the game, make sure you have:
 - **Libraries:** SDL2, SDL2_ttf, SDL_Image, SDL_Mixer
 
 ### Installation
+To run the program, follow the next steps in order inside your terminal:
+
 To install the required libraries and programs on Ubuntu:
 
 ```bash
