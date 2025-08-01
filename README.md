@@ -1,4 +1,8 @@
+<div align = "center">
+  <img src = "src/Media/showcase-media/main.gif" />
+</div>
 <div id="top"></div>
+
 
 <div align="center">
 
@@ -56,6 +60,8 @@ Before building and running the game, make sure you have:
 - **Libraries:** SDL2, SDL2_ttf, SDL_Image, SDL_Mixer
 
 ### Installation
+To run the program, follow the next steps in order inside your terminal:
+
 To install the required libraries and programs on Ubuntu:
 
 ```bash
@@ -118,87 +124,83 @@ Here is a list of features and functionalities that enhance the user experience:
 - Distinct **scenes** that add ambient to the program: an *opening scene*, a *settings scene*, a *gameplay scene* and a *death scene*. The death scene lets you go to the opening scene, play again or open the settings.
 
 <!--Inert photo of each scene -->
-<p align = "center" >
-<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
-</p>
+<div align = "center">
+  <img src = "src/Media/showcase-media/Scenes(1).gif" />
+</div>
 
 Gameplay features: 
 
 - The next three figures to be played can be visualized while playing.
   
 <!-- Insert a gif of using all the functionalities -->
-<p align = "center" >
-<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
-</p>
+<div align = "center">
+  <img src = "src/Media/showcase-media/next-figures(2).gif" />
+</div>
   
 - A figure can be **swapped** with another saved previously
 
 <!-- Insert a gif of using all the functionalities -->
-<p align = "center" >
-<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
-</p>
+<div align = "center">
+  <img src = "src/Media/showcase-media/swap(3).gif" />
+</div>
 
 - A figure can be dropped to the bottom of the game board instantly (fast drop)
   
 <!-- Insert a gif of using all the functionalities -->
-<p align = "center" >
-<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
-</p>
+<div align = "center">
+  <img src = "src/Media/showcase-media/fast-drop(4).gif" />
+</div>
 
 - The figures can be **rotated** clockwise and anticlockwise
 
 <!-- Insert a gif of using all the functionalities -->
-<p align = "center" >
-<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
-</p>
+<div align = "center">
+  <img src = "src/Media/showcase-media/rotation(5).gif" />
+</div>
 
 Miscellaneous features:
 
 - The key binds associated with each action can be changed inside the settings. They are <ins>saved locally</ins>, so the next time the program is opened they are automatically loaded.
 
 <!-- Insert a gif of changing the key binds, and maybe closing the program and opening it again to show -->
-<p align = "center" >
-<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
-</p>
+<div align = "center">
+  <img src = "src/Media/showcase-media/keybinds(6).gif" />
+</div>
 
 - There are **sound effects** and background **music**. The volume of both of them can be controlled inside the settings, using two sliders. There is also a radio used to skip, rewind and stop the music. There are 44 songs chosen randomly and automatically if the radio is ignored
 <!-- Insert a video with audio of using the radio -->
-<p align = "center" >
-<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
-</p>
+<div align = "center">
+  <img src = "src/Media/showcase-media/sound(7).gif" />
+</div>
 
 - There is a **slider** to scroll through the settings. The mouse wheel can also be used for this purpose
   
 <!-- Insert gif of using the mouse wheel and the slider -->
-<p align = "center" >
-<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
-</p>
+<div align = "center">
+  <img src = "src/Media/showcase-media/slider(8).gif" />
+</div>
 
 - There is a **countdown** that triggers when the settings is closed to let the user prepare to resume the game
   
 <!-- show the countdown -->
-<p align = "center" >
-<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
-</p>
+<div align = "center">
+  <img src = "src/Media/showcase-media/countdown(9).gif" />
+</div>
   
 
 - The **stats** of the best game are shown in the opening scene. The top 5 is <ins>saved locally</ins>, so the program can be closed without loosing the progress
 
 <!-- Show an example of this -->
-<p align = "center" >
-<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
-</p>
-
-- The **textures** set an atmosphere for the gameplay
-
-<!-- Show the textures -->
-<p align = "center" >
-<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
-</p>
+<div align = "center">
+  <img src = "src/Media/showcase-media/stats(10).png" />
+</div>
 
 - My **main socials** are shown as **buttons** inside the settings. Clicking them will open a browser pop up redirecting to each
 
 <!-- Show a gif clicking the buttons -->
+<div align = "center">
+  <img src = "src/Media/showcase-media/socials(11).gif" />
+</div>
 
 Here is a list of other (micro) features that further enhance the gameplay experience:
 
@@ -206,23 +208,23 @@ Here is a list of other (micro) features that further enhance the gameplay exper
 - Inside the settings, the buttons that are partially shown cannot be triggered on the zones that are not visible
 
 <!-- show an example of pressing a button-->
-<p align = "center" >
-<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
-</p>
+<div align = "center">
+  <img src = "src/Media/showcase-media/buttons(12).gif" />
+</div>
 
 - When a key bind button is pressed, other buttons and sliders can **still** be triggered. The pressed button will still be waiting for a key to be pressed.
 
 <!-- Show a gif of this -->
-<p align = "center" >
-<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
-</p>
+<div align = "center">
+  <img src = "src/Media/showcase-media/buttons(12).gif" />
+</div>
 
 - When in the settings, the figures of the current gameplay are **not shown** to prevent cheating
   
 <!-- Show an example of closing and opening the settings -->
-<p align = "center" >
-<img src = "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajE1bGJqYXMwdW82N3NhdDl2dHlhazM0eGx4Nzk5c3V5NWNpaGs2bSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ccRrcecpw9PaM/giphy.gif" alt = "Scene photos"></img>
-</p>
+<div align = "center">
+  <img src = "src/Media/showcase-media/cheating(13).gif" />
+</div>
 
 ---
 
