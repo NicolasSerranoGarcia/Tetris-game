@@ -23,8 +23,10 @@
 
 - [Overview](#overview)
 - [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
+  - [Windows](#windows)
+  - [Linux](#linux)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
   - [Usage](#usage)
   - [Testing](#testing)
 - [Project Structure](#project-structure)
@@ -51,7 +53,21 @@
 
 ## Getting Started
 
-### Prerequisites
+### Windows
+
+To run the program on Windows, simply go to 
+```bash
+releases
+```
+and download the latest version for Windows. Be sure to download the **whole** folder.
+Inside you will find the aplication (.exe) with the name
+```bash
+tetris
+```
+
+### Linux
+
+#### Prerequisites
 
 Before building and running the game, make sure you have:
 
@@ -59,7 +75,7 @@ Before building and running the game, make sure you have:
 - **Compiler:** g++ (GCC) 9.3.0 or later
 - **Libraries:** SDL2, SDL2_ttf, SDL_Image, SDL_Mixer
 
-### Installation
+#### Installation
 To run the program, follow the next steps in order inside your terminal:
 
 To install the required libraries and programs on Ubuntu:
