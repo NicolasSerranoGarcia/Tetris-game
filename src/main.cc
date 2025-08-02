@@ -64,6 +64,10 @@ void setupMusic(Sound * music);
 
 int main(int, char**){
 
+    //Disables high DPI screens from scaling the window
+    SDL_SetHint(SDL_HINT_VIDEO_HIGHDPI_DISABLED, "1");
+
+
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_EVENTS) != 0){
         std::cerr << "SDL_Init Error: " << SDL_GetError() << std::endl;
         return 1;
