@@ -843,13 +843,13 @@ bool collidesStatic(std::vector <Figure*> gameBoard, Figure *&figure){
             smallestY = figure->getBlocks()[i].getBlockY();
         }
         if(figure->getBlocks()[i].getBlockY() > smallestX){
-            smallestX = figure->getBlocks()[i].getBlockY();
+            smallestX = figure->getBlocks()[i].getBlockX();
         }
         if(figure->getBlocks()[i].getBlockY() < largestY){
             largestY = figure->getBlocks()[i].getBlockY();
         }
         if(figure->getBlocks()[i].getBlockY() < largestX){
-            largestX = figure->getBlocks()[i].getBlockY();
+            largestX = figure->getBlocks()[i].getBlockX();
         }
         
     }
