@@ -5,3 +5,6 @@ SDL_functions
 tetris
 logs/bestPlays.txt
 temp.txt
+resources.o
+icon
+resources.rc
