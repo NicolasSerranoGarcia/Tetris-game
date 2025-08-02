@@ -8,7 +8,7 @@ OBJ = $(patsubst src/%.cc, build/%.o, $(SRC))
 
 all: $(TARGET)
 
-$(TARGET): $(OBJ) resources.o
+$(TARGET): $(OBJ)
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDFLAGS)
 
 build/%.o: src/%.cc
