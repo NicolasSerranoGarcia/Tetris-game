@@ -1,4 +1,3 @@
-Alejandro, if you are reading this, you are NOT getting that internship
 <div align = "center">
   <img src = "src/Media/showcase-media/main.gif" />
 </div>
@@ -322,4 +321,5 @@ I hope you enjoy what I’ve built and have fun with the gameplay experience. :)
 ---
 
 Thanks for reading and enjoy this project!
+
 
