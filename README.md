@@ -55,13 +55,12 @@
 
 ### Windows
 
-To run the program on Windows, simply go to ![https://www.github.com/NicolasSerranoGarcia/Tetris-game/releases](releases)
-
-and download the latest version for Windows. Be sure to download the **whole** folder.
-Inside you will find the aplication (.exe) with the name
+To run the program on Windows, simply go to [releases](https://www.github.com/NicolasSerranoGarcia/Tetris-game/releases) and download the latest version for Windows. Be sure to download the **whole** folder.
+Inside you will find the aplication (.exe) with the name:
 ```bash
 tetris
 ```
+To run it, simply double click on it!
 
 ### Linux
 
@@ -319,5 +318,6 @@ I hope you enjoy what I’ve built and have fun with the gameplay experience. :)
 ---
 
 Thanks for reading and enjoy this project!
+
 
 
