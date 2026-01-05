@@ -252,8 +252,8 @@ Here’s a simple guide to help you get started:
 Click the **Fork** button at the top right of the page, then clone your fork locally:
 
 ```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
+git clone https://github.com/NicolasSerranoGarcia/Tetris-game.git
+cd Tetris-game
 ```
 
 ### 2. Create a new branch for your changes
